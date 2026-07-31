@@ -3,5 +3,6 @@
   "dest": "../../dist/libs/primitives",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["@ng-icons/core", "@zaytoon/tokens"]
 }

@@ -1,3 +1,14 @@
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
+
+export interface ButtonVariantTokens {
+  background: string;
+  foreground: string;
+  backgroundHover: string;
+  backgroundActive: string;
+  border: string;
+}
+
 export interface ThemeTokens {
   color: {
     background: string;
@@ -30,17 +41,15 @@ export interface ThemeTokens {
   };
   comp: {
     button: {
-      paddingX: string;
-      paddingY: string;
       radius: string;
       fontWeight: string;
-      background: string;
-      foreground: string;
-      backgroundHover: string;
-      backgroundActive: string;
+      focusRing: string;
       backgroundDisabled: string;
       foregroundDisabled: string;
-      focusRing: string;
+      paddingX: Record<ButtonSize, string>;
+      paddingY: Record<ButtonSize, string>;
+      fontSize: Record<ButtonSize, string>;
+      variants: Record<ButtonVariant, ButtonVariantTokens>;
     };
   };
 }

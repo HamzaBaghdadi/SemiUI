@@ -37,7 +37,7 @@
       "executor": "@nx/angular:unit-test",
       "options": {
         "watch": false,
-        "include": ["**/*.spec.ts", "../button/src/**/*.spec.ts"]
+        "include": ["**/*.spec.ts", "../button/src/**/*.spec.ts", "../icon/src/**/*.spec.ts"]
       }
     },
     "lint": {

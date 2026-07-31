@@ -20,7 +20,8 @@
       "@zaytoon/theme": ["./libs/theme/src/index.ts"],
       "@zaytoon/primitives": ["./libs/primitives/src/index.ts"],
       "@zaytoon/presets-aurora": ["./libs/presets/aurora/src/index.ts"],
-      "@zaytoon/primitives/button": ["./libs/primitives/button/src/index.ts"]
+      "@zaytoon/primitives/button": ["./libs/primitives/button/src/index.ts"],
+      "@zaytoon/primitives/icon": ["./libs/primitives/icon/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

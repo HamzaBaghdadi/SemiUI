@@ -7,11 +7,13 @@
     "inlineSources": true,
     "types": []
   },
-  "include": ["src/**/*.ts", "button/src/**/*.ts"],
+  "include": ["src/**/*.ts", "button/src/**/*.ts", "icon/src/**/*.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "button/src/**/*.spec.ts",
-    "button/src/**/*.test.ts"
+    "button/src/**/*.test.ts",
+    "icon/src/**/*.spec.ts",
+    "icon/src/**/*.test.ts"
   ]
 }

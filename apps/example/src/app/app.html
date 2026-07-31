@@ -1,4 +1,31 @@
 <main>
   <h1>{{ title }}</h1>
-  <z-button (pressed)="clickCount = clickCount + 1">Click me ({{ clickCount }})</z-button>
+
+  <section>
+    <h2>Variants</h2>
+    @for (variant of variants; track variant) {
+      <z-button [variant]="variant" (pressed)="clickCount = clickCount + 1">{{ variant }}</z-button>
+    }
+  </section>
+
+  <section>
+    <h2>Sizes</h2>
+    @for (size of sizes; track size) {
+      <z-button [size]="size" (pressed)="clickCount = clickCount + 1">Size {{ size }}</z-button>
+    }
+    <z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" (pressed)="clickCount = clickCount + 1" />
+  </section>
+
+  <section>
+    <h2>Icons</h2>
+    <z-button [iconLeading]="saveIcon" (pressed)="clickCount = clickCount + 1">Save</z-button>
+  </section>
+
+  <section>
+    <h2>Loading</h2>
+    <z-button [loading]="loading()" (pressed)="toggleLoading()">Submit</z-button>
+    <button type="button" (click)="toggleLoading()">Toggle loading</button>
+  </section>
+
+  <p>Click count: {{ clickCount }}</p>
 </main>

@@ -5,5 +5,9 @@
   "peerDependencies": {
     "@angular/core": "^22.0.0"
   },
+  "dependencies": {
+    "@ng-icons/core": "^34.0.0",
+    "@zaytoon/tokens": "^0.0.1"
+  },
   "sideEffects": false
 }

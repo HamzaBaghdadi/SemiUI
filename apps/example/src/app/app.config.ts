@@ -3,8 +3,10 @@ import {
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideIcons } from '@ng-icons/core';
+import { lucideSave } from '@ng-icons/lucide';
 import { provideZaytoonUI } from '@zaytoon/theme';
-import { Aurora } from '@zaytoon/presets-aurora';
+import { Aurora, provideAuroraIcons } from '@zaytoon/presets-aurora';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -12,5 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     provideZaytoonUI({ preset: Aurora }),
+    provideAuroraIcons(),
+    provideIcons({ lucideSave }),
   ],
 };

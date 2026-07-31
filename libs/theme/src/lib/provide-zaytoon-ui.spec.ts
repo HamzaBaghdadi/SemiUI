@@ -1,10 +1,14 @@
 import { EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ThemePreset } from '@zaytoon/tokens';
+import { ButtonSize, ButtonVariant, ThemePreset } from '@zaytoon/tokens';
+import { ZAYTOON_ICONS } from './icon-tokens.token';
 import { provideZaytoonUI } from './provide-zaytoon-ui';
 
-describe('provideZaytoonUI', () => {
-  const preset: ThemePreset = {
+const VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];
+const SIZES: ButtonSize[] = ['sm', 'md', 'lg', 'icon'];
+
+function createTestPreset(): ThemePreset {
+  return {
     name: 'test',
     tokens: {
       color: {
@@ -22,31 +26,56 @@ describe('provideZaytoonUI', () => {
       typography: { fontFamily: 'sans-serif', fontSizeSm: '0.875rem', fontSizeMd: '1rem', fontWeightMedium: '500' },
       comp: {
         button: {
-          paddingX: '1rem',
-          paddingY: '0.5rem',
           radius: '0.5rem',
           fontWeight: '500',
-          background: '#123456',
-          foreground: '#fff',
-          backgroundHover: '#234567',
-          backgroundActive: '#012345',
+          focusRing: '#333',
           backgroundDisabled: '#333',
           foregroundDisabled: '#999',
-          focusRing: '#333',
+          paddingX: Object.fromEntries(SIZES.map((size) => [size, '1rem'])) as Record<ButtonSize, string>,
+          paddingY: Object.fromEntries(SIZES.map((size) => [size, '0.5rem'])) as Record<ButtonSize, string>,
+          fontSize: Object.fromEntries(SIZES.map((size) => [size, '0.875rem'])) as Record<ButtonSize, string>,
+          variants: Object.fromEntries(
+            VARIANTS.map((variant) => [
+              variant,
+              {
+                background: '#123456',
+                foreground: '#fff',
+                backgroundHover: '#234567',
+                backgroundActive: '#012345',
+                border: '#123456',
+              },
+            ]),
+          ) as ThemePreset['tokens']['comp']['button']['variants'],
         },
       },
     },
+    icons: {
+      loading: { type: 'ng-icon', name: 'testLoader' },
+    },
   };
+}
 
+describe('provideZaytoonUI', () => {
   afterEach(() => {
     document.documentElement.removeAttribute('style');
   });
 
   it('applies the preset tokens as CSS custom properties on <html> during environment init', () => {
+    const preset = createTestPreset();
     TestBed.configureTestingModule({ providers: [provideZaytoonUI({ preset })] });
     TestBed.inject(EnvironmentInjector);
 
     expect(document.documentElement.style.getPropertyValue('--zaytoon-color-primary')).toBe('#123456');
-    expect(document.documentElement.style.getPropertyValue('--zaytoon-comp-button-padding-x')).toBe('1rem');
+    expect(document.documentElement.style.getPropertyValue('--zaytoon-comp-button-variants-primary-background')).toBe(
+      '#123456',
+    );
+    expect(document.documentElement.style.getPropertyValue('--zaytoon-comp-button-padding-x-md')).toBe('1rem');
+  });
+
+  it('registers the preset icons under ZAYTOON_ICONS', () => {
+    const preset = createTestPreset();
+    TestBed.configureTestingModule({ providers: [provideZaytoonUI({ preset })] });
+
+    expect(TestBed.inject(ZAYTOON_ICONS)).toEqual(preset.icons);
   });
 });
