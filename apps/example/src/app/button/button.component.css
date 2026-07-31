@@ -1,0 +1,30 @@
+.z-button {
+  padding: var(--zaytoon-comp-button-padding-y) var(--zaytoon-comp-button-padding-x);
+  border-radius: var(--zaytoon-comp-button-radius);
+  font-weight: var(--zaytoon-comp-button-font-weight);
+  font-family: var(--zaytoon-typography-font-family);
+  background: var(--zaytoon-comp-button-background);
+  color: var(--zaytoon-comp-button-foreground);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.z-button:hover:not([aria-disabled='true']) {
+  background: var(--zaytoon-comp-button-background-hover);
+}
+
+.z-button:active:not([aria-disabled='true']) {
+  background: var(--zaytoon-comp-button-background-active);
+}
+
+.z-button:focus-visible {
+  outline: 2px solid var(--zaytoon-comp-button-focus-ring);
+  outline-offset: 2px;
+}
+
+.z-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  background: var(--zaytoon-comp-button-background-disabled);
+  color: var(--zaytoon-comp-button-foreground-disabled);
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@zaytoon/primitives",
+  "version": "0.0.1",
+  "publishConfig": { "access": "public" },
+  "peerDependencies": {
+    "@angular/core": "^22.0.0"
+  },
+  "sideEffects": false
+}

@@ -1,8 +1,10 @@
 autoInstallPeers: true
 allowBuilds:
   '@parcel/watcher': true
-  esbuild: set this to true or false
+  esbuild: true
   less: true
+  lmdb: true
+  msgpackr-extract: true
   nx: true
   unrs-resolver: false
 minimumReleaseAgeExclude:
@@ -29,3 +31,4 @@ minimumReleaseAgeExclude:
   - '@nx/esbuild@23.1.1'
   - '@nx/eslint-plugin@23.1.1'
   - '@nx/jest@23.1.1'
+  - '@nx/playwright@23.1.1'

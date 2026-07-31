@@ -1,0 +1,13 @@
+{
+  "name": "@zaytoon/theme",
+  "version": "0.0.1",
+  "publishConfig": { "access": "public" },
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@zaytoon/tokens": "^0.0.1"
+  },
+  "sideEffects": false
+}

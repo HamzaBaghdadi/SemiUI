@@ -1,0 +1,9 @@
+{
+  "name": "@zaytoon/presets-aurora",
+  "version": "0.0.1",
+  "publishConfig": { "access": "public" },
+  "dependencies": {
+    "@zaytoon/tokens": "^0.0.1"
+  },
+  "sideEffects": false
+}
