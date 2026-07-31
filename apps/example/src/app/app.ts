@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonVariant, ButtonSize, IconRef } from '@zaytoon/tokens';
+import { ColorModeService } from '@zaytoon/theme';
 import { ButtonComponent } from './button/button.component';
 
 @Component({
@@ -9,6 +10,7 @@ import { ButtonComponent } from './button/button.component';
   styleUrl: './app.css',
 })
 export class App {
+  protected readonly colorMode = inject(ColorModeService);
   protected title = 'example';
   protected clickCount = 0;
   protected variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];

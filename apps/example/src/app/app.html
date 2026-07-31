@@ -1,5 +1,8 @@
 <main>
   <h1>{{ title }}</h1>
+  <button type="button" (click)="colorMode.toggle()">
+    {{ colorMode.dark() ? 'Switch to light mode' : 'Switch to dark mode' }}
+  </button>
 
   <section>
     <h2>Variants</h2>

@@ -8,6 +8,7 @@
 .shell__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: var(--zaytoon-spacing-md) var(--zaytoon-spacing-lg);
   border-bottom: 1px solid var(--zaytoon-color-border);
 }
@@ -17,6 +18,19 @@
   text-decoration: none;
   font-weight: var(--zaytoon-typography-font-weight-medium);
   font-size: 1.25rem;
+}
+
+.shell__mode-toggle {
+  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-sm);
+  border-radius: var(--zaytoon-radius-sm);
+  border: 1px solid var(--zaytoon-color-border);
+  background: var(--zaytoon-color-background);
+  color: var(--zaytoon-color-foreground);
+  cursor: pointer;
+}
+
+.shell__mode-toggle:hover {
+  background: var(--zaytoon-color-muted);
 }
 
 .shell__body {

@@ -4,22 +4,30 @@ export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 export interface ButtonVariantTokens {
   background: string;
   foreground: string;
-  backgroundHover: string;
-  backgroundActive: string;
   border: string;
 }
 
+/**
+ * The palette category is the only part of the token contract that's expected to differ between
+ * light and dark mode. Everything else (spacing, radius, component tokens) stays mode-agnostic --
+ * component tokens should reference these via `var(--zaytoon-color-*)` rather than literal colors,
+ * so they adapt automatically when the color palette swaps.
+ */
+export interface ColorTokens {
+  background: string;
+  foreground: string;
+  primary: string;
+  primaryForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  border: string;
+  ring: string;
+  muted: string;
+  mutedForeground: string;
+}
+
 export interface ThemeTokens {
-  color: {
-    background: string;
-    foreground: string;
-    primary: string;
-    primaryForeground: string;
-    border: string;
-    ring: string;
-    muted: string;
-    mutedForeground: string;
-  };
+  color: ColorTokens;
   spacing: {
     xs: string;
     sm: string;
@@ -50,6 +58,22 @@ export interface ThemeTokens {
       paddingY: Record<ButtonSize, string>;
       fontSize: Record<ButtonSize, string>;
       variants: Record<ButtonVariant, ButtonVariantTokens>;
+    };
+    input: {
+      paddingX: string;
+      paddingY: string;
+      radius: string;
+      fontSize: string;
+      background: string;
+      foreground: string;
+      placeholderForeground: string;
+      border: string;
+      borderHover: string;
+      borderFocus: string;
+      focusRing: string;
+      borderInvalid: string;
+      backgroundDisabled: string;
+      foregroundDisabled: string;
     };
   };
 }

@@ -1,84 +1,35 @@
-import { ButtonSize, ButtonVariant, ButtonVariantTokens, ThemePreset } from '@zaytoon/tokens';
+import { ColorTokens, ThemePreset } from '@zaytoon/tokens';
 
-const buttonVariants: Record<ButtonVariant, ButtonVariantTokens> = {
-  primary: {
-    background: '#6366f1',
-    foreground: '#ffffff',
-    backgroundHover: '#4f46e5',
-    backgroundActive: '#4338ca',
-    border: '#6366f1',
-  },
-  secondary: {
-    background: '#1f2937',
-    foreground: '#e5e9f0',
-    backgroundHover: '#27303f',
-    backgroundActive: '#111827',
-    border: '#1f2937',
-  },
-  outline: {
-    background: 'transparent',
-    foreground: '#e5e9f0',
-    backgroundHover: '#1f2937',
-    backgroundActive: '#111827',
-    border: '#374151',
-  },
-  ghost: {
-    background: 'transparent',
-    foreground: '#e5e9f0',
-    backgroundHover: '#1f2937',
-    backgroundActive: '#111827',
-    border: 'transparent',
-  },
-  destructive: {
-    background: '#ef4444',
-    foreground: '#ffffff',
-    backgroundHover: '#dc2626',
-    backgroundActive: '#b91c1c',
-    border: '#ef4444',
-  },
-  link: {
-    background: 'transparent',
-    foreground: '#6366f1',
-    backgroundHover: 'transparent',
-    backgroundActive: 'transparent',
-    border: 'transparent',
-  },
+const lightColor: ColorTokens = {
+  background: '#ffffff',
+  foreground: '#0b1220',
+  primary: '#6366f1',
+  primaryForeground: '#ffffff',
+  destructive: '#dc2626',
+  destructiveForeground: '#ffffff',
+  border: '#e5e7eb',
+  ring: '#6366f1',
+  muted: '#f3f4f6',
+  mutedForeground: '#6b7280',
 };
 
-const buttonPaddingX: Record<ButtonSize, string> = {
-  sm: '0.75rem',
-  md: '1rem',
-  lg: '1.25rem',
-  icon: '0.5rem',
-};
-
-const buttonPaddingY: Record<ButtonSize, string> = {
-  sm: '0.375rem',
-  md: '0.5rem',
-  lg: '0.625rem',
-  icon: '0.5rem',
-};
-
-const buttonFontSize: Record<ButtonSize, string> = {
-  sm: '0.8125rem',
-  md: '0.875rem',
-  lg: '1rem',
-  icon: '0.875rem',
+const darkColor: ColorTokens = {
+  background: '#0b1220',
+  foreground: '#e5e9f0',
+  primary: '#818cf8',
+  primaryForeground: '#0b1220',
+  destructive: '#f87171',
+  destructiveForeground: '#0b1220',
+  border: '#1f2937',
+  ring: '#818cf8',
+  muted: '#111827',
+  mutedForeground: '#9ca3af',
 };
 
 export const Aurora: ThemePreset = {
   name: 'aurora',
   tokens: {
-    color: {
-      background: '#0b1220',
-      foreground: '#e5e9f0',
-      primary: '#6366f1',
-      primaryForeground: '#ffffff',
-      border: '#1f2937',
-      ring: '#818cf8',
-      muted: '#111827',
-      mutedForeground: '#9ca3af',
-    },
+    color: lightColor,
     spacing: {
       xs: '0.25rem',
       sm: '0.5rem',
@@ -102,16 +53,64 @@ export const Aurora: ThemePreset = {
       button: {
         radius: '0.5rem',
         fontWeight: '500',
-        focusRing: '#818cf8',
-        backgroundDisabled: '#374151',
-        foregroundDisabled: '#6b7280',
-        paddingX: buttonPaddingX,
-        paddingY: buttonPaddingY,
-        fontSize: buttonFontSize,
-        variants: buttonVariants,
+        focusRing: 'var(--zaytoon-color-ring)',
+        backgroundDisabled: 'var(--zaytoon-color-muted)',
+        foregroundDisabled: 'var(--zaytoon-color-muted-foreground)',
+        paddingX: { sm: '0.75rem', md: '1rem', lg: '1.25rem', icon: '0.5rem' },
+        paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem', icon: '0.5rem' },
+        fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem', icon: '0.875rem' },
+        variants: {
+          primary: {
+            background: 'var(--zaytoon-color-primary)',
+            foreground: 'var(--zaytoon-color-primary-foreground)',
+            border: 'var(--zaytoon-color-primary)',
+          },
+          secondary: {
+            background: 'var(--zaytoon-color-muted)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-muted)',
+          },
+          outline: {
+            background: 'transparent',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-border)',
+          },
+          ghost: {
+            background: 'transparent',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'transparent',
+          },
+          destructive: {
+            background: 'var(--zaytoon-color-destructive)',
+            foreground: 'var(--zaytoon-color-destructive-foreground)',
+            border: 'var(--zaytoon-color-destructive)',
+          },
+          link: {
+            background: 'transparent',
+            foreground: 'var(--zaytoon-color-primary)',
+            border: 'transparent',
+          },
+        },
+      },
+      input: {
+        paddingX: '0.75rem',
+        paddingY: '0.5rem',
+        radius: '0.5rem',
+        fontSize: '0.875rem',
+        background: 'var(--zaytoon-color-background)',
+        foreground: 'var(--zaytoon-color-foreground)',
+        placeholderForeground: 'var(--zaytoon-color-muted-foreground)',
+        border: 'var(--zaytoon-color-border)',
+        borderHover: 'var(--zaytoon-color-muted-foreground)',
+        borderFocus: 'var(--zaytoon-color-ring)',
+        focusRing: 'var(--zaytoon-color-ring)',
+        borderInvalid: 'var(--zaytoon-color-destructive)',
+        backgroundDisabled: 'var(--zaytoon-color-muted)',
+        foregroundDisabled: 'var(--zaytoon-color-muted-foreground)',
       },
     },
   },
+  darkColor,
   icons: {
     loading: { type: 'ng-icon', name: 'lucideLoaderCircle' },
   },

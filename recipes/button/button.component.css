@@ -16,8 +16,8 @@
 }
 
 .z-button:focus-visible {
-  outline: 2px solid var(--zaytoon-comp-button-focus-ring);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-button-focus-ring) 45%, transparent);
 }
 
 .z-button[aria-disabled='true'] {
@@ -65,17 +65,19 @@
   aspect-ratio: 1 / 1;
 }
 
-/* variants -- data-variant lives on the <z-button> host, not on the inner .z-button */
+/* variants -- data-variant lives on the <z-button> host, not on the inner .z-button.
+   Solid-background variants derive hover/active shades from their own background with
+   color-mix() instead of separate tokens, so they adapt automatically in light and dark mode. */
 :host([data-variant='primary']) .z-button:not([aria-disabled='true']) {
   background: var(--zaytoon-comp-button-variants-primary-background);
   color: var(--zaytoon-comp-button-variants-primary-foreground);
   border-color: var(--zaytoon-comp-button-variants-primary-border);
 }
 :host([data-variant='primary']) .z-button:hover:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-primary-background-hover);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 85%, black);
 }
 :host([data-variant='primary']) .z-button:active:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-primary-background-active);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 70%, black);
 }
 
 :host([data-variant='secondary']) .z-button:not([aria-disabled='true']) {
@@ -84,10 +86,10 @@
   border-color: var(--zaytoon-comp-button-variants-secondary-border);
 }
 :host([data-variant='secondary']) .z-button:hover:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-secondary-background-hover);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 85%, black);
 }
 :host([data-variant='secondary']) .z-button:active:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-secondary-background-active);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 70%, black);
 }
 
 :host([data-variant='outline']) .z-button:not([aria-disabled='true']) {
@@ -96,10 +98,10 @@
   border-color: var(--zaytoon-comp-button-variants-outline-border);
 }
 :host([data-variant='outline']) .z-button:hover:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-outline-background-hover);
+  background: var(--zaytoon-color-muted);
 }
 :host([data-variant='outline']) .z-button:active:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-outline-background-active);
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
 }
 
 :host([data-variant='ghost']) .z-button:not([aria-disabled='true']) {
@@ -108,10 +110,10 @@
   border-color: var(--zaytoon-comp-button-variants-ghost-border);
 }
 :host([data-variant='ghost']) .z-button:hover:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-ghost-background-hover);
+  background: var(--zaytoon-color-muted);
 }
 :host([data-variant='ghost']) .z-button:active:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-ghost-background-active);
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
 }
 
 :host([data-variant='destructive']) .z-button:not([aria-disabled='true']) {
@@ -120,10 +122,10 @@
   border-color: var(--zaytoon-comp-button-variants-destructive-border);
 }
 :host([data-variant='destructive']) .z-button:hover:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-destructive-background-hover);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 85%, black);
 }
 :host([data-variant='destructive']) .z-button:active:not([aria-disabled='true']) {
-  background: var(--zaytoon-comp-button-variants-destructive-background-active);
+  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 70%, black);
 }
 
 :host([data-variant='link']) .z-button:not([aria-disabled='true']) {

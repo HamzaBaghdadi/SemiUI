@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ColorModeService } from '@zaytoon/theme';
 
 @Component({
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
@@ -8,6 +9,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrl: './app.css',
 })
 export class App {
+  protected readonly colorMode = inject(ColorModeService);
   protected title = 'zaytoon';
   protected components = [{ label: 'Button', path: '/components/button' }];
 }
