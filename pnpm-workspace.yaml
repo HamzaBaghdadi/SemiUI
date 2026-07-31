@@ -1,4 +1,10 @@
 autoInstallPeers: true
+packages:
+  - libs/tokens
+  - libs/theme
+  - libs/primitives
+  - libs/presets/aurora
+  - libs/cli
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
@@ -32,3 +38,4 @@ minimumReleaseAgeExclude:
   - '@nx/eslint-plugin@23.1.1'
   - '@nx/jest@23.1.1'
   - '@nx/playwright@23.1.1'
+  - '@zaytoon/tokens@0.0.1'
