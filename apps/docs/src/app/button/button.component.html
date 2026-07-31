@@ -1,0 +1,18 @@
+<button
+  class="z-button"
+  zButton
+  [disabled]="isDisabled()"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  (pressed)="pressed.emit()"
+>
+  @if (loading()) {
+    <z-icon class="z-button__icon z-button__icon--spin" [ref]="loadingIcon()" />
+  }
+  @if (showLeadingIcon()) {
+    <z-icon class="z-button__icon" [ref]="iconLeading()!" />
+  }
+  <span class="z-button__label"><ng-content /></span>
+  @if (showTrailingIcon()) {
+    <z-icon class="z-button__icon" [ref]="iconTrailing()!" />
+  }
+</button>

@@ -1,0 +1,68 @@
+:host {
+  display: block;
+  font-family: var(--zaytoon-typography-font-family);
+  color: var(--zaytoon-color-foreground);
+  min-height: 100vh;
+}
+
+.shell__header {
+  display: flex;
+  align-items: center;
+  padding: var(--zaytoon-spacing-md) var(--zaytoon-spacing-lg);
+  border-bottom: 1px solid var(--zaytoon-color-border);
+}
+
+.shell__brand {
+  color: var(--zaytoon-color-foreground);
+  text-decoration: none;
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+  font-size: 1.25rem;
+}
+
+.shell__body {
+  display: flex;
+}
+
+.shell__nav {
+  width: 220px;
+  flex-shrink: 0;
+  padding: var(--zaytoon-spacing-lg);
+  border-right: 1px solid var(--zaytoon-color-border);
+}
+
+.shell__nav h2 {
+  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--zaytoon-color-muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--zaytoon-spacing-sm);
+}
+
+.shell__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shell__nav a {
+  display: block;
+  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-sm);
+  border-radius: var(--zaytoon-radius-sm);
+  color: var(--zaytoon-color-foreground);
+  text-decoration: none;
+}
+
+.shell__nav a:hover {
+  background: var(--zaytoon-color-muted);
+}
+
+.shell__nav a.is-active {
+  background: var(--zaytoon-color-muted);
+  color: var(--zaytoon-color-primary);
+}
+
+.shell__content {
+  flex: 1;
+  padding: var(--zaytoon-spacing-lg);
+  max-width: 900px;
+}

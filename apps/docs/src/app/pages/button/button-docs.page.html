@@ -1,0 +1,52 @@
+<h1>Button</h1>
+<p>A behavior-driven button: variants, sizes, a loading state, and leading/trailing icons.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add button</code></pre>
+<p>
+  This copies <code>button.component.ts</code>, <code>.html</code>, and <code>.css</code> into
+  your project. You own the code from that point on &mdash; edit it freely.
+</p>
+
+<h2>Variants</h2>
+<div class="demo-row">
+  @for (variant of variants; track variant) {
+    <z-button [variant]="variant">{{ variant }}</z-button>
+  }
+</div>
+<pre><code>&lt;z-button variant="primary"&gt;primary&lt;/z-button&gt;
+&lt;z-button variant="destructive"&gt;destructive&lt;/z-button&gt;</code></pre>
+
+<h2>Sizes</h2>
+<div class="demo-row">
+  @for (size of sizes; track size) {
+    <z-button [size]="size">Size {{ size }}</z-button>
+  }
+  <z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" />
+</div>
+<pre><code>&lt;z-button size="sm"&gt;Small&lt;/z-button&gt;
+&lt;z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" /&gt;</code></pre>
+
+<h2>Icons</h2>
+<p>
+  Pass an <code>IconRef</code> &mdash; either an ng-icon name (<code>&#123; type: 'ng-icon',
+  name: 'lucideSave' &#125;</code>) or raw SVG markup (<code>&#123; type: 'svg', markup:
+  '&lt;svg&gt;...&lt;/svg&gt;' &#125;</code>) &mdash; to <code>iconLeading</code> or
+  <code>iconTrailing</code>.
+</p>
+<div class="demo-row">
+  <z-button [iconLeading]="saveIcon">Save</z-button>
+</div>
+<pre><code>&lt;z-button [iconLeading]="&#123; type: 'ng-icon', name: 'lucideSave' &#125;"&gt;Save&lt;/z-button&gt;</code></pre>
+
+<h2>Loading state</h2>
+<p>
+  <code>loading</code> disables the button and swaps in the active theme's default loading icon
+  (<code>Aurora.icons.loading</code>). Override it per preset, or override the icon per instance
+  the same way as any other icon input.
+</p>
+<div class="demo-row">
+  <z-button [loading]="loading()" (pressed)="toggleLoading()">Submit</z-button>
+  <button type="button" (click)="toggleLoading()">Toggle loading (demo only)</button>
+</div>
+<pre><code>&lt;z-button [loading]="isSubmitting()"&gt;Submit&lt;/z-button&gt;</code></pre>
