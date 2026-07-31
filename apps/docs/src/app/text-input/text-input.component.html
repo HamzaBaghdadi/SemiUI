@@ -1,0 +1,15 @@
+<input
+  #nativeInput
+  zInput
+  class="z-text-input"
+  [type]="type()"
+  [placeholder]="placeholder()"
+  [value]="value()"
+  [disabled]="effectiveDisabled()"
+  [invalid]="effectiveInvalid()"
+  (input)="onInput($any($event.target).value)"
+  (blur)="handleBlur()"
+/>
+@if (effectiveInvalid() && errorMessage()) {
+  <p class="z-text-input__error">{{ errorMessage() }}</p>
+}

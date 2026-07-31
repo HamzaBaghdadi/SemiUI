@@ -1,0 +1,41 @@
+<h1>Text Input</h1>
+<p>A text field that works the same whether you use ngModel, reactive forms, or Signal Forms.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add text-input</code></pre>
+
+<h2>ngModel</h2>
+<div class="demo-row">
+  <z-text-input [(ngModel)]="name" [disabled]="nameDisabled()" placeholder="Your name" />
+  <button type="button" (click)="toggleNameDisabled()">Toggle disabled</button>
+</div>
+<p class="demo-value">Model value: {{ name }}</p>
+<pre><code>&lt;z-text-input [(ngModel)]="name" [disabled]="nameDisabled()" /&gt;</code></pre>
+
+<h2>Reactive forms</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-text-input
+    formControlName="email"
+    type="email"
+    placeholder="you&#64;example.com"
+    errorMessage="Enter a valid email address"
+  />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  email: new FormControl('', [Validators.required, Validators.email]),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-text-input formControlName="email" errorMessage="Enter a valid email address" /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<p>Bind with <code>[formField]</code> from <code>&#64;angular/forms/signals</code> -- no ControlValueAccessor involved.</p>
+<div class="demo-row">
+  <z-text-input [formField]="profileForm.username" placeholder="Username" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().username }}</p>
+<pre><code>protected profileModel = signal(&#123; username: '' &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-text-input [formField]="profileForm.username" /&gt;</code></pre>

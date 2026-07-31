@@ -11,5 +11,9 @@ import { ColorModeService } from '@zaytoon/theme';
 export class App {
   protected readonly colorMode = inject(ColorModeService);
   protected title = 'zaytoon';
-  protected components = [{ label: 'Button', path: '/components/button' }];
+  protected components = [
+    { label: 'Button', path: '/components/button' },
+    { label: 'Text Input', path: '/components/text-input' },
+    { label: 'Password', path: '/components/password' },
+  ];
 }

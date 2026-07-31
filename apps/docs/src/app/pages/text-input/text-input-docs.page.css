@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+h2 {
+  margin-top: var(--zaytoon-spacing-xl);
+  border-top: 1px solid var(--zaytoon-color-border);
+  padding-top: var(--zaytoon-spacing-lg);
+}
+
+.demo-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--zaytoon-spacing-sm);
+  margin-block: var(--zaytoon-spacing-md);
+  max-width: 320px;
+}
+
+.demo-value {
+  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--zaytoon-color-muted-foreground);
+}
+
+pre {
+  background: var(--zaytoon-color-muted);
+  border-radius: var(--zaytoon-radius-md);
+  padding: var(--zaytoon-spacing-md);
+  overflow-x: auto;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875rem;
+}

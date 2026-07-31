@@ -7,13 +7,23 @@
     "inlineSources": true,
     "types": []
   },
-  "include": ["src/**/*.ts", "button/src/**/*.ts", "icon/src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "button/src/**/*.ts",
+    "icon/src/**/*.ts",
+    "form-field/src/**/*.ts",
+    "input/src/**/*.ts"
+  ],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "button/src/**/*.spec.ts",
     "button/src/**/*.test.ts",
     "icon/src/**/*.spec.ts",
-    "icon/src/**/*.test.ts"
+    "icon/src/**/*.test.ts",
+    "form-field/src/**/*.spec.ts",
+    "form-field/src/**/*.test.ts",
+    "input/src/**/*.spec.ts",
+    "input/src/**/*.test.ts"
   ]
 }

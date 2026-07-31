@@ -10,6 +10,10 @@
     "button/src/**/*.ts",
     "button/src/**/*.d.ts",
     "icon/src/**/*.ts",
-    "icon/src/**/*.d.ts"
+    "icon/src/**/*.d.ts",
+    "form-field/src/**/*.ts",
+    "form-field/src/**/*.d.ts",
+    "input/src/**/*.ts",
+    "input/src/**/*.d.ts"
   ]
 }
