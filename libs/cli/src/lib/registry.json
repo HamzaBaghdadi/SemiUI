@@ -22,15 +22,14 @@
     "name": "password",
     "description": "A password input with a show/hide toggle, built on the same form integrations as text-input.",
     "files": ["password.component.ts", "password.component.html", "password.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
-    "icons": ["lucideEye", "lucideEyeOff"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
   },
   "select": {
     "name": "select",
-    "description": "A listbox select supporting ngModel, reactive forms, Signal Forms, and custom templates for the trigger, options, icon, header, and footer.",
+    "description": "A listbox select with search/filter, a clear button, viewport-aware panel placement, and custom templates for the trigger, options, icon, header, and footer.",
     "files": ["select.component.ts", "select.component.html", "select.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
-    "icons": ["lucideChevronDown"]
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

@@ -91,6 +91,10 @@ function createTestPreset(): ThemePreset {
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),
     icons: {
       loading: { type: 'ng-icon', name: 'testLoader' },
+      chevronDown: { type: 'ng-icon', name: 'testChevronDown' },
+      clear: { type: 'ng-icon', name: 'testClear' },
+      passwordShow: { type: 'ng-icon', name: 'testShow' },
+      passwordHide: { type: 'ng-icon', name: 'testHide' },
     },
   };
 }

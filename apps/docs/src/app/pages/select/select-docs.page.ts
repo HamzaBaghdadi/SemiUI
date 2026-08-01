@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormField, form } from '@angular/forms/signals';
 import { SelectComponent } from '../../select/select.component';
 
@@ -35,7 +35,7 @@ export class SelectDocsPage {
 
   // Reactive forms
   protected reactiveForm = new FormGroup({
-    country: new FormControl<Country | undefined>(undefined),
+    country: new FormControl<Country | undefined>(undefined, Validators.required),
   });
 
   // Signal Forms

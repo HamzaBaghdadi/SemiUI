@@ -4,6 +4,7 @@ import { ButtonDirective } from '@zaytoon/primitives/button';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
 import { IconRef } from '@zaytoon/tokens';
+import { injectZaytoonIcons } from '@zaytoon/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
@@ -13,6 +14,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrl: './password.component.css',
 })
 export class PasswordComponent extends BaseFormFieldControl<string> {
+  private readonly icons = injectZaytoonIcons();
   private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   placeholder = input('');
@@ -22,9 +24,7 @@ export class PasswordComponent extends BaseFormFieldControl<string> {
 
   protected revealed = signal(false);
   protected inputType = computed(() => (this.revealed() ? 'text' : 'password'));
-  protected toggleIcon = computed<IconRef>(() =>
-    this.revealed() ? { type: 'ng-icon', name: 'lucideEyeOff' } : { type: 'ng-icon', name: 'lucideEye' },
-  );
+  protected toggleIcon = computed<IconRef>(() => (this.revealed() ? this.icons.passwordHide : this.icons.passwordShow));
 
   protected override emptyValue(): string {
     return '';

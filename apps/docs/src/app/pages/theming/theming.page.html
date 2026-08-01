@@ -119,6 +119,10 @@ export const MyPreset: ThemePreset = &#123;
   darkColor: &#123; /* the dark palette -- same shape as tokens.color */ &#125;,
   icons: &#123;
     loading: &#123; type: 'ng-icon', name: 'lucideLoaderCircle' &#125;,
+    chevronDown: &#123; type: 'ng-icon', name: 'lucideChevronDown' &#125;,
+    clear: &#123; type: 'ng-icon', name: 'lucideX' &#125;,
+    passwordShow: &#123; type: 'ng-icon', name: 'lucideEye' &#125;,
+    passwordHide: &#123; type: 'ng-icon', name: 'lucideEyeOff' &#125;,
   &#125;,
 &#125;;</code></pre>
 <p>Then use it instead of Aurora:</p>
@@ -131,8 +135,12 @@ export const MyPreset: ThemePreset = &#123;
 
 <h2>Icons</h2>
 <p>
-  <code>icons.loading</code> is the only required icon token today -- it's what a loading
-  <a routerLink="/components/button">Button</a> shows by default. An <code>IconRef</code> is
+  Every icon a built-in component needs is a required field on <code>IconTokens</code>, not
+  hardcoded in the component -- <code>loading</code> (<a routerLink="/components/button">Button</a>'s
+  spinner), <code>chevronDown</code> and <code>clear</code>
+  (<a routerLink="/components/select">Select</a>'s trigger and clear button), and
+  <code>passwordShow</code> / <code>passwordHide</code>
+  (<a routerLink="/components/password">Password</a>'s reveal toggle). An <code>IconRef</code> is
   either an ng-icons name or raw SVG:
 </p>
 <pre><code>&#123; type: 'ng-icon', name: 'lucideLoaderCircle' &#125;
@@ -140,8 +148,7 @@ export const MyPreset: ThemePreset = &#123;
 <p>
   If you reference an ng-icons name, register it with <code>provideIcons()</code> from
   <code>&#64;ng-icons/core</code> -- <code>provideAuroraIcons()</code> is exactly that call for
-  Aurora's default icons. Individual components can also accept an <code>IconRef</code> input to
-  override the theme default per instance.
+  Aurora's default icons, and covers all five out of the box.
 </p>
 
 <p>See <a routerLink="/guides/color-mode">Color Mode</a> for how the <code>.dark</code> class gets toggled and persisted.</p>

@@ -136,5 +136,9 @@ export const Aurora: ThemePreset = {
   darkColor,
   icons: {
     loading: { type: 'ng-icon', name: 'lucideLoaderCircle' },
+    chevronDown: { type: 'ng-icon', name: 'lucideChevronDown' },
+    clear: { type: 'ng-icon', name: 'lucideX' },
+    passwordShow: { type: 'ng-icon', name: 'lucideEye' },
+    passwordHide: { type: 'ng-icon', name: 'lucideEyeOff' },
   },
 };

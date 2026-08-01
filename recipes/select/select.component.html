@@ -21,26 +21,51 @@
       <span class="z-select__placeholder">{{ placeholder() }}</span>
     }
   </span>
+  @if (showClear()) {
+    <!-- Not a real <button>: nesting interactive elements inside the trigger <button> is invalid
+         HTML. It's excluded from the tab sequence on purpose -- Backspace/Delete on the trigger
+         is the keyboard-equivalent way to clear the value. -->
+    <span class="z-select__clear" role="button" tabindex="-1" aria-label="Clear selection" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+      <z-icon [ref]="icons.clear" />
+    </span>
+  }
   <span class="z-select__icon">
     @if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
-      <z-icon [ref]="defaultIcon" />
+      <z-icon [ref]="icons.chevronDown" />
     }
   </span>
 </button>
 
 @if (open()) {
-  <div class="z-select__panel">
+  <div class="z-select__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-select__panel--enter" animate.leave="z-select__panel--leave">
     @if (headerTemplate(); as tpl) {
       <div class="z-select__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
+    @if (filterable()) {
+      <div class="z-select__filter">
+        <input
+          #filterInput
+          type="text"
+          class="z-select__filter-input"
+          role="searchbox"
+          aria-label="Filter options"
+          [attr.aria-controls]="listboxId"
+          [attr.aria-activedescendant]="activeOptionId()"
+          [placeholder]="filterPlaceholder()"
+          [value]="filterText()"
+          (input)="onFilterInput($any($event.target).value)"
+          (keydown)="onFilterKeydown($event)"
+        />
+      </div>
+    }
     <ul class="z-select__list" role="listbox" [id]="listboxId">
-      @for (option of options(); track $index; let i = $index) {
+      @for (option of filteredOptions(); track $index; let i = $index) {
         <!-- Deliberately not focusable / no per-item keydown: this follows the ARIA "combobox
-             with listbox popup" pattern, where keyboard focus stays on the trigger button the
-             whole time and the active option is tracked virtually via aria-activedescendant
-             (handled in onTriggerKeydown). Click is a supplementary pointer-only interaction. -->
+             with listbox popup" pattern, where keyboard focus stays on the trigger button (or the
+             filter box, when filtering is on) and the active option is tracked virtually via
+             aria-activedescendant. Click is a supplementary pointer-only interaction. -->
         <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
         <li
           [id]="listboxId + '-option-' + i"
@@ -60,10 +85,15 @@
             {{ labelFor(option) }}
           }
         </li>
+      } @empty {
+        <li class="z-select__empty">{{ emptyMessage() }}</li>
       }
     </ul>
     @if (footerTemplate(); as tpl) {
       <div class="z-select__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
   </div>
+}
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
 }

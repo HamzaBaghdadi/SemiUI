@@ -41,8 +41,10 @@
     never-overwrite guarantee applies to those too.
   </li>
   <li>
-    For components that use specific icons (like Password's show/hide toggle), prints the
-    <code>provideIcons(&#123; ... &#125;)</code> registration you need to add.
+    If a component references icons that aren't part of your preset's default set, prints the
+    <code>provideIcons(&#123; ... &#125;)</code> registration you need to add. Password and
+    Select's icons are theme defaults already registered by <code>provideAuroraIcons()</code>, so
+    this won't come up for them unless you override with a custom icon.
   </li>
   <li>Run with no component name to see the full list of what's available.</li>
 </ul>
