@@ -1,0 +1,60 @@
+<h1>Input Number</h1>
+<p>
+  A numeric input with increment/decrement buttons, min/max/step clamping, and prefix/suffix
+  text. The bound value is <code>number | null</code> -- <code>null</code> for an empty field,
+  never <code>NaN</code>.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add input-number</code></pre>
+
+<h2>ngModel</h2>
+<div class="demo-row">
+  <z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" placeholder="Quantity" />
+</div>
+<p class="demo-value">Model value: {{ quantity }}</p>
+<pre><code>&lt;z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" /&gt;</code></pre>
+
+<h2>Reactive forms + validation</h2>
+<p>
+  <code>min</code>/<code>max</code> clamp the value itself (see below), which would make a
+  redundant <code>Validators.min</code>/<code>max</code> unreachable -- so this demo pairs
+  <code>errorMessage</code> with <code>Validators.required</code> instead. Clear the field and
+  blur to see it.
+</p>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-input-number formControlName="age" placeholder="Age" errorMessage="Age is required." />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  age: new FormControl&lt;number | null&gt;(null, Validators.required),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-input-number formControlName="age" errorMessage="Age is required." /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().price }}</p>
+<pre><code>protected profileModel = signal(&#123; price: 19.99 &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" /&gt;</code></pre>
+
+<h2>Prefix / suffix</h2>
+<p>Rendered as separate elements flanking the field, not embedded in the value -- keeps parsing simple.</p>
+<div class="demo-row">
+  <z-input-number [(ngModel)]="quantity" prefix="$" suffix=".00" [showButtons]="false" />
+</div>
+<pre><code>&lt;z-input-number prefix="$" suffix=".00" [showButtons]="false" /&gt;</code></pre>
+
+<h2>Keyboard</h2>
+<p><code>↑</code> / <code>↓</code> step the value while the field is focused, same as clicking the buttons.</p>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-input-number [(ngModel)]="quantity" [disabled]="disabled()" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>

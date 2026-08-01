@@ -30,5 +30,6 @@ export class App {
     { label: 'Checkbox', path: '/components/checkbox' },
     { label: 'Radio Group', path: '/components/radio-group' },
     { label: 'Textarea', path: '/components/textarea' },
+    { label: 'Input Number', path: '/components/input-number' },
   ];
 }

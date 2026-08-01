@@ -1,0 +1,106 @@
+.z-input-number {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--zaytoon-comp-input-radius);
+  border: 1px solid var(--zaytoon-comp-input-border);
+  background: var(--zaytoon-comp-input-background);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.z-input-number:hover:not(:has(.z-input-number__input:disabled)):not(:has(.z-input-number__input[aria-invalid='true'])) {
+  border-color: var(--zaytoon-comp-input-border-hover);
+}
+
+.z-input-number:has(.z-input-number__input:focus-visible) {
+  border-color: var(--zaytoon-comp-input-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-input-focus-ring) 35%, transparent);
+}
+
+.z-input-number:has(.z-input-number__input[aria-invalid='true']) {
+  border-color: var(--zaytoon-comp-input-border-invalid);
+}
+
+.z-input-number:has(.z-input-number__input:disabled) {
+  background: var(--zaytoon-comp-input-background-disabled);
+}
+
+.z-input-number__affix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0 0 var(--zaytoon-comp-input-padding-x);
+  font-size: var(--zaytoon-comp-input-font-size);
+  font-family: var(--zaytoon-typography-font-family);
+  color: var(--zaytoon-comp-input-placeholder-foreground);
+}
+
+.z-input-number__affix + .z-input-number__input {
+  padding-left: var(--zaytoon-spacing-xs);
+}
+
+.z-input-number__input {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-input-padding-y) var(--zaytoon-comp-input-padding-x);
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--zaytoon-comp-input-font-size);
+  font-family: var(--zaytoon-typography-font-family);
+  color: var(--zaytoon-comp-input-foreground);
+}
+
+.z-input-number__input::placeholder {
+  color: var(--zaytoon-comp-input-placeholder-foreground);
+}
+
+.z-input-number__input:disabled {
+  cursor: not-allowed;
+  color: var(--zaytoon-comp-input-foreground-disabled);
+}
+
+.z-input-number__buttons {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--zaytoon-comp-input-border);
+}
+
+.z-input-number__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 1.75rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--zaytoon-comp-input-placeholder-foreground);
+  cursor: pointer;
+}
+
+.z-input-number__button:first-child {
+  border-bottom: 1px solid var(--zaytoon-comp-input-border);
+}
+
+.z-input-number__button:hover:not(:disabled) {
+  background: var(--zaytoon-color-muted);
+  color: var(--zaytoon-color-foreground);
+}
+
+.z-input-number__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.z-input-number__button-icon {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.z-input-number__button-icon--up {
+  transform: rotate(180deg);
+}

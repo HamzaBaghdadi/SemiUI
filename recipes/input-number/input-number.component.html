@@ -1,0 +1,49 @@
+<div class="z-input-number">
+  @if (prefix()) {
+    <span class="z-input-number__affix">{{ prefix() }}</span>
+  }
+  <input
+    #nativeInput
+    zInput
+    type="text"
+    inputmode="decimal"
+    class="z-input-number__input"
+    [placeholder]="placeholder()"
+    [value]="displayValue()"
+    [disabled]="effectiveDisabled()"
+    [invalid]="effectiveInvalid()"
+    (input)="onInput($any($event.target).value)"
+    (keydown)="onKeydown($event)"
+    (blur)="onBlur()"
+  />
+  @if (suffix()) {
+    <span class="z-input-number__affix">{{ suffix() }}</span>
+  }
+  @if (showButtons()) {
+    <span class="z-input-number__buttons">
+      <button
+        type="button"
+        class="z-input-number__button"
+        tabindex="-1"
+        aria-label="Increment"
+        [disabled]="effectiveDisabled() || (max() !== undefined && (value() ?? 0) >= max()!)"
+        (click)="increment()"
+      >
+        <z-icon class="z-input-number__button-icon z-input-number__button-icon--up" [ref]="icons.chevronDown" />
+      </button>
+      <button
+        type="button"
+        class="z-input-number__button"
+        tabindex="-1"
+        aria-label="Decrement"
+        [disabled]="effectiveDisabled() || (min() !== undefined && (value() ?? 0) <= min()!)"
+        (click)="decrement()"
+      >
+        <z-icon class="z-input-number__button-icon" [ref]="icons.chevronDown" />
+      </button>
+    </span>
+  }
+</div>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

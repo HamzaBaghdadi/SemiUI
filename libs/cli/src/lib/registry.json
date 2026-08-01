@@ -59,5 +59,12 @@
     "files": ["textarea.component.ts", "textarea.component.html", "textarea.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "input-number": {
+    "name": "input-number",
+    "description": "A numeric input supporting ngModel, reactive forms, and Signal Forms, with min/max/step, increment/decrement buttons, and prefix/suffix text.",
+    "files": ["input-number.component.ts", "input-number.component.html", "input-number.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }
