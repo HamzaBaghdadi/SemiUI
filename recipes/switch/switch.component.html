@@ -1,0 +1,33 @@
+<span class="z-switch">
+  <button
+    #track
+    type="button"
+    role="switch"
+    class="z-switch__track"
+    [attr.aria-checked]="value()"
+    [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.data-size]="size()"
+    [disabled]="effectiveDisabled()"
+    (click)="toggle()"
+    (blur)="handleBlur()"
+  >
+    <span class="z-switch__thumb">
+      @if (value() && onIcon(); as icon) {
+        <z-icon [ref]="icon" />
+      } @else if (!value() && offIcon(); as icon) {
+        <z-icon [ref]="icon" />
+      }
+    </span>
+  </button>
+  @if (label()) {
+    <!-- Pointer-only convenience: the real switch is the <button> above, which is already fully
+         keyboard-operable (native Enter/Space activation) -- clicking this text is an enhancement,
+         not a second control, so it's deliberately excluded from the tab sequence. -->
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+    <span [id]="labelId" class="z-switch__label" (click)="toggle()">{{ label() }}</span>
+  }
+</span>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

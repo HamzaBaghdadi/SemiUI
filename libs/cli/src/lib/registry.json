@@ -31,5 +31,12 @@
     "files": ["select.component.ts", "select.component.html", "select.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "switch": {
+    "name": "switch",
+    "description": "A toggle switch supporting ngModel, reactive forms, and Signal Forms, with sm/md/lg sizes and optional on/off icons.",
+    "files": ["switch.component.ts", "switch.component.html", "switch.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }

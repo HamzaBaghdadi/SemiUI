@@ -26,5 +26,6 @@ export class App {
     { label: 'Text Input', path: '/components/text-input' },
     { label: 'Password', path: '/components/password' },
     { label: 'Select', path: '/components/select' },
+    { label: 'Switch', path: '/components/switch' },
   ];
 }

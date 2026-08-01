@@ -1,0 +1,98 @@
+:host {
+  display: inline-flex;
+}
+
+.z-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-sm);
+  cursor: pointer;
+}
+
+.z-switch__track {
+  --z-switch-track-width: var(--zaytoon-comp-switch-track-width-md);
+  --z-switch-track-height: var(--zaytoon-comp-switch-track-height-md);
+  --z-switch-thumb-size: var(--zaytoon-comp-switch-thumb-size-md);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--z-switch-track-width);
+  height: var(--z-switch-track-height);
+  padding: var(--zaytoon-comp-switch-track-padding);
+  border: var(--zaytoon-comp-switch-track-border-width) solid var(--zaytoon-comp-switch-border);
+  border-radius: var(--zaytoon-comp-switch-radius);
+  background: var(--zaytoon-comp-switch-background);
+  cursor: pointer;
+  transition:
+    background var(--zaytoon-comp-switch-transition-duration) ease,
+    border-color var(--zaytoon-comp-switch-transition-duration) ease;
+}
+
+.z-switch__track[data-size='sm'] {
+  --z-switch-track-width: var(--zaytoon-comp-switch-track-width-sm);
+  --z-switch-track-height: var(--zaytoon-comp-switch-track-height-sm);
+  --z-switch-thumb-size: var(--zaytoon-comp-switch-thumb-size-sm);
+}
+
+.z-switch__track[data-size='lg'] {
+  --z-switch-track-width: var(--zaytoon-comp-switch-track-width-lg);
+  --z-switch-track-height: var(--zaytoon-comp-switch-track-height-lg);
+  --z-switch-thumb-size: var(--zaytoon-comp-switch-thumb-size-lg);
+}
+
+.z-switch__track[aria-checked='true'] {
+  background: var(--zaytoon-comp-switch-background-checked);
+  border-color: var(--zaytoon-comp-switch-border-checked);
+}
+
+.z-switch__track:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-switch-focus-ring) 35%, transparent);
+}
+
+.z-switch__track:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.z-switch:has(.z-switch__track:disabled) {
+  cursor: not-allowed;
+}
+
+.z-switch__thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--z-switch-thumb-size);
+  height: var(--z-switch-thumb-size);
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-switch-thumb-background);
+  color: var(--zaytoon-comp-switch-background-checked);
+  transform: translateX(0);
+  /* Calculated travel distance -- keeps the thumb flush against the track edges at any size,
+     rather than a hardcoded offset that would drift if track/thumb tokens ever change. */
+  transition: transform var(--zaytoon-comp-switch-transition-duration) ease;
+}
+
+.z-switch__thumb z-icon {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+.z-switch__track[aria-checked='true'] .z-switch__thumb {
+  transform: translateX(
+    calc(
+      var(--z-switch-track-width) - var(--z-switch-thumb-size) - (var(--zaytoon-comp-switch-track-padding) * 2) -
+        (var(--zaytoon-comp-switch-track-border-width) * 2)
+    )
+  );
+}
+
+.z-switch__label {
+  font-size: var(--zaytoon-typography-font-size-md);
+  font-family: var(--zaytoon-typography-font-family);
+  color: var(--zaytoon-color-foreground);
+}

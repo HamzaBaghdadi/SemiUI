@@ -46,4 +46,8 @@ export const appRoutes: Route[] = [
     path: 'components/select',
     loadComponent: () => import('./pages/select/select-docs.page').then((m) => m.SelectDocsPage),
   },
+  {
+    path: 'components/switch',
+    loadComponent: () => import('./pages/switch/switch-docs.page').then((m) => m.SwitchDocsPage),
+  },
 ];

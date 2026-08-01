@@ -98,5 +98,21 @@ export interface ThemeTokens {
       optionBackgroundSelected: string;
       optionForegroundSelected: string;
     };
+    switch: {
+      trackPadding: string;
+      trackBorderWidth: string;
+      radius: string;
+      background: string;
+      backgroundChecked: string;
+      border: string;
+      borderChecked: string;
+      thumbBackground: string;
+      focusRing: string;
+      backgroundDisabled: string;
+      transitionDuration: string;
+      trackWidth: Record<ButtonSize, string>;
+      trackHeight: Record<ButtonSize, string>;
+      thumbSize: Record<ButtonSize, string>;
+    };
   };
 }
