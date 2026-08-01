@@ -1,0 +1,58 @@
+.z-textarea-wrapper {
+  position: relative;
+}
+
+.z-textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-input-padding-y) var(--zaytoon-comp-input-padding-x);
+  border-radius: var(--zaytoon-comp-input-radius);
+  font-size: var(--zaytoon-comp-input-font-size);
+  font-family: var(--zaytoon-typography-font-family);
+  background: var(--zaytoon-comp-input-background);
+  color: var(--zaytoon-comp-input-foreground);
+  border: 1px solid var(--zaytoon-comp-input-border);
+  resize: vertical;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.z-textarea--auto-resize {
+  resize: none;
+  overflow: hidden;
+}
+
+.z-textarea::placeholder {
+  color: var(--zaytoon-comp-input-placeholder-foreground);
+}
+
+.z-textarea:hover:not(:disabled):not([aria-invalid='true']) {
+  border-color: var(--zaytoon-comp-input-border-hover);
+}
+
+.z-textarea:focus-visible {
+  outline: none;
+  border-color: var(--zaytoon-comp-input-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-input-focus-ring) 35%, transparent);
+}
+
+.z-textarea[aria-invalid='true'] {
+  border-color: var(--zaytoon-comp-input-border-invalid);
+}
+
+.z-textarea:disabled {
+  cursor: not-allowed;
+  background: var(--zaytoon-comp-input-background-disabled);
+  color: var(--zaytoon-comp-input-foreground-disabled);
+}
+
+.z-textarea__count {
+  position: absolute;
+  right: var(--zaytoon-comp-input-padding-x);
+  bottom: 0.5rem;
+  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--zaytoon-comp-input-placeholder-foreground);
+  pointer-events: none;
+}

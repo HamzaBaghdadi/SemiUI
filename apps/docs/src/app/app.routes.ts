@@ -58,4 +58,8 @@ export const appRoutes: Route[] = [
     path: 'components/radio-group',
     loadComponent: () => import('./pages/radio-group/radio-group-docs.page').then((m) => m.RadioGroupDocsPage),
   },
+  {
+    path: 'components/textarea',
+    loadComponent: () => import('./pages/textarea/textarea-docs.page').then((m) => m.TextareaDocsPage),
+  },
 ];

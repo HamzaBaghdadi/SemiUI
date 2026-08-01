@@ -1,8 +1,8 @@
 import { Directive, input } from '@angular/core';
 
-/** Behavior-only primitive: syncs disabled/invalid/readonly state onto a native `<input>`. */
+/** Behavior-only primitive: syncs disabled/invalid/readonly state onto a native `<input>` or `<textarea>`. */
 @Directive({
-  selector: 'input[zInput]',
+  selector: 'input[zInput], textarea[zInput]',
   host: {
     '[disabled]': 'disabled()',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',

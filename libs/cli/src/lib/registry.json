@@ -52,5 +52,12 @@
     "files": ["radio-group.component.ts", "radio-group.component.html", "radio-group.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "textarea": {
+    "name": "textarea",
+    "description": "A multi-line text input supporting ngModel, reactive forms, and Signal Forms, with optional auto-resize and a character counter.",
+    "files": ["textarea.component.ts", "textarea.component.html", "textarea.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }

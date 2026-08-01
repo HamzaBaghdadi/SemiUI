@@ -1,0 +1,22 @@
+<div class="z-textarea-wrapper">
+  <textarea
+    #nativeTextarea
+    zInput
+    class="z-textarea"
+    [class.z-textarea--auto-resize]="autoResize()"
+    [placeholder]="placeholder()"
+    [rows]="rows()"
+    [attr.maxlength]="maxLength() ?? null"
+    [value]="value()"
+    [disabled]="effectiveDisabled()"
+    [invalid]="effectiveInvalid()"
+    (input)="onInput($any($event.target).value)"
+    (blur)="handleBlur()"
+  ></textarea>
+  @if (maxLength(); as max) {
+    <span class="z-textarea__count">{{ characterCount() }}/{{ max }}</span>
+  }
+</div>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

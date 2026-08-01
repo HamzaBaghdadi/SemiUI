@@ -29,5 +29,6 @@ export class App {
     { label: 'Switch', path: '/components/switch' },
     { label: 'Checkbox', path: '/components/checkbox' },
     { label: 'Radio Group', path: '/components/radio-group' },
+    { label: 'Textarea', path: '/components/textarea' },
   ];
 }
