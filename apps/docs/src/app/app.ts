@@ -31,5 +31,6 @@ export class App {
     { label: 'Radio Group', path: '/components/radio-group' },
     { label: 'Textarea', path: '/components/textarea' },
     { label: 'Input Number', path: '/components/input-number' },
+    { label: 'OTP', path: '/components/otp' },
   ];
 }

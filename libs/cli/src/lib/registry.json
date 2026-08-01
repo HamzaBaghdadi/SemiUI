@@ -66,5 +66,12 @@
     "files": ["input-number.component.ts", "input-number.component.html", "input-number.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "otp": {
+    "name": "otp",
+    "description": "A one-time-password input supporting ngModel, reactive forms, and Signal Forms, with auto-advancing digit boxes and paste support.",
+    "files": ["otp.component.ts", "otp.component.html", "otp.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }

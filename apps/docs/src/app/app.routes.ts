@@ -66,4 +66,8 @@ export const appRoutes: Route[] = [
     path: 'components/input-number',
     loadComponent: () => import('./pages/input-number/input-number-docs.page').then((m) => m.InputNumberDocsPage),
   },
+  {
+    path: 'components/otp',
+    loadComponent: () => import('./pages/otp/otp-docs.page').then((m) => m.OtpDocsPage),
+  },
 ];

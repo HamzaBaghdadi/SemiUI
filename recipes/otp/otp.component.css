@@ -1,0 +1,41 @@
+.z-otp {
+  display: flex;
+  gap: var(--zaytoon-spacing-sm);
+}
+
+.z-otp__box {
+  width: 2.5rem;
+  height: 2.75rem;
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid var(--zaytoon-comp-input-border);
+  border-radius: var(--zaytoon-comp-input-radius);
+  background: var(--zaytoon-comp-input-background);
+  color: var(--zaytoon-comp-input-foreground);
+  font-size: 1.125rem;
+  font-family: var(--zaytoon-typography-font-family);
+  text-align: center;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.z-otp__box:hover:not(:disabled):not([aria-invalid='true']) {
+  border-color: var(--zaytoon-comp-input-border-hover);
+}
+
+.z-otp__box:focus-visible {
+  outline: none;
+  border-color: var(--zaytoon-comp-input-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-input-focus-ring) 35%, transparent);
+}
+
+.z-otp__box[aria-invalid='true'] {
+  border-color: var(--zaytoon-comp-input-border-invalid);
+}
+
+.z-otp__box:disabled {
+  cursor: not-allowed;
+  background: var(--zaytoon-comp-input-background-disabled);
+  color: var(--zaytoon-comp-input-foreground-disabled);
+}

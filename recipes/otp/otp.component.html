@@ -1,0 +1,22 @@
+<div class="z-otp" (paste)="onPaste($event)">
+  @for (i of indices(); track i) {
+    <input
+      #box
+      [type]="mask() ? 'password' : 'text'"
+      [attr.inputmode]="type() === 'numeric' ? 'numeric' : 'text'"
+      class="z-otp__box"
+      maxlength="1"
+      autocomplete="one-time-code"
+      [attr.aria-label]="'Digit ' + (i + 1)"
+      [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+      [value]="digits()[i]"
+      [disabled]="effectiveDisabled()"
+      (input)="onBoxInput(i, $any($event.target).value)"
+      (keydown)="onBoxKeydown(i, $event)"
+      (blur)="handleBlur()"
+    />
+  }
+</div>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}
