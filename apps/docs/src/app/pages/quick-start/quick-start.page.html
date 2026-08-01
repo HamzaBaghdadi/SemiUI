@@ -1,0 +1,69 @@
+<h1>Quick Start</h1>
+<p>From a fresh Angular 22 app to a working, themed button.</p>
+
+<h2>1. Initialize</h2>
+<p>From your project root (wherever <code>angular.json</code> lives):</p>
+<pre><code>npx zaytoon init</code></pre>
+<p>This does three things:</p>
+<ol>
+  <li>
+    Writes <code>components.json</code> at the project root -- the CLI's config for where
+    components land and which preset you're using.
+  </li>
+  <li>
+    Installs <code>@zaytoon/tokens</code>, <code>@zaytoon/theme</code>,
+    <code>@zaytoon/primitives</code>, and <code>@zaytoon/presets-aurora</code>.
+  </li>
+  <li>Prints the provider wiring you need to add yourself (see next step).</li>
+</ol>
+
+<pre><code>&#123;
+  "preset": "aurora",
+  "componentsDir": "src/app/components",
+  "prefix": "z"
+&#125;</code></pre>
+<p>
+  <code>componentsDir</code> is where <code>zaytoon add</code> puts new components. Change it
+  before adding anything if you'd rather they land somewhere else.
+</p>
+
+<h2>2. Wire up the provider</h2>
+<p>Add these two calls to <code>app.config.ts</code>:</p>
+<pre><code>import &#123; provideZaytoonUI &#125; from '&#64;zaytoon/theme';
+import &#123; Aurora, provideAuroraIcons &#125; from '&#64;zaytoon/presets-aurora';
+
+export const appConfig: ApplicationConfig = &#123;
+  providers: [
+    // ...your existing providers
+    provideZaytoonUI(&#123; preset: Aurora &#125;),
+    provideAuroraIcons(),
+  ],
+&#125;;</code></pre>
+<p>
+  This isn't automated on purpose -- editing <code>app.config.ts</code> for you would mean
+  parsing and rewriting your source, which is exactly the kind of fragile magic this library tries
+  to avoid. Two lines, copy-pasted once, is the whole cost.
+</p>
+
+<h2>3. Add a component</h2>
+<pre><code>npx zaytoon add button</code></pre>
+<p>
+  This copies <code>button.component.ts</code>, <code>.html</code>, and <code>.css</code> into
+  <code>src/app/components/button/</code> and installs anything it needs that you don't already
+  have. Running <code>add button</code> again won't overwrite files you've already edited.
+</p>
+<pre><code>import &#123; ButtonComponent &#125; from './components/button/button.component';
+
+&#64;Component(&#123;
+  imports: [ButtonComponent],
+  template: `&lt;z-button variant="primary"&gt;Click me&lt;/z-button&gt;`,
+&#125;)
+export class MyPage &#123;&#125;</code></pre>
+
+<h2>What's next</h2>
+<ul>
+  <li><a routerLink="/getting-started/cli">CLI Reference</a> -- every flag and behavior of <code>init</code> and <code>add</code>.</li>
+  <li><a routerLink="/guides/theming">Theming</a> -- the token system, and how to build your own preset.</li>
+  <li><a routerLink="/guides/color-mode">Color Mode</a> -- light/dark mode, which you already have working.</li>
+  <li><a routerLink="/components/button">Button</a>, <a routerLink="/components/text-input">Text Input</a>, and <a routerLink="/components/password">Password</a> -- the components available today.</li>
+</ul>

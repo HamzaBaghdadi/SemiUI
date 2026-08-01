@@ -11,6 +11,15 @@ import { ColorModeService } from '@zaytoon/theme';
 export class App {
   protected readonly colorMode = inject(ColorModeService);
   protected title = 'zaytoon';
+  protected gettingStarted = [
+    { label: 'Installation', path: '/getting-started/installation' },
+    { label: 'Quick Start', path: '/getting-started/quick-start' },
+    { label: 'CLI Reference', path: '/getting-started/cli' },
+  ];
+  protected guides = [
+    { label: 'Theming', path: '/guides/theming' },
+    { label: 'Color Mode', path: '/guides/color-mode' },
+  ];
   protected components = [
     { label: 'Button', path: '/components/button' },
     { label: 'Text Input', path: '/components/text-input' },

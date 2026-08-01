@@ -7,7 +7,7 @@ import { TextInputComponent } from '../../text-input/text-input.component';
   selector: 'app-text-input-docs-page',
   imports: [TextInputComponent, FormsModule, ReactiveFormsModule, FormField],
   templateUrl: './text-input-docs.page.html',
-  styleUrl: './text-input-docs.page.css',
+  styleUrl: '../docs-page.css',
 })
 export class TextInputDocsPage {
   // ngModel

@@ -1,0 +1,87 @@
+<h1>Installation</h1>
+<p>
+  Zaytoon splits into two kinds of package: an <strong>engine</strong> you install normally from
+  npm, and <strong>components</strong> you copy into your own project with the CLI instead of
+  installing. This page covers the engine. See
+  <a routerLink="/getting-started/quick-start">Quick Start</a> for adding your first component.
+</p>
+
+<div class="callout">
+  <p>Requires Angular 22 or later (standalone APIs, signal inputs, and Signal Forms).</p>
+</div>
+
+<h2>Recommended: the CLI</h2>
+<pre><code>npx zaytoon init</code></pre>
+<p>
+  This installs everything below for you and prints the exact lines to add to
+  <code>app.config.ts</code>. See <a routerLink="/getting-started/cli">CLI Reference</a> for the
+  full command list.
+</p>
+
+<h2>Manual installation</h2>
+<p>If you'd rather wire things up yourself, install the engine packages directly:</p>
+<pre><code>npm install @zaytoon/tokens @zaytoon/theme @zaytoon/primitives @zaytoon/presets-aurora</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>What it's for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>@zaytoon/tokens</code></td>
+      <td>
+        The design token contract (colors, spacing, component tokens) as plain TypeScript types
+        and the <code>flattenTokensToCssVars</code> utility. No Angular dependency.
+      </td>
+    </tr>
+    <tr>
+      <td><code>@zaytoon/theme</code></td>
+      <td>
+        <code>provideZaytoonUI()</code> and <code>ColorModeService</code> -- turns a preset's
+        tokens into a live stylesheet and handles light/dark mode.
+      </td>
+    </tr>
+    <tr>
+      <td><code>@zaytoon/primitives</code></td>
+      <td>
+        Unstyled behavior directives and helpers (<code>ButtonDirective</code>,
+        <code>InputDirective</code>, <code>ZIconComponent</code>,
+        <code>BaseFormFieldControl</code>) that components are built on.
+      </td>
+    </tr>
+    <tr>
+      <td><code>@zaytoon/presets-aurora</code></td>
+      <td>The default preset: a complete light + dark color palette and component tokens.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Then wire up the theme provider in <code>app.config.ts</code>:</p>
+<pre><code>import &#123; ApplicationConfig &#125; from '&#64;angular/core';
+import &#123; provideZaytoonUI &#125; from '&#64;zaytoon/theme';
+import &#123; Aurora, provideAuroraIcons &#125; from '&#64;zaytoon/presets-aurora';
+
+export const appConfig: ApplicationConfig = &#123;
+  providers: [
+    // ...your existing providers
+    provideZaytoonUI(&#123; preset: Aurora &#125;),
+    provideAuroraIcons(),
+  ],
+&#125;;</code></pre>
+<p>
+  <code>provideZaytoonUI</code> injects the preset's tokens as CSS custom properties and installs
+  <code>ColorModeService</code> so light/dark mode works immediately -- see
+  <a routerLink="/guides/theming">Theming</a> and <a routerLink="/guides/color-mode">Color Mode</a>
+  for what each of those calls actually does.
+</p>
+
+<h2>Adding a component</h2>
+<pre><code>npx zaytoon add button</code></pre>
+<p>
+  Components aren't an npm dependency -- <code>add</code> copies the component's real source
+  (<code>.ts</code>, <code>.html</code>, <code>.css</code>) into your project and installs
+  whatever it needs from the table above. From that point it's your code to edit.
+</p>

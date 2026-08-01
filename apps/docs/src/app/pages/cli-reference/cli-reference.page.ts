@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-cli-reference-page',
   imports: [RouterLink],
-  templateUrl: './home.page.html',
+  templateUrl: './cli-reference.page.html',
   styleUrl: '../docs-page.css',
 })
-export class HomePage {}
+export class CliReferencePage {}

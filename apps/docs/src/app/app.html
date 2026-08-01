@@ -7,11 +7,29 @@
   </header>
   <div class="shell__body">
     <nav class="shell__nav">
+      <h2>Getting Started</h2>
+      <ul>
+        @for (item of gettingStarted; track item.path) {
+          <li>
+            <a [routerLink]="item.path" routerLinkActive="is-active">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+
+      <h2>Guides</h2>
+      <ul>
+        @for (item of guides; track item.path) {
+          <li>
+            <a [routerLink]="item.path" routerLinkActive="is-active">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+
       <h2>Components</h2>
       <ul>
-        @for (component of components; track component.path) {
+        @for (item of components; track item.path) {
           <li>
-            <a [routerLink]="component.path" routerLinkActive="is-active">{{ component.label }}</a>
+            <a [routerLink]="item.path" routerLinkActive="is-active">{{ item.label }}</a>
           </li>
         }
       </ul>

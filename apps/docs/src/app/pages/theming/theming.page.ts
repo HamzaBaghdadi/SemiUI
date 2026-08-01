@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-theming-page',
   imports: [RouterLink],
-  templateUrl: './home.page.html',
+  templateUrl: './theming.page.html',
   styleUrl: '../docs-page.css',
 })
-export class HomePage {}
+export class ThemingPage {}

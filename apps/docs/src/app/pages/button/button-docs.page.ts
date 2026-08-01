@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../button/button.component';
   selector: 'app-button-docs-page',
   imports: [ButtonComponent],
   templateUrl: './button-docs.page.html',
-  styleUrl: './button-docs.page.css',
+  styleUrl: '../docs-page.css',
 })
 export class ButtonDocsPage {
   protected variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];

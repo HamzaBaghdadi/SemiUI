@@ -1,0 +1,74 @@
+<h1>CLI Reference</h1>
+<p>The <code>zaytoon</code> package is a single binary with two commands.</p>
+
+<h2><code>zaytoon init</code></h2>
+<pre><code>npx zaytoon init</code></pre>
+<p>Run this once, from the root of an Angular project (wherever <code>angular.json</code> is).</p>
+<ul>
+  <li>Refuses to run if no <code>angular.json</code> is found in the current directory.</li>
+  <li>
+    Writes <code>components.json</code> with defaults (<code>preset: "aurora"</code>,
+    <code>componentsDir: "src/app/components"</code>, <code>prefix: "z"</code>) -- and does
+    nothing if one already exists, so it's safe to run again.
+  </li>
+  <li>
+    Detects your package manager from the lockfile present (<code>pnpm-lock.yaml</code> &rarr;
+    pnpm, <code>yarn.lock</code> &rarr; yarn, otherwise npm) and installs
+    <code>@zaytoon/tokens</code>, <code>@zaytoon/theme</code>, <code>@zaytoon/primitives</code>,
+    and <code>@zaytoon/presets-aurora</code>.
+  </li>
+  <li>Prints the <code>provideZaytoonUI</code> wiring for <code>app.config.ts</code>.</li>
+</ul>
+
+<h2><code>zaytoon add &lt;component&gt;</code></h2>
+<pre><code>npx zaytoon add button</code></pre>
+<p>Run this once per component you want in your project.</p>
+<ul>
+  <li>
+    Copies the component's files into
+    <code>&lt;componentsDir&gt;/&lt;component&gt;/</code> (from <code>components.json</code>, or
+    the default if you haven't run <code>init</code>).
+  </li>
+  <li>
+    <strong>Never overwrites a file that already exists.</strong> If you've edited a copied
+    component and run <code>add</code> again, your changes are left alone -- you'll see
+    "already exists ... not overwriting" instead.
+  </li>
+  <li>Installs whatever npm packages that component needs, if they aren't already present.</li>
+  <li>
+    For components that use specific icons (like Password's show/hide toggle), prints the
+    <code>provideIcons(&#123; ... &#125;)</code> registration you need to add.
+  </li>
+  <li>Run with no component name to see the full list of what's available.</li>
+</ul>
+
+<h3>Available components</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Adds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>button</code></td>
+      <td><a routerLink="/components/button">Button</a> -- variants, sizes, loading state, icons.</td>
+    </tr>
+    <tr>
+      <td><code>text-input</code></td>
+      <td><a routerLink="/components/text-input">Text Input</a> -- ngModel, reactive forms, and Signal Forms.</td>
+    </tr>
+    <tr>
+      <td><code>password</code></td>
+      <td><a routerLink="/components/password">Password</a> -- same form support, plus a show/hide toggle.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Works offline</h2>
+<p>
+  Component source ships bundled inside the <code>zaytoon</code> npm package itself -- there's no
+  registry server involved, so <code>add</code> works without network access beyond the initial
+  <code>npm install</code>.
+</p>

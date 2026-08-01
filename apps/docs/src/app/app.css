@@ -49,7 +49,11 @@
   color: var(--zaytoon-color-muted-foreground);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: 0 0 var(--zaytoon-spacing-sm);
+  margin: var(--zaytoon-spacing-lg) 0 var(--zaytoon-spacing-sm);
+}
+
+.shell__nav h2:first-child {
+  margin-top: 0;
 }
 
 .shell__nav ul {

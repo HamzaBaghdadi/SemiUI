@@ -6,7 +6,7 @@ import { PasswordComponent } from '../../password/password.component';
   selector: 'app-password-docs-page',
   imports: [PasswordComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './password-docs.page.html',
-  styleUrl: '../text-input/text-input-docs.page.css',
+  styleUrl: '../docs-page.css',
 })
 export class PasswordDocsPage {
   // ngModel

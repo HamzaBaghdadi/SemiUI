@@ -1,6 +1,30 @@
-<h1>Zaytoon UI</h1>
+<h1>Zaytoon</h1>
 <p>
-  A copy-paste Angular component library: unstyled primitives, themeable via CSS custom
-  properties, and recipes you own once you add them to your project.
+  An Angular UI library built on two ideas: <strong>provider-based theming</strong> -- one call
+  wires up a full design-token system with light/dark mode included -- and
+  <strong>copy-paste ownership</strong>, where components land in your own project as real,
+  editable source instead of a black-box dependency.
 </p>
-<p><a routerLink="/components/button">Browse the Button component &rarr;</a></p>
+
+<pre><code>npx zaytoon init
+npx zaytoon add button</code></pre>
+
+<h2>Getting Started</h2>
+<ul>
+  <li><a routerLink="/getting-started/installation">Installation</a> &mdash; what to install and why.</li>
+  <li><a routerLink="/getting-started/quick-start">Quick Start</a> &mdash; from nothing to a themed button.</li>
+  <li><a routerLink="/getting-started/cli">CLI Reference</a> &mdash; every <code>init</code>/<code>add</code> behavior.</li>
+</ul>
+
+<h2>Guides</h2>
+<ul>
+  <li><a routerLink="/guides/theming">Theming</a> &mdash; the token system, and building your own preset.</li>
+  <li><a routerLink="/guides/color-mode">Color Mode</a> &mdash; light/dark mode, on by default.</li>
+</ul>
+
+<h2>Components</h2>
+<ul>
+  <li><a routerLink="/components/button">Button</a> &mdash; variants, sizes, loading state, icons.</li>
+  <li><a routerLink="/components/text-input">Text Input</a> &mdash; ngModel, reactive forms, Signal Forms.</li>
+  <li><a routerLink="/components/password">Password</a> &mdash; same form support, plus a show/hide toggle.</li>
+</ul>
