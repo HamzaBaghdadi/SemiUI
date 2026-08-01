@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-// Custom publish step for `changesets/action`'s `publish:` input.
+// Manual publish script: run this yourself after merging a "Version Packages" PR
+// (see .github/workflows/release.yml -- CI only opens that PR, it never publishes,
+// so you enter the npm OTP yourself, right here, each time).
 //
 // `changeset version` bumps versions in each lib's *source* package.json (libs/tokens,
 // libs/theme, ...), since that's what pnpm-workspace.yaml lists as the workspace packages --
@@ -8,10 +10,9 @@
 // But `npm publish` always publishes whatever directory its package.json lives in, and our
 // source directories contain raw TypeScript plus dev config (eslint, tsconfig, project.json),
 // not the built output. There's no npm equivalent of Yarn's `publishConfig.directory` to redirect
-// that. So instead of using changesets' built-in publish (which would publish straight from
-// libs/*, i.e. the wrong content), this script: rebuilds each package fresh (picking up the
-// version `changeset version` just bumped, since ng-packagr/tsc copy it into the dist manifest),
-// then runs `npm publish` from each dist/ output directly.
+// that. So this script: rebuilds each package fresh (picking up the version `changeset version`
+// just bumped, since ng-packagr/tsc copy it into the dist manifest), then runs `npm publish`
+// from each dist/ output directly -- interactively, so npm's OTP prompt reaches your terminal.
 
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';

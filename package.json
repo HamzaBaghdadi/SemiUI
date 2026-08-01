@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "release:publish": "node scripts/publish-packages.mjs"
   },
   "private": true,
   "dependencies": {
