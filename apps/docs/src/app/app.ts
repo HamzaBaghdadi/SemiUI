@@ -28,5 +28,6 @@ export class App {
     { label: 'Select', path: '/components/select' },
     { label: 'Switch', path: '/components/switch' },
     { label: 'Checkbox', path: '/components/checkbox' },
+    { label: 'Radio Group', path: '/components/radio-group' },
   ];
 }

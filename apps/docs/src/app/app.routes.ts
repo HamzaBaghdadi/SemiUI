@@ -54,4 +54,8 @@ export const appRoutes: Route[] = [
     path: 'components/checkbox',
     loadComponent: () => import('./pages/checkbox/checkbox-docs.page').then((m) => m.CheckboxDocsPage),
   },
+  {
+    path: 'components/radio-group',
+    loadComponent: () => import('./pages/radio-group/radio-group-docs.page').then((m) => m.RadioGroupDocsPage),
+  },
 ];

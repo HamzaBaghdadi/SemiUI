@@ -1,0 +1,100 @@
+:host {
+  display: inline-flex;
+}
+
+.z-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zaytoon-spacing-sm);
+}
+
+.z-radio-group[data-direction='horizontal'] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--zaytoon-spacing-lg);
+}
+
+.z-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-sm);
+  cursor: pointer;
+}
+
+.z-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.z-radio__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--zaytoon-comp-radio-size-md);
+  height: var(--zaytoon-comp-radio-size-md);
+  border: 1px solid var(--zaytoon-comp-radio-border);
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-radio-background);
+  transition: border-color 0.15s ease;
+}
+
+.z-radio__dot[data-size='sm'] {
+  width: var(--zaytoon-comp-radio-size-sm);
+  height: var(--zaytoon-comp-radio-size-sm);
+}
+
+.z-radio__dot[data-size='lg'] {
+  width: var(--zaytoon-comp-radio-size-lg);
+  height: var(--zaytoon-comp-radio-size-lg);
+}
+
+.z-radio__dot::after {
+  content: '';
+  width: 50%;
+  height: 50%;
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-radio-dot-background);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.z-radio__input:checked + .z-radio__dot {
+  border-color: var(--zaytoon-comp-radio-border-checked);
+}
+
+.z-radio__input:checked + .z-radio__dot::after {
+  transform: scale(1);
+}
+
+.z-radio__input:focus-visible + .z-radio__dot {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-radio-focus-ring) 35%, transparent);
+}
+
+.z-radio__input[aria-invalid='true'] + .z-radio__dot {
+  border-color: var(--zaytoon-color-destructive);
+}
+
+.z-radio__input:disabled + .z-radio__dot {
+  background: var(--zaytoon-comp-radio-background-disabled);
+  border-color: var(--zaytoon-comp-radio-border-disabled);
+}
+
+.z-radio:has(.z-radio__input:disabled) {
+  cursor: not-allowed;
+}
+
+.z-radio__label {
+  font-size: var(--zaytoon-typography-font-size-md);
+  font-family: var(--zaytoon-typography-font-family);
+  color: var(--zaytoon-color-foreground);
+}

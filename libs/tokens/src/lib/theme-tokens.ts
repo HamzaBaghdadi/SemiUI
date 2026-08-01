@@ -126,5 +126,15 @@ export interface ThemeTokens {
       borderDisabled: string;
       size: Record<ButtonSize, string>;
     };
+    radio: {
+      border: string;
+      borderChecked: string;
+      background: string;
+      backgroundDisabled: string;
+      borderDisabled: string;
+      dotBackground: string;
+      focusRing: string;
+      size: Record<ButtonSize, string>;
+    };
   };
 }

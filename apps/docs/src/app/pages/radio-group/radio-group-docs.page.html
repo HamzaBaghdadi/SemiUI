@@ -1,0 +1,69 @@
+<h1>Radio Group</h1>
+<p>
+  A radio group: one bound value across a set of native <code>&lt;input type="radio"&gt;</code>
+  elements sharing a generated <code>name</code>, so arrow-key navigation between options is free
+  native browser behavior. Options follow the same shape as
+  <a routerLink="/components/select">Select</a> -- plain values, or objects via
+  <code>optionLabel</code> / <code>optionValue</code>.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add radio-group</code></pre>
+
+<h2>Primitive options</h2>
+<div class="demo-row">
+  <z-radio-group [options]="fruits" [(ngModel)]="fruit" />
+</div>
+<p class="demo-value">Model value: {{ fruit }}</p>
+<pre><code>&lt;z-radio-group [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" /&gt;</code></pre>
+
+<h2>Option objects, with a disabled option</h2>
+<p><code>optionDisabled</code> reads a per-option disabled flag, when options are objects.</p>
+<div class="demo-row">
+  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="plan" />
+</div>
+<p class="demo-value">Model value: {{ plan }}</p>
+<pre><code>&lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="selectedPlan" /&gt;</code></pre>
+
+<h2>Reactive forms + validation</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  plan: new FormControl&lt;string | undefined&gt;(undefined, Validators.required),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().plan }}</p>
+<pre><code>protected profileModel = signal(&#123; plan: 'free' &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" /&gt;</code></pre>
+
+<h2>Horizontal direction</h2>
+<div class="demo-row">
+  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" />
+</div>
+<pre><code>&lt;z-radio-group direction="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
+
+<h2>Sizes</h2>
+<div class="demo-row">
+  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="sm" />
+</div>
+<div class="demo-row">
+  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="lg" />
+</div>
+<pre><code>&lt;z-radio-group size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-radio-group [options]="fruits" [(ngModel)]="fruit" [disabled]="disabled()" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>

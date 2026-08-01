@@ -45,5 +45,12 @@
     "files": ["checkbox.component.ts", "checkbox.component.html", "checkbox.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "radio-group": {
+    "name": "radio-group",
+    "description": "A radio group supporting ngModel, reactive forms, and Signal Forms, with the same options/optionLabel/optionValue shape as Select.",
+    "files": ["radio-group.component.ts", "radio-group.component.html", "radio-group.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }
