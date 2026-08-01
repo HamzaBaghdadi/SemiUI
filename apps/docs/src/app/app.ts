@@ -32,5 +32,6 @@ export class App {
     { label: 'Textarea', path: '/components/textarea' },
     { label: 'Input Number', path: '/components/input-number' },
     { label: 'OTP', path: '/components/otp' },
+    { label: 'Multiselect', path: '/components/multiselect' },
   ];
 }

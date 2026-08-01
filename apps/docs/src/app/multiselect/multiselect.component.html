@@ -1,0 +1,112 @@
+<button
+  #triggerButton
+  type="button"
+  class="z-multiselect__trigger"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="listboxId"
+  [attr.aria-activedescendant]="activeOptionId()"
+  [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+  [disabled]="effectiveDisabled()"
+  (click)="toggle()"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span class="z-multiselect__value">
+    @if (selectedTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedOptions() }" />
+    } @else if (selectedOptions().length === 0) {
+      <span class="z-multiselect__placeholder">{{ placeholder() }}</span>
+    } @else if (selectedOptions().length > maxChipsDisplay()) {
+      <span class="z-multiselect__summary">{{ selectedOptions().length }} selected</span>
+    } @else {
+      @for (option of selectedOptions(); track $index) {
+        <span class="z-multiselect__chip">{{ labelFor(option) }}</span>
+      }
+    }
+  </span>
+  @if (showClear()) {
+    <!-- Not a real <button>: nesting interactive elements inside the trigger <button> is invalid
+         HTML. Excluded from the tab sequence on purpose -- reopening the panel and unchecking
+         items (or using "Clear all" inside it) is the keyboard path. -->
+    <span class="z-multiselect__clear" role="button" tabindex="-1" aria-label="Clear all" (mousedown)="$event.preventDefault()" (click)="clearAll($event)">
+      <z-icon [ref]="icons.clear" />
+    </span>
+  }
+  <span class="z-multiselect__icon">
+    @if (iconTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" />
+    } @else {
+      <z-icon [ref]="icons.chevronDown" />
+    }
+  </span>
+</button>
+
+@if (open()) {
+  <div class="z-multiselect__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-multiselect__panel--enter" animate.leave="z-multiselect__panel--leave">
+    @if (headerTemplate(); as tpl) {
+      <div class="z-multiselect__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+    }
+    @if (filterable()) {
+      <div class="z-multiselect__filter">
+        <input
+          #filterInput
+          type="text"
+          class="z-multiselect__filter-input"
+          role="searchbox"
+          aria-label="Filter options"
+          [attr.aria-controls]="listboxId"
+          [attr.aria-activedescendant]="activeOptionId()"
+          [placeholder]="filterPlaceholder()"
+          [value]="filterText()"
+          (input)="onFilterInput($any($event.target).value)"
+          (keydown)="onFilterKeydown($event)"
+        />
+      </div>
+    }
+    @if (showSelectAll()) {
+      <div class="z-multiselect__actions">
+        <button type="button" class="z-multiselect__action" (click)="selectAll()">Select all</button>
+        <button type="button" class="z-multiselect__action" (click)="clearAll()">Clear all</button>
+      </div>
+    }
+    <ul class="z-multiselect__list" role="listbox" aria-multiselectable="true" [id]="listboxId">
+      @for (option of filteredOptions(); track $index; let i = $index) {
+        <!-- Deliberately not focusable / no per-item keydown -- same ARIA "combobox with listbox
+             popup" pattern as Select; the active option is tracked virtually via
+             aria-activedescendant, and click is a supplementary pointer-only interaction. -->
+        <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+        <li
+          [id]="listboxId + '-option-' + i"
+          class="z-multiselect__option"
+          role="option"
+          [attr.aria-selected]="isSelected(option)"
+          [attr.data-active]="i === activeIndex() ? '' : null"
+          (click)="toggleOption(option)"
+          (mouseenter)="activeIndex.set(i)"
+        >
+          <span class="z-multiselect__checkbox" [attr.data-checked]="isSelected(option) ? '' : null">
+            @if (isSelected(option)) {
+              <z-icon [ref]="icons.checkboxCheck" />
+            }
+          </span>
+          @if (optionTemplate(); as tpl) {
+            <ng-container
+              [ngTemplateOutlet]="tpl"
+              [ngTemplateOutletContext]="{ $implicit: option, index: i, selected: isSelected(option) }"
+            />
+          } @else {
+            {{ labelFor(option) }}
+          }
+        </li>
+      } @empty {
+        <li class="z-multiselect__empty">{{ emptyMessage() }}</li>
+      }
+    </ul>
+    @if (footerTemplate(); as tpl) {
+      <div class="z-multiselect__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
+    }
+  </div>
+}
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

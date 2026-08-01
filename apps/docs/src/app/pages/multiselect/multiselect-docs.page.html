@@ -1,0 +1,63 @@
+<h1>Multiselect</h1>
+<p>
+  A multi-select listbox: same <code>options</code> / <code>optionLabel</code> /
+  <code>optionValue</code> shape as <a routerLink="/components/select">Select</a>, plus
+  checkbox-style rows, chips in the trigger, and select-all/clear-all. Search/filter and clear are
+  on by default, same as Select, and the panel is viewport-aware and animated the same way too.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add multiselect</code></pre>
+
+<h2>Primitive options</h2>
+<div class="demo-row">
+  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" placeholder="Pick fruits" />
+</div>
+<p class="demo-value">Model value: {{ selectedFruits | json }}</p>
+<pre><code>&lt;z-multiselect [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="selectedFruits" placeholder="Pick fruits" /&gt;</code></pre>
+
+<h2>Option objects</h2>
+<div class="demo-row">
+  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" placeholder="Select skills" />
+</div>
+<p class="demo-value">Model value: {{ selectedSkillCodes | json }}</p>
+<pre><code>&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" /&gt;</code></pre>
+
+<h2>Reactive forms + validation</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." placeholder="Select skills" />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  skills: new FormControl&lt;string[]&gt;([], &#123; nonNullable: true, validators: Validators.required &#125;),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().skills | json }}</p>
+<pre><code>protected profileModel = signal(&#123; skills: ['ts', 'ng'] &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" /&gt;</code></pre>
+
+<h2>closeOnSelect and maxChipsDisplay</h2>
+<p>
+  By default the panel stays open across selections and the trigger shows individual chips until
+  <code>maxChipsDisplay</code> is exceeded (then it switches to "N selected"). Set
+  <code>closeOnSelect</code> for single-pick-then-close behavior instead.
+</p>
+<div class="demo-row">
+  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [closeOnSelect]="true" [maxChipsDisplay]="2" placeholder="Pick fruits" />
+</div>
+<pre><code>&lt;z-multiselect [closeOnSelect]="true" [maxChipsDisplay]="2" /&gt;</code></pre>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [disabled]="disabled()" placeholder="Pick fruits" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>

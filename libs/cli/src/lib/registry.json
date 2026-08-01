@@ -73,5 +73,12 @@
     "files": ["otp.component.ts", "otp.component.html", "otp.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "multiselect": {
+    "name": "multiselect",
+    "description": "A multi-select listbox supporting ngModel, reactive forms, and Signal Forms, with search/filter, chips, select all/clear all, and viewport-aware panel placement.",
+    "files": ["multiselect.component.ts", "multiselect.component.html", "multiselect.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

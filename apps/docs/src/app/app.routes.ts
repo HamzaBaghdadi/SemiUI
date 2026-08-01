@@ -70,4 +70,8 @@ export const appRoutes: Route[] = [
     path: 'components/otp',
     loadComponent: () => import('./pages/otp/otp-docs.page').then((m) => m.OtpDocsPage),
   },
+  {
+    path: 'components/multiselect',
+    loadComponent: () => import('./pages/multiselect/multiselect-docs.page').then((m) => m.MultiselectDocsPage),
+  },
 ];
