@@ -24,12 +24,16 @@
         "main": "libs/cli/src/index.ts",
         "tsConfig": "libs/cli/tsconfig.lib.json",
         "assets": [
-          "libs/cli/*.md"
+          "libs/cli/*.md",
+          { "glob": "**/*", "input": "recipes", "output": "recipes" }
         ],
         "format": [
           "cjs"
         ],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "banner": { "js": "#!/usr/bin/env node" }
+        }
       }
     },
     "nx-release-publish": {

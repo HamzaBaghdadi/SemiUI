@@ -1,1 +1,3 @@
-export * from './lib/cli';
+import { run } from './lib/run';
+
+run(process.argv.slice(2));

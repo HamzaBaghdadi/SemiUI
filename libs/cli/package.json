@@ -1,9 +1,10 @@
 {
-  "name": "@zaytoon/cli",
+  "name": "zaytoon",
   "version": "0.0.1",
   "publishConfig": { "access": "public" },
   "type": "commonjs",
   "main": "./index.cjs",
   "types": "./index.d.ts",
+  "bin": { "zaytoon": "./index.cjs" },
   "dependencies": {}
 }

@@ -13,6 +13,11 @@ import { IconRef } from '@zaytoon/tokens';
       <ng-icon [svg]="svgMarkup()" />
     }
   `,
+  styles: `
+    ng-icon {
+      display: inline-flex;
+    }
+  `,
 })
 export class ZIconComponent {
   ref = input.required<IconRef>();

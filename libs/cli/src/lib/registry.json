@@ -1,0 +1,21 @@
+{
+  "button": {
+    "name": "button",
+    "description": "A button with variants, sizes, a loading state, and leading/trailing icon slots.",
+    "files": ["button.component.ts", "button.component.html", "button.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "text-input": {
+    "name": "text-input",
+    "description": "A text input supporting ngModel, reactive forms, and Angular signal forms.",
+    "files": ["text-input.component.ts", "text-input.component.html", "text-input.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+  },
+  "password": {
+    "name": "password",
+    "description": "A password input with a show/hide toggle, built on the same form integrations as text-input.",
+    "files": ["password.component.ts", "password.component.html", "password.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "icons": ["lucideEye", "lucideEyeOff"]
+  }
+}
