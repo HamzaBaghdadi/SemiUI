@@ -11,4 +11,8 @@ export interface IconTokens {
   passwordShow: IconRef;
   /** Password's "hide" toggle icon, shown when the value is revealed. */
   passwordHide: IconRef;
+  /** Checkbox's checkmark, shown when checked. */
+  checkboxCheck: IconRef;
+  /** Checkbox's indeterminate glyph (a dash), shown when the indeterminate input is set. */
+  checkboxIndeterminate: IconRef;
 }

@@ -1,0 +1,27 @@
+<label class="z-checkbox">
+  <input
+    #nativeInput
+    type="checkbox"
+    class="z-checkbox__input"
+    [attr.data-size]="size()"
+    [checked]="value()"
+    [indeterminate]="indeterminate()"
+    [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+    [disabled]="effectiveDisabled()"
+    (change)="onChange($any($event.target).checked)"
+    (blur)="handleBlur()"
+  />
+  <span class="z-checkbox__box" [attr.data-size]="size()">
+    @if (indeterminate()) {
+      <z-icon [ref]="icons.checkboxIndeterminate" />
+    } @else if (value()) {
+      <z-icon [ref]="icons.checkboxCheck" />
+    }
+  </span>
+  @if (label()) {
+    <span class="z-checkbox__label">{{ label() }}</span>
+  }
+</label>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

@@ -102,6 +102,18 @@ function createTestPreset(): ThemePreset {
           trackHeight: Object.fromEntries(SIZES.map((size) => [size, '1.5rem'])) as Record<ButtonSize, string>,
           thumbSize: Object.fromEntries(SIZES.map((size) => [size, '1.125rem'])) as Record<ButtonSize, string>,
         },
+        checkbox: {
+          radius: '0.25rem',
+          border: '#333',
+          borderChecked: '#123456',
+          background: '#000',
+          backgroundChecked: '#123456',
+          foregroundChecked: '#fff',
+          focusRing: '#333',
+          backgroundDisabled: '#111',
+          borderDisabled: '#333',
+          size: Object.fromEntries(SIZES.map((size) => [size, '1.25rem'])) as Record<ButtonSize, string>,
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),
@@ -111,6 +123,8 @@ function createTestPreset(): ThemePreset {
       clear: { type: 'ng-icon', name: 'testClear' },
       passwordShow: { type: 'ng-icon', name: 'testShow' },
       passwordHide: { type: 'ng-icon', name: 'testHide' },
+      checkboxCheck: { type: 'ng-icon', name: 'testCheck' },
+      checkboxIndeterminate: { type: 'ng-icon', name: 'testIndeterminate' },
     },
   };
 }

@@ -50,4 +50,8 @@ export const appRoutes: Route[] = [
     path: 'components/switch',
     loadComponent: () => import('./pages/switch/switch-docs.page').then((m) => m.SwitchDocsPage),
   },
+  {
+    path: 'components/checkbox',
+    loadComponent: () => import('./pages/checkbox/checkbox-docs.page').then((m) => m.CheckboxDocsPage),
+  },
 ];

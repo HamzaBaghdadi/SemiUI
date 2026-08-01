@@ -38,5 +38,12 @@
     "files": ["switch.component.ts", "switch.component.html", "switch.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "checkbox": {
+    "name": "checkbox",
+    "description": "A checkbox supporting ngModel, reactive forms, and Signal Forms, with sm/md/lg sizes and an indeterminate state.",
+    "files": ["checkbox.component.ts", "checkbox.component.html", "checkbox.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

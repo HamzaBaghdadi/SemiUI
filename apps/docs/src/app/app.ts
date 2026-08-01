@@ -27,5 +27,6 @@ export class App {
     { label: 'Password', path: '/components/password' },
     { label: 'Select', path: '/components/select' },
     { label: 'Switch', path: '/components/switch' },
+    { label: 'Checkbox', path: '/components/checkbox' },
   ];
 }

@@ -114,5 +114,17 @@ export interface ThemeTokens {
       trackHeight: Record<ButtonSize, string>;
       thumbSize: Record<ButtonSize, string>;
     };
+    checkbox: {
+      radius: string;
+      border: string;
+      borderChecked: string;
+      background: string;
+      backgroundChecked: string;
+      foregroundChecked: string;
+      focusRing: string;
+      backgroundDisabled: string;
+      borderDisabled: string;
+      size: Record<ButtonSize, string>;
+    };
   };
 }
