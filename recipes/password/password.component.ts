@@ -4,10 +4,11 @@ import { ButtonDirective } from '@zaytoon/primitives/button';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
 import { IconRef } from '@zaytoon/tokens';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
   selector: 'z-password',
-  imports: [InputDirective, ButtonDirective, ZIconComponent],
+  imports: [InputDirective, ButtonDirective, ZIconComponent, ErrorMessageComponent],
   templateUrl: './password.component.html',
   styleUrl: './password.component.css',
 })

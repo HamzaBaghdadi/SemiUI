@@ -1,0 +1,38 @@
+.z-error-message {
+  margin: 0.25rem 0 0;
+  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--zaytoon-color-destructive);
+  /* Always shows in full -- no truncation, no fixed height, wraps as needed. */
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+@keyframes z-error-message-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.z-error-message--enter {
+  animation: z-error-message-enter 0.15s ease-out;
+}
+
+@keyframes z-error-message-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.z-error-message--leave {
+  animation: z-error-message-leave 0.15s ease-in;
+}

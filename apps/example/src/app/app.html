@@ -16,7 +16,7 @@
     @for (size of sizes; track size) {
       <z-button [size]="size" (pressed)="clickCount = clickCount + 1">Size {{ size }}</z-button>
     }
-    <z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" (pressed)="clickCount = clickCount + 1" />
+    <z-button icon [iconLeading]="saveIcon" aria-label="Save" (pressed)="clickCount = clickCount + 1" />
   </section>
 
   <section>

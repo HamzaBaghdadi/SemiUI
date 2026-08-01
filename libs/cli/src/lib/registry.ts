@@ -8,6 +8,8 @@ export interface RegistryComponent {
   files: string[];
   npmDependencies: string[];
   icons?: string[];
+  /** Other registry components this one imports from (e.g. text-input uses error-message). */
+  recipeDependencies?: string[];
 }
 
 const REGISTRY = registryData as Record<string, RegistryComponent>;
@@ -18,6 +20,30 @@ export function getComponent(name: string): RegistryComponent | undefined {
 
 export function listComponents(): RegistryComponent[] {
   return Object.values(REGISTRY);
+}
+
+/** A component plus every recipe it depends on (recursively, deduplicated, dependencies first). */
+export function resolveWithDependencies(name: string): RegistryComponent[] {
+  const resolved: RegistryComponent[] = [];
+  const seen = new Set<string>();
+
+  function visit(componentName: string): void {
+    if (seen.has(componentName)) {
+      return;
+    }
+    seen.add(componentName);
+    const component = getComponent(componentName);
+    if (!component) {
+      return;
+    }
+    for (const dep of component.recipeDependencies ?? []) {
+      visit(dep);
+    }
+    resolved.push(component);
+  }
+
+  visit(name);
+  return resolved;
 }
 
 /**

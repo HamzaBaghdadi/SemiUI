@@ -26,6 +26,11 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('./pages/color-mode/color-mode.page').then((m) => m.ColorModePage),
   },
   {
+    path: 'components/error-message',
+    loadComponent: () =>
+      import('./pages/error-message/error-message-docs.page').then((m) => m.ErrorMessageDocsPage),
+  },
+  {
     path: 'components/button',
     loadComponent: () => import('./pages/button/button-docs.page').then((m) => m.ButtonDocsPage),
   },

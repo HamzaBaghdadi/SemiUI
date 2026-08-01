@@ -22,10 +22,21 @@
   @for (size of sizes; track size) {
     <z-button [size]="size">Size {{ size }}</z-button>
   }
-  <z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" />
 </div>
-<pre><code>&lt;z-button size="sm"&gt;Small&lt;/z-button&gt;
-&lt;z-button size="icon" [iconLeading]="saveIcon" aria-label="Save" /&gt;</code></pre>
+<pre><code>&lt;z-button size="sm"&gt;Small&lt;/z-button&gt;</code></pre>
+
+<h2>Icon-only</h2>
+<p>
+  <code>icon</code> hides the label and shows just <code>iconLeading</code>, sized to a perfect
+  square at whatever <code>size</code> is set. Always pair it with <code>aria-label</code> since
+  there's no visible text.
+</p>
+<div class="demo-row">
+  <z-button icon size="sm" [iconLeading]="saveIcon" aria-label="Save" />
+  <z-button icon [iconLeading]="saveIcon" aria-label="Save" />
+  <z-button icon size="lg" [iconLeading]="saveIcon" aria-label="Save" />
+</div>
+<pre><code>&lt;z-button icon [iconLeading]="&#123; type: 'ng-icon', name: 'lucideSave' &#125;" aria-label="Save" /&gt;</code></pre>
 
 <h2>Icons</h2>
 <p>

@@ -1,4 +1,10 @@
 {
+  "error-message": {
+    "name": "error-message",
+    "description": "Displays an error message with an enter/leave animation. Used standalone or by form components.",
+    "files": ["error-message.component.ts", "error-message.component.html", "error-message.component.css"],
+    "npmDependencies": []
+  },
   "button": {
     "name": "button",
     "description": "A button with variants, sizes, a loading state, and leading/trailing icon slots.",
@@ -9,13 +15,15 @@
     "name": "text-input",
     "description": "A text input supporting ngModel, reactive forms, and Angular signal forms.",
     "files": ["text-input.component.ts", "text-input.component.html", "text-input.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   },
   "password": {
     "name": "password",
     "description": "A password input with a show/hide toggle, built on the same form integrations as text-input.",
     "files": ["password.component.ts", "password.component.html", "password.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
-    "icons": ["lucideEye", "lucideEyeOff"]
+    "icons": ["lucideEye", "lucideEyeOff"],
+    "recipeDependencies": ["error-message"]
   }
 }

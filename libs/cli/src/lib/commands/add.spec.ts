@@ -84,4 +84,24 @@ describe('runAdd', () => {
     expect(process.exitCode).toBe(1);
     expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Unknown component'));
   });
+
+  it('also copies recipe dependencies (text-input depends on error-message)', () => {
+    runAdd(cwd, 'text-input');
+
+    expect(existsSync(join(cwd, 'src/app/components/text-input/text-input.component.ts'))).toBe(true);
+    expect(existsSync(join(cwd, 'src/app/components/error-message/error-message.component.ts'))).toBe(true);
+    expect(
+      readFileSync(join(cwd, 'src/app/components/error-message/error-message.component.ts'), 'utf8'),
+    ).toContain('export class ErrorMessageComponent');
+  });
+
+  it('does not overwrite an already-installed recipe dependency', () => {
+    runAdd(cwd, 'text-input');
+    const errorMessagePath = join(cwd, 'src/app/components/error-message/error-message.component.ts');
+    writeFileSync(errorMessagePath, '// user edits', 'utf8');
+
+    runAdd(cwd, 'password'); // also depends on error-message
+
+    expect(readFileSync(errorMessagePath, 'utf8')).toBe('// user edits');
+  });
 });

@@ -14,6 +14,7 @@ import { IconRef } from '@zaytoon/tokens';
     }
   `,
   styles: `
+    :host,
     ng-icon {
       display: inline-flex;
     }

@@ -7,7 +7,7 @@ import { ZAYTOON_ICONS } from './icon-tokens.token';
 import { provideZaytoonUI } from './provide-zaytoon-ui';
 
 const VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];
-const SIZES: ButtonSize[] = ['sm', 'md', 'lg', 'icon'];
+const SIZES: ButtonSize[] = ['sm', 'md', 'lg'];
 
 function createColorTokens(overrides: Partial<ColorTokens>): ColorTokens {
   return {

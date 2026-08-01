@@ -10,6 +10,6 @@
   (input)="onInput($any($event.target).value)"
   (blur)="handleBlur()"
 />
-@if (effectiveInvalid() && errorMessage()) {
-  <p class="z-text-input__error">{{ errorMessage() }}</p>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
 }

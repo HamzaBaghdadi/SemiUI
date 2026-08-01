@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { readConfig } from '../components-config';
 import { detectPackageManager, installDependencies } from '../package-manager';
-import { getComponent, listComponents, readRecipeFile } from '../registry';
+import { getComponent, listComponents, readRecipeFile, resolveWithDependencies } from '../registry';
 
 function pascalCase(kebab: string): string {
   return kebab
@@ -32,25 +32,37 @@ export function runAdd(cwd: string, componentName: string | undefined): void {
   }
 
   const config = readConfig(cwd);
-  const targetDir = join(cwd, config.componentsDir, component.name);
-  mkdirSync(targetDir, { recursive: true });
-
-  for (const file of component.files) {
-    const destPath = join(targetDir, file);
-    if (existsSync(destPath)) {
-      console.log(`Skipping ${file} -- already exists at ${destPath} (it's yours now, not overwriting).`);
-      continue;
-    }
-    writeFileSync(destPath, readRecipeFile(component.name, file), 'utf8');
-    console.log(`Added ${destPath}`);
+  const toInstall = resolveWithDependencies(componentName);
+  const dependencyNames = toInstall.filter((c) => c.name !== componentName).map((c) => c.name);
+  if (dependencyNames.length) {
+    console.log(`${component.name} depends on: ${dependencyNames.join(', ')} -- adding those too.`);
   }
 
-  const packageManager = detectPackageManager(cwd);
-  console.log(`Installing ${component.npmDependencies.join(', ')} (${packageManager})...`);
-  installDependencies(cwd, packageManager, component.npmDependencies);
+  for (const item of toInstall) {
+    const targetDir = join(cwd, config.componentsDir, item.name);
+    mkdirSync(targetDir, { recursive: true });
 
-  if (component.icons?.length) {
-    const iconImports = component.icons.join(', ');
+    for (const file of item.files) {
+      const destPath = join(targetDir, file);
+      if (existsSync(destPath)) {
+        console.log(`Skipping ${file} -- already exists at ${destPath} (it's yours now, not overwriting).`);
+        continue;
+      }
+      writeFileSync(destPath, readRecipeFile(item.name, file), 'utf8');
+      console.log(`Added ${destPath}`);
+    }
+  }
+
+  const npmDependencies = [...new Set(toInstall.flatMap((item) => item.npmDependencies))];
+  if (npmDependencies.length) {
+    const packageManager = detectPackageManager(cwd);
+    console.log(`Installing ${npmDependencies.join(', ')} (${packageManager})...`);
+    installDependencies(cwd, packageManager, npmDependencies);
+  }
+
+  const icons = [...new Set(toInstall.flatMap((item) => item.icons ?? []))];
+  if (icons.length) {
+    const iconImports = icons.join(', ');
     console.log(`
 This component uses these icons from @ng-icons/lucide: ${iconImports}
 Install @ng-icons/lucide and register them in your app config:

@@ -56,9 +56,9 @@ export const Aurora: ThemePreset = {
         focusRing: 'var(--zaytoon-color-ring)',
         backgroundDisabled: 'var(--zaytoon-color-muted)',
         foregroundDisabled: 'var(--zaytoon-color-muted-foreground)',
-        paddingX: { sm: '0.75rem', md: '1rem', lg: '1.25rem', icon: '0.5rem' },
-        paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem', icon: '0.5rem' },
-        fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem', icon: '0.875rem' },
+        paddingX: { sm: '0.75rem', md: '1rem', lg: '1.25rem' },
+        paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem' },
+        fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem' },
         variants: {
           primary: {
             background: 'var(--zaytoon-color-primary)',

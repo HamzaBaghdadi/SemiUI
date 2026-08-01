@@ -21,6 +21,7 @@ export class App {
     { label: 'Color Mode', path: '/guides/color-mode' },
   ];
   protected components = [
+    { label: 'Error Message', path: '/components/error-message' },
     { label: 'Button', path: '/components/button' },
     { label: 'Text Input', path: '/components/text-input' },
     { label: 'Password', path: '/components/password' },

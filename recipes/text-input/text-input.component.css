@@ -37,9 +37,3 @@
   background: var(--zaytoon-comp-input-background-disabled);
   color: var(--zaytoon-comp-input-foreground-disabled);
 }
-
-.z-text-input__error {
-  margin: 0.25rem 0 0;
-  font-size: var(--zaytoon-typography-font-size-sm);
-  color: var(--zaytoon-comp-input-border-invalid);
-}

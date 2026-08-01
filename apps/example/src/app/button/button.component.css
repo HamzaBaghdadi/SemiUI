@@ -40,7 +40,7 @@
 }
 
 .z-button__icon--spin {
-  animation: z-button-spin 0.6s linear infinite;
+  animation: z-button-spin 1s linear infinite;
 }
 
 /* sizes -- data-size lives on the <z-button> host, not on the inner .z-button */
@@ -59,15 +59,30 @@
   font-size: var(--zaytoon-comp-button-font-size-lg);
 }
 
-:host([data-size='icon']) .z-button {
-  padding: var(--zaytoon-comp-button-padding-y-icon) var(--zaytoon-comp-button-padding-x-icon);
-  font-size: var(--zaytoon-comp-button-font-size-icon);
+/* icon-only mode ([icon]="true") -- square button using the current size's vertical padding on
+   every side, so it works at sm/md/lg instead of needing its own dedicated size/token set.
+   Two attribute selectors gives this higher specificity than the plain [data-size='*'] rules
+   above, regardless of source order. */
+:host([data-icon-only]) .z-button {
   aspect-ratio: 1 / 1;
+}
+:host([data-size='sm'][data-icon-only]) .z-button {
+  padding: var(--zaytoon-comp-button-padding-y-sm);
+}
+:host([data-size='md'][data-icon-only]) .z-button {
+  padding: var(--zaytoon-comp-button-padding-y-md);
+}
+:host([data-size='lg'][data-icon-only]) .z-button {
+  padding: var(--zaytoon-comp-button-padding-y-lg);
 }
 
 /* variants -- data-variant lives on the <z-button> host, not on the inner .z-button.
    Solid-background variants derive hover/active shades from their own background with
-   color-mix() instead of separate tokens, so they adapt automatically in light and dark mode. */
+   color-mix() instead of separate tokens, so they adapt automatically in light and dark mode.
+   The border follows the same color-mix() as the background on hover/active so it never reads
+   as a stale, mismatched outline once the fill darkens. Outline is the deliberate exception --
+   its border is a fixed stroke around a background that's transparent at rest, so there's
+   nothing for it to "match" in the first place. */
 :host([data-variant='primary']) .z-button:not([aria-disabled='true']) {
   background: var(--zaytoon-comp-button-variants-primary-background);
   color: var(--zaytoon-comp-button-variants-primary-foreground);
@@ -75,9 +90,11 @@
 }
 :host([data-variant='primary']) .z-button:hover:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 85%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-border) 85%, black);
 }
 :host([data-variant='primary']) .z-button:active:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 70%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-border) 70%, black);
 }
 
 :host([data-variant='secondary']) .z-button:not([aria-disabled='true']) {
@@ -87,9 +104,11 @@
 }
 :host([data-variant='secondary']) .z-button:hover:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 85%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-border) 85%, black);
 }
 :host([data-variant='secondary']) .z-button:active:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 70%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-border) 70%, black);
 }
 
 :host([data-variant='outline']) .z-button:not([aria-disabled='true']) {
@@ -123,9 +142,11 @@
 }
 :host([data-variant='destructive']) .z-button:hover:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 85%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-border) 85%, black);
 }
 :host([data-variant='destructive']) .z-button:active:not([aria-disabled='true']) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 70%, black);
+  border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-border) 70%, black);
 }
 
 :host([data-variant='link']) .z-button:not([aria-disabled='true']) {
