@@ -25,5 +25,12 @@
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "icons": ["lucideEye", "lucideEyeOff"],
     "recipeDependencies": ["error-message"]
+  },
+  "select": {
+    "name": "select",
+    "description": "A listbox select supporting ngModel, reactive forms, Signal Forms, and custom templates for the trigger, options, icon, header, and footer.",
+    "files": ["select.component.ts", "select.component.html", "select.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "icons": ["lucideChevronDown"]
   }
 }

@@ -42,4 +42,8 @@ export const appRoutes: Route[] = [
     path: 'components/password',
     loadComponent: () => import('./pages/password/password-docs.page').then((m) => m.PasswordDocsPage),
   },
+  {
+    path: 'components/select',
+    loadComponent: () => import('./pages/select/select-docs.page').then((m) => m.SelectDocsPage),
+  },
 ];

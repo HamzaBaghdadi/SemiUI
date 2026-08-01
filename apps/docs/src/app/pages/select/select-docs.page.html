@@ -1,0 +1,105 @@
+<h1>Select</h1>
+<p>
+  A listbox-based select that works with plain values or option objects, supports ngModel,
+  reactive forms, and Signal Forms, and lets you customize every part of its rendering with
+  template slots.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add select</code></pre>
+
+<h2>Primitive options</h2>
+<p>Plain values (strings, numbers) work directly -- no <code>optionLabel</code> needed.</p>
+<div class="demo-row">
+  <z-select [options]="fruits" [(ngModel)]="fruit" placeholder="Pick a fruit" />
+</div>
+<p class="demo-value">Model value: {{ fruit }}</p>
+<pre><code>&lt;z-select [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" placeholder="Pick a fruit" /&gt;</code></pre>
+
+<h2>Option objects</h2>
+<p>
+  <code>optionLabel</code> picks which property to display. Without <code>optionValue</code>,
+  the bound value is the whole option object.
+</p>
+<div class="demo-row">
+  <z-select [options]="countries" optionLabel="name" [(ngModel)]="country" placeholder="Select a country" />
+</div>
+<p class="demo-value">Model value: {{ country | json }}</p>
+<pre><code>&lt;z-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry" placeholder="Select a country" /&gt;</code></pre>
+
+<h2>Reactive forms</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-select [options]="countries" optionLabel="name" formControlName="country" placeholder="Select a country" />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  country: new FormControl&lt;Country | undefined&gt;(undefined),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-select [options]="countries" optionLabel="name" formControlName="country" /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-select [options]="countries" optionLabel="name" [formField]="profileForm.country" placeholder="Select a country" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().country | json }}</p>
+<pre><code>protected profileModel = signal(&#123; country: countries[0] &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-select [options]="countries" optionLabel="name" [formField]="profileForm.country" /&gt;</code></pre>
+
+<h2>Custom templates</h2>
+<p>
+  Five named <code>&lt;ng-template&gt;</code> slots: <code>#selected</code> (the closed trigger's
+  content), <code>#option</code> (each row in the list), <code>#icon</code> (replaces the default
+  chevron), and <code>#header</code> / <code>#footer</code> (rendered above/below the list).
+</p>
+<div class="callout">
+  <p>
+    Angular's strict template checker can't infer a concrete type for <code>let-option</code> on
+    a content-projected <code>&lt;ng-template&gt;</code> (that requires a structural directive
+    with <code>ngTemplateContextGuard</code>, which is heavier machinery than a simple named
+    slot). Until that's added, wrap property access in <code>$any(option)</code> inside these
+    templates -- it's a compile-time-only cast, the runtime value is still your real option.
+  </p>
+</div>
+<div class="demo-row">
+  <z-select [options]="countries" [(ngModel)]="country" placeholder="Select a country">
+    <ng-template #selected let-option>
+      @if (option) {
+        <strong>{{ $any(option).code }}</strong> &mdash; {{ $any(option).name }}
+      }
+    </ng-template>
+    <ng-template #option let-option let-selected="selected">
+      {{ selected ? '✓' : '' }} {{ $any(option).name }} ({{ $any(option).code }})
+    </ng-template>
+    <ng-template #header>
+      <strong>Available Countries</strong>
+    </ng-template>
+  </z-select>
+</div>
+<pre><code>&lt;z-select [options]="countries" [(ngModel)]="selectedCountry"&gt;
+  &lt;ng-template #selected let-option&gt;
+    {{ '{{ option.code }}' }} &mdash; {{ '{{ option.name }}' }}
+  &lt;/ng-template&gt;
+  &lt;ng-template #option let-option let-selected="selected"&gt;
+    {{ "{{ selected ? '✓' : '' }}" }} {{ '{{ option.name }}' }}
+  &lt;/ng-template&gt;
+  &lt;ng-template #header&gt;&lt;strong&gt;Available Countries&lt;/strong&gt;&lt;/ng-template&gt;
+&lt;/z-select&gt;</code></pre>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>
+
+<h2>Keyboard</h2>
+<p>
+  Focus never leaves the trigger button -- the standard ARIA "combobox with listbox popup"
+  pattern. <code>Enter</code> / <code>Space</code> / <code>↓</code> / <code>↑</code> open it;
+  once open, <code>↑</code> <code>↓</code> <code>Home</code> <code>End</code> move the
+  highlighted option, <code>Enter</code>/<code>Space</code> selects it, and
+  <code>Escape</code> or clicking outside closes it.
+</p>

@@ -36,6 +36,11 @@
   </li>
   <li>Installs whatever npm packages that component needs, if they aren't already present.</li>
   <li>
+    Also adds any other recipe it depends on (e.g. <code>text-input</code> and
+    <code>password</code> both pull in <code>error-message</code> automatically) -- same
+    never-overwrite guarantee applies to those too.
+  </li>
+  <li>
     For components that use specific icons (like Password's show/hide toggle), prints the
     <code>provideIcons(&#123; ... &#125;)</code> registration you need to add.
   </li>
@@ -52,6 +57,10 @@
   </thead>
   <tbody>
     <tr>
+      <td><code>error-message</code></td>
+      <td><a routerLink="/components/error-message">Error Message</a> -- animated error text, standalone or used by the form components below.</td>
+    </tr>
+    <tr>
       <td><code>button</code></td>
       <td><a routerLink="/components/button">Button</a> -- variants, sizes, loading state, icons.</td>
     </tr>
@@ -62,6 +71,10 @@
     <tr>
       <td><code>password</code></td>
       <td><a routerLink="/components/password">Password</a> -- same form support, plus a show/hide toggle.</td>
+    </tr>
+    <tr>
+      <td><code>select</code></td>
+      <td><a routerLink="/components/select">Select</a> -- listbox select with custom template slots.</td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,69 @@
+<button
+  #triggerButton
+  type="button"
+  class="z-select__trigger"
+  role="combobox"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="listboxId"
+  [attr.aria-activedescendant]="activeOptionId()"
+  [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+  [disabled]="effectiveDisabled()"
+  (click)="toggle()"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span class="z-select__value">
+    @if (selectedTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedOption() }" />
+    } @else if (selectedOption() !== undefined) {
+      {{ selectedLabel() }}
+    } @else {
+      <span class="z-select__placeholder">{{ placeholder() }}</span>
+    }
+  </span>
+  <span class="z-select__icon">
+    @if (iconTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" />
+    } @else {
+      <z-icon [ref]="defaultIcon" />
+    }
+  </span>
+</button>
+
+@if (open()) {
+  <div class="z-select__panel">
+    @if (headerTemplate(); as tpl) {
+      <div class="z-select__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+    }
+    <ul class="z-select__list" role="listbox" [id]="listboxId">
+      @for (option of options(); track $index; let i = $index) {
+        <!-- Deliberately not focusable / no per-item keydown: this follows the ARIA "combobox
+             with listbox popup" pattern, where keyboard focus stays on the trigger button the
+             whole time and the active option is tracked virtually via aria-activedescendant
+             (handled in onTriggerKeydown). Click is a supplementary pointer-only interaction. -->
+        <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+        <li
+          [id]="listboxId + '-option-' + i"
+          class="z-select__option"
+          role="option"
+          [attr.aria-selected]="option === selectedOption()"
+          [attr.data-active]="i === activeIndex() ? '' : null"
+          (click)="selectOption(option)"
+          (mouseenter)="activeIndex.set(i)"
+        >
+          @if (optionTemplate(); as tpl) {
+            <ng-container
+              [ngTemplateOutlet]="tpl"
+              [ngTemplateOutletContext]="{ $implicit: option, index: i, selected: option === selectedOption() }"
+            />
+          } @else {
+            {{ labelFor(option) }}
+          }
+        </li>
+      }
+    </ul>
+    @if (footerTemplate(); as tpl) {
+      <div class="z-select__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
+    }
+  </div>
+}

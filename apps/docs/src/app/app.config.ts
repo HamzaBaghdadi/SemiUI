@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
-import { lucideEye, lucideEyeOff, lucideSave } from '@ng-icons/lucide';
+import { lucideChevronDown, lucideEye, lucideEyeOff, lucideSave } from '@ng-icons/lucide';
 import { provideZaytoonUI } from '@zaytoon/theme';
 import { Aurora, provideAuroraIcons } from '@zaytoon/presets-aurora';
 import { appRoutes } from './app.routes';
@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideZaytoonUI({ preset: Aurora }),
     provideAuroraIcons(),
-    provideIcons({ lucideSave, lucideEye, lucideEyeOff }),
+    provideIcons({ lucideSave, lucideEye, lucideEyeOff, lucideChevronDown }),
   ],
 };

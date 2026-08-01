@@ -75,5 +75,28 @@ export interface ThemeTokens {
       backgroundDisabled: string;
       foregroundDisabled: string;
     };
+    select: {
+      paddingX: string;
+      paddingY: string;
+      radius: string;
+      fontSize: string;
+      background: string;
+      foreground: string;
+      placeholderForeground: string;
+      border: string;
+      borderHover: string;
+      borderFocus: string;
+      focusRing: string;
+      borderInvalid: string;
+      backgroundDisabled: string;
+      foregroundDisabled: string;
+      panelBackground: string;
+      panelBorder: string;
+      panelShadow: string;
+      optionForeground: string;
+      optionBackgroundHover: string;
+      optionBackgroundSelected: string;
+      optionForegroundSelected: string;
+    };
   };
 }
