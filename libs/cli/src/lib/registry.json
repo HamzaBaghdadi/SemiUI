@@ -152,5 +152,11 @@
     "description": "A data-driven accordion with a required #content template slot per item, an optional custom #header slot, single- or multiple-open modes, and a pure-CSS expand/collapse animation.",
     "files": ["accordion.component.ts", "accordion.component.html", "accordion.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "tabs": {
+    "name": "tabs",
+    "description": "A data-driven tab strip with a required #content template slot, an optional custom #label slot, horizontal/vertical orientation, a measured sliding indicator, and roving-tabindex keyboard navigation.",
+    "files": ["tabs.component.ts", "tabs.component.html", "tabs.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
   }
 }

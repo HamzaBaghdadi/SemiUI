@@ -1,0 +1,36 @@
+<div class="z-tabs__list" role="tablist" [attr.aria-orientation]="orientation()">
+  @for (item of items(); track $index; let i = $index) {
+    <button
+      #tabButton
+      type="button"
+      class="z-tabs__tab"
+      role="tab"
+      [id]="tabId(i)"
+      [attr.aria-selected]="i === activeIndex()"
+      [attr.aria-controls]="panelId(i)"
+      [attr.aria-disabled]="item.disabled ? 'true' : null"
+      [tabindex]="i === activeIndex() ? 0 : -1"
+      [disabled]="item.disabled"
+      (click)="selectTab(i, item)"
+      (keydown)="onTabKeydown($event, i)"
+    >
+      @if (labelTemplate(); as tpl) {
+        <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+      } @else {
+        {{ item.label }}
+      }
+    </button>
+  }
+  <span
+    class="z-tabs__indicator"
+    [style.transform]="indicatorStyle().transform"
+    [style.width]="indicatorStyle().width"
+    [style.height]="indicatorStyle().height"
+  ></span>
+</div>
+
+@if (items()[activeIndex()]; as activeItem) {
+  <div class="z-tabs__panel" role="tabpanel" [id]="panelId(activeIndex())" [attr.aria-labelledby]="tabId(activeIndex())" tabindex="0">
+    <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="{ $implicit: activeItem, index: activeIndex() }" />
+  </div>
+}

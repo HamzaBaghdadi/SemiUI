@@ -44,5 +44,6 @@ export class App {
     { label: 'Rating', path: '/components/rating' },
     { label: 'Badge', path: '/components/badge' },
     { label: 'Accordion', path: '/components/accordion' },
+    { label: 'Tabs', path: '/components/tabs' },
   ];
 }

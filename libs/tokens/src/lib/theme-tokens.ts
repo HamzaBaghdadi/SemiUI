@@ -222,5 +222,18 @@ export interface ThemeTokens {
       paddingX: string;
       paddingY: string;
     };
+    tabs: {
+      border: string;
+      gap: string;
+      foreground: string;
+      foregroundActive: string;
+      foregroundDisabled: string;
+      indicatorColor: string;
+      indicatorThickness: string;
+      fontSize: string;
+      fontWeight: string;
+      paddingX: string;
+      paddingY: string;
+    };
   };
 }
