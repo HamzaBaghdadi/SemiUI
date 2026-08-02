@@ -50,5 +50,6 @@ export class App {
     { label: 'Dialog', path: '/components/dialog' },
     { label: 'Drawer', path: '/components/drawer' },
     { label: 'File Upload', path: '/components/file-upload' },
+    { label: 'Toast', path: '/components/toast' },
   ];
 }

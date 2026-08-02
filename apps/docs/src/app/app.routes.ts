@@ -142,4 +142,8 @@ export const appRoutes: Route[] = [
     path: 'components/file-upload',
     loadComponent: () => import('./pages/file-upload/file-upload-docs.page').then((m) => m.FileUploadDocsPage),
   },
+  {
+    path: 'components/toast',
+    loadComponent: () => import('./pages/toast/toast-docs.page').then((m) => m.ToastDocsPage),
+  },
 ];

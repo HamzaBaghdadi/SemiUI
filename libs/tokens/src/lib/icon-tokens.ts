@@ -29,4 +29,12 @@ export interface IconTokens {
   upload: IconRef;
   /** File Upload's generic per-file icon, shown for non-image files without a thumbnail preview. */
   file: IconRef;
+  /** Toast's success-variant icon. */
+  toastSuccess: IconRef;
+  /** Toast's error-variant icon. */
+  toastError: IconRef;
+  /** Toast's warning-variant icon. */
+  toastWarning: IconRef;
+  /** Toast's info-variant icon. */
+  toastInfo: IconRef;
 }

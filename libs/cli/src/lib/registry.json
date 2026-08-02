@@ -190,5 +190,11 @@
     "files": ["file-upload.component.ts", "file-upload.component.html", "file-upload.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "toast": {
+    "name": "toast",
+    "description": "A ToastService (injectable anywhere) plus a <z-toast-container> to mount once in your app root -- success()/error()/warning()/info() helpers, auto-dismiss with pause-on-hover, positioned corners.",
+    "files": ["toast.service.ts", "toast-container.component.ts", "toast-container.component.html", "toast-container.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

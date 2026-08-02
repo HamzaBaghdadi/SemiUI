@@ -1,6 +1,6 @@
 import { EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ButtonSize, ButtonVariant, ColorTokens, DialogSize, ThemePreset } from '@zaytoon/tokens';
+import { ButtonSize, ButtonVariant, ColorTokens, DialogSize, ThemePreset, ToastVariant, ToastVariantTokens } from '@zaytoon/tokens';
 import { ColorModeService } from './color-mode.service';
 import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
 import { ZAYTOON_ICONS } from './icon-tokens.token';
@@ -262,6 +262,20 @@ function createTestPreset(): ThemePreset {
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
         },
+        toast: {
+          radius: '0.375rem',
+          shadow: 'none',
+          paddingX: '1rem',
+          paddingY: '0.5rem',
+          gap: '0.5rem',
+          maxWidth: '24rem',
+          variants: Object.fromEntries(
+            (['default', 'success', 'error', 'warning', 'info'] as const).map((variant) => [
+              variant,
+              { background: '#000', foreground: '#fff', border: '#333', iconColor: '#fff' },
+            ]),
+          ) as Record<ToastVariant, ToastVariantTokens>,
+        },
         fileUpload: {
           border: '#333',
           borderDragOver: '#fff',
@@ -310,6 +324,10 @@ function createTestPreset(): ThemePreset {
       rating: { type: 'ng-icon', name: 'testStar' },
       upload: { type: 'ng-icon', name: 'testUpload' },
       file: { type: 'ng-icon', name: 'testFile' },
+      toastSuccess: { type: 'ng-icon', name: 'testToastSuccess' },
+      toastError: { type: 'ng-icon', name: 'testToastError' },
+      toastWarning: { type: 'ng-icon', name: 'testToastWarning' },
+      toastInfo: { type: 'ng-icon', name: 'testToastInfo' },
     },
   };
 }

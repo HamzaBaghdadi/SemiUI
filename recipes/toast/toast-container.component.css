@@ -1,0 +1,197 @@
+:host {
+  position: fixed;
+  z-index: 200;
+  display: block;
+  pointer-events: none;
+  inset: var(--zaytoon-spacing-lg);
+}
+
+:host([data-position='top-right']) {
+  bottom: auto;
+  left: auto;
+}
+
+:host([data-position='top-left']) {
+  bottom: auto;
+  right: auto;
+}
+
+:host([data-position='bottom-right']) {
+  top: auto;
+  left: auto;
+}
+
+:host([data-position='bottom-left']) {
+  top: auto;
+  right: auto;
+}
+
+:host([data-position='top-center']) {
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+:host([data-position='bottom-center']) {
+  top: auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.z-toast-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zaytoon-comp-toast-gap);
+  pointer-events: none;
+}
+
+:host([data-position^='bottom']) .z-toast-container {
+  flex-direction: column-reverse;
+}
+
+.z-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--zaytoon-spacing-sm);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--zaytoon-comp-toast-max-width);
+  padding: var(--zaytoon-comp-toast-padding-y) var(--zaytoon-comp-toast-padding-x);
+  border-radius: var(--zaytoon-comp-toast-radius);
+  box-shadow: var(--zaytoon-comp-toast-shadow);
+  border: 1px solid;
+  pointer-events: auto;
+}
+
+.z-toast[data-variant='default'] {
+  background: var(--zaytoon-comp-toast-variants-default-background);
+  color: var(--zaytoon-comp-toast-variants-default-foreground);
+  border-color: var(--zaytoon-comp-toast-variants-default-border);
+}
+
+.z-toast[data-variant='success'] {
+  background: var(--zaytoon-comp-toast-variants-success-background);
+  color: var(--zaytoon-comp-toast-variants-success-foreground);
+  border-color: var(--zaytoon-comp-toast-variants-success-border);
+}
+
+.z-toast[data-variant='error'] {
+  background: var(--zaytoon-comp-toast-variants-error-background);
+  color: var(--zaytoon-comp-toast-variants-error-foreground);
+  border-color: var(--zaytoon-comp-toast-variants-error-border);
+}
+
+.z-toast[data-variant='warning'] {
+  background: var(--zaytoon-comp-toast-variants-warning-background);
+  color: var(--zaytoon-comp-toast-variants-warning-foreground);
+  border-color: var(--zaytoon-comp-toast-variants-warning-border);
+}
+
+.z-toast[data-variant='info'] {
+  background: var(--zaytoon-comp-toast-variants-info-background);
+  color: var(--zaytoon-comp-toast-variants-info-foreground);
+  border-color: var(--zaytoon-comp-toast-variants-info-border);
+}
+
+.z-toast__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+}
+
+.z-toast[data-variant='success'] .z-toast__icon {
+  color: var(--zaytoon-comp-toast-variants-success-icon-color);
+}
+
+.z-toast[data-variant='error'] .z-toast__icon {
+  color: var(--zaytoon-comp-toast-variants-error-icon-color);
+}
+
+.z-toast[data-variant='warning'] .z-toast__icon {
+  color: var(--zaytoon-comp-toast-variants-warning-icon-color);
+}
+
+.z-toast[data-variant='info'] .z-toast__icon {
+  color: var(--zaytoon-comp-toast-variants-info-icon-color);
+}
+
+.z-toast__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.z-toast__title {
+  margin: 0;
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+  font-size: var(--zaytoon-typography-font-size-sm);
+}
+
+.z-toast__description {
+  margin: 0;
+  font-size: var(--zaytoon-typography-font-size-sm);
+  opacity: 0.85;
+}
+
+.z-toast__title + .z-toast__description {
+  margin-top: 0.125rem;
+}
+
+.z-toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: var(--zaytoon-radius-sm);
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.z-toast__close:hover {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.z-toast__close z-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+@keyframes z-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.z-toast--enter {
+  animation: z-toast-enter 0.2s ease-out;
+}
+
+@keyframes z-toast-leave {
+  from {
+    opacity: 1;
+    max-height: 10rem;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: -1rem;
+  }
+}
+
+.z-toast--leave {
+  animation: z-toast-leave 0.18s ease-in forwards;
+  overflow: hidden;
+}

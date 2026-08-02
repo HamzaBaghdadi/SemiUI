@@ -349,6 +349,46 @@ export const Aurora: ThemePreset = {
         bubbleBackground: 'var(--zaytoon-color-foreground)',
         bubbleForeground: 'var(--zaytoon-color-background)',
       },
+      toast: {
+        radius: 'var(--zaytoon-radius-md)',
+        shadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        paddingX: 'var(--zaytoon-spacing-md)',
+        paddingY: 'var(--zaytoon-spacing-sm)',
+        gap: 'var(--zaytoon-spacing-sm)',
+        maxWidth: '24rem',
+        variants: {
+          default: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-border)',
+            iconColor: 'var(--zaytoon-color-muted-foreground)',
+          },
+          success: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: '#22c55e',
+            iconColor: '#22c55e',
+          },
+          error: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-destructive)',
+            iconColor: 'var(--zaytoon-color-destructive)',
+          },
+          warning: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: '#f59e0b',
+            iconColor: '#f59e0b',
+          },
+          info: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: '#3b82f6',
+            iconColor: '#3b82f6',
+          },
+        },
+      },
       fileUpload: {
         border: 'var(--zaytoon-color-border)',
         borderDragOver: 'var(--zaytoon-color-primary)',
@@ -395,5 +435,9 @@ export const Aurora: ThemePreset = {
     rating: { type: 'ng-icon', name: 'lucideStar' },
     upload: { type: 'ng-icon', name: 'lucideUpload' },
     file: { type: 'ng-icon', name: 'lucideFile' },
+    toastSuccess: { type: 'ng-icon', name: 'lucideCircleCheck' },
+    toastError: { type: 'ng-icon', name: 'lucideCircleX' },
+    toastWarning: { type: 'ng-icon', name: 'lucideTriangleAlert' },
+    toastInfo: { type: 'ng-icon', name: 'lucideInfo' },
   },
 };

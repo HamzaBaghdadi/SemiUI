@@ -2,6 +2,14 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'des
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type TagVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline';
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
+export type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
+
+export interface ToastVariantTokens {
+  background: string;
+  foreground: string;
+  border: string;
+  iconColor: string;
+}
 
 export interface ButtonVariantTokens {
   background: string;
@@ -265,6 +273,15 @@ export interface ThemeTokens {
       tickSize: string;
       bubbleBackground: string;
       bubbleForeground: string;
+    };
+    toast: {
+      radius: string;
+      shadow: string;
+      paddingX: string;
+      paddingY: string;
+      gap: string;
+      maxWidth: string;
+      variants: Record<ToastVariant, ToastVariantTokens>;
     };
     fileUpload: {
       border: string;

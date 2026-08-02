@@ -1,0 +1,31 @@
+@if (toasts().length > 0) {
+  <div class="z-toast-container">
+    @for (toast of toasts(); track toast.id) {
+      <div
+        class="z-toast"
+        [attr.data-variant]="toast.variant"
+        role="status"
+        aria-live="polite"
+        (mouseenter)="pause(toast.id)"
+        (mouseleave)="resume(toast)"
+        animate.enter="z-toast--enter"
+        animate.leave="z-toast--leave"
+      >
+        @if (variantIcon(toast.variant); as icon) {
+          <z-icon class="z-toast__icon" [ref]="icon" />
+        }
+        <div class="z-toast__content">
+          @if (toast.title) {
+            <p class="z-toast__title">{{ toast.title }}</p>
+          }
+          @if (toast.description) {
+            <p class="z-toast__description">{{ toast.description }}</p>
+          }
+        </div>
+        <button type="button" class="z-toast__close" aria-label="Dismiss" (click)="dismiss(toast.id)">
+          <z-icon [ref]="icons.clear" />
+        </button>
+      </div>
+    }
+  </div>
+}

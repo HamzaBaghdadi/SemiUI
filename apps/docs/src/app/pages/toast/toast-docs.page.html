@@ -1,0 +1,71 @@
+<h1>Toast</h1>
+<p>
+  A <code>ToastService</code> injectable from anywhere in your app, plus a
+  <code>&lt;z-toast-container&gt;</code> you mount once (typically in your app root component's
+  template) to render whatever's queued. Call <code>toastService.success('Saved!')</code> from any
+  component, service, or interceptor -- no reference to the container needed.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add toast</code></pre>
+<pre><code>// app.ts
+&#64;Component(&#123;
+  imports: [ToastContainerComponent, RouterOutlet],
+  template: `&lt;router-outlet /&gt;&lt;z-toast-container /&gt;`,
+&#125;)
+export class App &#123;&#125;</code></pre>
+<div class="callout">
+  <p>The container below is mounted directly on this page (rather than the app root) just for this demo -- <code>ToastService</code> is a root-provided singleton either way, so this works identically to mounting it once at the top of your app.</p>
+</div>
+
+<h2>Variants</h2>
+<div class="demo-row">
+  <button type="button" (click)="showDefault()">Default</button>
+  <button type="button" (click)="showSuccess()">Success</button>
+  <button type="button" (click)="showError()">Error</button>
+  <button type="button" (click)="showWarning()">Warning</button>
+  <button type="button" (click)="showInfo()">Info</button>
+</div>
+<pre><code>protected toastService = inject(ToastService);
+
+toastService.show(&#123; title: 'Notification', description: '...' &#125;);
+toastService.success('Your changes have been saved.', 'Success');
+toastService.error('Something went wrong.', 'Error');
+toastService.warning('Session expires in 5 minutes.', 'Warning');
+toastService.info('A new version is available.', 'Info');</code></pre>
+
+<h2>Sticky (no auto-dismiss) and clear all</h2>
+<div class="demo-row">
+  <button type="button" (click)="showSticky()">Sticky toast</button>
+  <button type="button" (click)="clearAll()">Clear all</button>
+</div>
+<pre><code>toastService.show(&#123; title: 'Sticky', description: '...', duration: 0 &#125;);  // 0 = no auto-dismiss
+toastService.clear();</code></pre>
+<p>Hover a toast to pause its auto-dismiss timer -- it restarts (from the full duration) on mouse leave.</p>
+
+<h2>Position</h2>
+<div class="demo-row">
+  <button type="button" (click)="setPosition('top-left')">Top left</button>
+  <button type="button" (click)="setPosition('top-center')">Top center</button>
+  <button type="button" (click)="setPosition('top-right')">Top right</button>
+  <button type="button" (click)="setPosition('bottom-left')">Bottom left</button>
+  <button type="button" (click)="setPosition('bottom-center')">Bottom center</button>
+  <button type="button" (click)="setPosition('bottom-right')">Bottom right</button>
+</div>
+<p class="demo-value">Current position: {{ position() }} -- trigger a toast above to see it.</p>
+<pre><code>&lt;z-toast-container position="bottom-right" /&gt;</code></pre>
+
+<h2>Options</h2>
+<ul>
+  <li><code>ToastOptions</code> -- <code>title?</code>, <code>description?</code>, <code>variant?</code> (<code>"default"</code> / <code>"success"</code> / <code>"error"</code> / <code>"warning"</code> / <code>"info"</code>), <code>duration?</code> (ms, default <code>5000</code>, <code>0</code> = sticky).</li>
+  <li><code>ToastContainerComponent.position</code> -- one of the six corners/centers above, default <code>"top-right"</code>.</li>
+</ul>
+
+<h2>Methods</h2>
+<ul>
+  <li><code>show(options)</code> -- returns the toast's id.</li>
+  <li><code>success(description, title?)</code> / <code>error(...)</code> / <code>warning(...)</code> / <code>info(...)</code></li>
+  <li><code>dismiss(id)</code> / <code>clear()</code></li>
+</ul>
+
+<z-toast-container [position]="position()" />

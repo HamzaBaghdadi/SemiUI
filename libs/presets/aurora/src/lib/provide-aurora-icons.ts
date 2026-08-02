@@ -3,14 +3,18 @@ import { provideIcons } from '@ng-icons/core';
 import {
   lucideCheck,
   lucideChevronDown,
+  lucideCircleCheck,
+  lucideCircleX,
   lucideEye,
   lucideEyeOff,
   lucideFile,
+  lucideInfo,
   lucideLoaderCircle,
   lucideMinus,
   lucidePlus,
   lucideSearch,
   lucideStar,
+  lucideTriangleAlert,
   lucideUpload,
   lucideUser,
   lucideX,
@@ -32,5 +36,9 @@ export function provideAuroraIcons(): Provider[] {
     lucideStar,
     lucideUpload,
     lucideFile,
+    lucideCircleCheck,
+    lucideCircleX,
+    lucideTriangleAlert,
+    lucideInfo,
   });
 }
