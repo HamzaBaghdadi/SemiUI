@@ -1,0 +1,30 @@
+<h1>Divider</h1>
+<p>A horizontal or vertical rule. Any projected content renders as a centered label with the line continuing on both sides; with no content, it's just a plain line.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add divider</code></pre>
+
+<h2>Plain</h2>
+<div class="demo-row" style="flex-direction: column; align-items: stretch;">
+  <p>Some content above.</p>
+  <z-divider />
+  <p>Some content below.</p>
+</div>
+<pre><code>&lt;z-divider /&gt;</code></pre>
+
+<h2>With a label</h2>
+<div class="demo-row" style="flex-direction: column; align-items: stretch;">
+  <z-divider>OR</z-divider>
+</div>
+<pre><code>&lt;z-divider&gt;OR&lt;/z-divider&gt;</code></pre>
+
+<h2>Vertical</h2>
+<p>Vertical dividers stretch to fill the height of a flex row -- give the row a fixed or content-driven height.</p>
+<div class="demo-row" style="height: 2rem;">
+  <span>Item one</span>
+  <z-divider orientation="vertical" />
+  <span>Item two</span>
+  <z-divider orientation="vertical" />
+  <span>Item three</span>
+</div>
+<pre><code>&lt;z-divider orientation="vertical" /&gt;</code></pre>

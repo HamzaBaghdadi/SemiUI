@@ -82,4 +82,8 @@ export const appRoutes: Route[] = [
     path: 'components/tooltip',
     loadComponent: () => import('./pages/tooltip/tooltip-docs.page').then((m) => m.TooltipDocsPage),
   },
+  {
+    path: 'components/divider',
+    loadComponent: () => import('./pages/divider/divider-docs.page').then((m) => m.DividerDocsPage),
+  },
 ];

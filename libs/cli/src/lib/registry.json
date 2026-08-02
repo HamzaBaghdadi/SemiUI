@@ -97,5 +97,11 @@
       "tooltip-panel.component.css"
     ],
     "npmDependencies": ["@zaytoon/tokens"]
+  },
+  "divider": {
+    "name": "divider",
+    "description": "A horizontal or vertical rule, with an optional centered label.",
+    "files": ["divider.component.ts", "divider.component.html", "divider.component.css"],
+    "npmDependencies": ["@zaytoon/tokens"]
   }
 }

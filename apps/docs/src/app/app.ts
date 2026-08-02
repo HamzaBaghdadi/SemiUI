@@ -35,5 +35,6 @@ export class App {
     { label: 'Multiselect', path: '/components/multiselect' },
     { label: 'Popover', path: '/components/popover' },
     { label: 'Tooltip', path: '/components/tooltip' },
+    { label: 'Divider', path: '/components/divider' },
   ];
 }

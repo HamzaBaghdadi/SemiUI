@@ -42,7 +42,7 @@
   flex-shrink: 0;
   padding: var(--zaytoon-spacing-lg);
   border-right: 1px solid var(--zaytoon-color-border);
-  height: calc(100dvh - 5rem);
+  height: calc(100dvh - 5.2rem);
   overflow-y: auto;
 }
 
@@ -84,7 +84,6 @@
 .shell__content {
   flex: 1;
   padding: var(--zaytoon-spacing-lg);
-  max-width: 900px;
-  height: calc(100dvh - 5rem);
+  height: calc(100dvh - 5.2rem);
   overflow-y: auto;
 }
