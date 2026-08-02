@@ -134,4 +134,8 @@ export const appRoutes: Route[] = [
     path: 'components/dialog',
     loadComponent: () => import('./pages/dialog/dialog-docs.page').then((m) => m.DialogDocsPage),
   },
+  {
+    path: 'components/drawer',
+    loadComponent: () => import('./pages/drawer/drawer-docs.page').then((m) => m.DrawerDocsPage),
+  },
 ];

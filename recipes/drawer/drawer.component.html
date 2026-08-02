@@ -1,0 +1,49 @@
+@if (open()) {
+  <!-- Escape (handled separately via @HostListener) is the keyboard-equivalent way to dismiss;
+       the backdrop itself is a decorative pointer-only affordance, not a focusable control. -->
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+  <div #backdrop class="z-drawer__backdrop" (click)="onBackdropClick()" animate.enter="z-drawer__backdrop--enter" animate.leave="z-drawer__backdrop--leave">
+    <div
+      #panel
+      class="z-drawer__panel"
+      [attr.data-side]="side()"
+      [attr.data-size]="size()"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="title() || null"
+      tabindex="-1"
+      (click)="$event.stopPropagation()"
+      (keydown)="onPanelKeydown($event)"
+      animate.enter="z-drawer__panel--enter"
+      animate.leave="z-drawer__panel--leave"
+    >
+      @if (headerTemplate(); as tpl) {
+        <div class="z-drawer__header">
+          <div class="z-drawer__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
+          @if (closable()) {
+            <button type="button" class="z-drawer__close" aria-label="Close" (click)="hide()">
+              <z-icon [ref]="icons.clear" />
+            </button>
+          }
+        </div>
+      } @else if (title() || closable()) {
+        <div class="z-drawer__header">
+          <h2 class="z-drawer__title">{{ title() }}</h2>
+          @if (closable()) {
+            <button type="button" class="z-drawer__close" aria-label="Close" (click)="hide()">
+              <z-icon [ref]="icons.clear" />
+            </button>
+          }
+        </div>
+      }
+      <div class="z-drawer__body">
+        <ng-content />
+      </div>
+      @if (footerTemplate(); as tpl) {
+        <div class="z-drawer__footer">
+          <ng-container [ngTemplateOutlet]="tpl" />
+        </div>
+      }
+    </div>
+  </div>
+}

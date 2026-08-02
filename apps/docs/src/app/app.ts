@@ -48,5 +48,6 @@ export class App {
     { label: 'Stepper', path: '/components/stepper' },
     { label: 'Slider', path: '/components/slider' },
     { label: 'Dialog', path: '/components/dialog' },
+    { label: 'Drawer', path: '/components/drawer' },
   ];
 }

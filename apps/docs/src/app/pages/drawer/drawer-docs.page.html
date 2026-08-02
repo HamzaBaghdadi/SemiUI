@@ -1,0 +1,76 @@
+<h1>Drawer</h1>
+<p>
+  A panel that slides in from a viewport edge, controlled by reference like
+  <a routerLink="/components/dialog">Dialog</a>: call <code>drawer.show()</code> /
+  <code>drawer.hide()</code> / <code>drawer.toggle()</code> from anywhere. Same behavior under the
+  hood as Dialog -- portals to <code>document.body</code>, traps focus, locks background scroll,
+  restores focus on close -- the difference is purely presentational.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add drawer</code></pre>
+
+<h2>Basic usage (right side)</h2>
+<div class="demo-row">
+  <z-button (click)="dr.show()">Open drawer</z-button>
+  <z-drawer #dr title="Edit profile">
+    <p>Drawer content goes here -- forms, lists, anything.</p>
+    <ng-template #footer>
+      <z-button variant="outline" (click)="dr.hide()">Cancel</z-button>
+      <z-button (click)="dr.hide()">Save</z-button>
+    </ng-template>
+  </z-drawer>
+</div>
+<pre><code>&lt;z-button (click)="dr.show()"&gt;Open drawer&lt;/z-button&gt;
+
+&lt;z-drawer #dr title="Edit profile"&gt;
+  &lt;p&gt;Drawer content&lt;/p&gt;
+  &lt;ng-template #footer&gt;
+    &lt;z-button variant="outline" (click)="dr.hide()"&gt;Cancel&lt;/z-button&gt;
+    &lt;z-button (click)="dr.hide()"&gt;Save&lt;/z-button&gt;
+  &lt;/ng-template&gt;
+&lt;/z-drawer&gt;</code></pre>
+
+<h2>Sides</h2>
+<div class="demo-row">
+  <z-button (click)="leftDrawer.show()">Left</z-button>
+  <z-button (click)="topDrawer.show()">Top</z-button>
+  <z-button (click)="bottomDrawer.show()">Bottom</z-button>
+</div>
+<z-drawer #leftDrawer title="Left drawer" side="left">
+  <p>Slides in from the left.</p>
+</z-drawer>
+<z-drawer #topDrawer title="Top drawer" side="top">
+  <p>Slides in from the top.</p>
+</z-drawer>
+<z-drawer #bottomDrawer title="Bottom drawer" side="bottom">
+  <p>Slides in from the bottom.</p>
+</z-drawer>
+<pre><code>&lt;z-drawer #dr side="left"&gt;...&lt;/z-drawer&gt;  &lt;!-- "left" | "right" (default) | "top" | "bottom" --&gt;</code></pre>
+
+<h2>Sizes</h2>
+<div class="demo-row">
+  <z-button (click)="smDrawer.show()">Small</z-button>
+  <z-button (click)="lgDrawer.show()">Large</z-button>
+</div>
+<z-drawer #smDrawer title="Small drawer" size="sm">
+  <p>A narrower panel.</p>
+</z-drawer>
+<z-drawer #lgDrawer title="Large drawer" size="lg">
+  <p>More room for content.</p>
+</z-drawer>
+<pre><code>&lt;z-drawer #dr size="sm"&gt;...&lt;/z-drawer&gt;  &lt;!-- "sm" | "md" (default) | "lg" | "full" --&gt;</code></pre>
+
+<h2>Options</h2>
+<ul>
+  <li><code>title</code> -- plain-text header, ignored if a <code>#header</code> template is provided.</li>
+  <li><code>side</code> -- <code>"left"</code> / <code>"right"</code> (default) / <code>"top"</code> / <code>"bottom"</code>.</li>
+  <li><code>size</code> -- controls width (left/right) or height (top/bottom): <code>"sm"</code> / <code>"md"</code> (default) / <code>"lg"</code> / <code>"full"</code>.</li>
+  <li><code>closable</code> -- default <code>true</code>; shows the "x" close button.</li>
+  <li><code>closeOnOutsideClick</code> / <code>closeOnEscape</code> -- default <code>true</code>.</li>
+</ul>
+
+<h2>Methods</h2>
+<ul>
+  <li><code>show()</code> / <code>hide()</code> / <code>toggle()</code> -- same as Dialog.</li>
+</ul>
