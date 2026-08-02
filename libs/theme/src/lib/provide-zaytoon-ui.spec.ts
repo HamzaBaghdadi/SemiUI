@@ -262,6 +262,17 @@ function createTestPreset(): ThemePreset {
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
         },
+        carousel: {
+          radius: '0.5rem',
+          arrowSize: '2.5rem',
+          arrowBackground: 'rgb(0 0 0 / 0.4)',
+          arrowBackgroundHover: 'rgb(0 0 0 / 0.6)',
+          arrowColor: '#fff',
+          dotSize: '0.5rem',
+          dotColor: '#333',
+          dotColorActive: '#fff',
+          dotGap: '0.25rem',
+        },
         toast: {
           radius: '0.375rem',
           shadow: 'none',

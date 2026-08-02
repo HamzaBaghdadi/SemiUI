@@ -51,5 +51,6 @@ export class App {
     { label: 'Drawer', path: '/components/drawer' },
     { label: 'File Upload', path: '/components/file-upload' },
     { label: 'Toast', path: '/components/toast' },
+    { label: 'Carousel', path: '/components/carousel' },
   ];
 }

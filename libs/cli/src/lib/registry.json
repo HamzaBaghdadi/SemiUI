@@ -196,5 +196,11 @@
     "description": "A ToastService (injectable anywhere) plus a <z-toast-container> to mount once in your app root -- success()/error()/warning()/info() helpers, auto-dismiss with pause-on-hover, positioned corners.",
     "files": ["toast.service.ts", "toast-container.component.ts", "toast-container.component.html", "toast-container.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "carousel": {
+    "name": "carousel",
+    "description": "A single-slide-at-a-time carousel with a required #slide template slot, autoplay (paused on hover), looping, arrow keys, and pointer-drag/swipe.",
+    "files": ["carousel.component.ts", "carousel.component.html", "carousel.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

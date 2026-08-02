@@ -274,6 +274,17 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    carousel: {
+      radius: string;
+      arrowSize: string;
+      arrowBackground: string;
+      arrowBackgroundHover: string;
+      arrowColor: string;
+      dotSize: string;
+      dotColor: string;
+      dotColorActive: string;
+      dotGap: string;
+    };
     toast: {
       radius: string;
       shadow: string;

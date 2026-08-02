@@ -1,0 +1,70 @@
+<h1>Carousel</h1>
+<p>
+  A single-slide-at-a-time carousel: pass <code>items</code> and render each slide through the
+  required <code>#slide</code> template slot, same convention as
+  <a routerLink="/components/tabs">Tabs</a>'/<a routerLink="/components/accordion">Accordion</a>'s
+  content slot. Arrow keys (when focused), drag/swipe, arrow buttons, and dot indicators all move
+  the same <code>activeIndex</code>.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add carousel</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row" style="display: block;">
+  <z-carousel [items]="slides" style="max-width: 32rem; display: block;">
+    <ng-template #slide let-item>
+      <div [style.background]="item.color" style="height: 16rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 600;">
+        {{ item.label }}
+      </div>
+    </ng-template>
+  </z-carousel>
+</div>
+<pre><code>protected slides = [
+  &#123; color: '#ef4444', label: 'Slide 1' &#125;,
+  &#123; color: '#f59e0b', label: 'Slide 2' &#125;,
+&#125;;
+
+&lt;z-carousel [items]="slides"&gt;
+  &lt;ng-template #slide let-item&gt;
+    &lt;div [style.background]="item.color"&gt;{{ '{{ item.label }}' }}&lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/z-carousel&gt;</code></pre>
+
+<h2>Autoplay</h2>
+<div class="demo-row" style="display: block;">
+  <z-carousel [items]="slides" [autoplay]="true" [autoplayInterval]="2000" style="max-width: 32rem; display: block;">
+    <ng-template #slide let-item>
+      <div [style.background]="item.color" style="height: 12rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 600;">
+        {{ item.label }}
+      </div>
+    </ng-template>
+  </z-carousel>
+</div>
+<pre><code>&lt;z-carousel [items]="slides" [autoplay]="true" [autoplayInterval]="2000"&gt;...&lt;/z-carousel&gt;
+&lt;!-- pauses automatically while hovered --&gt;</code></pre>
+
+<h2>No loop, no dots</h2>
+<div class="demo-row" style="display: block;">
+  <z-carousel [items]="slides" [loop]="false" [showDots]="false" style="max-width: 32rem; display: block;">
+    <ng-template #slide let-item>
+      <div [style.background]="item.color" style="height: 10rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 600;">
+        {{ item.label }}
+      </div>
+    </ng-template>
+  </z-carousel>
+</div>
+<p>The arrows disable at the first/last slide instead of wrapping around.</p>
+<pre><code>&lt;z-carousel [items]="slides" [loop]="false" [showDots]="false"&gt;...&lt;/z-carousel&gt;</code></pre>
+
+<h2>Options</h2>
+<ul>
+  <li><code>items</code> -- any array; the <code>#slide</code> template controls how each renders.</li>
+  <li><code>activeIndex</code> -- two-way bindable, default <code>0</code>.</li>
+  <li><code>loop</code> -- default <code>true</code>.</li>
+  <li><code>autoplay</code> -- default <code>false</code>; <code>autoplayInterval</code> in ms, default <code>4000</code>.</li>
+  <li><code>showArrows</code> / <code>showDots</code> -- default <code>true</code>.</li>
+</ul>
+
+<h2>Keyboard and touch</h2>
+<p>Focus the carousel and use <code>←</code>/<code>→</code>. On touch devices (or with a mouse), drag the slide to swipe between slides -- releasing past a threshold advances/retreats.</p>

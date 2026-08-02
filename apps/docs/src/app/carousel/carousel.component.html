@@ -1,0 +1,62 @@
+<div
+  class="z-carousel"
+  tabindex="0"
+  role="region"
+  aria-roledescription="carousel"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (keydown.arrowleft)="previous()"
+  (keydown.arrowright)="next()"
+>
+  <div
+    class="z-carousel__viewport"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp()"
+    (pointercancel)="onPointerUp()"
+  >
+    <div class="z-carousel__track" [class.z-carousel__track--dragging]="isDragging()" [style.transform]="trackTransform()">
+      @for (item of items(); track $index; let i = $index) {
+        <div class="z-carousel__slide" [attr.aria-hidden]="i !== activeIndex()">
+          <ng-container [ngTemplateOutlet]="slideTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (showArrows() && items().length > 1) {
+    <button
+      type="button"
+      class="z-carousel__arrow z-carousel__arrow--prev"
+      aria-label="Previous slide"
+      [disabled]="!loop() && activeIndex() === 0"
+      (click)="previous()"
+    >
+      <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
+    </button>
+    <button
+      type="button"
+      class="z-carousel__arrow z-carousel__arrow--next"
+      aria-label="Next slide"
+      [disabled]="!loop() && activeIndex() === items().length - 1"
+      (click)="next()"
+    >
+      <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
+    </button>
+  }
+
+  @if (showDots() && items().length > 1) {
+    <div class="z-carousel__dots" role="tablist">
+      @for (item of items(); track $index; let i = $index) {
+        <button
+          type="button"
+          class="z-carousel__dot"
+          role="tab"
+          [attr.aria-selected]="i === activeIndex()"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+          (click)="goTo(i)"
+        ></button>
+      }
+    </div>
+  }
+</div>

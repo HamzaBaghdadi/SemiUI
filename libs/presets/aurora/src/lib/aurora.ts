@@ -349,6 +349,17 @@ export const Aurora: ThemePreset = {
         bubbleBackground: 'var(--zaytoon-color-foreground)',
         bubbleForeground: 'var(--zaytoon-color-background)',
       },
+      carousel: {
+        radius: 'var(--zaytoon-radius-lg)',
+        arrowSize: '2.5rem',
+        arrowBackground: 'rgb(0 0 0 / 0.4)',
+        arrowBackgroundHover: 'rgb(0 0 0 / 0.6)',
+        arrowColor: '#fff',
+        dotSize: '0.5rem',
+        dotColor: 'var(--zaytoon-color-border)',
+        dotColorActive: 'var(--zaytoon-color-primary)',
+        dotGap: 'var(--zaytoon-spacing-xs)',
+      },
       toast: {
         radius: 'var(--zaytoon-radius-md)',
         shadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',

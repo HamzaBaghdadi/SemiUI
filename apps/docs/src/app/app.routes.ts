@@ -146,4 +146,8 @@ export const appRoutes: Route[] = [
     path: 'components/toast',
     loadComponent: () => import('./pages/toast/toast-docs.page').then((m) => m.ToastDocsPage),
   },
+  {
+    path: 'components/carousel',
+    loadComponent: () => import('./pages/carousel/carousel-docs.page').then((m) => m.CarouselDocsPage),
+  },
 ];

@@ -1,0 +1,115 @@
+:host {
+  display: block;
+}
+
+.z-carousel {
+  position: relative;
+  outline: none;
+}
+
+.z-carousel:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 2px;
+  border-radius: var(--zaytoon-comp-carousel-radius);
+}
+
+.z-carousel__viewport {
+  overflow: hidden;
+  border-radius: var(--zaytoon-comp-carousel-radius);
+  touch-action: pan-y;
+}
+
+.z-carousel__track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.z-carousel__track--dragging {
+  transition: none;
+}
+
+.z-carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.z-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zaytoon-comp-carousel-arrow-size);
+  height: var(--zaytoon-comp-carousel-arrow-size);
+  border: none;
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-carousel-arrow-background);
+  color: var(--zaytoon-comp-carousel-arrow-color);
+  cursor: pointer;
+}
+
+.z-carousel__arrow:hover:not(:disabled) {
+  background: var(--zaytoon-comp-carousel-arrow-background-hover);
+}
+
+.z-carousel__arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.z-carousel__arrow:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 2px;
+}
+
+.z-carousel__arrow--prev {
+  left: var(--zaytoon-spacing-sm);
+}
+
+.z-carousel__arrow--next {
+  right: var(--zaytoon-spacing-sm);
+}
+
+.z-carousel__arrow-icon--prev {
+  transform: rotate(90deg);
+}
+
+.z-carousel__arrow-icon--next {
+  transform: rotate(-90deg);
+}
+
+.z-carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zaytoon-comp-carousel-dot-gap);
+  margin-top: var(--zaytoon-spacing-sm);
+}
+
+.z-carousel__dot {
+  width: var(--zaytoon-comp-carousel-dot-size);
+  height: var(--zaytoon-comp-carousel-dot-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-carousel-dot-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.z-carousel__dot[aria-selected='true'] {
+  background: var(--zaytoon-comp-carousel-dot-color-active);
+  transform: scale(1.2);
+}
+
+.z-carousel__dot:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .z-carousel__track {
+    transition: none;
+  }
+}
