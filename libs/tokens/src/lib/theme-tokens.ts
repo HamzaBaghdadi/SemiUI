@@ -209,5 +209,18 @@ export interface ThemeTokens {
       gap: string;
       size: Record<ButtonSize, string>;
     };
+    accordion: {
+      border: string;
+      radius: string;
+      headerBackground: string;
+      headerBackgroundHover: string;
+      headerForeground: string;
+      panelBackground: string;
+      panelForeground: string;
+      fontSize: string;
+      fontWeight: string;
+      paddingX: string;
+      paddingY: string;
+    };
   };
 }

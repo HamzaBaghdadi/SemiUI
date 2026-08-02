@@ -1,0 +1,67 @@
+<h1>Accordion</h1>
+<p>
+  A data-driven accordion: pass <code>items</code> (each needs at least a <code>header</code>) and
+  render each panel's body through the required <code>#content</code> template slot. Single-open
+  by default -- opening one panel closes the others -- set <code>multiple</code> to allow several
+  open at once. The expand/collapse animation is pure CSS, no JS height measurement involved.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add accordion</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row" style="display: block;">
+  <z-accordion [items]="faqs">
+    <ng-template #content let-item>
+      <p>{{ $any(item).answer }}</p>
+    </ng-template>
+  </z-accordion>
+</div>
+<pre><code>protected faqs = [
+  &#123; header: 'What is Zaytoon?', answer: '...' &#125;,
+  &#123; header: 'Is it free?', answer: '...' &#125;,
+&#125;;
+
+&lt;z-accordion [items]="faqs"&gt;
+  &lt;ng-template #content let-item&gt;
+    &lt;p&gt;{{ '{{ item.answer }}' }}&lt;/p&gt;
+  &lt;/ng-template&gt;
+&lt;/z-accordion&gt;</code></pre>
+
+<h2>Multiple open at once</h2>
+<div class="demo-row" style="display: block;">
+  <z-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]">
+    <ng-template #content let-item let-i="index">
+      <p>Content for {{ $any(item).header }} (index {{ i }}).</p>
+    </ng-template>
+  </z-accordion>
+</div>
+<pre><code>&lt;z-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]"&gt;
+  &lt;ng-template #content let-item&gt;...&lt;/ng-template&gt;
+&lt;/z-accordion&gt;</code></pre>
+<p>The third section above has <code>disabled: true</code> on its item -- its header is unclickable and dimmed.</p>
+
+<h2>Custom header template</h2>
+<div class="demo-row" style="display: block;">
+  <z-accordion [items]="faqs">
+    <ng-template #header let-item let-i="index">
+      <strong>Q{{ i + 1 }}.</strong> {{ $any(item).header }}
+    </ng-template>
+    <ng-template #content let-item>
+      <p>{{ $any(item).answer }}</p>
+    </ng-template>
+  </z-accordion>
+</div>
+<pre><code>&lt;z-accordion [items]="faqs"&gt;
+  &lt;ng-template #header let-item let-i="index"&gt;
+    &lt;strong&gt;Q{{ '{{ i + 1 }}' }}.&lt;/strong&gt; {{ '{{ item.header }}' }}
+  &lt;/ng-template&gt;
+  &lt;ng-template #content let-item&gt;&lt;p&gt;{{ '{{ item.answer }}' }}&lt;/p&gt;&lt;/ng-template&gt;
+&lt;/z-accordion&gt;</code></pre>
+
+<h2>Options</h2>
+<ul>
+  <li><code>items</code> -- array of <code>&#123; header: string; disabled?: boolean &#125;</code> (extend the interface for extra fields your templates need).</li>
+  <li><code>multiple</code> -- default <code>false</code> (only one panel open at a time).</li>
+  <li><code>defaultOpenIndices</code> -- indices expanded on initial render, default <code>[]</code>.</li>
+</ul>

@@ -43,5 +43,6 @@ export class App {
     { label: 'Pagination', path: '/components/pagination' },
     { label: 'Rating', path: '/components/rating' },
     { label: 'Badge', path: '/components/badge' },
+    { label: 'Accordion', path: '/components/accordion' },
   ];
 }

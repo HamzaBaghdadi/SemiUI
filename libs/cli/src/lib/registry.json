@@ -146,5 +146,11 @@
     "description": "A small notification indicator (count, \"N+\", or a dot) that overlays projected content, or renders inline in standalone mode.",
     "files": ["badge.component.ts", "badge.component.html", "badge.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+  },
+  "accordion": {
+    "name": "accordion",
+    "description": "A data-driven accordion with a required #content template slot per item, an optional custom #header slot, single- or multiple-open modes, and a pure-CSS expand/collapse animation.",
+    "files": ["accordion.component.ts", "accordion.component.html", "accordion.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

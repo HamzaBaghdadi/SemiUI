@@ -1,0 +1,97 @@
+:host {
+  display: block;
+}
+
+.z-accordion {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--zaytoon-comp-accordion-border);
+  border-radius: var(--zaytoon-comp-accordion-radius);
+  overflow: hidden;
+}
+
+.z-accordion__item {
+  border-bottom: 1px solid var(--zaytoon-comp-accordion-border);
+}
+
+.z-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.z-accordion__header-wrap {
+  margin: 0;
+}
+
+.z-accordion__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zaytoon-spacing-sm);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-accordion-padding-y) var(--zaytoon-comp-accordion-padding-x);
+  border: none;
+  background: var(--zaytoon-comp-accordion-header-background);
+  color: var(--zaytoon-comp-accordion-header-foreground);
+  font: inherit;
+  font-size: var(--zaytoon-comp-accordion-font-size);
+  font-weight: var(--zaytoon-comp-accordion-font-weight);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.z-accordion__header:hover:not(:disabled) {
+  background: var(--zaytoon-comp-accordion-header-background-hover);
+}
+
+.z-accordion__header:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: -2px;
+}
+
+.z-accordion__header:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.z-accordion__header-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.z-accordion__chevron {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.z-accordion__item[data-expanded] .z-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.z-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease;
+  background: var(--zaytoon-comp-accordion-panel-background);
+  color: var(--zaytoon-comp-accordion-panel-foreground);
+}
+
+.z-accordion__item[data-expanded] .z-accordion__panel {
+  grid-template-rows: 1fr;
+}
+
+.z-accordion__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 var(--zaytoon-comp-accordion-padding-x) var(--zaytoon-comp-accordion-padding-y);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .z-accordion__panel,
+  .z-accordion__chevron {
+    transition: none;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="z-accordion">
+  @for (item of items(); track $index; let i = $index) {
+    <div class="z-accordion__item" [attr.data-expanded]="isOpen(i) ? '' : null" [attr.data-disabled]="item.disabled ? '' : null">
+      <h3 class="z-accordion__header-wrap">
+        <button
+          type="button"
+          class="z-accordion__header"
+          [id]="headerId(i)"
+          [attr.aria-expanded]="isOpen(i)"
+          [attr.aria-controls]="panelId(i)"
+          [disabled]="item.disabled"
+          (click)="toggle(i, item)"
+        >
+          <span class="z-accordion__header-label">
+            @if (headerTemplate(); as tpl) {
+              <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+            } @else {
+              {{ item.header }}
+            }
+          </span>
+          <z-icon class="z-accordion__chevron" [ref]="icons.chevronDown" />
+        </button>
+      </h3>
+      <div class="z-accordion__panel" [id]="panelId(i)" role="region" [attr.aria-labelledby]="headerId(i)">
+        <div class="z-accordion__panel-inner">
+          <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+        </div>
+      </div>
+    </div>
+  }
+</div>

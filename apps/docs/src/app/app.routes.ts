@@ -114,4 +114,8 @@ export const appRoutes: Route[] = [
     path: 'components/badge',
     loadComponent: () => import('./pages/badge/badge-docs.page').then((m) => m.BadgeDocsPage),
   },
+  {
+    path: 'components/accordion',
+    loadComponent: () => import('./pages/accordion/accordion-docs.page').then((m) => m.AccordionDocsPage),
+  },
 ];
