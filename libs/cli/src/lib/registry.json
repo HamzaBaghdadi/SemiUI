@@ -223,5 +223,11 @@
     "files": ["table.component.ts", "table.component.html", "table.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["pagination"]
+  },
+  "chart": {
+    "name": "chart",
+    "description": "An SVG chart supporting line, bar, area, pie, and donut via a type input -- no canvas, no external charting library. Gridlines/axes and a clickable legend for cartesian types, hover tooltips for all types.",
+    "files": ["chart.component.ts", "chart.component.html", "chart.component.css", "chart-math.ts"],
+    "npmDependencies": ["@zaytoon/tokens"]
   }
 }

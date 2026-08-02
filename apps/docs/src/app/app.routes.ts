@@ -162,4 +162,8 @@ export const appRoutes: Route[] = [
     path: 'components/table',
     loadComponent: () => import('./pages/table/table-docs.page').then((m) => m.TableDocsPage),
   },
+  {
+    path: 'components/chart',
+    loadComponent: () => import('./pages/chart/chart-docs.page').then((m) => m.ChartDocsPage),
+  },
 ];

@@ -349,6 +349,18 @@ export const Aurora: ThemePreset = {
         bubbleBackground: 'var(--zaytoon-color-foreground)',
         bubbleForeground: 'var(--zaytoon-color-background)',
       },
+      chart: {
+        gridColor: 'var(--zaytoon-color-border)',
+        axisLabelColor: 'var(--zaytoon-color-muted-foreground)',
+        axisLabelFontSize: '9px',
+        tooltipBackground: 'var(--zaytoon-color-foreground)',
+        tooltipForeground: 'var(--zaytoon-color-background)',
+        tooltipRadius: 'var(--zaytoon-radius-sm)',
+        legendFontSize: 'var(--zaytoon-typography-font-size-sm)',
+        legendGap: 'var(--zaytoon-spacing-md)',
+        lineStrokeWidth: '2',
+        areaOpacity: '0.15',
+      },
       table: {
         border: 'var(--zaytoon-color-border)',
         radius: 'var(--zaytoon-radius-md)',

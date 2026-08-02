@@ -262,6 +262,18 @@ function createTestPreset(): ThemePreset {
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
         },
+        chart: {
+          gridColor: '#333',
+          axisLabelColor: '#999',
+          axisLabelFontSize: '9px',
+          tooltipBackground: '#fff',
+          tooltipForeground: '#000',
+          tooltipRadius: '0.25rem',
+          legendFontSize: '0.875rem',
+          legendGap: '1rem',
+          lineStrokeWidth: '2',
+          areaOpacity: '0.15',
+        },
         table: {
           border: '#333',
           radius: '0.375rem',

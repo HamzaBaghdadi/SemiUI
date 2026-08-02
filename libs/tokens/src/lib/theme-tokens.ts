@@ -274,6 +274,18 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    chart: {
+      gridColor: string;
+      axisLabelColor: string;
+      axisLabelFontSize: string;
+      tooltipBackground: string;
+      tooltipForeground: string;
+      tooltipRadius: string;
+      legendFontSize: string;
+      legendGap: string;
+      lineStrokeWidth: string;
+      areaOpacity: string;
+    };
     table: {
       border: string;
       radius: string;

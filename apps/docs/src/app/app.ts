@@ -55,5 +55,6 @@ export class App {
     { label: 'Date Picker', path: '/components/date-picker' },
     { label: 'Color Picker', path: '/components/color-picker' },
     { label: 'Table', path: '/components/table' },
+    { label: 'Chart', path: '/components/chart' },
   ];
 }
