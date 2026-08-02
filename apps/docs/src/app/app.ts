@@ -33,5 +33,6 @@ export class App {
     { label: 'Input Number', path: '/components/input-number' },
     { label: 'OTP', path: '/components/otp' },
     { label: 'Multiselect', path: '/components/multiselect' },
+    { label: 'Popover', path: '/components/popover' },
   ];
 }

@@ -74,4 +74,8 @@ export const appRoutes: Route[] = [
     path: 'components/multiselect',
     loadComponent: () => import('./pages/multiselect/multiselect-docs.page').then((m) => m.MultiselectDocsPage),
   },
+  {
+    path: 'components/popover',
+    loadComponent: () => import('./pages/popover/popover-docs.page').then((m) => m.PopoverDocsPage),
+  },
 ];

@@ -136,5 +136,14 @@ export interface ThemeTokens {
       focusRing: string;
       size: Record<ButtonSize, string>;
     };
+    popover: {
+      background: string;
+      border: string;
+      shadow: string;
+      radius: string;
+      foreground: string;
+      paddingX: string;
+      paddingY: string;
+    };
   };
 }

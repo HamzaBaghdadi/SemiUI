@@ -1,0 +1,15 @@
+@if (open()) {
+  <div
+    #panel
+    class="z-popover"
+    role="dialog"
+    [attr.data-placement]="resolvedPlacement()"
+    [attr.data-arrow]="showArrow() ? '' : null"
+    [style.top.px]="position().top"
+    [style.left.px]="position().left"
+    animate.enter="z-popover--enter"
+    animate.leave="z-popover--leave"
+  >
+    <ng-content />
+  </div>
+}

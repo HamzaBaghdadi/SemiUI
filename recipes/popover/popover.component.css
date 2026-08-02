@@ -1,0 +1,93 @@
+:host {
+  display: contents;
+}
+
+.z-popover {
+  position: fixed;
+  z-index: 50;
+  max-width: 20rem;
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-popover-padding-y) var(--zaytoon-comp-popover-padding-x);
+  background: var(--zaytoon-comp-popover-background);
+  color: var(--zaytoon-comp-popover-foreground);
+  border: 1px solid var(--zaytoon-comp-popover-border);
+  border-radius: var(--zaytoon-comp-popover-radius);
+  box-shadow: var(--zaytoon-comp-popover-shadow);
+  font-size: var(--zaytoon-typography-font-size-md);
+  font-family: var(--zaytoon-typography-font-family);
+}
+
+.z-popover[data-arrow]::after {
+  content: '';
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--zaytoon-comp-popover-background);
+  border: 1px solid var(--zaytoon-comp-popover-border);
+}
+
+.z-popover[data-arrow][data-placement='bottom']::after {
+  top: -0.3rem;
+  left: 50%;
+  margin-left: -0.25rem;
+  border-right: none;
+  border-bottom: none;
+  transform: rotate(45deg);
+}
+
+.z-popover[data-arrow][data-placement='top']::after {
+  bottom: -0.3rem;
+  left: 50%;
+  margin-left: -0.25rem;
+  border-left: none;
+  border-top: none;
+  transform: rotate(45deg);
+}
+
+.z-popover[data-arrow][data-placement='left']::after {
+  right: -0.3rem;
+  top: 50%;
+  margin-top: -0.25rem;
+  border-bottom: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.z-popover[data-arrow][data-placement='right']::after {
+  left: -0.3rem;
+  top: 50%;
+  margin-top: -0.25rem;
+  border-top: none;
+  border-right: none;
+  transform: rotate(45deg);
+}
+
+@keyframes z-popover-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.z-popover--enter {
+  animation: z-popover-enter 0.12s ease-out;
+}
+
+@keyframes z-popover-leave {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.z-popover--leave {
+  animation: z-popover-leave 0.1s ease-in;
+}

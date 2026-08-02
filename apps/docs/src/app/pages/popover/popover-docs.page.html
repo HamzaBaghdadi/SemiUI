@@ -1,0 +1,59 @@
+<h1>Popover</h1>
+<p>
+  Controlled by reference from anywhere in the template -- not just its own immediate DOM
+  neighborhood. Any element's own click handler calls <code>po.toggle($event)</code>,
+  <code>show($event)</code>, or <code>hide()</code>; the popover reads the event's target to know
+  what to anchor itself to and position against, using <code>position: fixed</code> so it renders
+  correctly regardless of DOM nesting.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add popover</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row">
+  <z-button (click)="po.toggle($event)">Click to show popover</z-button>
+  <z-popover #po>
+    <span>Popover opened!</span>
+  </z-popover>
+</div>
+<pre><code>&lt;z-button (click)="po.toggle($event)"&gt;Click to show popover&lt;/z-button&gt;
+
+&lt;z-popover #po&gt;
+  &lt;span&gt;Popover opened!&lt;/span&gt;
+&lt;/z-popover&gt;</code></pre>
+
+<h2>show() / hide() from separate triggers</h2>
+<div class="demo-row">
+  <z-button variant="secondary" (click)="po2.show($event)">Show</z-button>
+  <z-button variant="outline" (click)="po2.hide()">Hide</z-button>
+  <z-popover #po2 placement="right">
+    <strong>Rich content works too</strong>
+    <p>Any projected content is fine -- text, forms, other components.</p>
+  </z-popover>
+</div>
+<pre><code>&lt;z-button (click)="po.show($event)"&gt;Show&lt;/z-button&gt;
+&lt;z-button (click)="po.hide()"&gt;Hide&lt;/z-button&gt;
+&lt;z-popover #po placement="right"&gt;...&lt;/z-popover&gt;</code></pre>
+
+<h2>Placement</h2>
+<p><code>placement</code> accepts <code>top</code> / <code>bottom</code> (default) / <code>left</code> / <code>right</code>, and flips top/bottom automatically when there isn't room.</p>
+<div class="demo-row">
+  <z-button (click)="poTop.toggle($event)">Top</z-button>
+  <z-popover #poTop placement="top"><span>I'm above the button.</span></z-popover>
+  <z-button (click)="poLeft.toggle($event)">Left</z-button>
+  <z-popover #poLeft placement="left"><span>I'm to the left.</span></z-popover>
+</div>
+
+<h2>Options</h2>
+<ul>
+  <li><code>offset</code> -- gap in pixels between the anchor and the panel (default <code>8</code>).</li>
+  <li><code>closeOnOutsideClick</code> / <code>closeOnEscape</code> -- default <code>true</code>.</li>
+  <li><code>showArrow</code> -- default <code>true</code>; disable if the panel might get clamped near a viewport edge, where the arrow would no longer line up with the anchor.</li>
+</ul>
+<div class="demo-row">
+  <z-button (click)="poNoArrow.toggle($event)">No arrow, no outside-click close</z-button>
+  <z-popover #poNoArrow [showArrow]="false" [closeOnOutsideClick]="false">
+    <span>Only Escape or the trigger itself closes me.</span>
+  </z-popover>
+</div>

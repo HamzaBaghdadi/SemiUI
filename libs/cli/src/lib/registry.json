@@ -80,5 +80,11 @@
     "files": ["multiselect.component.ts", "multiselect.component.html", "multiselect.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "popover": {
+    "name": "popover",
+    "description": "A popover controlled by reference from anywhere in the template (po.toggle($event)/show($event)/hide()), positioned against whatever triggered it.",
+    "files": ["popover.component.ts", "popover.component.html", "popover.component.css"],
+    "npmDependencies": ["@zaytoon/tokens"]
   }
 }
