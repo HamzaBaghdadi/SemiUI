@@ -47,7 +47,19 @@
     this won't come up for them unless you override with a custom icon.
   </li>
   <li>Run with no component name to see the full list of what's available.</li>
+  <li>
+    <code>--all</code> installs every component in the registry at once, instead of one at a
+    time -- the same never-overwrite guarantee applies to each file.
+  </li>
+  <li>
+    <code>--path &lt;dir&gt;</code> (or <code>-p</code>) copies into a custom directory for that
+    invocation only, overriding <code>componentsDir</code> from <code>components.json</code>
+    without editing the file.
+  </li>
 </ul>
+<pre><code>npx zaytoon add --all
+npx zaytoon add button --path src/app/ui
+npx zaytoon add --all --path src/app/ui</code></pre>
 
 <h3>Available components</h3>
 <table>

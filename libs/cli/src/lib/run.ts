@@ -1,12 +1,30 @@
-import { runAdd } from './commands/add';
+import { AddOptions, runAdd } from './commands/add';
 import { runInit } from './commands/init';
 
 const HELP = `zaytoon -- CLI for the Zaytoon component library
 
 Usage:
-  zaytoon init          Set up Zaytoon in the current Angular project
-  zaytoon add <name>    Add a component's source into your project
+  zaytoon init                     Set up Zaytoon in the current Angular project
+  zaytoon add <name>                Add a component's source into your project
+  zaytoon add --all                 Add every component in the library
+  zaytoon add <name> --path <dir>   Add into a custom directory for this run (overrides components.json)
 `;
+
+function parseAddArgs(args: string[]): { componentName: string | undefined; options: AddOptions } {
+  let componentName: string | undefined;
+  const options: AddOptions = {};
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === '--all') {
+      options.all = true;
+    } else if (arg === '--path' || arg === '-p') {
+      options.path = args[++i];
+    } else if (componentName === undefined) {
+      componentName = arg;
+    }
+  }
+  return { componentName, options };
+}
 
 export function run(argv: string[], cwd: string = process.cwd()): void {
   const [command, ...rest] = argv;
@@ -15,9 +33,11 @@ export function run(argv: string[], cwd: string = process.cwd()): void {
     case 'init':
       runInit(cwd);
       break;
-    case 'add':
-      runAdd(cwd, rest[0]);
+    case 'add': {
+      const { componentName, options } = parseAddArgs(rest);
+      runAdd(cwd, componentName, options);
       break;
+    }
     case undefined:
     case '--help':
     case '-h':

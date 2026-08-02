@@ -104,4 +104,34 @@ describe('runAdd', () => {
 
     expect(readFileSync(errorMessagePath, 'utf8')).toBe('// user edits');
   });
+
+  it('--all installs every registry component', () => {
+    runAdd(cwd, undefined, { all: true });
+
+    expect(existsSync(join(cwd, 'src/app/components/button/button.component.ts'))).toBe(true);
+    expect(existsSync(join(cwd, 'src/app/components/dialog/dialog.component.ts'))).toBe(true);
+    expect(existsSync(join(cwd, 'src/app/components/dialog/dialog.service.ts'))).toBe(true);
+    // A recipe dependency (error-message, depended on by text-input/password/etc.) is only copied once.
+    expect(existsSync(join(cwd, 'src/app/components/error-message/error-message.component.ts'))).toBe(true);
+  });
+
+  it('--all does not require a component name', () => {
+    runAdd(cwd, undefined, { all: true });
+
+    expect(process.exitCode).toBeUndefined();
+  });
+
+  it('--path overrides componentsDir for this invocation only, without touching components.json', () => {
+    runAdd(cwd, 'button', { path: 'src/lib/ui' });
+
+    expect(existsSync(join(cwd, 'src/lib/ui/button/button.component.ts'))).toBe(true);
+    expect(existsSync(join(cwd, 'components.json'))).toBe(false);
+  });
+
+  it('--all and --path together install everything into the custom directory', () => {
+    runAdd(cwd, undefined, { all: true, path: 'src/lib/ui' });
+
+    expect(existsSync(join(cwd, 'src/lib/ui/button/button.component.ts'))).toBe(true);
+    expect(existsSync(join(cwd, 'src/lib/ui/dialog/dialog.service.ts'))).toBe(true);
+  });
 });
