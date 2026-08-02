@@ -42,6 +42,12 @@ export class MultiselectDocsPage {
   protected profileModel = signal({ skills: ['ts', 'ng'] });
   protected profileForm = form(this.profileModel);
 
+  // Custom templates
+  protected templatedSkillCodes: string[] = ['ts', 'ng'];
+
+  // removableChips
+  protected pinnedFruits: string[] = ['Apple', 'Cherry'];
+
   protected disabled = signal(false);
   protected loading = signal(false);
 

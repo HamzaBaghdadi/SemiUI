@@ -48,6 +48,59 @@ protected profileForm = form(this.profileModel);
 
 &lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" /&gt;</code></pre>
 
+<h2>Custom templates</h2>
+<p>
+  Same five named <code>&lt;ng-template&gt;</code> slots as <a routerLink="/components/select">Select</a>:
+  <code>#selected</code> (the closed trigger's content -- context is the full array of selected
+  options, not a single one), <code>#option</code> (each row in the list), <code>#icon</code>
+  (replaces the default chevron), and <code>#header</code> / <code>#footer</code> (rendered
+  above/below the list).
+</p>
+<div class="callout">
+  <p>
+    Same caveat as Select: Angular's strict template checker can't infer a concrete type for
+    <code>let-option</code> on a content-projected <code>&lt;ng-template&gt;</code>. Wrap property
+    access in <code>$any(option)</code> inside these templates -- it's a compile-time-only cast.
+  </p>
+</div>
+<div class="demo-row">
+  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="templatedSkillCodes" placeholder="Select skills">
+    <ng-template #selected let-options>
+      @for (option of options; track $index) {
+        <strong>{{ $any(option).code }}</strong>
+      } @empty {
+        <span>Pick skills&hellip;</span>
+      }
+    </ng-template>
+    <ng-template #option let-option let-selected="selected">
+      {{ selected ? '✓' : '' }} {{ $any(option).name }} ({{ $any(option).code }})
+    </ng-template>
+    <ng-template #header>
+      <strong>Available Skills</strong>
+    </ng-template>
+  </z-multiselect>
+</div>
+<pre><code>&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes"&gt;
+  &lt;ng-template #selected let-options&gt;
+    &lt;!-- options is the full array of selected values --&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template #option let-option let-selected="selected"&gt;
+    {{ "{{ selected ? '✓' : '' }}" }} {{ '{{ option.name }}' }}
+  &lt;/ng-template&gt;
+  &lt;ng-template #header&gt;&lt;strong&gt;Available Skills&lt;/strong&gt;&lt;/ng-template&gt;
+&lt;/z-multiselect&gt;</code></pre>
+
+<h2>Removable chips</h2>
+<p>
+  Chips render via <a routerLink="/components/tag">Tag</a> with <code>removable</code> on by
+  default -- clicking the "x" on a chip removes just that selection without opening the panel.
+  Set <code>removableChips="false"</code> for read-only chips.
+</p>
+<div class="demo-row">
+  <z-multiselect [options]="fruits" [(ngModel)]="pinnedFruits" [removableChips]="false" placeholder="Pick fruits" />
+</div>
+<pre><code>&lt;z-multiselect [options]="fruits" [removableChips]="false" /&gt;</code></pre>
+
 <h2>closeOnSelect and maxChipsDisplay</h2>
 <p>
   By default the panel stays open across selections and the trigger shows individual chips until

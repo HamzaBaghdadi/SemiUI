@@ -17,6 +17,7 @@ import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
 import { injectZaytoonIcons } from '@zaytoon/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { TagComponent } from '../tag/tag.component';
 
 export interface MultiselectOptionContext<T> {
   $implicit: T;
@@ -36,7 +37,7 @@ let nextMultiselectId = 0;
  */
 @Component({
   selector: 'z-multiselect',
-  imports: [ZIconComponent, NgTemplateOutlet, ErrorMessageComponent],
+  imports: [ZIconComponent, NgTemplateOutlet, ErrorMessageComponent, TagComponent],
   templateUrl: './multiselect.component.html',
   styleUrl: './multiselect.component.css',
   host: {
@@ -46,7 +47,7 @@ let nextMultiselectId = 0;
 export class MultiselectComponent<TOption = unknown> extends BaseFormFieldControl<unknown[]> {
   protected readonly icons = injectZaytoonIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
+  private readonly triggerButton = viewChild<ElementRef<HTMLDivElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
@@ -65,6 +66,8 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   showSelectAll = input(true, { transform: booleanAttribute });
   /** Once more than this many items are selected, the trigger shows "N selected" instead of chips. */
   maxChipsDisplay = input(3);
+  /** Shows a remove ("x") button on each chip, via `<z-tag removable>`. Set to `false` for read-only chips. */
+  removableChips = input(true, { transform: booleanAttribute });
   /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
   loading = input(false, { transform: booleanAttribute });
   /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context. */
@@ -196,6 +199,15 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
       // refocus it so the panel staying open for more picks doesn't strand keyboard/typing input.
       this.filterInput()?.nativeElement.focus();
     }
+  }
+
+  protected removeChip(option: TOption, event?: MouseEvent): void {
+    event?.stopPropagation();
+    if (this.effectiveDisabled()) {
+      return;
+    }
+    const val = this.resolveValue(option);
+    this.value.set(this.value().filter((v) => v !== val));
   }
 
   protected toggleSelectAll(): void {

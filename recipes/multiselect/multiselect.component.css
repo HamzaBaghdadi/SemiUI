@@ -47,18 +47,6 @@
   color: var(--zaytoon-comp-select-foreground);
 }
 
-.z-multiselect__chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.125rem 0.5rem;
-  border-radius: var(--zaytoon-radius-sm);
-  background: var(--zaytoon-comp-select-option-background-hover);
-  color: var(--zaytoon-comp-select-foreground);
-  font-size: var(--zaytoon-typography-font-size-sm);
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
 .z-multiselect__icon {
   display: inline-flex;
   flex-shrink: 0;
@@ -111,7 +99,7 @@
   will-change: transform;
 }
 
-.z-multiselect__trigger:hover:not(:disabled):not([aria-invalid='true']) {
+.z-multiselect__trigger:hover:not([aria-disabled='true']):not([aria-invalid='true']) {
   border-color: var(--zaytoon-comp-select-border-hover);
 }
 
@@ -125,13 +113,13 @@
   border-color: var(--zaytoon-comp-select-border-invalid);
 }
 
-.z-multiselect__trigger:disabled {
+.z-multiselect__trigger[aria-disabled='true'] {
   cursor: not-allowed;
 }
 
 /* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
    the flat disabled palette -- it reads as "busy", not "unavailable". */
-.z-multiselect__trigger:disabled:not(.z-multiselect__trigger--loading) {
+.z-multiselect__trigger[aria-disabled='true']:not(.z-multiselect__trigger--loading) {
   background: var(--zaytoon-comp-select-background-disabled);
   color: var(--zaytoon-comp-select-foreground-disabled);
 }

@@ -1,15 +1,21 @@
-<button
+<!-- A <div role="button"> rather than a native <button>: chips render via <z-tag removable>,
+     which renders a real nested <button> for its remove affordance -- nesting a <button> inside
+     a <button> is invalid HTML and browsers will split the DOM to "fix" it. Keyboard activation
+     (Enter/Space to open) is handled explicitly in onTriggerKeydown below rather than relying on
+     the browser's native button-only click-synthesis. -->
+<div
   #triggerButton
-  type="button"
   class="z-multiselect__trigger"
   [class.z-multiselect__trigger--loading]="loading()"
+  role="button"
   aria-haspopup="listbox"
   [attr.aria-expanded]="open()"
   [attr.aria-controls]="listboxId"
   [attr.aria-activedescendant]="activeOptionId()"
   [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
   [attr.aria-busy]="loading() ? 'true' : null"
-  [disabled]="effectiveDisabled() || loading()"
+  [attr.aria-disabled]="effectiveDisabled() || loading() ? 'true' : null"
+  [attr.tabindex]="effectiveDisabled() || loading() ? -1 : 0"
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
@@ -22,14 +28,14 @@
       <span class="z-multiselect__summary">{{ selectedOptions().length }} selected</span>
     } @else {
       @for (option of selectedOptions(); track $index) {
-        <span class="z-multiselect__chip">{{ labelFor(option) }}</span>
+        <z-tag [removable]="removableChips()" (removed)="removeChip(option)">{{ labelFor(option) }}</z-tag>
       }
     }
   </span>
   @if (showClear()) {
-    <!-- Not a real <button>: nesting interactive elements inside the trigger <button> is invalid
-         HTML. Excluded from the tab sequence on purpose -- reopening the panel and unchecking
-         items (or using "Clear all" inside it) is the keyboard path. -->
+    <!-- Not a real <button>: excluded from the tab sequence on purpose, matching Select's clear
+         affordance -- reopening the panel and unchecking items (or "Clear all" inside it) is the
+         keyboard path. -->
     <span class="z-multiselect__clear" role="button" tabindex="-1" aria-label="Clear all" (mousedown)="$event.preventDefault()" (click)="clearAll($event)">
       <z-icon [ref]="icons.clear" />
     </span>
@@ -43,7 +49,7 @@
       <z-icon [ref]="icons.chevronDown" />
     }
   </span>
-</button>
+</div>
 
 @if (open()) {
   <div
