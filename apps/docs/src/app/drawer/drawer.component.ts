@@ -42,11 +42,17 @@ export class DrawerComponent {
   closable = input(true, { transform: booleanAttribute });
   closeOnOutsideClick = input(true, { transform: booleanAttribute });
   closeOnEscape = input(true, { transform: booleanAttribute });
+  /** Blurs whatever is behind the backdrop, in addition to dimming it. */
+  blurBackdrop = input(false, { transform: booleanAttribute });
+  /** Hides the dimming/blur backdrop entirely -- the panel still portals, traps focus, and locks scroll, it just doesn't visually cover the page behind it. */
+  showBackdrop = input(true, { transform: booleanAttribute });
 
   /** Custom header content, replacing the plain `title` text. The close button (if `closable`) still renders alongside it. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
   /** Rendered below the main content, typically action buttons. */
   protected footerTemplate = contentChild<unknown, TemplateRef<unknown>>('footer', { read: TemplateRef });
+  /** Replaces the entire header/body/footer chrome with raw projected content -- still gets the portal, focus trap, and animations, just none of the default layout/padding/title/close button. */
+  protected headlessTemplate = contentChild<unknown, TemplateRef<unknown>>('headless', { read: TemplateRef });
 
   protected readonly open = signal(false);
   private previouslyFocusedEl: HTMLElement | null = null;

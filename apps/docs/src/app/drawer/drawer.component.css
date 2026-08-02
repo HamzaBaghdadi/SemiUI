@@ -5,6 +5,14 @@
   background: var(--zaytoon-comp-dialog-backdrop-color);
 }
 
+.z-drawer__backdrop[data-blur] {
+  backdrop-filter: blur(4px);
+}
+
+.z-drawer__backdrop[data-hidden] {
+  background: transparent;
+}
+
 .z-drawer__panel {
   position: fixed;
   box-sizing: border-box;
@@ -113,8 +121,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   border: none;
   border-radius: var(--zaytoon-radius-sm);
   background: transparent;
@@ -133,8 +141,8 @@
 }
 
 .z-drawer__close z-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .z-drawer__body {
@@ -176,7 +184,7 @@
 }
 
 .z-drawer__backdrop--leave {
-  animation: z-drawer-backdrop-leave 0.15s ease-in;
+  animation: z-drawer-backdrop-leave 0.15s ease-in forwards;
 }
 
 @keyframes z-drawer-slide-in-left {
@@ -232,17 +240,17 @@
 }
 
 .z-drawer__panel[data-side='left'].z-drawer__panel--leave {
-  animation: z-drawer-slide-in-left 0.18s ease-in reverse;
+  animation: z-drawer-slide-in-left 0.18s ease-in reverse forwards;
 }
 
 .z-drawer__panel[data-side='right'].z-drawer__panel--leave {
-  animation: z-drawer-slide-in-right 0.18s ease-in reverse;
+  animation: z-drawer-slide-in-right 0.18s ease-in reverse forwards;
 }
 
 .z-drawer__panel[data-side='top'].z-drawer__panel--leave {
-  animation: z-drawer-slide-in-top 0.18s ease-in reverse;
+  animation: z-drawer-slide-in-top 0.18s ease-in reverse forwards;
 }
 
 .z-drawer__panel[data-side='bottom'].z-drawer__panel--leave {
-  animation: z-drawer-slide-in-bottom 0.18s ease-in reverse;
+  animation: z-drawer-slide-in-bottom 0.18s ease-in reverse forwards;
 }

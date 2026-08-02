@@ -61,13 +61,59 @@
 </z-drawer>
 <pre><code>&lt;z-drawer #dr size="sm"&gt;...&lt;/z-drawer&gt;  &lt;!-- "sm" | "md" (default) | "lg" | "full" --&gt;</code></pre>
 
+<h2>Headless template</h2>
+<p>
+  <code>#headless</code> replaces the entire header/body/footer chrome with raw projected content --
+  the drawer still portals, traps focus, and animates, but none of the default layout, padding,
+  title, or close button is rendered.
+</p>
+<div class="demo-row">
+  <z-button (click)="headlessDrawer.show()">Open</z-button>
+  <z-drawer #headlessDrawer>
+    <ng-template #headless>
+      <div style="padding: 1.5rem; text-align: center;">
+        <p style="margin: 0 0 1rem;">Fully custom content, no default chrome at all.</p>
+        <z-button (click)="headlessDrawer.hide()">Close</z-button>
+      </div>
+    </ng-template>
+  </z-drawer>
+</div>
+<pre><code>&lt;z-drawer #dr&gt;
+  &lt;ng-template #headless&gt;
+    &lt;div class="my-custom-drawer"&gt;...&lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/z-drawer&gt;</code></pre>
+
+<h2>Blur backdrop &amp; hidden backdrop</h2>
+<p>
+  <code>blurBackdrop</code> adds a <code>backdrop-filter: blur()</code> behind the drawer in addition
+  to dimming it. <code>showBackdrop</code> (default <code>true</code>) can be set to
+  <code>false</code> to remove the dimming/blur entirely -- the drawer still portals, traps focus,
+  and locks scroll, it just doesn't visually cover the page behind it.
+</p>
+<div class="demo-row">
+  <z-button (click)="blurDrawer.show()">Blurred backdrop</z-button>
+  <z-button (click)="noBackdropDrawer.show()">No backdrop</z-button>
+</div>
+<z-drawer #blurDrawer title="Blurred backdrop" [blurBackdrop]="true">
+  <p>The page behind this drawer is dimmed and blurred.</p>
+</z-drawer>
+<z-drawer #noBackdropDrawer title="No backdrop" [showBackdrop]="false">
+  <p>No dimming layer behind this drawer -- everything else stays interactive-looking, though the
+  drawer still traps focus.</p>
+</z-drawer>
+<pre><code>&lt;z-drawer #dr [blurBackdrop]="true"&gt;...&lt;/z-drawer&gt;
+&lt;z-drawer #dr [showBackdrop]="false"&gt;...&lt;/z-drawer&gt;</code></pre>
+
 <h2>Options</h2>
 <ul>
-  <li><code>title</code> -- plain-text header, ignored if a <code>#header</code> template is provided.</li>
+  <li><code>title</code> -- plain-text header, ignored if a <code>#header</code> or <code>#headless</code> template is provided.</li>
   <li><code>side</code> -- <code>"left"</code> / <code>"right"</code> (default) / <code>"top"</code> / <code>"bottom"</code>.</li>
   <li><code>size</code> -- controls width (left/right) or height (top/bottom): <code>"sm"</code> / <code>"md"</code> (default) / <code>"lg"</code> / <code>"full"</code>.</li>
   <li><code>closable</code> -- default <code>true</code>; shows the "x" close button.</li>
   <li><code>closeOnOutsideClick</code> / <code>closeOnEscape</code> -- default <code>true</code>.</li>
+  <li><code>blurBackdrop</code> -- default <code>false</code>; blurs whatever is behind the backdrop, in addition to dimming it.</li>
+  <li><code>showBackdrop</code> -- default <code>true</code>; set to <code>false</code> to remove the dimming/blur layer entirely.</li>
 </ul>
 
 <h2>Methods</h2>

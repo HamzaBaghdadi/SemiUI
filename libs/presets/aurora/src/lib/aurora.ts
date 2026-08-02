@@ -564,7 +564,7 @@ export const Aurora: ThemePreset = {
         headerBorder: 'var(--zaytoon-color-border)',
         footerBorder: 'var(--zaytoon-color-border)',
         titleFontSize: '1.125rem',
-        titleFontWeight: 'var(--zaytoon-typography-font-weight-medium)',
+        titleFontWeight: '700',
         padding: 'var(--zaytoon-spacing-lg)',
         widths: { sm: '24rem', md: '32rem', lg: '48rem', full: 'calc(100vw - 2rem)' },
       },

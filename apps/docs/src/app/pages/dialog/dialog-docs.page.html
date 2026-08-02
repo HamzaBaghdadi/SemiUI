@@ -75,12 +75,58 @@
   &lt;p&gt;Body content&lt;/p&gt;
 &lt;/z-dialog&gt;</code></pre>
 
+<h2>Headless template</h2>
+<p>
+  <code>#headless</code> replaces the entire header/body/footer chrome with raw projected content --
+  the dialog still portals, traps focus, and animates, but none of the default layout, padding,
+  title, or close button is rendered.
+</p>
+<div class="demo-row">
+  <z-button (click)="headlessDialog.show()">Open</z-button>
+  <z-dialog #headlessDialog>
+    <ng-template #headless>
+      <div style="padding: 1.5rem; text-align: center;">
+        <p style="margin: 0 0 1rem;">Fully custom content, no default chrome at all.</p>
+        <z-button (click)="headlessDialog.hide()">Close</z-button>
+      </div>
+    </ng-template>
+  </z-dialog>
+</div>
+<pre><code>&lt;z-dialog #dlg&gt;
+  &lt;ng-template #headless&gt;
+    &lt;div class="my-custom-dialog"&gt;...&lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/z-dialog&gt;</code></pre>
+
+<h2>Blur backdrop &amp; hidden backdrop</h2>
+<p>
+  <code>blurBackdrop</code> adds a <code>backdrop-filter: blur()</code> behind the dialog in addition
+  to dimming it. <code>showBackdrop</code> (default <code>true</code>) can be set to
+  <code>false</code> to remove the dimming/blur entirely -- the dialog still portals, traps focus,
+  and locks scroll, it just doesn't visually cover the page behind it.
+</p>
+<div class="demo-row">
+  <z-button (click)="blurDialog.show()">Blurred backdrop</z-button>
+  <z-button (click)="noBackdropDialog.show()">No backdrop</z-button>
+</div>
+<z-dialog #blurDialog title="Blurred backdrop" [blurBackdrop]="true">
+  <p>The page behind this dialog is dimmed and blurred.</p>
+</z-dialog>
+<z-dialog #noBackdropDialog title="No backdrop" [showBackdrop]="false">
+  <p>No dimming layer behind this dialog -- everything else stays interactive-looking, though the
+  dialog still traps focus.</p>
+</z-dialog>
+<pre><code>&lt;z-dialog #dlg [blurBackdrop]="true"&gt;...&lt;/z-dialog&gt;
+&lt;z-dialog #dlg [showBackdrop]="false"&gt;...&lt;/z-dialog&gt;</code></pre>
+
 <h2>Options</h2>
 <ul>
-  <li><code>title</code> -- plain-text header, ignored if a <code>#header</code> template is provided.</li>
+  <li><code>title</code> -- plain-text header, ignored if a <code>#header</code> or <code>#headless</code> template is provided.</li>
   <li><code>size</code> -- <code>"sm"</code> / <code>"md"</code> (default) / <code>"lg"</code> / <code>"full"</code>.</li>
   <li><code>closable</code> -- default <code>true</code>; shows the "x" close button.</li>
   <li><code>closeOnOutsideClick</code> / <code>closeOnEscape</code> -- default <code>true</code>.</li>
+  <li><code>blurBackdrop</code> -- default <code>false</code>; blurs whatever is behind the backdrop, in addition to dimming it.</li>
+  <li><code>showBackdrop</code> -- default <code>true</code>; set to <code>false</code> to remove the dimming/blur layer entirely.</li>
 </ul>
 
 <h2>Methods</h2>

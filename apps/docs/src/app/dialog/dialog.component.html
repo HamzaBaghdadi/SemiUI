@@ -2,7 +2,15 @@
   <!-- Escape (handled separately via @HostListener) is the keyboard-equivalent way to dismiss;
        the backdrop itself is a decorative pointer-only affordance, not a focusable control. -->
   <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-  <div #backdrop class="z-dialog__backdrop" (click)="onBackdropClick()" animate.enter="z-dialog__backdrop--enter" animate.leave="z-dialog__backdrop--leave">
+  <div
+    #backdrop
+    class="z-dialog__backdrop"
+    [attr.data-blur]="blurBackdrop() ? '' : null"
+    [attr.data-hidden]="showBackdrop() ? null : ''"
+    (click)="onBackdropClick()"
+    animate.enter="z-dialog__backdrop--enter"
+    animate.leave="z-dialog__backdrop--leave"
+  >
     <div
       #panel
       class="z-dialog__panel"
@@ -16,32 +24,36 @@
       animate.enter="z-dialog__panel--enter"
       animate.leave="z-dialog__panel--leave"
     >
-      @if (headerTemplate(); as tpl) {
-        <div class="z-dialog__header">
-          <div class="z-dialog__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
-          @if (closable()) {
-            <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
-              <z-icon [ref]="icons.clear" />
-            </button>
-          }
+      @if (headlessTemplate(); as tpl) {
+        <ng-container [ngTemplateOutlet]="tpl" />
+      } @else {
+        @if (headerTemplate(); as tpl) {
+          <div class="z-dialog__header">
+            <div class="z-dialog__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
+            @if (closable()) {
+              <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
+                <z-icon [ref]="icons.clear" />
+              </button>
+            }
+          </div>
+        } @else if (title() || closable()) {
+          <div class="z-dialog__header">
+            <h2 class="z-dialog__title">{{ title() }}</h2>
+            @if (closable()) {
+              <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
+                <z-icon [ref]="icons.clear" />
+              </button>
+            }
+          </div>
+        }
+        <div class="z-dialog__body">
+          <ng-content />
         </div>
-      } @else if (title() || closable()) {
-        <div class="z-dialog__header">
-          <h2 class="z-dialog__title">{{ title() }}</h2>
-          @if (closable()) {
-            <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
-              <z-icon [ref]="icons.clear" />
-            </button>
-          }
-        </div>
-      }
-      <div class="z-dialog__body">
-        <ng-content />
-      </div>
-      @if (footerTemplate(); as tpl) {
-        <div class="z-dialog__footer">
-          <ng-container [ngTemplateOutlet]="tpl" />
-        </div>
+        @if (footerTemplate(); as tpl) {
+          <div class="z-dialog__footer">
+            <ng-container [ngTemplateOutlet]="tpl" />
+          </div>
+        }
       }
     </div>
   </div>
