@@ -177,5 +177,12 @@ export interface ThemeTokens {
       paddingY: string;
       variants: Record<TagVariant, ButtonVariantTokens>;
     };
+    breadcrumb: {
+      foreground: string;
+      currentForeground: string;
+      separatorColor: string;
+      fontSize: string;
+      gap: string;
+    };
   };
 }

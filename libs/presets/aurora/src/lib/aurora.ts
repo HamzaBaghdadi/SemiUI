@@ -235,6 +235,13 @@ export const Aurora: ThemePreset = {
           },
         },
       },
+      breadcrumb: {
+        foreground: 'var(--zaytoon-color-muted-foreground)',
+        currentForeground: 'var(--zaytoon-color-foreground)',
+        separatorColor: 'var(--zaytoon-color-muted-foreground)',
+        fontSize: 'var(--zaytoon-typography-font-size-sm)',
+        gap: '0.375rem',
+      },
     },
   },
   darkColor,

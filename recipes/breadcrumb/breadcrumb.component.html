@@ -1,0 +1,16 @@
+<nav aria-label="Breadcrumb">
+  <ol class="z-breadcrumb">
+    @for (item of items(); track $index; let last = $last) {
+      <li class="z-breadcrumb__item">
+        @if (!last && item.link) {
+          <a class="z-breadcrumb__link" [routerLink]="item.link">{{ item.label }}</a>
+        } @else {
+          <span class="z-breadcrumb__current" [attr.aria-current]="last ? 'page' : null">{{ item.label }}</span>
+        }
+        @if (!last) {
+          <z-icon class="z-breadcrumb__separator" [ref]="icons.chevronDown" />
+        }
+      </li>
+    }
+  </ol>
+</nav>

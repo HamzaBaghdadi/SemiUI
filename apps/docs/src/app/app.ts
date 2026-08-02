@@ -39,5 +39,6 @@ export class App {
     { label: 'Skeleton', path: '/components/skeleton' },
     { label: 'Avatar', path: '/components/avatar' },
     { label: 'Tag', path: '/components/tag' },
+    { label: 'Breadcrumb', path: '/components/breadcrumb' },
   ];
 }

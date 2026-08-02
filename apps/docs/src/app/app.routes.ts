@@ -98,4 +98,8 @@ export const appRoutes: Route[] = [
     path: 'components/tag',
     loadComponent: () => import('./pages/tag/tag-docs.page').then((m) => m.TagDocsPage),
   },
+  {
+    path: 'components/breadcrumb',
+    loadComponent: () => import('./pages/breadcrumb/breadcrumb-docs.page').then((m) => m.BreadcrumbDocsPage),
+  },
 ];

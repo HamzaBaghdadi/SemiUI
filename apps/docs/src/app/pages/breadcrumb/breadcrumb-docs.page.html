@@ -1,0 +1,17 @@
+<h1>Breadcrumb</h1>
+<p>A trail of ancestor pages, using Angular's <code>RouterLink</code> for navigable items. The last item (or any item without a <code>link</code>) renders as the current, non-linked page.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add breadcrumb</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row">
+  <z-breadcrumb [items]="items" />
+</div>
+<pre><code>protected items = [
+  &#123; label: 'Home', link: '/' &#125;,
+  &#123; label: 'Components', link: '/components' &#125;,
+  &#123; label: 'Breadcrumb' &#125;,  &lt;!-- no link -- current page --&gt;
+];
+
+&lt;z-breadcrumb [items]="items" /&gt;</code></pre>

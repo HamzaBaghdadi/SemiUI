@@ -169,6 +169,13 @@ function createTestPreset(): ThemePreset {
             ]),
           ) as ThemePreset['tokens']['comp']['tag']['variants'],
         },
+        breadcrumb: {
+          foreground: '#999',
+          currentForeground: '#fff',
+          separatorColor: '#999',
+          fontSize: '0.875rem',
+          gap: '0.375rem',
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),

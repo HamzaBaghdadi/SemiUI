@@ -121,5 +121,11 @@
     "description": "A small label/chip with color variants, an optional leading icon, and a removable state.",
     "files": ["tag.component.ts", "tag.component.html", "tag.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "breadcrumb": {
+    "name": "breadcrumb",
+    "description": "A trail of ancestor pages, using Angular's RouterLink for navigable items.",
+    "files": ["breadcrumb.component.ts", "breadcrumb.component.html", "breadcrumb.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }
