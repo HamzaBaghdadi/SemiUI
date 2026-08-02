@@ -83,9 +83,19 @@
   grid-template-rows: 1fr;
 }
 
+/*
+ * No padding here -- an element's own padding always contributes to its minimum rendered size
+ * (min-height: 0 only shrinks the content box, never the padding itself), so putting the panel's
+ * padding on the same element as min-height: 0 kept the collapsed row stuck at padding-bottom's
+ * height instead of truly 0. Padding lives one level deeper instead, on .z-accordion__panel-content,
+ * which this element's overflow: hidden correctly clips away when the grid row collapses to 0fr.
+ */
 .z-accordion__panel-inner {
   overflow: hidden;
   min-height: 0;
+}
+
+.z-accordion__panel-content {
   padding: 0 var(--zaytoon-comp-accordion-padding-x) var(--zaytoon-comp-accordion-padding-y);
 }
 

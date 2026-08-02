@@ -23,7 +23,9 @@
       </h3>
       <div class="z-accordion__panel" [id]="panelId(i)" role="region" [attr.aria-labelledby]="headerId(i)">
         <div class="z-accordion__panel-inner">
-          <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+          <div class="z-accordion__panel-content">
+            <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+          </div>
         </div>
       </div>
     </div>
