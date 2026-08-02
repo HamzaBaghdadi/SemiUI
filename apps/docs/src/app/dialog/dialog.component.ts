@@ -8,6 +8,7 @@ import {
   booleanAttribute,
   contentChild,
   input,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -60,6 +61,9 @@ export class DialogComponent {
   /** Replaces the entire header/body/footer chrome with raw projected content -- still gets the portal, focus trap, and animations, just none of the default layout/padding/title/close button. */
   protected headlessTemplate = contentChild<unknown, TemplateRef<unknown>>('headless', { read: TemplateRef });
 
+  /** Fires whenever the dialog closes, regardless of trigger (button, outside click, escape, `hide()`). */
+  closed = output<void>();
+
   protected readonly open = signal(false);
   private previouslyFocusedEl: HTMLElement | null = null;
 
@@ -102,6 +106,7 @@ export class DialogComponent {
     document.body.style.overflow = '';
     this.previouslyFocusedEl?.focus?.();
     this.previouslyFocusedEl = null;
+    this.closed.emit();
   }
 
   toggle(): void {

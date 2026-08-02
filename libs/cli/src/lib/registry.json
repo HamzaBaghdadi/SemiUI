@@ -174,8 +174,8 @@
   },
   "dialog": {
     "name": "dialog",
-    "description": "A modal dialog controlled by reference (show()/hide()/toggle()), always portaled to document.body, with focus trap, background scroll lock, and focus restoration on close.",
-    "files": ["dialog.component.ts", "dialog.component.html", "dialog.component.css"],
+    "description": "A modal dialog controlled by reference (show()/hide()/toggle()), always portaled to document.body, with focus trap, background scroll lock, and focus restoration on close. Includes a DialogService for opening any component in a dialog imperatively, PrimeNG DynamicDialog-style.",
+    "files": ["dialog.component.ts", "dialog.component.html", "dialog.component.css", "dialog.service.ts"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   },
   "drawer": {
