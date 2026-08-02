@@ -35,6 +35,42 @@
   border: 1px solid var(--zaytoon-comp-tag-variants-destructive-border);
 }
 
+:host([data-variant='danger']) {
+  background: var(--zaytoon-comp-tag-variants-danger-background);
+  color: var(--zaytoon-comp-tag-variants-danger-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-danger-border);
+}
+
+:host([data-variant='success']) {
+  background: var(--zaytoon-comp-tag-variants-success-background);
+  color: var(--zaytoon-comp-tag-variants-success-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-success-border);
+}
+
+:host([data-variant='info']) {
+  background: var(--zaytoon-comp-tag-variants-info-background);
+  color: var(--zaytoon-comp-tag-variants-info-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-info-border);
+}
+
+:host([data-variant='warn']) {
+  background: var(--zaytoon-comp-tag-variants-warn-background);
+  color: var(--zaytoon-comp-tag-variants-warn-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-warn-border);
+}
+
+:host([data-variant='help']) {
+  background: var(--zaytoon-comp-tag-variants-help-background);
+  color: var(--zaytoon-comp-tag-variants-help-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-help-border);
+}
+
+:host([data-variant='contrast']) {
+  background: var(--zaytoon-comp-tag-variants-contrast-background);
+  color: var(--zaytoon-comp-tag-variants-contrast-foreground);
+  border: 1px solid var(--zaytoon-comp-tag-variants-contrast-border);
+}
+
 :host([data-variant='outline']) {
   background: var(--zaytoon-comp-tag-variants-outline-background);
   color: var(--zaytoon-comp-tag-variants-outline-foreground);

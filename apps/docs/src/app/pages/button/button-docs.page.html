@@ -17,6 +17,20 @@
 <pre><code>&lt;z-button variant="primary"&gt;primary&lt;/z-button&gt;
 &lt;z-button variant="destructive"&gt;destructive&lt;/z-button&gt;</code></pre>
 
+<h2>Severity</h2>
+<p>A shared semantic color vocabulary across Button, <a routerLink="/components/tag">Tag</a>, and <a routerLink="/components/badge">Badge</a>. <code>danger</code> is a plain alias of <code>destructive</code> above -- both work.</p>
+<div class="demo-row">
+  @for (severity of severities; track severity) {
+    <z-button [variant]="severity">{{ severity }}</z-button>
+  }
+</div>
+<pre><code>&lt;z-button variant="success"&gt;success&lt;/z-button&gt;
+&lt;z-button variant="info"&gt;info&lt;/z-button&gt;
+&lt;z-button variant="warn"&gt;warn&lt;/z-button&gt;
+&lt;z-button variant="help"&gt;help&lt;/z-button&gt;
+&lt;z-button variant="danger"&gt;danger&lt;/z-button&gt;
+&lt;z-button variant="contrast"&gt;contrast&lt;/z-button&gt;</code></pre>
+
 <h2>Sizes</h2>
 <div class="demo-row">
   @for (size of sizes; track size) {

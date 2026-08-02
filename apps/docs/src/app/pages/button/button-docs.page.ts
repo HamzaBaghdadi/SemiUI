@@ -10,6 +10,7 @@ import { ButtonComponent } from '../../button/button.component';
 })
 export class ButtonDocsPage {
   protected variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];
+  protected severities: ButtonVariant[] = ['success', 'info', 'warn', 'help', 'danger', 'contrast'];
   protected sizes: ButtonSize[] = ['sm', 'md', 'lg'];
   protected loading = signal(false);
   protected saveIcon: IconRef = { type: 'ng-icon', name: 'lucideSave' };

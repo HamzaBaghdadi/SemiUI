@@ -85,6 +85,36 @@ export const Aurora: ThemePreset = {
             foreground: 'var(--zaytoon-color-destructive-foreground)',
             border: 'var(--zaytoon-color-destructive)',
           },
+          danger: {
+            background: 'var(--zaytoon-color-destructive)',
+            foreground: 'var(--zaytoon-color-destructive-foreground)',
+            border: 'var(--zaytoon-color-destructive)',
+          },
+          success: {
+            background: '#16a34a',
+            foreground: '#ffffff',
+            border: '#16a34a',
+          },
+          info: {
+            background: '#2563eb',
+            foreground: '#ffffff',
+            border: '#2563eb',
+          },
+          warn: {
+            background: '#d97706',
+            foreground: '#ffffff',
+            border: '#d97706',
+          },
+          help: {
+            background: '#7c3aed',
+            foreground: '#ffffff',
+            border: '#7c3aed',
+          },
+          contrast: {
+            background: 'var(--zaytoon-color-foreground)',
+            foreground: 'var(--zaytoon-color-background)',
+            border: 'var(--zaytoon-color-foreground)',
+          },
           link: {
             background: 'transparent',
             foreground: 'var(--zaytoon-color-primary)',
@@ -228,6 +258,36 @@ export const Aurora: ThemePreset = {
             foreground: 'var(--zaytoon-color-destructive)',
             border: 'transparent',
           },
+          danger: {
+            background: 'color-mix(in srgb, var(--zaytoon-color-destructive) 15%, transparent)',
+            foreground: 'var(--zaytoon-color-destructive)',
+            border: 'transparent',
+          },
+          success: {
+            background: 'color-mix(in srgb, #16a34a 15%, transparent)',
+            foreground: '#16a34a',
+            border: 'transparent',
+          },
+          info: {
+            background: 'color-mix(in srgb, #2563eb 15%, transparent)',
+            foreground: '#2563eb',
+            border: 'transparent',
+          },
+          warn: {
+            background: 'color-mix(in srgb, #d97706 15%, transparent)',
+            foreground: '#d97706',
+            border: 'transparent',
+          },
+          help: {
+            background: 'color-mix(in srgb, #7c3aed 15%, transparent)',
+            foreground: '#7c3aed',
+            border: 'transparent',
+          },
+          contrast: {
+            background: 'var(--zaytoon-color-foreground)',
+            foreground: 'var(--zaytoon-color-background)',
+            border: 'transparent',
+          },
           outline: {
             background: 'transparent',
             foreground: 'var(--zaytoon-color-foreground)',
@@ -266,6 +326,36 @@ export const Aurora: ThemePreset = {
           destructive: {
             background: 'var(--zaytoon-color-destructive)',
             foreground: 'var(--zaytoon-color-destructive-foreground)',
+            border: 'transparent',
+          },
+          danger: {
+            background: 'var(--zaytoon-color-destructive)',
+            foreground: 'var(--zaytoon-color-destructive-foreground)',
+            border: 'transparent',
+          },
+          success: {
+            background: '#16a34a',
+            foreground: '#ffffff',
+            border: 'transparent',
+          },
+          info: {
+            background: '#2563eb',
+            foreground: '#ffffff',
+            border: 'transparent',
+          },
+          warn: {
+            background: '#d97706',
+            foreground: '#ffffff',
+            border: 'transparent',
+          },
+          help: {
+            background: '#7c3aed',
+            foreground: '#ffffff',
+            border: 'transparent',
+          },
+          contrast: {
+            background: 'var(--zaytoon-color-foreground)',
+            foreground: 'var(--zaytoon-color-background)',
             border: 'transparent',
           },
           outline: {

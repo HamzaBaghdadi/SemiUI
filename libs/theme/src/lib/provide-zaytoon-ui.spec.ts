@@ -6,7 +6,20 @@ import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
 import { ZAYTOON_ICONS } from './icon-tokens.token';
 import { provideZaytoonUI } from './provide-zaytoon-ui';
 
-const VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];
+const VARIANTS: ButtonVariant[] = [
+  'primary',
+  'secondary',
+  'outline',
+  'ghost',
+  'destructive',
+  'danger',
+  'success',
+  'info',
+  'warn',
+  'help',
+  'contrast',
+  'link',
+];
 const SIZES: ButtonSize[] = ['sm', 'md', 'lg'];
 
 function createColorTokens(overrides: Partial<ColorTokens>): ColorTokens {
@@ -163,7 +176,7 @@ function createTestPreset(): ThemePreset {
           paddingX: '0.5rem',
           paddingY: '0.125rem',
           variants: Object.fromEntries(
-            (['default', 'primary', 'secondary', 'destructive', 'outline'] as const).map((variant) => [
+            (['default', 'primary', 'secondary', 'destructive', 'danger', 'success', 'info', 'warn', 'help', 'contrast', 'outline'] as const).map((variant) => [
               variant,
               { background: '#111', foreground: '#fff', border: 'transparent' },
             ]),
@@ -182,7 +195,7 @@ function createTestPreset(): ThemePreset {
           fontSize: '0.6875rem',
           ringColor: '#000',
           variants: Object.fromEntries(
-            (['default', 'primary', 'secondary', 'destructive', 'outline'] as const).map((variant) => [
+            (['default', 'primary', 'secondary', 'destructive', 'danger', 'success', 'info', 'warn', 'help', 'contrast', 'outline'] as const).map((variant) => [
               variant,
               { background: '#111', foreground: '#fff', border: 'transparent' },
             ]),

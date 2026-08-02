@@ -1,6 +1,8 @@
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
+/** Shared semantic color vocabulary across Button/Tag/Badge, on top of each component's own style-only variants (outline/ghost/link for Button, default/outline for Tag/Badge). `danger` is an alias of Button's older `destructive` -- both are kept, `destructive` isn't removed, to avoid a breaking rename for the sake of a naming preference. */
+export type Severity = 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'help' | 'danger' | 'contrast';
+export type ButtonVariant = Severity | 'outline' | 'ghost' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
-export type TagVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline';
+export type TagVariant = Severity | 'default' | 'destructive' | 'outline';
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
 export type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 

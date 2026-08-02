@@ -63,6 +63,36 @@
   color: var(--zaytoon-comp-badge-variants-destructive-foreground);
 }
 
+.z-badge[data-variant='danger'] {
+  background: var(--zaytoon-comp-badge-variants-danger-background);
+  color: var(--zaytoon-comp-badge-variants-danger-foreground);
+}
+
+.z-badge[data-variant='success'] {
+  background: var(--zaytoon-comp-badge-variants-success-background);
+  color: var(--zaytoon-comp-badge-variants-success-foreground);
+}
+
+.z-badge[data-variant='info'] {
+  background: var(--zaytoon-comp-badge-variants-info-background);
+  color: var(--zaytoon-comp-badge-variants-info-foreground);
+}
+
+.z-badge[data-variant='warn'] {
+  background: var(--zaytoon-comp-badge-variants-warn-background);
+  color: var(--zaytoon-comp-badge-variants-warn-foreground);
+}
+
+.z-badge[data-variant='help'] {
+  background: var(--zaytoon-comp-badge-variants-help-background);
+  color: var(--zaytoon-comp-badge-variants-help-foreground);
+}
+
+.z-badge[data-variant='contrast'] {
+  background: var(--zaytoon-comp-badge-variants-contrast-background);
+  color: var(--zaytoon-comp-badge-variants-contrast-foreground);
+}
+
 .z-badge[data-variant='outline'] {
   background: var(--zaytoon-comp-badge-variants-outline-background);
   color: var(--zaytoon-comp-badge-variants-outline-foreground);
