@@ -12,7 +12,7 @@
         >
           <span class="z-stepper__circle">
             @if (stepState(i) === 'completed') {
-              <z-icon [ref]="icons.checkboxCheck" />
+              <z-icon [ref]="icons.checkboxCheck" animate.enter="z-stepper__check--enter" />
             } @else {
               {{ i + 1 }}
             }
@@ -33,8 +33,14 @@
 </div>
 
 @if (contentTemplate(); as tpl) {
-  @if (items()[activeIndex()]; as activeItem) {
-    <div class="z-stepper__panel">
+  <!-- Keyed on activeIndex() rather than a plain @if so Angular tears down and recreates this view
+       -- and replays animate.enter -- on every step change, not just the panel's first appearance
+       (an @if only re-runs when truthiness flips, not when the active item's identity changes).
+       Enter-only (no animate.leave): overlapping a leave animation with the next step's enter
+       would need the leaving copy pulled out of flow (position: absolute) to avoid a layout jump,
+       which needs a stable positioning context this simple margin-based layout doesn't have. -->
+  @for (activeItem of [items()[activeIndex()]]; track activeIndex()) {
+    <div class="z-stepper__panel" animate.enter="z-stepper__panel--enter">
       <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: activeItem, index: activeIndex() }" />
     </div>
   }
