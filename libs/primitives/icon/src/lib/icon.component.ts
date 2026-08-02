@@ -14,15 +14,22 @@ import { IconRef } from '@zaytoon/tokens';
     }
   `,
   styles: `
+    /*
+     * Centers ng-icon's own natural-size SVG within whatever box a consumer allocates for z-icon
+     * -- without forcing an explicit width/height on ng-icon itself. That was tried and reverted:
+     * forcing ng-icon to 100%/100% only resolves sensibly when z-icon's own host has a DEFINITE
+     * size from the consumer (e.g. Avatar's fallback icon, sized to 55% of the avatar). Consumers
+     * that size z-icon's box via its child's natural SVG dimensions instead (no explicit size on
+     * z-icon itself, e.g. Password's toggle icon) have no definite size for the percentage to
+     * resolve against, so the browser falls back unpredictably -- which is exactly what made the
+     * password toggle icon balloon in size. Centering alone (no forced dimensions) fixes the
+     * off-center icon without that regression.
+     */
     :host,
     ng-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-    }
-    ng-icon {
-      width: 100%;
-      height: 100%;
     }
   `,
 })
