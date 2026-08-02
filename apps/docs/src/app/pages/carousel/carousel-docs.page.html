@@ -57,6 +57,39 @@
 <p>The arrows disable at the first/last slide instead of wrapping around.</p>
 <pre><code>&lt;z-carousel [items]="slides" [loop]="false" [showDots]="false"&gt;...&lt;/z-carousel&gt;</code></pre>
 
+<h2>Multiple slides per view</h2>
+<p>
+  <code>itemsPerView</code> shows more than one slide at a time -- <code>next()</code>/<code>previous()</code>
+  still move the visible window by a single slide, and the arrows disable (when not <code>loop</code>)
+  once the trailing edge would scroll past the last item.
+</p>
+<div class="demo-row" style="display: block;">
+  <z-carousel [items]="slides" [itemsPerView]="2" style="max-width: 32rem; display: block;">
+    <ng-template #slide let-item>
+      <div [style.background]="item.color" style="height: 10rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.25rem; font-weight: 600; margin: 0 0.25rem;">
+        {{ item.label }}
+      </div>
+    </ng-template>
+  </z-carousel>
+</div>
+<pre><code>&lt;z-carousel [items]="slides" [itemsPerView]="2"&gt;...&lt;/z-carousel&gt;</code></pre>
+
+<h2>Arrows outside the container</h2>
+<p>
+  <code>arrowsOutside</code> renders the arrow buttons as flex siblings flanking the viewport
+  instead of floating on top of the slides, so they never obscure the content.
+</p>
+<div class="demo-row" style="display: block;">
+  <z-carousel [items]="slides" [arrowsOutside]="true" style="max-width: 32rem; display: block;">
+    <ng-template #slide let-item>
+      <div [style.background]="item.color" style="height: 10rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 600;">
+        {{ item.label }}
+      </div>
+    </ng-template>
+  </z-carousel>
+</div>
+<pre><code>&lt;z-carousel [items]="slides" [arrowsOutside]="true"&gt;...&lt;/z-carousel&gt;</code></pre>
+
 <h2>Options</h2>
 <ul>
   <li><code>items</code> -- any array; the <code>#slide</code> template controls how each renders.</li>
@@ -64,6 +97,8 @@
   <li><code>loop</code> -- default <code>true</code>.</li>
   <li><code>autoplay</code> -- default <code>false</code>; <code>autoplayInterval</code> in ms, default <code>4000</code>.</li>
   <li><code>showArrows</code> / <code>showDots</code> -- default <code>true</code>.</li>
+  <li><code>itemsPerView</code> -- default <code>1</code>; how many slides are visible at once.</li>
+  <li><code>arrowsOutside</code> -- default <code>false</code>; renders arrows beside the viewport instead of overlapping it.</li>
 </ul>
 
 <h2>Keyboard and touch</h2>

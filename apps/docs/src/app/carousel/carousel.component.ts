@@ -39,6 +39,10 @@ export class CarouselComponent<TItem = unknown> {
   autoplayInterval = input(4000);
   showArrows = input(true, { transform: booleanAttribute });
   showDots = input(true, { transform: booleanAttribute });
+  /** How many slides are visible at once. `next()`/`previous()` still move the window by one slide. */
+  itemsPerView = input(1);
+  /** Renders the arrow buttons flanking the viewport instead of floating on top of the slides. */
+  arrowsOutside = input(false, { transform: booleanAttribute });
 
   /** Each slide's content. Context: the item and its index. */
   protected slideTemplate = contentChild.required<unknown, TemplateRef<{ $implicit: TItem; index: number }>>(
@@ -52,8 +56,13 @@ export class CarouselComponent<TItem = unknown> {
   private dragStartX = 0;
   private autoplayTimer: ReturnType<typeof setInterval> | null = null;
 
+  /** The furthest the leading (leftmost visible) slide index can advance to, so the trailing edge never scrolls past the last item. */
+  protected readonly maxIndex = computed(() => Math.max(0, this.items().length - this.itemsPerView()));
+  /** One dot per reachable leading-slide position (0..maxIndex), not one per item -- with itemsPerView > 1 those aren't the same count. */
+  protected readonly dotPositions = computed(() => Array.from({ length: this.maxIndex() + 1 }, (_, i) => i));
+
   protected readonly trackTransform = computed(() => {
-    const offset = this.activeIndex() * -100;
+    const offset = (this.activeIndex() * -100) / this.itemsPerView();
     const dragOffset = this.isDragging() ? this.dragDeltaX() : 0;
     return `translateX(calc(${offset}% + ${dragOffset}px))`;
   });
@@ -70,12 +79,11 @@ export class CarouselComponent<TItem = unknown> {
   }
 
   protected next(): void {
-    const count = this.items().length;
-    if (count === 0) {
+    if (this.items().length === 0) {
       return;
     }
     const nextIndex = this.activeIndex() + 1;
-    if (nextIndex >= count) {
+    if (nextIndex > this.maxIndex()) {
       if (this.loop()) {
         this.activeIndex.set(0);
       }
@@ -85,14 +93,13 @@ export class CarouselComponent<TItem = unknown> {
   }
 
   protected previous(): void {
-    const count = this.items().length;
-    if (count === 0) {
+    if (this.items().length === 0) {
       return;
     }
     const prevIndex = this.activeIndex() - 1;
     if (prevIndex < 0) {
       if (this.loop()) {
-        this.activeIndex.set(count - 1);
+        this.activeIndex.set(this.maxIndex());
       }
     } else {
       this.activeIndex.set(prevIndex);
