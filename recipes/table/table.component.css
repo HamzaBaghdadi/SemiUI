@@ -1,0 +1,146 @@
+:host {
+  display: block;
+}
+
+.z-table__toolbar {
+  margin-bottom: var(--zaytoon-spacing-sm);
+}
+
+.z-table__filter-input {
+  width: 100%;
+  max-width: 20rem;
+  box-sizing: border-box;
+  padding: 0.375rem var(--zaytoon-spacing-sm);
+  border: 1px solid var(--zaytoon-comp-table-border);
+  border-radius: var(--zaytoon-radius-sm);
+  background: var(--zaytoon-color-background);
+  color: var(--zaytoon-color-foreground);
+  font: inherit;
+  font-size: var(--zaytoon-comp-table-font-size);
+}
+
+.z-table__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--zaytoon-comp-table-border);
+  border-radius: var(--zaytoon-comp-table-radius);
+}
+
+.z-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--zaytoon-comp-table-font-size);
+}
+
+.z-table__head {
+  background: var(--zaytoon-comp-table-header-background);
+}
+
+.z-table__head[data-sticky] {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.z-table__th {
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-table-cell-padding-y) var(--zaytoon-comp-table-cell-padding-x);
+  text-align: left;
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+  color: var(--zaytoon-comp-table-header-foreground);
+  border-bottom: 1px solid var(--zaytoon-comp-table-border);
+  white-space: nowrap;
+}
+
+.z-table__th--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.z-table__th--checkbox {
+  width: 2.5rem;
+}
+
+.z-table__th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.z-table__sort-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--zaytoon-comp-table-sort-icon-color);
+  transform: rotate(180deg);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.z-table__sort-icon--active {
+  color: var(--zaytoon-comp-table-sort-icon-color-active);
+}
+
+.z-table__sort-icon--desc {
+  transform: rotate(0deg);
+}
+
+.z-table__td {
+  box-sizing: border-box;
+  padding: var(--zaytoon-comp-table-cell-padding-y) var(--zaytoon-comp-table-cell-padding-x);
+  border-bottom: 1px solid var(--zaytoon-comp-table-border);
+  color: var(--zaytoon-color-foreground);
+}
+
+.z-table__td--checkbox {
+  width: 2.5rem;
+}
+
+.z-table__tr:last-child .z-table__td {
+  border-bottom: none;
+}
+
+.z-table[data-striped] .z-table__tr:nth-child(even) {
+  background: var(--zaytoon-comp-table-row-background-striped);
+}
+
+.z-table__tr:hover {
+  background: var(--zaytoon-comp-table-row-background-hover);
+}
+
+.z-table__tr--clickable {
+  cursor: pointer;
+}
+
+.z-table__tr[data-selected] {
+  background: var(--zaytoon-comp-table-row-background-selected);
+}
+
+.z-table__state-row .z-table__loading,
+.z-table__state-row .z-table__empty {
+  padding: var(--zaytoon-spacing-xl) 0;
+  text-align: center;
+  color: var(--zaytoon-color-muted-foreground);
+}
+
+.z-table__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zaytoon-spacing-xs);
+}
+
+.z-table__loading-icon {
+  width: 1rem;
+  height: 1rem;
+  animation: z-table-spin 0.8s linear infinite;
+}
+
+@keyframes z-table-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.z-table__footer {
+  margin-top: var(--zaytoon-spacing-sm);
+  display: flex;
+  justify-content: flex-end;
+}

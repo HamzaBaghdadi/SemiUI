@@ -1,0 +1,112 @@
+@if (filterable()) {
+  <div class="z-table__toolbar">
+    <input
+      type="text"
+      class="z-table__filter-input"
+      role="searchbox"
+      aria-label="Filter table rows"
+      [placeholder]="filterPlaceholder()"
+      [value]="filterText()"
+      (input)="onFilterInput($any($event.target).value)"
+    />
+  </div>
+}
+
+<div class="z-table__scroll">
+  <table class="z-table" [attr.data-striped]="striped() ? '' : null">
+    <thead class="z-table__head" [attr.data-sticky]="stickyHeader() ? '' : null">
+      <tr>
+        @if (selectionMode() === 'multiple') {
+          <th class="z-table__th z-table__th--checkbox">
+            <input
+              type="checkbox"
+              aria-label="Select all rows on this page"
+              [checked]="allVisibleSelected()"
+              [indeterminate]="someVisibleSelected()"
+              (change)="toggleSelectAllVisible()"
+            />
+          </th>
+        } @else if (selectionMode() === 'single') {
+          <th class="z-table__th z-table__th--checkbox"></th>
+        }
+        @for (column of columns(); track column.field) {
+          <th
+            class="z-table__th"
+            [class.z-table__th--sortable]="column.sortable"
+            [style.width]="column.width ?? null"
+            [style.text-align]="column.align ?? null"
+            [attr.aria-sort]="sortField() === column.field ? (sortDirection() === 'asc' ? 'ascending' : 'descending') : 'none'"
+            (click)="toggleSort(column)"
+          >
+            <span class="z-table__th-content">
+              {{ column.header }}
+              @if (column.sortable) {
+                <z-icon
+                  class="z-table__sort-icon"
+                  [class.z-table__sort-icon--active]="sortField() === column.field"
+                  [class.z-table__sort-icon--desc]="sortField() === column.field && sortDirection() === 'desc'"
+                  [ref]="icons.chevronDown"
+                />
+              }
+            </span>
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody class="z-table__body">
+      @if (loading()) {
+        <tr class="z-table__state-row">
+          <td [attr.colspan]="columns().length + (selectionMode() !== 'none' ? 1 : 0)">
+            <div class="z-table__loading">
+              <z-icon class="z-table__loading-icon" [ref]="icons.loading" />
+              Loading...
+            </div>
+          </td>
+        </tr>
+      } @else if (pagedData().length === 0) {
+        <tr class="z-table__state-row">
+          <td [attr.colspan]="columns().length + (selectionMode() !== 'none' ? 1 : 0)">
+            <div class="z-table__empty">{{ emptyMessage() }}</div>
+          </td>
+        </tr>
+      } @else {
+        @for (row of pagedData(); track rowKey()(row); let i = $index) {
+          <tr
+            class="z-table__tr"
+            [attr.data-selected]="isSelected(row) ? '' : null"
+            [class.z-table__tr--clickable]="selectionMode() !== 'none'"
+            (click)="onRowClick(row)"
+          >
+            @if (selectionMode() === 'multiple') {
+              <td class="z-table__td z-table__td--checkbox" (click)="$event.stopPropagation()">
+                <input type="checkbox" [attr.aria-label]="'Select row ' + (i + 1)" [checked]="isSelected(row)" (change)="toggleRowSelection(row)" />
+              </td>
+            } @else if (selectionMode() === 'single') {
+              <td class="z-table__td z-table__td--checkbox" (click)="$event.stopPropagation()">
+                <input type="radio" [attr.aria-label]="'Select row ' + (i + 1)" [checked]="isSelected(row)" (change)="toggleRowSelection(row)" />
+              </td>
+            }
+            @for (column of columns(); track column.field) {
+              <td class="z-table__td" [style.text-align]="column.align ?? null">
+                @if (cellTemplate(); as tpl) {
+                  <ng-container
+                    [ngTemplateOutlet]="tpl"
+                    [ngTemplateOutletContext]="{ $implicit: row, column: column, value: cellValue(row, column.field), index: i }"
+                  />
+                } @else {
+                  {{ cellValue(row, column.field) }}
+                }
+              </td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (paginated() && !loading() && pagedData().length > 0) {
+  <div class="z-table__footer">
+    <z-pagination [page]="currentPage()" (pageChange)="onPageChange($event)" [pageCount]="totalPages()" />
+  </div>
+}

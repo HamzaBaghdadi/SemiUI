@@ -274,6 +274,21 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    table: {
+      border: string;
+      radius: string;
+      headerBackground: string;
+      headerForeground: string;
+      rowBackground: string;
+      rowBackgroundStriped: string;
+      rowBackgroundHover: string;
+      rowBackgroundSelected: string;
+      fontSize: string;
+      cellPaddingX: string;
+      cellPaddingY: string;
+      sortIconColor: string;
+      sortIconColorActive: string;
+    };
     colorPicker: {
       svAreaSize: string;
       hueTrackHeight: string;

@@ -1,0 +1,103 @@
+<h1>Table</h1>
+<p>
+  A data-driven table: pass <code>columns</code> and <code>data</code>. Sorting, a global filter
+  box, row selection, and pagination (reusing <a routerLink="/components/pagination">Pagination</a>)
+  are all opt-in via inputs -- a plain read-only table stays plain. An optional <code>#cell</code>
+  template slot customizes rendering per cell; context is
+  <code>&#123; $implicit: row, column, value, index &#125;</code>, so the template typically
+  <code>&#64;switch</code>es on <code>column.field</code>.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add table</code></pre>
+
+<h2>Basic usage with sorting</h2>
+<div class="demo-row" style="display: block;">
+  <z-table [columns]="basicColumns" [data]="people" />
+</div>
+<pre><code>protected columns: TableColumn&lt;Person&gt;[] = [
+  &#123; field: 'name', header: 'Name', sortable: true &#125;,
+  &#123; field: 'email', header: 'Email', sortable: true &#125;,
+  &#123; field: 'role', header: 'Role', sortable: true &#125;,
+  &#123; field: 'age', header: 'Age', sortable: true, align: 'right', width: '5rem' &#125;,
+&#125;;
+
+&lt;z-table [columns]="columns" [data]="people" /&gt;</code></pre>
+
+<h2>Custom cell template</h2>
+<p>Renders a colored <a routerLink="/components/tag">Tag</a> for the status column instead of plain text.</p>
+<div class="demo-row" style="display: block;">
+  <z-table [columns]="statusColumns" [data]="people">
+    <ng-template #cell let-row let-column="column" let-value="value">
+      @if (column.field === 'status') {
+        <z-tag [variant]="statusVariant(value)">{{ value }}</z-tag>
+      } @else {
+        {{ value }}
+      }
+    </ng-template>
+  </z-table>
+</div>
+<pre><code>&lt;z-table [columns]="columns" [data]="people"&gt;
+  &lt;ng-template #cell let-row let-column="column" let-value="value"&gt;
+    &#64;if (column.field === 'status') &#123;
+      &lt;z-tag [variant]="statusVariant(value)"&gt;{{ '{{ value }}' }}&lt;/z-tag&gt;
+    &#125; &#64;else &#123;
+      {{ '{{ value }}' }}
+    &#125;
+  &lt;/ng-template&gt;
+&lt;/z-table&gt;</code></pre>
+
+<h2>Filterable, selectable, paginated</h2>
+<p>47 rows, filtered client-side across every column, multi-select with a header "select all visible" checkbox, 10 rows per page.</p>
+<div class="demo-row" style="display: block;">
+  <z-table
+    [columns]="basicColumns"
+    [data]="manyPeople"
+    [filterable]="true"
+    selectionMode="multiple"
+    [(selection)]="selection"
+    [paginated]="true"
+    [pageSize]="10"
+  />
+</div>
+<p class="demo-value">{{ selection.length }} row(s) selected</p>
+<pre><code>&lt;z-table
+  [columns]="columns"
+  [data]="people"
+  [filterable]="true"
+  selectionMode="multiple"
+  [(selection)]="selection"
+  [paginated]="true"
+  [pageSize]="10"
+/&gt;</code></pre>
+
+<h2>Single selection</h2>
+<div class="demo-row" style="display: block;">
+  <z-table [columns]="basicColumns" [data]="people" selectionMode="single" />
+</div>
+<pre><code>&lt;z-table [columns]="columns" [data]="people" selectionMode="single" /&gt;</code></pre>
+
+<h2>Loading and empty states</h2>
+<div class="demo-row">
+  <button type="button" (click)="toggleLoading()">Toggle loading</button>
+</div>
+<div class="demo-row" style="display: block;">
+  <z-table [columns]="basicColumns" [data]="[]" [loading]="loading()" emptyMessage="No people found." />
+</div>
+
+<h2>Options</h2>
+<ul>
+  <li><code>columns</code> -- array of <code>&#123; field, header, sortable?, width?, align?, sortFn? &#125;</code>.</li>
+  <li><code>data</code> -- any array of row objects.</li>
+  <li><code>rowKey</code> -- <code>(row) =&gt; unknown</code>, identity function for selection tracking; defaults to the row object itself.</li>
+  <li><code>selectionMode</code> -- <code>"none"</code> (default) / <code>"single"</code> / <code>"multiple"</code>.</li>
+  <li><code>selection</code> -- two-way bindable array of selected rows.</li>
+  <li><code>filterable</code> -- default <code>false</code>; global search across every column's field value.</li>
+  <li><code>paginated</code> -- default <code>false</code>; <code>pageSize</code> default <code>10</code>.</li>
+  <li><code>loading</code> / <code>striped</code> / <code>stickyHeader</code> / <code>emptyMessage</code>.</li>
+</ul>
+
+<h2>Outputs</h2>
+<ul>
+  <li><code>rowClick</code> -- emits the clicked row, regardless of <code>selectionMode</code>.</li>
+</ul>

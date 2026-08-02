@@ -158,4 +158,8 @@ export const appRoutes: Route[] = [
     path: 'components/color-picker',
     loadComponent: () => import('./pages/color-picker/color-picker-docs.page').then((m) => m.ColorPickerDocsPage),
   },
+  {
+    path: 'components/table',
+    loadComponent: () => import('./pages/table/table-docs.page').then((m) => m.TableDocsPage),
+  },
 ];

@@ -216,5 +216,12 @@
     "files": ["color-picker.component.ts", "color-picker.component.html", "color-picker.component.css", "color.ts"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "table": {
+    "name": "table",
+    "description": "A data-driven table with sorting, a global filter box, single/multiple row selection, an optional #cell template for custom rendering, and built-in pagination via <z-pagination>.",
+    "files": ["table.component.ts", "table.component.html", "table.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["pagination"]
   }
 }

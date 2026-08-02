@@ -1,0 +1,200 @@
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model, output, signal } from '@angular/core';
+import { ZIconComponent } from '@zaytoon/primitives/icon';
+import { injectZaytoonIcons } from '@zaytoon/theme';
+import { PaginationComponent } from '../pagination/pagination.component';
+
+export interface TableColumn<T = unknown> {
+  field: string;
+  header: string;
+  sortable?: boolean;
+  width?: string;
+  align?: 'left' | 'center' | 'right';
+  /** Custom comparator for sorting this column; falls back to a generic `<`/`>` comparison of the field's value. */
+  sortFn?: (a: T, b: T) => number;
+}
+
+export type SortDirection = 'asc' | 'desc' | null;
+export type TableSelectionMode = 'none' | 'single' | 'multiple';
+
+export interface TableCellContext<T> {
+  $implicit: T;
+  column: TableColumn<T>;
+  value: unknown;
+  index: number;
+}
+
+/**
+ * A data-driven table: pass `columns` and `data`. Sorting (click a sortable header), a global
+ * filter box, row selection (single/multiple, with a header checkbox for "select all visible" in
+ * multiple mode), and pagination (reusing `<z-pagination>`) are all opt-in via inputs rather than
+ * always present, so a plain read-only table stays plain. An optional `#cell` template slot
+ * customizes rendering per cell -- context is `{ $implicit: row, column, value, index }`, so the
+ * template typically `@switch`es on `column.field`.
+ */
+@Component({
+  selector: 'z-table',
+  imports: [ZIconComponent, NgTemplateOutlet, PaginationComponent],
+  templateUrl: './table.component.html',
+  styleUrl: './table.component.css',
+})
+export class TableComponent<T = Record<string, unknown>> {
+  protected readonly icons = injectZaytoonIcons();
+
+  columns = input<readonly TableColumn<T>[]>([]);
+  data = input<readonly T[]>([]);
+  /** Identity function for selection tracking and row diffing. Defaults to reference equality (the row object itself). */
+  rowKey = input<(row: T) => unknown>((row) => row);
+  selectionMode = input<TableSelectionMode>('none');
+  /** The currently selected rows. Two-way bindable. */
+  selection = model<T[]>([]);
+  filterable = input(false, { transform: booleanAttribute });
+  filterPlaceholder = input('Search...');
+  paginated = input(false, { transform: booleanAttribute });
+  pageSize = input(10);
+  loading = input(false, { transform: booleanAttribute });
+  striped = input(true, { transform: booleanAttribute });
+  stickyHeader = input(false, { transform: booleanAttribute });
+  emptyMessage = input('No data available');
+
+  /** Emitted when a row is clicked, regardless of selectionMode. */
+  rowClick = output<T>();
+
+  /** Custom per-cell rendering. Context: `{ $implicit: row, column, value, index }`. Falls back to the raw field value as text. */
+  protected cellTemplate = contentChild<unknown, TemplateRef<TableCellContext<T>>>('cell', { read: TemplateRef });
+
+  protected readonly sortField = signal('');
+  protected readonly sortDirection = signal<SortDirection>(null);
+  protected readonly filterText = signal('');
+  protected readonly currentPage = signal(1);
+
+  protected readonly filteredData = computed(() => {
+    const query = this.filterText().trim().toLowerCase();
+    const all = this.data();
+    if (!this.filterable() || !query) {
+      return all;
+    }
+    const cols = this.columns();
+    return all.filter((row) => cols.some((col) => String(this.cellValue(row, col.field) ?? '').toLowerCase().includes(query)));
+  });
+
+  protected readonly sortedData = computed(() => {
+    const field = this.sortField();
+    const direction = this.sortDirection();
+    const rows = this.filteredData();
+    if (!field || !direction) {
+      return rows;
+    }
+    const column = this.columns().find((c) => c.field === field);
+    const sorted = [...rows].sort((a, b) => {
+      if (column?.sortFn) {
+        return column.sortFn(a, b);
+      }
+      const av = this.cellValue(a, field);
+      const bv = this.cellValue(b, field);
+      if (av === bv) {
+        return 0;
+      }
+      if (av === null || av === undefined) {
+        return -1;
+      }
+      if (bv === null || bv === undefined) {
+        return 1;
+      }
+      return av > bv ? 1 : -1;
+    });
+    return direction === 'asc' ? sorted : sorted.reverse();
+  });
+
+  protected readonly totalPages = computed(() => Math.max(1, Math.ceil(this.sortedData().length / this.pageSize())));
+
+  protected readonly pagedData = computed(() => {
+    if (!this.paginated()) {
+      return this.sortedData();
+    }
+    const page = Math.min(this.currentPage(), this.totalPages());
+    const start = (page - 1) * this.pageSize();
+    return this.sortedData().slice(start, start + this.pageSize());
+  });
+
+  protected readonly allVisibleSelected = computed(() => {
+    const visible = this.pagedData();
+    return visible.length > 0 && visible.every((row) => this.isSelected(row));
+  });
+
+  protected readonly someVisibleSelected = computed(
+    () => !this.allVisibleSelected() && this.pagedData().some((row) => this.isSelected(row)),
+  );
+
+  protected cellValue(row: T, field: string): unknown {
+    return (row as Record<string, unknown>)[field];
+  }
+
+  protected toggleSort(column: TableColumn<T>): void {
+    if (!column.sortable) {
+      return;
+    }
+    if (this.sortField() !== column.field) {
+      this.sortField.set(column.field);
+      this.sortDirection.set('asc');
+      return;
+    }
+    if (this.sortDirection() === 'asc') {
+      this.sortDirection.set('desc');
+    } else {
+      this.sortField.set('');
+      this.sortDirection.set(null);
+    }
+  }
+
+  protected isSelected(row: T): boolean {
+    const key = this.rowKey();
+    const rowKeyValue = key(row);
+    return this.selection().some((selected) => key(selected) === rowKeyValue);
+  }
+
+  protected onRowClick(row: T): void {
+    this.rowClick.emit(row);
+    if (this.selectionMode() === 'single') {
+      this.toggleRowSelection(row);
+    }
+  }
+
+  protected toggleRowSelection(row: T): void {
+    if (this.selectionMode() === 'none') {
+      return;
+    }
+    const key = this.rowKey();
+    if (this.selectionMode() === 'single') {
+      this.selection.set(this.isSelected(row) ? [] : [row]);
+      return;
+    }
+    if (this.isSelected(row)) {
+      const rowKeyValue = key(row);
+      this.selection.update((current) => current.filter((selected) => key(selected) !== rowKeyValue));
+    } else {
+      this.selection.update((current) => [...current, row]);
+    }
+  }
+
+  protected toggleSelectAllVisible(): void {
+    const key = this.rowKey();
+    if (this.allVisibleSelected()) {
+      const visibleKeys = new Set(this.pagedData().map(key));
+      this.selection.update((current) => current.filter((selected) => !visibleKeys.has(key(selected))));
+    } else {
+      const currentKeys = new Set(this.selection().map(key));
+      const toAdd = this.pagedData().filter((row) => !currentKeys.has(key(row)));
+      this.selection.update((current) => [...current, ...toAdd]);
+    }
+  }
+
+  protected onFilterInput(value: string): void {
+    this.filterText.set(value);
+    this.currentPage.set(1);
+  }
+
+  protected onPageChange(page: number): void {
+    this.currentPage.set(page);
+  }
+}
