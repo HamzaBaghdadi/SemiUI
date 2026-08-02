@@ -138,6 +138,12 @@
   transform-origin: bottom;
 }
 
+.z-select__panel[data-appended] {
+  position: fixed;
+  right: auto;
+  bottom: auto;
+}
+
 @keyframes z-select-panel-enter {
   from {
     opacity: 0;

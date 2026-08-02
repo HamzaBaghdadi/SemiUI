@@ -43,7 +43,17 @@
 </button>
 
 @if (open()) {
-  <div class="z-select__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-select__panel--enter" animate.leave="z-select__panel--leave">
+  <div
+    #panel
+    class="z-select__panel"
+    [attr.data-placement]="panelPlacement()"
+    [attr.data-appended]="appendTo() === 'body' ? '' : null"
+    [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
+    [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
+    [style.width.px]="appendTo() === 'body' ? fixedPosition().width : null"
+    animate.enter="z-select__panel--enter"
+    animate.leave="z-select__panel--leave"
+  >
     @if (headerTemplate(); as tpl) {
       <div class="z-select__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }

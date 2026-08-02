@@ -41,6 +41,8 @@ export class PopoverComponent {
   closeOnScroll = input(true, { transform: booleanAttribute });
   /** Renders a small triangle pointing at the anchor. Disable if the panel might get clamped near a viewport edge, where it would no longer line up. */
   showArrow = input(true, { transform: booleanAttribute });
+  /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context (which would otherwise break `position: fixed`). */
+  appendTo = input<'body' | null>(null);
 
   protected readonly open = signal(false);
   protected readonly resolvedPlacement = signal<PopoverPlacement>('bottom');
@@ -53,6 +55,9 @@ export class PopoverComponent {
     }
     const panel = this.panel()?.nativeElement;
     if (this.anchorEl && panel) {
+      if (this.appendTo() === 'body' && panel.parentElement !== document.body) {
+        document.body.appendChild(panel);
+      }
       this.computePosition(this.anchorEl, panel);
     }
   });

@@ -48,6 +48,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');
+  private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
   options = input<readonly TOption[]>([]);
   optionLabel = input<string>();
@@ -66,6 +67,8 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   maxChipsDisplay = input(3);
   /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
   loading = input(false, { transform: booleanAttribute });
+  /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context. */
+  appendTo = input<'body' | null>(null);
 
   protected selectedTemplate = contentChild<unknown, TemplateRef<{ $implicit: TOption[] }>>('selected', {
     read: TemplateRef,
@@ -81,6 +84,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   protected readonly activeIndex = signal(-1);
   protected readonly filterText = signal('');
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
+  protected readonly fixedPosition = signal({ top: 0, left: 0, width: 0 });
   protected readonly listboxId = `z-multiselect-listbox-${nextMultiselectId++}`;
   protected readonly activeOptionId = computed(() =>
     this.open() && this.activeIndex() >= 0 ? `${this.listboxId}-option-${this.activeIndex()}` : null,
@@ -116,6 +120,13 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   private readonly focusFilterOnOpen = afterRenderEffect(() => {
     if (this.open() && this.filterable()) {
       this.filterInput()?.nativeElement.focus();
+    }
+  });
+
+  /** Moves the panel to `document.body` and positions it by pixel coordinates once it exists in the DOM. */
+  private readonly appendToBodyEffect = afterRenderEffect(() => {
+    if (this.open() && this.appendTo() === 'body') {
+      this.positionAppendedPanel();
     }
   });
 
@@ -298,10 +309,34 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
     this.panelPlacement.set(spaceBelow < PANEL_SPACE_ESTIMATE_PX && spaceAbove > spaceBelow ? 'top' : 'bottom');
   }
 
+  /**
+   * Physically relocates the panel to `document.body` (once) and pins it with `position: fixed`
+   * pixel coordinates computed from the trigger's rect, since it can no longer rely on CSS
+   * relative-to-host positioning once it's no longer a descendant of the trigger's host.
+   */
+  private positionAppendedPanel(): void {
+    const trigger = this.triggerButton()?.nativeElement;
+    const panel = this.panel()?.nativeElement;
+    if (!trigger || !panel) {
+      return;
+    }
+    if (panel.parentElement !== document.body) {
+      document.body.appendChild(panel);
+    }
+    const rect = trigger.getBoundingClientRect();
+    const gap = 4;
+    const top =
+      this.panelPlacement() === 'top' ? rect.top - gap - panel.getBoundingClientRect().height : rect.bottom + gap;
+    this.fixedPosition.set({ top, left: rect.left, width: rect.width });
+  }
+
   @HostListener('window:scroll')
   protected onWindowScroll(): void {
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 
@@ -309,6 +344,9 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   protected onWindowResize(): void {
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 

@@ -49,6 +49,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');
+  private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
   options = input<readonly TOption[]>([]);
   /** Property to read the display label from, when options are objects. Omit for primitive options. */
@@ -65,6 +66,8 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   emptyMessage = input('No results found');
   /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
   loading = input(false, { transform: booleanAttribute });
+  /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context. */
+  appendTo = input<'body' | null>(null);
 
   /** Custom rendering for the selected value shown in the closed trigger. Context: the selected option, or undefined. */
   protected selectedTemplate = contentChild<unknown, TemplateRef<{ $implicit: TOption | undefined }>>('selected', {
@@ -85,6 +88,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   protected readonly activeIndex = signal(-1);
   protected readonly filterText = signal('');
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
+  protected readonly fixedPosition = signal({ top: 0, left: 0, width: 0 });
   protected readonly listboxId = `z-select-listbox-${nextSelectId++}`;
   protected readonly activeOptionId = computed(() =>
     this.open() && this.activeIndex() >= 0 ? `${this.listboxId}-option-${this.activeIndex()}` : null,
@@ -120,6 +124,13 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   private readonly focusFilterOnOpen = afterRenderEffect(() => {
     if (this.open() && this.filterable()) {
       this.filterInput()?.nativeElement.focus();
+    }
+  });
+
+  /** Moves the panel to `document.body` and positions it by pixel coordinates once it exists in the DOM. */
+  private readonly appendToBodyEffect = afterRenderEffect(() => {
+    if (this.open() && this.appendTo() === 'body') {
+      this.positionAppendedPanel();
     }
   });
 
@@ -293,10 +304,34 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
     this.panelPlacement.set(spaceBelow < PANEL_SPACE_ESTIMATE_PX && spaceAbove > spaceBelow ? 'top' : 'bottom');
   }
 
+  /**
+   * Physically relocates the panel to `document.body` (once) and pins it with `position: fixed`
+   * pixel coordinates computed from the trigger's rect, since it can no longer rely on CSS
+   * relative-to-host positioning once it's no longer a descendant of the trigger's host.
+   */
+  private positionAppendedPanel(): void {
+    const trigger = this.triggerButton()?.nativeElement;
+    const panel = this.panel()?.nativeElement;
+    if (!trigger || !panel) {
+      return;
+    }
+    if (panel.parentElement !== document.body) {
+      document.body.appendChild(panel);
+    }
+    const rect = trigger.getBoundingClientRect();
+    const gap = 4;
+    const top =
+      this.panelPlacement() === 'top' ? rect.top - gap - panel.getBoundingClientRect().height : rect.bottom + gap;
+    this.fixedPosition.set({ top, left: rect.left, width: rect.width });
+  }
+
   @HostListener('window:scroll')
   protected onWindowScroll(): void {
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 
@@ -304,6 +339,9 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   protected onWindowResize(): void {
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 

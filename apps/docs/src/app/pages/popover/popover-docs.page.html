@@ -51,6 +51,7 @@
   <li><code>closeOnOutsideClick</code> / <code>closeOnEscape</code> -- default <code>true</code>.</li>
   <li><code>closeOnScroll</code> -- default <code>true</code>; hides the popover on scroll instead of repositioning it to chase the anchor. Set <code>false</code> to keep it following instead.</li>
   <li><code>showArrow</code> -- default <code>true</code>; disable if the panel might get clamped near a viewport edge, where the arrow would no longer line up with the anchor.</li>
+  <li><code>appendTo</code> -- set to <code>"body"</code> to move the panel to a direct child of <code>document.body</code>, escaping an ancestor's <code>overflow: hidden</code> clipping or a stacking context created by <code>transform</code>/<code>filter</code>. It's already <code>position: fixed</code>, so this doesn't change how it's positioned -- only where it lives in the DOM.</li>
 </ul>
 <div class="demo-row">
   <z-button (click)="poNoArrow.toggle($event)">No arrow, no outside-click close</z-button>
@@ -58,3 +59,18 @@
     <span>Only Escape or the trigger itself closes me.</span>
   </z-popover>
 </div>
+
+<h2>Append to body</h2>
+<p>
+  Without <code>appendTo</code>, a popover trapped inside an <code>overflow: hidden</code>
+  container gets clipped even though it's <code>position: fixed</code> -- an ancestor with a
+  <code>transform</code>/<code>filter</code> creates a new containing block for fixed-position
+  descendants. Setting <code>appendTo="body"</code> escapes it.
+</p>
+<div class="demo-row" style="overflow: hidden; height: 5rem; border: 1px dashed var(--zaytoon-color-border); padding: var(--zaytoon-spacing-md); transform: translate(0);">
+  <z-button (click)="poClipped.toggle($event)">Clipped (no appendTo)</z-button>
+  <z-popover #poClipped><span>You probably can't see me.</span></z-popover>
+  <z-button (click)="poAppended.toggle($event)">appendTo body</z-button>
+  <z-popover #poAppended appendTo="body"><span>I escape the clipping container.</span></z-popover>
+</div>
+<pre><code>&lt;z-popover #po appendTo="body"&gt;...&lt;/z-popover&gt;</code></pre>

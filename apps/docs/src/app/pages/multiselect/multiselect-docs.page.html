@@ -72,3 +72,15 @@ protected profileForm = form(this.profileModel);
   <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [disabled]="disabled()" placeholder="Pick fruits" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
+
+<h2>Append to body</h2>
+<p>
+  Same as <a routerLink="/components/select">Select</a>: set <code>appendTo="body"</code> to move
+  the panel to a direct child of <code>document.body</code>, escaping an ancestor's clipping or
+  stacking context while staying pixel-positioned against the trigger.
+</p>
+<div class="demo-row" style="overflow: hidden; height: 6rem; border: 1px dashed var(--zaytoon-color-border); padding: var(--zaytoon-spacing-md); align-items: flex-start;">
+  <z-multiselect [options]="fruits" placeholder="Clipped without appendTo" style="width: 12rem;" />
+  <z-multiselect [options]="fruits" appendTo="body" placeholder="appendTo body" style="width: 12rem;" />
+</div>
+<pre><code>&lt;z-multiselect [options]="fruits" appendTo="body" /&gt;</code></pre>

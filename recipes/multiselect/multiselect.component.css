@@ -160,6 +160,12 @@
   transform-origin: bottom;
 }
 
+.z-multiselect__panel[data-appended] {
+  position: fixed;
+  right: auto;
+  bottom: auto;
+}
+
 @keyframes z-multiselect-panel-enter {
   from {
     opacity: 0;
