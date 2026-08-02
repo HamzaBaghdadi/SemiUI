@@ -63,6 +63,8 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   filterable = input(true, { transform: booleanAttribute });
   filterPlaceholder = input('Search...');
   emptyMessage = input('No results found');
+  /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
+  loading = input(false, { transform: booleanAttribute });
 
   /** Custom rendering for the selected value shown in the closed trigger. Context: the selected option, or undefined. */
   protected selectedTemplate = contentChild<unknown, TemplateRef<{ $implicit: TOption | undefined }>>('selected', {
@@ -102,7 +104,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   });
 
   protected readonly showClear = computed(
-    () => this.clearable() && !this.effectiveDisabled() && this.selectedOption() !== undefined,
+    () => this.clearable() && !this.effectiveDisabled() && !this.loading() && this.selectedOption() !== undefined,
   );
 
   protected readonly filteredOptions = computed<readonly TOption[]>(() => {
@@ -143,7 +145,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   }
 
   protected toggle(): void {
-    if (this.effectiveDisabled()) {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
     if (this.open()) {
@@ -201,7 +203,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
    * (the standard ARIA "combobox with listbox popup" pattern) and this also drives navigation.
    */
   protected onTriggerKeydown(event: KeyboardEvent): void {
-    if (this.effectiveDisabled()) {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
 

@@ -2,13 +2,15 @@
   #triggerButton
   type="button"
   class="z-select__trigger"
+  [class.z-select__trigger--loading]="loading()"
   role="combobox"
   aria-haspopup="listbox"
   [attr.aria-expanded]="open()"
   [attr.aria-controls]="listboxId"
   [attr.aria-activedescendant]="activeOptionId()"
   [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
-  [disabled]="effectiveDisabled()"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  [disabled]="effectiveDisabled() || loading()"
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
@@ -30,7 +32,9 @@
     </span>
   }
   <span class="z-select__icon">
-    @if (iconTemplate(); as tpl) {
+    @if (loading()) {
+      <z-icon class="z-select__icon--spin" [ref]="icons.loading" />
+    } @else if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
       <z-icon [ref]="icons.chevronDown" />
@@ -45,19 +49,22 @@
     }
     @if (filterable()) {
       <div class="z-select__filter">
-        <input
-          #filterInput
-          type="text"
-          class="z-select__filter-input"
-          role="searchbox"
-          aria-label="Filter options"
-          [attr.aria-controls]="listboxId"
-          [attr.aria-activedescendant]="activeOptionId()"
-          [placeholder]="filterPlaceholder()"
-          [value]="filterText()"
-          (input)="onFilterInput($any($event.target).value)"
-          (keydown)="onFilterKeydown($event)"
-        />
+        <div class="z-select__filter-input-wrapper">
+          <input
+            #filterInput
+            type="text"
+            class="z-select__filter-input"
+            role="searchbox"
+            aria-label="Filter options"
+            [attr.aria-controls]="listboxId"
+            [attr.aria-activedescendant]="activeOptionId()"
+            [placeholder]="filterPlaceholder()"
+            [value]="filterText()"
+            (input)="onFilterInput($any($event.target).value)"
+            (keydown)="onFilterKeydown($event)"
+          />
+          <z-icon class="z-select__filter-icon" [ref]="icons.search" />
+        </div>
       </div>
     }
     <ul class="z-select__list" role="listbox" [id]="listboxId">

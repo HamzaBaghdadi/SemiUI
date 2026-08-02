@@ -60,10 +60,12 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   emptyMessage = input('No results found');
   /** Closes the panel after each selection, instead of staying open for picking more. */
   closeOnSelect = input(false, { transform: booleanAttribute });
-  /** Shows Select all / Clear all actions above the option list. */
+  /** Shows a master checkbox in the lead of the filter row that selects/clears every filtered option. */
   showSelectAll = input(true, { transform: booleanAttribute });
   /** Once more than this many items are selected, the trigger shows "N selected" instead of chips. */
   maxChipsDisplay = input(3);
+  /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
+  loading = input(false, { transform: booleanAttribute });
 
   protected selectedTemplate = contentChild<unknown, TemplateRef<{ $implicit: TOption[] }>>('selected', {
     read: TemplateRef,
@@ -89,7 +91,9 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
     return this.options().filter((option) => values.includes(this.resolveValue(option)));
   });
 
-  protected readonly showClear = computed(() => this.clearable() && !this.effectiveDisabled() && this.value().length > 0);
+  protected readonly showClear = computed(
+    () => this.clearable() && !this.effectiveDisabled() && !this.loading() && this.value().length > 0,
+  );
 
   protected readonly filteredOptions = computed<readonly TOption[]>(() => {
     const query = this.filterText().trim().toLowerCase();
@@ -99,6 +103,15 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
     }
     return all.filter((option) => this.labelFor(option).toLowerCase().includes(query));
   });
+
+  protected readonly allFilteredSelected = computed(() => {
+    const filtered = this.filteredOptions();
+    return filtered.length > 0 && filtered.every((option) => this.isSelected(option));
+  });
+
+  protected readonly someFilteredSelected = computed(
+    () => !this.allFilteredSelected() && this.filteredOptions().some((option) => this.isSelected(option)),
+  );
 
   private readonly focusFilterOnOpen = afterRenderEffect(() => {
     if (this.open() && this.filterable()) {
@@ -132,7 +145,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   }
 
   protected toggle(): void {
-    if (this.effectiveDisabled()) {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
     if (this.open()) {
@@ -174,18 +187,23 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
     }
   }
 
-  protected selectAll(): void {
-    if (this.effectiveDisabled()) {
+  protected toggleSelectAll(): void {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
-    const visibleValues = this.filteredOptions().map((option) => this.resolveValue(option));
-    this.value.set([...new Set([...this.value(), ...visibleValues])]);
+    if (this.allFilteredSelected()) {
+      const visibleValues = new Set(this.filteredOptions().map((option) => this.resolveValue(option)));
+      this.value.set(this.value().filter((v) => !visibleValues.has(v)));
+    } else {
+      const visibleValues = this.filteredOptions().map((option) => this.resolveValue(option));
+      this.value.set([...new Set([...this.value(), ...visibleValues])]);
+    }
     this.refocusFilterIfOpen();
   }
 
   protected clearAll(event?: MouseEvent): void {
     event?.stopPropagation();
-    if (this.effectiveDisabled()) {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
     this.value.set([]);
@@ -204,7 +222,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   }
 
   protected onTriggerKeydown(event: KeyboardEvent): void {
-    if (this.effectiveDisabled()) {
+    if (this.effectiveDisabled() || this.loading()) {
       return;
     }
     if (!this.open()) {

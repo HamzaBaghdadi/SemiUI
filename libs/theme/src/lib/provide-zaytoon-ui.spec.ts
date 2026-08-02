@@ -135,6 +135,9 @@ function createTestPreset(): ThemePreset {
       passwordHide: { type: 'ng-icon', name: 'testHide' },
       checkboxCheck: { type: 'ng-icon', name: 'testCheck' },
       checkboxIndeterminate: { type: 'ng-icon', name: 'testIndeterminate' },
+      search: { type: 'ng-icon', name: 'testSearch' },
+      plus: { type: 'ng-icon', name: 'testPlus' },
+      minus: { type: 'ng-icon', name: 'testMinus' },
     },
   };
 }

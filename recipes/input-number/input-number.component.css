@@ -6,6 +6,9 @@
   border-radius: var(--zaytoon-comp-input-radius);
   border: 1px solid var(--zaytoon-comp-input-border);
   background: var(--zaytoon-comp-input-background);
+  /* Clips the stepper buttons' hover background to the field's own rounded corners, instead of
+     it bleeding past them as a visible square edge. */
+  overflow: hidden;
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -52,6 +55,13 @@
   font-size: var(--zaytoon-comp-input-font-size);
   font-family: var(--zaytoon-typography-font-family);
   color: var(--zaytoon-comp-input-foreground);
+  text-align: left;
+}
+
+.z-input-number[data-buttons='horizontal'] .z-input-number__input {
+  text-align: center;
+  padding-left: var(--zaytoon-spacing-xs);
+  padding-right: var(--zaytoon-spacing-xs);
 }
 
 .z-input-number__input::placeholder {
@@ -63,10 +73,14 @@
   color: var(--zaytoon-comp-input-foreground-disabled);
 }
 
+/* Vertical layout: stacked chevrons on the trailing edge, in their own muted-tinted rail so they
+   read as a distinct control rather than blending into the field. */
 .z-input-number__buttons {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   border-left: 1px solid var(--zaytoon-comp-input-border);
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 45%, transparent);
 }
 
 .z-input-number__button {
@@ -80,6 +94,9 @@
   background: transparent;
   color: var(--zaytoon-comp-input-placeholder-foreground);
   cursor: pointer;
+  transition:
+    background-color 0.1s ease,
+    color 0.1s ease;
 }
 
 .z-input-number__button:first-child {
@@ -91,16 +108,61 @@
   color: var(--zaytoon-color-foreground);
 }
 
+.z-input-number__button:active:not(:disabled) {
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
+}
+
 .z-input-number__button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
 }
 
 .z-input-number__button-icon {
-  width: 0.75em;
-  height: 0.75em;
+  width: 0.7em;
+  height: 0.7em;
 }
 
 .z-input-number__button-icon--up {
   transform: rotate(180deg);
+}
+
+/* Horizontal layout: full-height [-] / [+] steppers flanking the field, each tinted so they read
+   as clickable controls immediately instead of blending into the input's own background. */
+.z-input-number__step {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  border: none;
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 45%, transparent);
+  color: var(--zaytoon-comp-input-foreground);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.z-input-number__step--decrement {
+  border-right: 1px solid var(--zaytoon-comp-input-border);
+}
+
+.z-input-number__step--increment {
+  border-left: 1px solid var(--zaytoon-comp-input-border);
+}
+
+.z-input-number__step:hover:not(:disabled) {
+  background: var(--zaytoon-color-muted);
+}
+
+.z-input-number__step:active:not(:disabled) {
+  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
+}
+
+.z-input-number__step:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.z-input-number__step-icon {
+  width: 0.8em;
+  height: 0.8em;
 }

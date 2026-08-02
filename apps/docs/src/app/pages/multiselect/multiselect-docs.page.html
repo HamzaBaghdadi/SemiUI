@@ -2,8 +2,11 @@
 <p>
   A multi-select listbox: same <code>options</code> / <code>optionLabel</code> /
   <code>optionValue</code> shape as <a routerLink="/components/select">Select</a>, plus
-  checkbox-style rows, chips in the trigger, and select-all/clear-all. Search/filter and clear are
-  on by default, same as Select, and the panel is viewport-aware and animated the same way too.
+  checkbox-style rows and chips in the trigger. Search/filter and clear are on by default, same as
+  Select, and the panel is viewport-aware and animated the same way too. When
+  <code>showSelectAll</code> is on (the default), a master checkbox in the lead of the filter row
+  selects or clears every currently-filtered option -- checked when all are selected, a dash when
+  some are.
 </p>
 
 <h2>Installation</h2>
@@ -55,6 +58,14 @@ protected profileForm = form(this.profileModel);
   <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [closeOnSelect]="true" [maxChipsDisplay]="2" placeholder="Pick fruits" />
 </div>
 <pre><code>&lt;z-multiselect [closeOnSelect]="true" [maxChipsDisplay]="2" /&gt;</code></pre>
+
+<h2>Loading</h2>
+<p>Same as Select: a spinner replaces the chevron, interaction is blocked, and it dims via opacity rather than the disabled palette.</p>
+<div class="demo-row">
+  <z-multiselect [options]="fruits" [loading]="loading()" placeholder="Pick fruits" />
+  <button type="button" (click)="toggleLoading()">Toggle loading</button>
+</div>
+<pre><code>&lt;z-multiselect [loading]="true" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">

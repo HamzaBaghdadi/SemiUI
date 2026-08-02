@@ -15,4 +15,10 @@ export interface IconTokens {
   checkboxCheck: IconRef;
   /** Checkbox's indeterminate glyph (a dash), shown when the indeterminate input is set. */
   checkboxIndeterminate: IconRef;
+  /** Shown inside Select/Multiselect's filter box. */
+  search: IconRef;
+  /** Generic increment glyph (Input Number's horizontal-layout increment button, etc). */
+  plus: IconRef;
+  /** Generic decrement glyph (Input Number's horizontal-layout decrement button, etc). */
+  minus: IconRef;
 }

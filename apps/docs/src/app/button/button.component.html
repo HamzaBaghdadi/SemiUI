@@ -1,5 +1,6 @@
 <button
   class="z-button"
+  [class.z-button--loading]="loading()"
   zButton
   [disabled]="isDisabled()"
   [attr.aria-busy]="loading() ? 'true' : null"

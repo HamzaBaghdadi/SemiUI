@@ -2,12 +2,14 @@
   #triggerButton
   type="button"
   class="z-multiselect__trigger"
+  [class.z-multiselect__trigger--loading]="loading()"
   aria-haspopup="listbox"
   [attr.aria-expanded]="open()"
   [attr.aria-controls]="listboxId"
   [attr.aria-activedescendant]="activeOptionId()"
   [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
-  [disabled]="effectiveDisabled()"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  [disabled]="effectiveDisabled() || loading()"
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
@@ -33,7 +35,9 @@
     </span>
   }
   <span class="z-multiselect__icon">
-    @if (iconTemplate(); as tpl) {
+    @if (loading()) {
+      <z-icon class="z-multiselect__icon--spin" [ref]="icons.loading" />
+    } @else if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
       <z-icon [ref]="icons.chevronDown" />
@@ -46,27 +50,47 @@
     @if (headerTemplate(); as tpl) {
       <div class="z-multiselect__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
-    @if (filterable()) {
+    @if (filterable() || showSelectAll()) {
       <div class="z-multiselect__filter">
-        <input
-          #filterInput
-          type="text"
-          class="z-multiselect__filter-input"
-          role="searchbox"
-          aria-label="Filter options"
-          [attr.aria-controls]="listboxId"
-          [attr.aria-activedescendant]="activeOptionId()"
-          [placeholder]="filterPlaceholder()"
-          [value]="filterText()"
-          (input)="onFilterInput($any($event.target).value)"
-          (keydown)="onFilterKeydown($event)"
-        />
-      </div>
-    }
-    @if (showSelectAll()) {
-      <div class="z-multiselect__actions">
-        <button type="button" class="z-multiselect__action" (click)="selectAll()">Select all</button>
-        <button type="button" class="z-multiselect__action" (click)="clearAll()">Clear all</button>
+        @if (showSelectAll()) {
+          <!-- Pointer-only convenience is not the case here: a real <button role="checkbox">
+               is fully keyboard-operable (native Enter/Space), same as Checkbox's native input. -->
+          <button
+            type="button"
+            class="z-multiselect__select-all"
+            role="checkbox"
+            [attr.aria-checked]="allFilteredSelected() ? 'true' : someFilteredSelected() ? 'mixed' : 'false'"
+            aria-label="Select all"
+            [disabled]="effectiveDisabled() || loading()"
+            (click)="toggleSelectAll()"
+          >
+            <span class="z-multiselect__select-all-box" [attr.data-checked]="allFilteredSelected() ? '' : null">
+              @if (allFilteredSelected()) {
+                <z-icon [ref]="icons.checkboxCheck" />
+              } @else if (someFilteredSelected()) {
+                <z-icon [ref]="icons.checkboxIndeterminate" />
+              }
+            </span>
+          </button>
+        }
+        @if (filterable()) {
+          <div class="z-multiselect__filter-input-wrapper">
+            <input
+              #filterInput
+              type="text"
+              class="z-multiselect__filter-input"
+              role="searchbox"
+              aria-label="Filter options"
+              [attr.aria-controls]="listboxId"
+              [attr.aria-activedescendant]="activeOptionId()"
+              [placeholder]="filterPlaceholder()"
+              [value]="filterText()"
+              (input)="onFilterInput($any($event.target).value)"
+              (keydown)="onFilterKeydown($event)"
+            />
+            <z-icon class="z-multiselect__filter-icon" [ref]="icons.search" />
+          </div>
+        }
       </div>
     }
     <ul class="z-multiselect__list" role="listbox" aria-multiselectable="true" [id]="listboxId">

@@ -22,13 +22,26 @@
 
 .z-button[aria-disabled='true'] {
   cursor: not-allowed;
+}
+
+/* Loading is functionally disabled (no clicks) but visually distinct from a plain disabled
+   button: it keeps the variant's normal colors and just dims via opacity, rather than swapping
+   to the flat disabled palette -- so it still reads as "this button", not "this button is gone". */
+.z-button[aria-disabled='true']:not(.z-button--loading) {
   background: var(--zaytoon-comp-button-background-disabled);
   color: var(--zaytoon-comp-button-foreground-disabled);
   border-color: var(--zaytoon-comp-button-background-disabled);
 }
 
+.z-button--loading {
+  opacity: 0.6;
+}
+
 .z-button__icon {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   width: 1em;
   height: 1em;
 }
@@ -41,6 +54,13 @@
 
 .z-button__icon--spin {
   animation: z-button-spin 1s linear infinite;
+  transform-origin: 50% 50%;
+  /* Forces its own compositing layer so the rotation is a pure GPU transform -- without this,
+     some browsers recompute the (slightly larger, anti-aliased) axis-aligned bounding box at
+     diagonal angles and re-run flex cross-axis alignment on the surrounding row, which reads as
+     the icon bobbing up and down while it spins. */
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* sizes -- data-size lives on the <z-button> host, not on the inner .z-button */
@@ -83,73 +103,73 @@
    as a stale, mismatched outline once the fill darkens. Outline is the deliberate exception --
    its border is a fixed stroke around a background that's transparent at rest, so there's
    nothing for it to "match" in the first place. */
-:host([data-variant='primary']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='primary']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-primary-background);
   color: var(--zaytoon-comp-button-variants-primary-foreground);
   border-color: var(--zaytoon-comp-button-variants-primary-border);
 }
-:host([data-variant='primary']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='primary']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 85%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-border) 85%, black);
 }
-:host([data-variant='primary']) .z-button:active:not([aria-disabled='true']) {
+:host([data-variant='primary']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 70%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-border) 70%, black);
 }
 
-:host([data-variant='secondary']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='secondary']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-secondary-background);
   color: var(--zaytoon-comp-button-variants-secondary-foreground);
   border-color: var(--zaytoon-comp-button-variants-secondary-border);
 }
-:host([data-variant='secondary']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='secondary']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 85%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-border) 85%, black);
 }
-:host([data-variant='secondary']) .z-button:active:not([aria-disabled='true']) {
+:host([data-variant='secondary']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-background) 70%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-secondary-border) 70%, black);
 }
 
-:host([data-variant='outline']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='outline']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-outline-background);
   color: var(--zaytoon-comp-button-variants-outline-foreground);
   border-color: var(--zaytoon-comp-button-variants-outline-border);
 }
-:host([data-variant='outline']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='outline']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-color-muted);
 }
-:host([data-variant='outline']) .z-button:active:not([aria-disabled='true']) {
+:host([data-variant='outline']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
 }
 
-:host([data-variant='ghost']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='ghost']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-ghost-background);
   color: var(--zaytoon-comp-button-variants-ghost-foreground);
   border-color: var(--zaytoon-comp-button-variants-ghost-border);
 }
-:host([data-variant='ghost']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='ghost']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-color-muted);
 }
-:host([data-variant='ghost']) .z-button:active:not([aria-disabled='true']) {
+:host([data-variant='ghost']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
 }
 
-:host([data-variant='destructive']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='destructive']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-destructive-background);
   color: var(--zaytoon-comp-button-variants-destructive-foreground);
   border-color: var(--zaytoon-comp-button-variants-destructive-border);
 }
-:host([data-variant='destructive']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='destructive']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 85%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-border) 85%, black);
 }
-:host([data-variant='destructive']) .z-button:active:not([aria-disabled='true']) {
+:host([data-variant='destructive']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
   background: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-background) 70%, black);
   border-color: color-mix(in srgb, var(--zaytoon-comp-button-variants-destructive-border) 70%, black);
 }
 
-:host([data-variant='link']) .z-button:not([aria-disabled='true']) {
+:host([data-variant='link']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
   background: var(--zaytoon-comp-button-variants-link-background);
   color: var(--zaytoon-comp-button-variants-link-foreground);
   border-color: var(--zaytoon-comp-button-variants-link-border);
@@ -157,6 +177,6 @@
   padding-right: 0;
   text-underline-offset: 3px;
 }
-:host([data-variant='link']) .z-button:hover:not([aria-disabled='true']) {
+:host([data-variant='link']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
   text-decoration: underline;
 }

@@ -1,4 +1,16 @@
-<div class="z-input-number">
+<div class="z-input-number" [attr.data-buttons]="buttons()">
+  @if (showButtons() && buttons() === 'horizontal') {
+    <button
+      type="button"
+      class="z-input-number__step z-input-number__step--decrement"
+      tabindex="-1"
+      aria-label="Decrement"
+      [disabled]="effectiveDisabled() || atMin()"
+      (click)="decrement()"
+    >
+      <z-icon class="z-input-number__step-icon" [ref]="icons.minus" />
+    </button>
+  }
   @if (prefix()) {
     <span class="z-input-number__affix">{{ prefix() }}</span>
   }
@@ -20,28 +32,41 @@
     <span class="z-input-number__affix">{{ suffix() }}</span>
   }
   @if (showButtons()) {
-    <span class="z-input-number__buttons">
+    @if (buttons() === 'horizontal') {
       <button
         type="button"
-        class="z-input-number__button"
+        class="z-input-number__step z-input-number__step--increment"
         tabindex="-1"
         aria-label="Increment"
-        [disabled]="effectiveDisabled() || (max() !== undefined && (value() ?? 0) >= max()!)"
+        [disabled]="effectiveDisabled() || atMax()"
         (click)="increment()"
       >
-        <z-icon class="z-input-number__button-icon z-input-number__button-icon--up" [ref]="icons.chevronDown" />
+        <z-icon class="z-input-number__step-icon" [ref]="icons.plus" />
       </button>
-      <button
-        type="button"
-        class="z-input-number__button"
-        tabindex="-1"
-        aria-label="Decrement"
-        [disabled]="effectiveDisabled() || (min() !== undefined && (value() ?? 0) <= min()!)"
-        (click)="decrement()"
-      >
-        <z-icon class="z-input-number__button-icon" [ref]="icons.chevronDown" />
-      </button>
-    </span>
+    } @else {
+      <span class="z-input-number__buttons">
+        <button
+          type="button"
+          class="z-input-number__button"
+          tabindex="-1"
+          aria-label="Increment"
+          [disabled]="effectiveDisabled() || atMax()"
+          (click)="increment()"
+        >
+          <z-icon class="z-input-number__button-icon z-input-number__button-icon--up" [ref]="icons.chevronDown" />
+        </button>
+        <button
+          type="button"
+          class="z-input-number__button"
+          tabindex="-1"
+          aria-label="Decrement"
+          [disabled]="effectiveDisabled() || atMin()"
+          (click)="decrement()"
+        >
+          <z-icon class="z-input-number__button-icon" [ref]="icons.chevronDown" />
+        </button>
+      </span>
+    }
   }
 </div>
 @if (effectiveInvalid()) {

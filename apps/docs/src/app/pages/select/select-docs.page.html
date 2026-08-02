@@ -110,6 +110,14 @@ protected profileForm = form(this.profileModel);
 <pre><code>&lt;z-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry"
   [clearable]="false" [filterable]="false" /&gt;</code></pre>
 
+<h2>Loading</h2>
+<p>Shows a spinner in place of the chevron and blocks interaction, for async option loading. Dims via opacity rather than swapping to the disabled palette, so it reads as "busy" rather than "unavailable".</p>
+<div class="demo-row">
+  <z-select [options]="fruits" [loading]="loading()" placeholder="Pick a fruit" />
+  <button type="button" (click)="toggleLoading()">Toggle loading</button>
+</div>
+<pre><code>&lt;z-select [loading]="true" /&gt;</code></pre>
+
 <h2>Disabled</h2>
 <div class="demo-row">
   <z-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />

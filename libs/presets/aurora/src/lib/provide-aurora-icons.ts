@@ -1,6 +1,16 @@
 import { Provider } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
-import { lucideCheck, lucideChevronDown, lucideEye, lucideEyeOff, lucideLoaderCircle, lucideMinus, lucideX } from '@ng-icons/lucide';
+import {
+  lucideCheck,
+  lucideChevronDown,
+  lucideEye,
+  lucideEyeOff,
+  lucideLoaderCircle,
+  lucideMinus,
+  lucidePlus,
+  lucideSearch,
+  lucideX,
+} from '@ng-icons/lucide';
 
 /** Registers the ng-icon names referenced by Aurora's default icon tokens. */
 export function provideAuroraIcons(): Provider[] {
@@ -12,5 +22,7 @@ export function provideAuroraIcons(): Provider[] {
     lucideEyeOff,
     lucideCheck,
     lucideMinus,
+    lucideSearch,
+    lucidePlus,
   });
 }

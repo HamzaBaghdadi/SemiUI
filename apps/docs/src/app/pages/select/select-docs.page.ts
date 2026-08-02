@@ -43,8 +43,13 @@ export class SelectDocsPage {
   protected profileForm = form(this.profileModel);
 
   protected disabled = signal(false);
+  protected loading = signal(false);
 
   toggleDisabled(): void {
     this.disabled.update((value) => !value);
+  }
+
+  toggleLoading(): void {
+    this.loading.update((value) => !value);
   }
 }

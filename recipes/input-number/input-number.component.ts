@@ -27,12 +27,25 @@ export class InputNumberComponent extends BaseFormFieldControl<number | null> {
   max = input<number>();
   step = input(1);
   showButtons = input(true, { transform: booleanAttribute });
+  /** "vertical" stacks chevrons on the trailing edge (default); "horizontal" puts a full-height
+   *  decrement button on the lead and increment on the end, like a [-] [value] [+] stepper. */
+  buttons = input<'vertical' | 'horizontal'>('vertical');
   prefix = input('');
   suffix = input('');
 
   protected readonly displayValue = computed(() => {
     const value = this.value();
     return value === null ? '' : String(value);
+  });
+
+  protected readonly atMax = computed(() => {
+    const max = this.max();
+    return max !== undefined && (this.value() ?? 0) >= max;
+  });
+
+  protected readonly atMin = computed(() => {
+    const min = this.min();
+    return min !== undefined && (this.value() ?? 0) <= min;
   });
 
   protected override emptyValue(): number | null {

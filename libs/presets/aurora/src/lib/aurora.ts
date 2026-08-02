@@ -180,5 +180,8 @@ export const Aurora: ThemePreset = {
     passwordHide: { type: 'ng-icon', name: 'lucideEyeOff' },
     checkboxCheck: { type: 'ng-icon', name: 'lucideCheck' },
     checkboxIndeterminate: { type: 'ng-icon', name: 'lucideMinus' },
+    search: { type: 'ng-icon', name: 'lucideSearch' },
+    plus: { type: 'ng-icon', name: 'lucidePlus' },
+    minus: { type: 'ng-icon', name: 'lucideMinus' },
   },
 };

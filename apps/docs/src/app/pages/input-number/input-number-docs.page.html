@@ -50,6 +50,13 @@ protected profileForm = form(this.profileModel);
 </div>
 <pre><code>&lt;z-input-number prefix="$" suffix=".00" [showButtons]="false" /&gt;</code></pre>
 
+<h2>Button layout</h2>
+<p><code>buttons</code> switches between stacked chevrons on the trailing edge (default) and a full-height [-] / [+] stepper flanking the field.</p>
+<div class="demo-row">
+  <z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" buttons="horizontal" />
+</div>
+<pre><code>&lt;z-input-number buttons="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
+
 <h2>Keyboard</h2>
 <p><code>↑</code> / <code>↓</code> step the value while the field is focused, same as clicking the buttons.</p>
 

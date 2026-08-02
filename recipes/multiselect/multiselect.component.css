@@ -30,7 +30,12 @@
   min-width: 0;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.25rem;
+  /* Pinned to the exact same font-size/line-height/padding budget as .z-multiselect__chip below
+     (not an em-relative guess against line-height: normal, which is font-metric-dependent and
+     didn't quite match) -- otherwise the trigger grows by a couple px the moment a chip appears. */
+  min-height: calc(var(--zaytoon-typography-font-size-sm) * 1.2 + 0.25rem);
   text-align: left;
 }
 
@@ -50,6 +55,7 @@
   background: var(--zaytoon-comp-select-option-background-hover);
   color: var(--zaytoon-comp-select-foreground);
   font-size: var(--zaytoon-typography-font-size-sm);
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -71,10 +77,12 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  /* Same 1em x 1em footprint as .z-multiselect__icon (border-box, padding included rather than
+     added on top) -- otherwise the trigger's row height grows by a hair when this appears. */
   width: 1em;
   height: 1em;
-  padding: 0.1875em;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  padding: 0.125em;
   border-radius: var(--zaytoon-radius-full);
   color: var(--zaytoon-comp-select-placeholder-foreground);
   cursor: pointer;
@@ -83,6 +91,24 @@
 .z-multiselect__clear:hover {
   background: var(--zaytoon-comp-select-option-background-hover);
   color: var(--zaytoon-comp-select-foreground);
+}
+
+@keyframes z-multiselect-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.z-multiselect__icon--spin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: z-multiselect-spin 1s linear infinite;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .z-multiselect__trigger:hover:not(:disabled):not([aria-invalid='true']) {
@@ -101,8 +127,17 @@
 
 .z-multiselect__trigger:disabled {
   cursor: not-allowed;
+}
+
+/* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
+   the flat disabled palette -- it reads as "busy", not "unavailable". */
+.z-multiselect__trigger:disabled:not(.z-multiselect__trigger--loading) {
   background: var(--zaytoon-comp-select-background-disabled);
   color: var(--zaytoon-comp-select-foreground-disabled);
+}
+
+.z-multiselect__trigger--loading {
+  opacity: 0.6;
 }
 
 .z-multiselect__panel {
@@ -161,14 +196,78 @@
 }
 
 .z-multiselect__filter {
+  display: flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-sm);
   padding: var(--zaytoon-spacing-sm);
   border-bottom: 1px solid var(--zaytoon-comp-select-panel-border);
+}
+
+.z-multiselect__select-all {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.z-multiselect__select-all:disabled {
+  cursor: not-allowed;
+}
+
+.z-multiselect__select-all-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  box-sizing: border-box;
+  border: 1px solid var(--zaytoon-comp-checkbox-border);
+  border-radius: var(--zaytoon-comp-checkbox-radius);
+  background: var(--zaytoon-comp-checkbox-background);
+  color: var(--zaytoon-comp-checkbox-foreground-checked);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.z-multiselect__select-all-box[data-checked] {
+  background: var(--zaytoon-comp-checkbox-background-checked);
+  border-color: var(--zaytoon-comp-checkbox-border-checked);
+}
+
+.z-multiselect__select-all[aria-checked='mixed'] .z-multiselect__select-all-box {
+  border-color: var(--zaytoon-comp-checkbox-border-checked);
+}
+
+.z-multiselect__select-all-box z-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.z-multiselect__select-all:focus-visible .z-multiselect__select-all-box {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-checkbox-focus-ring) 35%, transparent);
+}
+
+.z-multiselect__select-all:disabled .z-multiselect__select-all-box {
+  background: var(--zaytoon-comp-checkbox-background-disabled);
+  border-color: var(--zaytoon-comp-checkbox-border-disabled);
+}
+
+.z-multiselect__filter-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .z-multiselect__filter-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.375rem var(--zaytoon-spacing-sm);
+  padding: 0.375rem 1.75rem 0.375rem var(--zaytoon-spacing-sm);
   border: 1px solid var(--zaytoon-comp-select-border);
   border-radius: var(--zaytoon-radius-sm);
   font-size: var(--zaytoon-comp-select-font-size);
@@ -187,24 +286,13 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
 }
 
-.z-multiselect__actions {
-  display: flex;
-  gap: var(--zaytoon-spacing-sm);
-  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-md);
-  border-bottom: 1px solid var(--zaytoon-comp-select-panel-border);
-}
-
-.z-multiselect__action {
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--zaytoon-color-primary);
-  font-size: var(--zaytoon-typography-font-size-sm);
-  cursor: pointer;
-}
-
-.z-multiselect__action:hover {
-  text-decoration: underline;
+.z-multiselect__filter-icon {
+  position: absolute;
+  right: 0.5rem;
+  width: 0.875em;
+  height: 0.875em;
+  color: var(--zaytoon-comp-select-placeholder-foreground);
+  pointer-events: none;
 }
 
 .z-multiselect__list {

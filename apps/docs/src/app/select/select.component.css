@@ -55,10 +55,12 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+  /* Same 1em x 1em footprint as .z-select__icon (border-box, padding included rather than added
+     on top) -- otherwise the trigger's row height grows by a hair whenever this appears/disappears. */
   width: 1em;
   height: 1em;
-  padding: 0.1875em;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  padding: 0.125em;
   border-radius: var(--zaytoon-radius-full);
   color: var(--zaytoon-comp-select-placeholder-foreground);
   cursor: pointer;
@@ -67,6 +69,24 @@
 .z-select__clear:hover {
   background: var(--zaytoon-comp-select-option-background-hover);
   color: var(--zaytoon-comp-select-foreground);
+}
+
+@keyframes z-select-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.z-select__icon--spin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: z-select-spin 1s linear infinite;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .z-select__trigger:hover:not(:disabled):not([aria-invalid='true']) {
@@ -85,8 +105,17 @@
 
 .z-select__trigger:disabled {
   cursor: not-allowed;
+}
+
+/* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
+   the flat disabled palette -- it reads as "busy", not "unavailable". */
+.z-select__trigger:disabled:not(.z-select__trigger--loading) {
   background: var(--zaytoon-comp-select-background-disabled);
   color: var(--zaytoon-comp-select-foreground-disabled);
+}
+
+.z-select__trigger--loading {
+  opacity: 0.6;
 }
 
 .z-select__panel {
@@ -149,10 +178,16 @@
   border-bottom: 1px solid var(--zaytoon-comp-select-panel-border);
 }
 
+.z-select__filter-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .z-select__filter-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.375rem var(--zaytoon-spacing-sm);
+  padding: 0.375rem 1.75rem 0.375rem var(--zaytoon-spacing-sm);
   border: 1px solid var(--zaytoon-comp-select-border);
   border-radius: var(--zaytoon-radius-sm);
   font-size: var(--zaytoon-comp-select-font-size);
@@ -169,6 +204,15 @@
   outline: none;
   border-color: var(--zaytoon-comp-select-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+}
+
+.z-select__filter-icon {
+  position: absolute;
+  right: 0.5rem;
+  width: 0.875em;
+  height: 0.875em;
+  color: var(--zaytoon-comp-select-placeholder-foreground);
+  pointer-events: none;
 }
 
 .z-select__empty {
