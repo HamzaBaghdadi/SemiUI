@@ -262,6 +262,16 @@ function createTestPreset(): ThemePreset {
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
         },
+        colorPicker: {
+          svAreaSize: '12rem',
+          hueTrackHeight: '0.75rem',
+          thumbSize: '1rem',
+          hueThumbWidth: '0.75rem',
+          presetSize: '1.5rem',
+          presetGap: '0.375rem',
+          presetBorder: '#333',
+          presetBorderSelected: '#fff',
+        },
         datePicker: {
           daySize: '2.25rem',
           fontSize: '0.875rem',

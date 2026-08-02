@@ -154,4 +154,8 @@ export const appRoutes: Route[] = [
     path: 'components/date-picker',
     loadComponent: () => import('./pages/date-picker/date-picker-docs.page').then((m) => m.DatePickerDocsPage),
   },
+  {
+    path: 'components/color-picker',
+    loadComponent: () => import('./pages/color-picker/color-picker-docs.page').then((m) => m.ColorPickerDocsPage),
+  },
 ];

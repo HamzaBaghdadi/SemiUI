@@ -349,6 +349,16 @@ export const Aurora: ThemePreset = {
         bubbleBackground: 'var(--zaytoon-color-foreground)',
         bubbleForeground: 'var(--zaytoon-color-background)',
       },
+      colorPicker: {
+        svAreaSize: '12rem',
+        hueTrackHeight: '0.75rem',
+        thumbSize: '1rem',
+        hueThumbWidth: '0.75rem',
+        presetSize: '1.5rem',
+        presetGap: '0.375rem',
+        presetBorder: 'var(--zaytoon-color-border)',
+        presetBorderSelected: 'var(--zaytoon-color-primary)',
+      },
       datePicker: {
         daySize: '2.25rem',
         fontSize: 'var(--zaytoon-typography-font-size-sm)',

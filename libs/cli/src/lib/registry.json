@@ -209,5 +209,12 @@
     "files": ["date-picker.component.ts", "date-picker.component.html", "date-picker.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "color-picker": {
+    "name": "color-picker",
+    "description": "A hex color picker: saturation/value square, hue slider, typeable hex field, preset swatches, an inline option, and ngModel/reactive/Signal Forms support.",
+    "files": ["color-picker.component.ts", "color-picker.component.html", "color-picker.component.css", "color.ts"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }

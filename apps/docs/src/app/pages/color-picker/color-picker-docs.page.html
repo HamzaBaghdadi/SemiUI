@@ -1,0 +1,66 @@
+<h1>Color Picker</h1>
+<p>
+  A hex color picker: a saturation/value square, a hue slider, a typeable hex field, and preset
+  swatches. Trigger + popover panel by default, or set <code>inline</code> to render the panel
+  directly with no trigger. Supports ngModel, reactive forms, and Signal Forms -- the bound value
+  is a <code>#rrggbb</code> hex string (no alpha channel).
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add color-picker</code></pre>
+
+<h2>Basic usage (ngModel)</h2>
+<div class="demo-row">
+  <z-color-picker [(ngModel)]="brandColor" />
+</div>
+<p class="demo-value">Model value: {{ brandColor }}</p>
+<pre><code>&lt;z-color-picker [(ngModel)]="brandColor" /&gt;</code></pre>
+
+<h2>Inline</h2>
+<div class="demo-row">
+  <z-color-picker [(ngModel)]="inlineColor" [inline]="true" />
+</div>
+<pre><code>&lt;z-color-picker [(ngModel)]="color" [inline]="true" /&gt;</code></pre>
+
+<h2>Custom presets</h2>
+<div class="demo-row">
+  <z-color-picker [ngModel]="null" [presets]="limitedPresets" />
+</div>
+<pre><code>protected presets = ['#ef4444', '#22c55e', '#3b82f6', '#f59e0b', '#a855f7'];
+
+&lt;z-color-picker [(ngModel)]="color" [presets]="presets" /&gt;</code></pre>
+
+<h2>Reactive forms</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-color-picker formControlName="accent" errorMessage="Please pick an accent color." />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  accent: new FormControl&lt;string | null&gt;(null, Validators.required),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-color-picker formControlName="accent" errorMessage="Please pick an accent color." /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-color-picker [formField]="profileForm.themeColor" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().themeColor }}</p>
+<pre><code>protected profileModel = signal(&#123; themeColor: '#ec4899' &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-color-picker [formField]="profileForm.themeColor" /&gt;</code></pre>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-color-picker [ngModel]="'#3b82f6'" [disabled]="disabled()" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>
+
+<h2>Options</h2>
+<ul>
+  <li><code>inline</code> -- default <code>false</code>.</li>
+  <li><code>presets</code> -- array of hex strings, defaults to a 19-color palette.</li>
+  <li><code>placeholder</code> -- shown in the trigger when no value is set.</li>
+</ul>

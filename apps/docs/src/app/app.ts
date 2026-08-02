@@ -53,5 +53,6 @@ export class App {
     { label: 'Toast', path: '/components/toast' },
     { label: 'Carousel', path: '/components/carousel' },
     { label: 'Date Picker', path: '/components/date-picker' },
+    { label: 'Color Picker', path: '/components/color-picker' },
   ];
 }

@@ -274,6 +274,16 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    colorPicker: {
+      svAreaSize: string;
+      hueTrackHeight: string;
+      thumbSize: string;
+      hueThumbWidth: string;
+      presetSize: string;
+      presetGap: string;
+      presetBorder: string;
+      presetBorderSelected: string;
+    };
     datePicker: {
       daySize: string;
       fontSize: string;
