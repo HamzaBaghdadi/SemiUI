@@ -1,0 +1,66 @@
+<h1>Badge</h1>
+<p>A small notification indicator -- a number, "N+" once past <code>max</code>, or a plain dot. By default it overlays whatever is projected into it (an icon, an avatar); set <code>standalone</code> to render inline instead, e.g. next to a text label.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add badge</code></pre>
+
+<h2>Overlaying an icon</h2>
+<div class="demo-row">
+  <z-badge [count]="count()">
+    <button type="button" aria-label="Notifications" style="width: 2.5rem; height: 2.5rem; border-radius: 9999px;">🔔</button>
+  </z-badge>
+  <button type="button" (click)="increment()">Add notification</button>
+</div>
+<pre><code>&lt;z-badge [count]="unreadCount"&gt;
+  &lt;button aria-label="Notifications"&gt;🔔&lt;/button&gt;
+&lt;/z-badge&gt;</code></pre>
+
+<h2>Max count ("N+")</h2>
+<div class="demo-row">
+  <z-badge [count]="150" [max]="99">
+    <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span>
+  </z-badge>
+</div>
+<pre><code>&lt;z-badge [count]="150" [max]="99"&gt;...&lt;/z-badge&gt;  &lt;!-- shows "99+" --&gt;</code></pre>
+
+<h2>Dot</h2>
+<div class="demo-row">
+  <z-badge [dot]="true" variant="destructive">
+    <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span>
+  </z-badge>
+</div>
+<pre><code>&lt;z-badge [dot]="true" variant="destructive"&gt;...&lt;/z-badge&gt;</code></pre>
+
+<h2>Position and variants</h2>
+<div class="demo-row">
+  @for (position of positions; track position) {
+    <z-badge [count]="1" [position]="position" variant="primary">
+      <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:0.5rem;background:var(--zaytoon-color-muted);"></span>
+    </z-badge>
+  }
+</div>
+<div class="demo-row">
+  <z-badge [count]="1" variant="default"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span></z-badge>
+  <z-badge [count]="1" variant="secondary"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span></z-badge>
+  <z-badge [count]="1" variant="outline"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span></z-badge>
+</div>
+<pre><code>&lt;z-badge [count]="1" position="bottom-left" variant="secondary"&gt;...&lt;/z-badge&gt;</code></pre>
+
+<h2>Standalone (inline, no overlay)</h2>
+<div class="demo-row">
+  <span>Inbox</span>
+  <z-badge [count]="5" [standalone]="true" />
+</div>
+<pre><code>&lt;span&gt;Inbox&lt;/span&gt;
+&lt;z-badge [count]="5" [standalone]="true" /&gt;</code></pre>
+
+<h2>Zero count</h2>
+<p>Hidden by default when <code>count</code> is exactly <code>0</code>; set <code>showZero</code> to keep it visible.</p>
+<div class="demo-row">
+  <z-badge [count]="0">
+    <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span>
+  </z-badge>
+  <z-badge [count]="0" [showZero]="true">
+    <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--zaytoon-color-muted);"></span>
+  </z-badge>
+</div>

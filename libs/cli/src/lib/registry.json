@@ -140,5 +140,11 @@
     "files": ["rating.component.ts", "rating.component.html", "rating.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
     "recipeDependencies": ["error-message"]
+  },
+  "badge": {
+    "name": "badge",
+    "description": "A small notification indicator (count, \"N+\", or a dot) that overlays projected content, or renders inline in standalone mode.",
+    "files": ["badge.component.ts", "badge.component.html", "badge.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
   }
 }

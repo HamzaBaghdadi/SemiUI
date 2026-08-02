@@ -242,6 +242,39 @@ export const Aurora: ThemePreset = {
         fontSize: 'var(--zaytoon-typography-font-size-sm)',
         gap: '0.375rem',
       },
+      badge: {
+        size: '1.25rem',
+        dotSize: '0.625rem',
+        fontSize: '0.6875rem',
+        ringColor: 'var(--zaytoon-color-background)',
+        variants: {
+          default: {
+            background: 'var(--zaytoon-color-muted)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'transparent',
+          },
+          primary: {
+            background: 'var(--zaytoon-color-primary)',
+            foreground: 'var(--zaytoon-color-primary-foreground)',
+            border: 'transparent',
+          },
+          secondary: {
+            background: 'var(--zaytoon-color-muted)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'transparent',
+          },
+          destructive: {
+            background: 'var(--zaytoon-color-destructive)',
+            foreground: 'var(--zaytoon-color-destructive-foreground)',
+            border: 'transparent',
+          },
+          outline: {
+            background: 'var(--zaytoon-color-background)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-border)',
+          },
+        },
+      },
       pagination: {
         radius: '0.375rem',
         gap: '0.25rem',

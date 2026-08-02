@@ -1,0 +1,16 @@
+<span class="z-badge-wrapper">
+  <ng-content />
+  @if (shouldShow()) {
+    <span
+      class="z-badge"
+      [class.z-badge--dot]="dot()"
+      [attr.data-variant]="variant()"
+      [attr.data-position]="position()"
+      [attr.aria-label]="dot() ? 'Unread notification' : count() !== undefined ? count() + ' notifications' : null"
+    >
+      @if (!dot()) {
+        {{ displayValue() }}
+      }
+    </span>
+  }
+</span>

@@ -184,6 +184,13 @@ export interface ThemeTokens {
       fontSize: string;
       gap: string;
     };
+    badge: {
+      size: string;
+      dotSize: string;
+      fontSize: string;
+      ringColor: string;
+      variants: Record<TagVariant, ButtonVariantTokens>;
+    };
     pagination: {
       radius: string;
       gap: string;

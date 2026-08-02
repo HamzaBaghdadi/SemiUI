@@ -176,6 +176,18 @@ function createTestPreset(): ThemePreset {
           fontSize: '0.875rem',
           gap: '0.375rem',
         },
+        badge: {
+          size: '1.25rem',
+          dotSize: '0.625rem',
+          fontSize: '0.6875rem',
+          ringColor: '#000',
+          variants: Object.fromEntries(
+            (['default', 'primary', 'secondary', 'destructive', 'outline'] as const).map((variant) => [
+              variant,
+              { background: '#111', foreground: '#fff', border: 'transparent' },
+            ]),
+          ) as ThemePreset['tokens']['comp']['badge']['variants'],
+        },
         pagination: {
           radius: '0.375rem',
           gap: '0.25rem',
