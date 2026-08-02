@@ -262,6 +262,21 @@ function createTestPreset(): ThemePreset {
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
         },
+        fileUpload: {
+          border: '#333',
+          borderDragOver: '#fff',
+          background: 'transparent',
+          backgroundDragOver: '#111',
+          radius: '0.5rem',
+          iconColor: '#999',
+          hintColor: '#fff',
+          acceptColor: '#999',
+          itemBackground: '#111',
+          itemBorder: '#333',
+          itemRadius: '0.375rem',
+          thumbSize: '2.5rem',
+          rejectionColor: '#f00',
+        },
         dialog: {
           backdropColor: 'rgb(0 0 0 / 0.5)',
           panelBackground: '#000',
@@ -293,6 +308,8 @@ function createTestPreset(): ThemePreset {
       minus: { type: 'ng-icon', name: 'testMinus' },
       avatarFallback: { type: 'ng-icon', name: 'testUser' },
       rating: { type: 'ng-icon', name: 'testStar' },
+      upload: { type: 'ng-icon', name: 'testUpload' },
+      file: { type: 'ng-icon', name: 'testFile' },
     },
   };
 }

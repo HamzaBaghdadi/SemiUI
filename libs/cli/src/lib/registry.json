@@ -183,5 +183,12 @@
     "description": "A panel that slides in from a viewport edge (left/right/top/bottom), controlled by reference (show()/hide()/toggle()) with the same focus trap/scroll lock/portal behavior as Dialog.",
     "files": ["drawer.component.ts", "drawer.component.html", "drawer.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "file-upload": {
+    "name": "file-upload",
+    "description": "A drag-and-drop / click-to-browse file picker with accept/maxFileSize/maxFiles validation, image thumbnail previews, and ngModel/reactive/Signal Forms support.",
+    "files": ["file-upload.component.ts", "file-upload.component.html", "file-upload.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

@@ -25,4 +25,8 @@ export interface IconTokens {
   avatarFallback: IconRef;
   /** Rating's star -- filled/empty is a CSS fill toggle on this same icon, not two separate ones. */
   rating: IconRef;
+  /** File Upload's dropzone icon. */
+  upload: IconRef;
+  /** File Upload's generic per-file icon, shown for non-image files without a thumbnail preview. */
+  file: IconRef;
 }

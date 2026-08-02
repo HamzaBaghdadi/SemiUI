@@ -266,6 +266,21 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    fileUpload: {
+      border: string;
+      borderDragOver: string;
+      background: string;
+      backgroundDragOver: string;
+      radius: string;
+      iconColor: string;
+      hintColor: string;
+      acceptColor: string;
+      itemBackground: string;
+      itemBorder: string;
+      itemRadius: string;
+      thumbSize: string;
+      rejectionColor: string;
+    };
     dialog: {
       backdropColor: string;
       panelBackground: string;

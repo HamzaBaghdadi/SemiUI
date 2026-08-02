@@ -49,5 +49,6 @@ export class App {
     { label: 'Slider', path: '/components/slider' },
     { label: 'Dialog', path: '/components/dialog' },
     { label: 'Drawer', path: '/components/drawer' },
+    { label: 'File Upload', path: '/components/file-upload' },
   ];
 }

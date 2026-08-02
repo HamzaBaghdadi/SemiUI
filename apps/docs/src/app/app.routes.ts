@@ -138,4 +138,8 @@ export const appRoutes: Route[] = [
     path: 'components/drawer',
     loadComponent: () => import('./pages/drawer/drawer-docs.page').then((m) => m.DrawerDocsPage),
   },
+  {
+    path: 'components/file-upload',
+    loadComponent: () => import('./pages/file-upload/file-upload-docs.page').then((m) => m.FileUploadDocsPage),
+  },
 ];

@@ -5,11 +5,13 @@ import {
   lucideChevronDown,
   lucideEye,
   lucideEyeOff,
+  lucideFile,
   lucideLoaderCircle,
   lucideMinus,
   lucidePlus,
   lucideSearch,
   lucideStar,
+  lucideUpload,
   lucideUser,
   lucideX,
 } from '@ng-icons/lucide';
@@ -28,5 +30,7 @@ export function provideAuroraIcons(): Provider[] {
     lucidePlus,
     lucideUser,
     lucideStar,
+    lucideUpload,
+    lucideFile,
   });
 }
