@@ -126,4 +126,8 @@ export const appRoutes: Route[] = [
     path: 'components/stepper',
     loadComponent: () => import('./pages/stepper/stepper-docs.page').then((m) => m.StepperDocsPage),
   },
+  {
+    path: 'components/slider',
+    loadComponent: () => import('./pages/slider/slider-docs.page').then((m) => m.SliderDocsPage),
+  },
 ];

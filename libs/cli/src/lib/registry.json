@@ -164,5 +164,12 @@
     "description": "A step progress indicator with completed/active/upcoming states, linear (no-skip-ahead) mode, horizontal/vertical orientation, and an optional #content template slot for the active step's panel.",
     "files": ["stepper.component.ts", "stepper.component.html", "stepper.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "slider": {
+    "name": "slider",
+    "description": "A single-thumb range slider with drag/click-to-jump/keyboard support, tick marks, a floating value bubble, horizontal/vertical orientation, and ngModel/reactive forms support.",
+    "files": ["slider.component.ts", "slider.component.html", "slider.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "recipeDependencies": ["error-message"]
   }
 }

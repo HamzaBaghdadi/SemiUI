@@ -1,0 +1,47 @@
+<div class="z-slider__container">
+  <div
+    #track
+    class="z-slider__track"
+    (pointerdown)="onTrackPointerDown($event)"
+    (pointermove)="onTrackPointerMove($event)"
+    (pointerup)="onTrackPointerUp()"
+    (pointercancel)="onTrackPointerUp()"
+  >
+    <div
+      class="z-slider__fill"
+      [style.width.%]="orientation() === 'horizontal' ? percent() : null"
+      [style.height.%]="orientation() === 'vertical' ? percent() : null"
+    ></div>
+    @if (showTicks()) {
+      @for (tick of tickPercents(); track $index) {
+        <span
+          class="z-slider__tick"
+          [style.left.%]="orientation() === 'horizontal' ? tick : null"
+          [style.bottom.%]="orientation() === 'vertical' ? tick : null"
+        ></span>
+      }
+    }
+    <div
+      class="z-slider__thumb"
+      role="slider"
+      [tabindex]="effectiveDisabled() ? -1 : 0"
+      [attr.aria-valuemin]="min()"
+      [attr.aria-valuemax]="max()"
+      [attr.aria-valuenow]="clampedValue()"
+      [attr.aria-orientation]="orientation()"
+      [attr.aria-disabled]="effectiveDisabled() ? 'true' : null"
+      [style.left.%]="orientation() === 'horizontal' ? percent() : null"
+      [style.bottom.%]="orientation() === 'vertical' ? percent() : null"
+      (keydown)="onKeydown($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    >
+      @if (showValueBubble() && (isDragging() || isFocused())) {
+        <span class="z-slider__bubble">{{ valueFormatter()(clampedValue()) }}</span>
+      }
+    </div>
+  </div>
+</div>
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

@@ -252,5 +252,18 @@ export interface ThemeTokens {
       fontSize: string;
       gap: string;
     };
+    slider: {
+      trackSize: string;
+      trackColor: string;
+      fillColor: string;
+      thumbSize: string;
+      thumbBackground: string;
+      thumbBorder: string;
+      thumbBorderFocus: string;
+      tickColor: string;
+      tickSize: string;
+      bubbleBackground: string;
+      bubbleForeground: string;
+    };
   };
 }

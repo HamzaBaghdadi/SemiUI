@@ -46,5 +46,6 @@ export class App {
     { label: 'Accordion', path: '/components/accordion' },
     { label: 'Tabs', path: '/components/tabs' },
     { label: 'Stepper', path: '/components/stepper' },
+    { label: 'Slider', path: '/components/slider' },
   ];
 }
