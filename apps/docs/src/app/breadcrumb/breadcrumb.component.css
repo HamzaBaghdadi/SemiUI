@@ -31,6 +31,13 @@
   font-weight: var(--zaytoon-typography-font-weight-medium);
 }
 
+/* A linked item that routerLinkActive confirms matches the current route -- still a real,
+   clickable anchor (unlike .z-breadcrumb__current), just styled to read as "you are here". */
+.z-breadcrumb__link--current {
+  color: var(--zaytoon-comp-breadcrumb-current-foreground);
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+}
+
 .z-breadcrumb__separator {
   display: inline-flex;
   width: 0.75em;

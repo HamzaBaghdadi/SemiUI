@@ -1,18 +1,18 @@
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { injectZaytoonIcons } from '@zaytoon/theme';
 
 export interface BreadcrumbItem {
   label: string;
-  /** Omit on the last item (or any item that isn't a link) -- it renders as plain current-page text. */
+  /** Omit for a non-navigable segment (renders as plain text). Any item WITH a link renders as a real anchor -- "current page" status comes from the actual router state via routerLinkActive, not from array position, so the last item isn't special-cased. */
   link?: string | unknown[];
 }
 
-/** A trail of ancestor pages. The last item (or any item without a `link`) renders as the current, non-linked page. */
+/** A trail of ancestor pages. Items with a `link` are real anchors whose "current page" state is driven by routerLinkActive (exact match) against the actual router URL, not by being the last item in the array. Items without a `link` render as plain, non-navigable text. */
 @Component({
   selector: 'z-breadcrumb',
-  imports: [RouterLink, ZIconComponent],
+  imports: [RouterLink, RouterLinkActive, ZIconComponent],
   templateUrl: './breadcrumb.component.html',
   styleUrl: './breadcrumb.component.css',
 })

@@ -2,8 +2,16 @@
   <ol class="z-breadcrumb">
     @for (item of items(); track $index; let last = $last) {
       <li class="z-breadcrumb__item">
-        @if (!last && item.link) {
-          <a class="z-breadcrumb__link" [routerLink]="item.link">{{ item.label }}</a>
+        @if (item.link) {
+          <a
+            class="z-breadcrumb__link"
+            [routerLink]="item.link"
+            routerLinkActive="z-breadcrumb__link--current"
+            [routerLinkActiveOptions]="{ exact: true }"
+            #rla="routerLinkActive"
+            [attr.aria-current]="rla.isActive ? 'page' : null"
+            >{{ item.label }}</a
+          >
         } @else {
           <span class="z-breadcrumb__current" [attr.aria-current]="last ? 'page' : null">{{ item.label }}</span>
         }

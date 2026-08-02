@@ -1,5 +1,18 @@
 <h1>Breadcrumb</h1>
-<p>A trail of ancestor pages, using Angular's <code>RouterLink</code> for navigable items. The last item (or any item without a <code>link</code>) renders as the current, non-linked page.</p>
+<p>
+  A trail of ancestor pages, using Angular's <code>RouterLink</code> for navigable items. Any item
+  with a <code>link</code> renders as a real, clickable anchor -- whether it's styled as the
+  current page comes from <code>routerLinkActive</code> (exact match against the actual router
+  URL), not from being last in the array. An item without a <code>link</code> renders as plain,
+  non-navigable text instead.
+</p>
+<div class="callout">
+  <p>
+    In the demo below, "Components" links to this exact page (<code>/components/breadcrumb</code>)
+    -- notice it's styled as the current page even though it's the <em>second</em> item, not the
+    last, because the router confirms it's genuinely the active route.
+  </p>
+</div>
 
 <h2>Installation</h2>
 <pre><code>npx zaytoon add breadcrumb</code></pre>
@@ -10,8 +23,8 @@
 </div>
 <pre><code>protected items = [
   &#123; label: 'Home', link: '/' &#125;,
-  &#123; label: 'Components', link: '/components' &#125;,
-  &#123; label: 'Breadcrumb' &#125;,  &lt;!-- no link -- current page --&gt;
+  &#123; label: 'Components', link: '/components/breadcrumb' &#125;,  &lt;!-- styled current when the router URL matches, not because it's "last" --&gt;
+  &#123; label: 'Breadcrumb' &#125;,  &lt;!-- no link -- always plain, non-navigable text --&gt;
 ];
 
 &lt;z-breadcrumb [items]="items" /&gt;</code></pre>
