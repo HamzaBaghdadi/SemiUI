@@ -141,6 +141,11 @@ function createTestPreset(): ThemePreset {
           paddingY: '0.25rem',
           fontSize: '0.875rem',
         },
+        skeleton: {
+          background: '#111',
+          shimmer: 'rgba(255,255,255,0.1)',
+          radius: '0.375rem',
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),

@@ -1,0 +1,19 @@
+@if (shape() === 'text') {
+  <div class="z-skeleton__lines">
+    @for (i of lineIndices(); track i) {
+      <span
+        class="z-skeleton__block"
+        [class.z-skeleton__block--animated]="animated()"
+        [style.width]="i === lineIndices().length - 1 ? '60%' : '100%'"
+        [style.height]="height()"
+      ></span>
+    }
+  </div>
+} @else {
+  <span
+    class="z-skeleton__block"
+    [class.z-skeleton__block--animated]="animated()"
+    [style.width]="width()"
+    [style.height]="height()"
+  ></span>
+}

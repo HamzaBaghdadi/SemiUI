@@ -86,4 +86,8 @@ export const appRoutes: Route[] = [
     path: 'components/divider',
     loadComponent: () => import('./pages/divider/divider-docs.page').then((m) => m.DividerDocsPage),
   },
+  {
+    path: 'components/skeleton',
+    loadComponent: () => import('./pages/skeleton/skeleton-docs.page').then((m) => m.SkeletonDocsPage),
+  },
 ];

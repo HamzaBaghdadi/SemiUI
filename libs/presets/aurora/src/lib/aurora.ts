@@ -186,6 +186,11 @@ export const Aurora: ThemePreset = {
         paddingY: '0.25rem',
         fontSize: 'var(--zaytoon-typography-font-size-sm)',
       },
+      skeleton: {
+        background: 'var(--zaytoon-color-muted)',
+        shimmer: 'color-mix(in srgb, var(--zaytoon-color-muted-foreground) 20%, transparent)',
+        radius: '0.375rem',
+      },
     },
   },
   darkColor,

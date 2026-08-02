@@ -36,5 +36,6 @@ export class App {
     { label: 'Popover', path: '/components/popover' },
     { label: 'Tooltip', path: '/components/tooltip' },
     { label: 'Divider', path: '/components/divider' },
+    { label: 'Skeleton', path: '/components/skeleton' },
   ];
 }

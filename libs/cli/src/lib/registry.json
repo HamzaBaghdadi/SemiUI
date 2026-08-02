@@ -103,5 +103,11 @@
     "description": "A horizontal or vertical rule, with an optional centered label.",
     "files": ["divider.component.ts", "divider.component.html", "divider.component.css"],
     "npmDependencies": ["@zaytoon/tokens"]
+  },
+  "skeleton": {
+    "name": "skeleton",
+    "description": "A shimmering loading placeholder block, with rect/circle/text shapes.",
+    "files": ["skeleton.component.ts", "skeleton.component.html", "skeleton.component.css"],
+    "npmDependencies": ["@zaytoon/tokens"]
   }
 }

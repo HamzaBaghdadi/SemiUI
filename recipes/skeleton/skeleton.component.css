@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+:host([data-shape='circle']) .z-skeleton__block {
+  border-radius: var(--zaytoon-radius-full);
+}
+
+.z-skeleton__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.z-skeleton__block {
+  display: block;
+  background: var(--zaytoon-comp-skeleton-background);
+  border-radius: var(--zaytoon-comp-skeleton-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.z-skeleton__block--animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--zaytoon-comp-skeleton-shimmer), transparent);
+  animation: z-skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes z-skeleton-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .z-skeleton__block--animated::after {
+    animation: none;
+  }
+}

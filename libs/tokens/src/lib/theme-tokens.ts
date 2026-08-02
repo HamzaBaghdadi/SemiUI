@@ -153,5 +153,10 @@ export interface ThemeTokens {
       paddingY: string;
       fontSize: string;
     };
+    skeleton: {
+      background: string;
+      shimmer: string;
+      radius: string;
+    };
   };
 }
