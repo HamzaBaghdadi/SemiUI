@@ -3,9 +3,11 @@ import {
   Component,
   ElementRef,
   HostListener,
+  TemplateRef,
   afterRenderEffect,
   booleanAttribute,
   computed,
+  contentChild,
   effect,
   inject,
   input,
@@ -83,6 +85,13 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   /** Additional per-date disable predicate, checked alongside min/max. */
   isDateDisabled = input<(date: Date) => boolean>(() => false);
   dateFormat = input<(date: Date) => string>((date) => date.toLocaleDateString());
+  /** Shows a "Today" button in the panel footer that jumps to and selects the current date. */
+  showTodayButton = input(false, { transform: booleanAttribute });
+
+  /** Rendered above the calendar, inside the panel. */
+  protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
+  /** Rendered below the calendar (and the Today button, if shown), inside the panel. */
+  protected footerTemplate = contentChild<unknown, TemplateRef<unknown>>('footer', { read: TemplateRef });
 
   protected readonly listboxId = `z-date-picker-grid-${nextDatePickerId++}`;
   protected readonly open = signal(false);
@@ -90,11 +99,23 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly viewYear = signal(new Date().getFullYear());
   protected readonly viewMonth = signal(new Date().getMonth());
   protected readonly focusedDate = signal<Date>(new Date());
+  /** Which level of the header's drill-down navigation is showing -- days grid, a 12-month grid to jump within the year, or a 12-year grid to jump to a different year. */
+  protected readonly navView = signal<'days' | 'months' | 'years'>('days');
+  /** The first year shown in the years grid -- a 12-year block, recomputed whenever viewYear lands outside the current block. */
+  protected readonly yearRangeStart = signal(Math.floor(new Date().getFullYear() / 12) * 12);
 
   protected readonly calendarDays = computed<CalendarDay[]>(() => this.buildCalendarDays(this.viewYear(), this.viewMonth()));
   protected readonly monthLabel = computed(() =>
     new Date(this.viewYear(), this.viewMonth(), 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }),
   );
+  protected readonly monthNames = computed(() =>
+    Array.from({ length: 12 }, (_, i) => new Date(2000, i, 1).toLocaleDateString(undefined, { month: 'short' })),
+  );
+  protected readonly yearRangeItems = computed(() => Array.from({ length: 12 }, (_, i) => this.yearRangeStart() + i));
+  protected readonly yearRangeLabel = computed(() => {
+    const items = this.yearRangeItems();
+    return `${items[0]} - ${items[items.length - 1]}`;
+  });
   protected readonly displayValue = computed(() => {
     const value = this.value();
     return value ? this.dateFormat()(value) : '';
@@ -142,8 +163,28 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   }
 
   protected openPanel(): void {
+    this.resetViewToRelevantMonth();
+    this.navView.set('days');
     this.open.set(true);
     this.updatePlacement();
+  }
+
+  /**
+   * Jumps the visible month/year back to wherever's relevant, so reopening after navigating away
+   * (without picking a date) doesn't strand the panel on some unrelated month: the selected value
+   * if there is one, else minDate's month if minDate is in the future, else today.
+   */
+  private resetViewToRelevantMonth(): void {
+    const value = this.value();
+    const base = value ?? this.defaultViewDate();
+    this.viewYear.set(base.getFullYear());
+    this.viewMonth.set(base.getMonth());
+  }
+
+  private defaultViewDate(): Date {
+    const min = this.minDate();
+    const today = new Date();
+    return min && min > today ? min : today;
   }
 
   protected close(): void {
@@ -224,6 +265,61 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     } else {
       this.viewMonth.set(month + 1);
     }
+  }
+
+  /** Header's "<" button: steps by month in the days view, by year in the months view, by a 12-year block in the years view. */
+  protected navPrevious(): void {
+    switch (this.navView()) {
+      case 'days':
+        this.previousMonth();
+        break;
+      case 'months':
+        this.viewYear.update((year) => year - 1);
+        break;
+      case 'years':
+        this.yearRangeStart.update((start) => start - 12);
+        break;
+    }
+  }
+
+  /** Header's ">" button -- see navPrevious. */
+  protected navNext(): void {
+    switch (this.navView()) {
+      case 'days':
+        this.nextMonth();
+        break;
+      case 'months':
+        this.viewYear.update((year) => year + 1);
+        break;
+      case 'years':
+        this.yearRangeStart.update((start) => start + 12);
+        break;
+    }
+  }
+
+  /** Clicking the month/year label drills down: days -> months -> years. */
+  protected drillDown(): void {
+    if (this.navView() === 'days') {
+      this.navView.set('months');
+    } else if (this.navView() === 'months') {
+      this.yearRangeStart.set(Math.floor(this.viewYear() / 12) * 12);
+      this.navView.set('years');
+    }
+  }
+
+  protected selectMonth(month: number): void {
+    this.viewMonth.set(month);
+    this.navView.set('days');
+  }
+
+  protected selectYear(year: number): void {
+    this.viewYear.set(year);
+    this.navView.set('months');
+  }
+
+  protected goToToday(): void {
+    const today = startOfDay(new Date());
+    this.selectDay({ date: today, outsideMonth: false });
   }
 
   protected onGridKeydown(event: KeyboardEvent): void {

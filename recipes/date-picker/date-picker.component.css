@@ -38,7 +38,7 @@
 .z-date-picker__trigger:focus-visible {
   outline: none;
   border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px var(--zaytoon-comp-select-focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-date-picker__trigger[aria-invalid='true'] {
@@ -69,6 +69,11 @@
 .z-date-picker__icon {
   right: var(--zaytoon-comp-select-padding-x);
   pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+:host([data-open]) .z-date-picker__icon {
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .z-date-picker__clear {
@@ -147,6 +152,87 @@
   font-size: var(--zaytoon-comp-date-picker-font-size);
 }
 
+.z-date-picker__month-label--button {
+  border: none;
+  background: transparent;
+  padding: 0.125rem var(--zaytoon-spacing-xs);
+  border-radius: var(--zaytoon-radius-sm);
+  font: inherit;
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+  color: var(--zaytoon-comp-date-picker-month-label-foreground);
+  cursor: pointer;
+}
+
+.z-date-picker__month-label--button:hover {
+  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+}
+
+.z-date-picker__unit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--zaytoon-spacing-xs);
+}
+
+.z-date-picker__unit {
+  box-sizing: border-box;
+  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-xs);
+  border: 1px solid transparent;
+  border-radius: var(--zaytoon-radius-sm);
+  background: transparent;
+  color: var(--zaytoon-comp-date-picker-day-foreground);
+  font: inherit;
+  font-size: var(--zaytoon-comp-date-picker-font-size);
+  cursor: pointer;
+}
+
+.z-date-picker__unit:hover {
+  background: var(--zaytoon-comp-date-picker-day-background-hover);
+}
+
+.z-date-picker__unit[data-selected] {
+  background: var(--zaytoon-comp-date-picker-day-background-selected);
+  color: var(--zaytoon-comp-date-picker-day-foreground-selected);
+}
+
+.z-date-picker__unit:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 1px;
+}
+
+.z-date-picker__custom-header {
+  margin-bottom: var(--zaytoon-spacing-sm);
+}
+
+.z-date-picker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zaytoon-spacing-sm);
+  margin-top: var(--zaytoon-spacing-sm);
+  padding-top: var(--zaytoon-spacing-sm);
+  border-top: 1px solid var(--zaytoon-comp-select-panel-border);
+}
+
+.z-date-picker__today {
+  border: none;
+  background: transparent;
+  padding: 0.25rem var(--zaytoon-spacing-sm);
+  border-radius: var(--zaytoon-radius-sm);
+  font: inherit;
+  font-size: var(--zaytoon-comp-date-picker-font-size);
+  color: var(--zaytoon-color-primary);
+  cursor: pointer;
+}
+
+.z-date-picker__today:hover {
+  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+}
+
+.z-date-picker__today:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 1px;
+}
+
 .z-date-picker__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -165,6 +251,9 @@
 .z-date-picker__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  /* Always reserves 6 rows (the max a month can span) so the panel doesn't grow/shrink -- and
+     visibly jump -- when navigating to a month whose grid needs fewer rows than the last one. */
+  grid-template-rows: repeat(6, var(--zaytoon-comp-date-picker-day-size));
 }
 
 .z-date-picker__day {
@@ -198,6 +287,13 @@
 .z-date-picker__day[data-selected] {
   background: var(--zaytoon-comp-date-picker-day-background-selected);
   color: var(--zaytoon-comp-date-picker-day-foreground-selected);
+}
+
+/* :hover:not(:disabled) above has higher specificity than [data-selected] alone, so without this
+   rule hovering a selected day replaced its selected color with the plain hover background --
+   the selection highlight effectively vanished the moment you moved the mouse over it. */
+.z-date-picker__day[data-selected]:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--zaytoon-comp-date-picker-day-background-selected) 85%, black);
 }
 
 .z-date-picker__day:focus-visible {

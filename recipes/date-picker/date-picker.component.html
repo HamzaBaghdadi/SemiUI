@@ -1,41 +1,94 @@
 <ng-template #calendarContent>
+  @if (headerTemplate(); as tpl) {
+    <div class="z-date-picker__custom-header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+  }
   <div class="z-date-picker__header">
-    <button type="button" class="z-date-picker__nav" aria-label="Previous month" (click)="previousMonth()">
+    <button type="button" class="z-date-picker__nav" aria-label="Previous" (click)="navPrevious()">
       <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--prev" />
     </button>
-    <span class="z-date-picker__month-label">{{ monthLabel() }}</span>
-    <button type="button" class="z-date-picker__nav" aria-label="Next month" (click)="nextMonth()">
+    @if (navView() === 'years') {
+      <span class="z-date-picker__month-label">{{ yearRangeLabel() }}</span>
+    } @else {
+      <button type="button" class="z-date-picker__month-label z-date-picker__month-label--button" (click)="drillDown()">
+        {{ navView() === 'months' ? viewYear() : monthLabel() }}
+      </button>
+    }
+    <button type="button" class="z-date-picker__nav" aria-label="Next" (click)="navNext()">
       <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--next" />
     </button>
   </div>
-  <div class="z-date-picker__weekdays">
-    @for (weekday of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']; track weekday) {
-      <span class="z-date-picker__weekday">{{ weekday }}</span>
+
+  @switch (navView()) {
+    @case ('months') {
+      <div class="z-date-picker__unit-grid">
+        @for (name of monthNames(); track $index) {
+          <button
+            type="button"
+            class="z-date-picker__unit"
+            [attr.data-selected]="$index === viewMonth() ? '' : null"
+            (click)="selectMonth($index)"
+          >
+            {{ name }}
+          </button>
+        }
+      </div>
     }
-  </div>
-  <!-- Focus always lives on a day button (roving tabindex below), never on the grid container
-       itself -- this keydown listener catches the bubbled event from whichever day is focused. -->
-  <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
-  <div #grid class="z-date-picker__grid" role="grid" [id]="listboxId" (keydown)="onGridKeydown($event)">
-    @for (day of calendarDays(); track dateKey(day.date)) {
-      <button
-        type="button"
-        class="z-date-picker__day"
-        role="gridcell"
-        [attr.data-date-key]="dateKey(day.date)"
-        [attr.data-outside-month]="day.outsideMonth ? '' : null"
-        [attr.data-selected]="isSelected(day.date) ? '' : null"
-        [attr.data-today]="isToday(day.date) ? '' : null"
-        [attr.aria-selected]="isSelected(day.date)"
-        [attr.aria-disabled]="isDayDisabled(day.date) ? 'true' : null"
-        [tabindex]="isFocused(day.date) ? 0 : -1"
-        [disabled]="isDayDisabled(day.date)"
-        (click)="selectDay(day)"
-      >
-        {{ day.date.getDate() }}
-      </button>
+    @case ('years') {
+      <div class="z-date-picker__unit-grid">
+        @for (year of yearRangeItems(); track year) {
+          <button
+            type="button"
+            class="z-date-picker__unit"
+            [attr.data-selected]="year === viewYear() ? '' : null"
+            (click)="selectYear(year)"
+          >
+            {{ year }}
+          </button>
+        }
+      </div>
     }
-  </div>
+    @default {
+      <div class="z-date-picker__weekdays">
+        @for (weekday of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']; track weekday) {
+          <span class="z-date-picker__weekday">{{ weekday }}</span>
+        }
+      </div>
+      <!-- Focus always lives on a day button (roving tabindex below), never on the grid container
+           itself -- this keydown listener catches the bubbled event from whichever day is focused. -->
+      <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
+      <div #grid class="z-date-picker__grid" role="grid" [id]="listboxId" (keydown)="onGridKeydown($event)">
+        @for (day of calendarDays(); track dateKey(day.date)) {
+          <button
+            type="button"
+            class="z-date-picker__day"
+            role="gridcell"
+            [attr.data-date-key]="dateKey(day.date)"
+            [attr.data-outside-month]="day.outsideMonth ? '' : null"
+            [attr.data-selected]="isSelected(day.date) ? '' : null"
+            [attr.data-today]="isToday(day.date) ? '' : null"
+            [attr.aria-selected]="isSelected(day.date)"
+            [attr.aria-disabled]="isDayDisabled(day.date) ? 'true' : null"
+            [tabindex]="isFocused(day.date) ? 0 : -1"
+            [disabled]="isDayDisabled(day.date)"
+            (click)="selectDay(day)"
+          >
+            {{ day.date.getDate() }}
+          </button>
+        }
+      </div>
+    }
+  }
+
+  @if (showTodayButton() || footerTemplate()) {
+    <div class="z-date-picker__footer">
+      @if (showTodayButton()) {
+        <button type="button" class="z-date-picker__today" (click)="goToToday()">Today</button>
+      }
+      @if (footerTemplate(); as tpl) {
+        <ng-container [ngTemplateOutlet]="tpl" />
+      }
+    </div>
+  }
 </ng-template>
 
 @if (inline()) {
