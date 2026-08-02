@@ -48,6 +48,12 @@
   height: 1.25rem;
   border-radius: var(--zaytoon-radius-sm);
   border: 1px solid var(--zaytoon-color-border);
+}
+
+/* Checkerboard "no color selected" indicator -- only when empty. An opaque background-image
+   layer always paints over background-color regardless of source order, so this must be
+   conditional: applying it unconditionally hid every actually-selected color underneath it. */
+.z-color-picker__swatch[data-empty] {
   background-image: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%);
   background-size: 8px 8px;
 }

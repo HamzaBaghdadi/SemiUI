@@ -35,7 +35,7 @@
     />
   </div>
 
-  @if (presets().length > 0) {
+  @if (showPresets() && presets().length > 0) {
     <div class="z-color-picker__presets">
       @for (preset of presets(); track preset) {
         <button
@@ -65,14 +65,16 @@
     [disabled]="effectiveDisabled()"
     (click)="toggle()"
   >
-    <span class="z-color-picker__swatch" [style.background-color]="value() ?? 'transparent'"></span>
-    <span class="z-color-picker__value-text">
-      @if (value()) {
-        {{ value() }}
-      } @else {
-        <span class="z-color-picker__placeholder">{{ placeholder() }}</span>
-      }
-    </span>
+    <span class="z-color-picker__swatch" [attr.data-empty]="value() ? null : ''" [style.background-color]="value() ?? 'transparent'"></span>
+    @if (showValueText()) {
+      <span class="z-color-picker__value-text">
+        @if (value()) {
+          {{ value() }}
+        } @else {
+          <span class="z-color-picker__placeholder">{{ placeholder() }}</span>
+        }
+      </span>
+    }
   </button>
 
   @if (open()) {

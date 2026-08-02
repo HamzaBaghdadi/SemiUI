@@ -58,9 +58,18 @@ protected profileForm = form(this.profileModel);
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
 
+<h2>Swatch-only trigger</h2>
+<p>Hide the presets section and the hex text next to the swatch, e.g. for a compact swatch-only trigger.</p>
+<div class="demo-row">
+  <z-color-picker [ngModel]="'#22c55e'" [showPresets]="false" [showValueText]="false" />
+</div>
+<pre><code>&lt;z-color-picker [(ngModel)]="color" [showPresets]="false" [showValueText]="false" /&gt;</code></pre>
+
 <h2>Options</h2>
 <ul>
   <li><code>inline</code> -- default <code>false</code>.</li>
   <li><code>presets</code> -- array of hex strings, defaults to a 19-color palette.</li>
-  <li><code>placeholder</code> -- shown in the trigger when no value is set.</li>
+  <li><code>showPresets</code> -- default <code>true</code>; hides the presets section (an empty <code>presets</code> array does this too).</li>
+  <li><code>showValueText</code> -- default <code>true</code>; hides the hex text next to the swatch in the trigger.</li>
+  <li><code>placeholder</code> -- shown in the trigger when no value is set (and <code>showValueText</code> is on).</li>
 </ul>

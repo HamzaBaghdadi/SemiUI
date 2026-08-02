@@ -71,6 +71,10 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
 
   inline = input(false, { transform: booleanAttribute });
   presets = input<readonly string[]>(DEFAULT_PRESETS);
+  /** Hides the preset swatches section entirely. Passing an empty `presets` array does this too -- this is the more discoverable/explicit way to do it. */
+  showPresets = input(true, { transform: booleanAttribute });
+  /** Hides the hex text next to the swatch in the trigger button, leaving just the color swatch visible. */
+  showValueText = input(true, { transform: booleanAttribute });
   placeholder = input('Pick a color');
   errorMessage = input('');
 
