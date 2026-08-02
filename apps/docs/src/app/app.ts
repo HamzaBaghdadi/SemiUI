@@ -52,5 +52,6 @@ export class App {
     { label: 'File Upload', path: '/components/file-upload' },
     { label: 'Toast', path: '/components/toast' },
     { label: 'Carousel', path: '/components/carousel' },
+    { label: 'Date Picker', path: '/components/date-picker' },
   ];
 }

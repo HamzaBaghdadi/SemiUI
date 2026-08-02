@@ -274,6 +274,19 @@ export interface ThemeTokens {
       bubbleBackground: string;
       bubbleForeground: string;
     };
+    datePicker: {
+      daySize: string;
+      fontSize: string;
+      dayForeground: string;
+      dayForegroundOutsideMonth: string;
+      dayBackgroundHover: string;
+      dayBackgroundSelected: string;
+      dayForegroundSelected: string;
+      dayBorderToday: string;
+      navBackgroundHover: string;
+      weekdayForeground: string;
+      monthLabelForeground: string;
+    };
     carousel: {
       radius: string;
       arrowSize: string;

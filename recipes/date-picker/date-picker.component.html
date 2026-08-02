@@ -1,0 +1,84 @@
+<ng-template #calendarContent>
+  <div class="z-date-picker__header">
+    <button type="button" class="z-date-picker__nav" aria-label="Previous month" (click)="previousMonth()">
+      <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--prev" />
+    </button>
+    <span class="z-date-picker__month-label">{{ monthLabel() }}</span>
+    <button type="button" class="z-date-picker__nav" aria-label="Next month" (click)="nextMonth()">
+      <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--next" />
+    </button>
+  </div>
+  <div class="z-date-picker__weekdays">
+    @for (weekday of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']; track weekday) {
+      <span class="z-date-picker__weekday">{{ weekday }}</span>
+    }
+  </div>
+  <!-- Focus always lives on a day button (roving tabindex below), never on the grid container
+       itself -- this keydown listener catches the bubbled event from whichever day is focused. -->
+  <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
+  <div #grid class="z-date-picker__grid" role="grid" [id]="listboxId" (keydown)="onGridKeydown($event)">
+    @for (day of calendarDays(); track dateKey(day.date)) {
+      <button
+        type="button"
+        class="z-date-picker__day"
+        role="gridcell"
+        [attr.data-date-key]="dateKey(day.date)"
+        [attr.data-outside-month]="day.outsideMonth ? '' : null"
+        [attr.data-selected]="isSelected(day.date) ? '' : null"
+        [attr.data-today]="isToday(day.date) ? '' : null"
+        [attr.aria-selected]="isSelected(day.date)"
+        [attr.aria-disabled]="isDayDisabled(day.date) ? 'true' : null"
+        [tabindex]="isFocused(day.date) ? 0 : -1"
+        [disabled]="isDayDisabled(day.date)"
+        (click)="selectDay(day)"
+      >
+        {{ day.date.getDate() }}
+      </button>
+    }
+  </div>
+</ng-template>
+
+@if (inline()) {
+  <div class="z-date-picker__inline-panel">
+    <ng-container [ngTemplateOutlet]="calendarContent" />
+  </div>
+} @else {
+  <div class="z-date-picker__trigger-wrapper">
+    <input
+      #triggerInput
+      type="text"
+      class="z-date-picker__trigger"
+      readonly
+      role="combobox"
+      aria-haspopup="grid"
+      [attr.aria-expanded]="open()"
+      [attr.aria-controls]="listboxId"
+      [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+      [placeholder]="placeholder()"
+      [value]="displayValue()"
+      [disabled]="effectiveDisabled()"
+      (click)="toggle()"
+      (keydown.enter)="toggle()"
+    />
+    @if (showClear()) {
+      <!-- Not a real <button>: nesting interactive elements inside role="combobox" input is invalid
+           HTML, same rationale as Select's clear affordance. -->
+      <span class="z-date-picker__clear" role="button" tabindex="-1" aria-label="Clear date" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+        <z-icon [ref]="icons.clear" />
+      </span>
+    }
+    <span class="z-date-picker__icon">
+      <z-icon [ref]="icons.chevronDown" />
+    </span>
+  </div>
+
+  @if (open()) {
+    <div class="z-date-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-date-picker__panel--enter" animate.leave="z-date-picker__panel--leave">
+      <ng-container [ngTemplateOutlet]="calendarContent" />
+    </div>
+  }
+}
+
+@if (effectiveInvalid()) {
+  <z-error-message [message]="errorMessage()" />
+}

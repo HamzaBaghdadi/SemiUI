@@ -1,0 +1,78 @@
+<h1>Date Picker</h1>
+<p>
+  A calendar date picker: a read-only text field that opens a viewport-aware calendar panel on
+  click, or set <code>inline</code> to render the calendar directly with no input and no popover.
+  Supports ngModel, reactive forms, and Signal Forms. Keyboard: arrow keys move by day, Home/End
+  jump to the start/end of the week, PageUp/PageDown change month, Enter/Space selects.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add date-picker</code></pre>
+
+<h2>Basic usage (ngModel)</h2>
+<div class="demo-row">
+  <z-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" />
+</div>
+<p class="demo-value">Model value: {{ birthday | date }}</p>
+<pre><code>&lt;z-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" /&gt;</code></pre>
+
+<h2>Inline</h2>
+<p>No input, no popover -- the calendar renders directly, e.g. for a dedicated "pick a date" page or a sidebar widget.</p>
+<div class="demo-row">
+  <z-date-picker [(ngModel)]="inlineDate" [inline]="true" />
+</div>
+<pre><code>&lt;z-date-picker [(ngModel)]="date" [inline]="true" /&gt;</code></pre>
+
+<h2>min/max and disabled dates</h2>
+<p>This one only allows the last 7 days up to today, and disables weekends within that range.</p>
+<div class="demo-row">
+  <z-date-picker [ngModel]="null" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" placeholder="Last 7 days, weekdays only" />
+</div>
+<pre><code>protected isWeekend = (date: Date) =&gt; date.getDay() === 0 || date.getDay() === 6;
+
+&lt;z-date-picker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" /&gt;</code></pre>
+
+<h2>Reactive forms</h2>
+<div class="demo-row" [formGroup]="reactiveForm">
+  <z-date-picker formControlName="appointment" errorMessage="Please pick a date." placeholder="Pick an appointment date" />
+</div>
+<pre><code>protected reactiveForm = new FormGroup(&#123;
+  appointment: new FormControl&lt;Date | null&gt;(null, Validators.required),
+&#125;);
+
+&lt;div [formGroup]="reactiveForm"&gt;
+  &lt;z-date-picker formControlName="appointment" errorMessage="Please pick a date." /&gt;
+&lt;/div&gt;</code></pre>
+
+<h2>Signal Forms</h2>
+<div class="demo-row">
+  <z-date-picker [formField]="profileForm.birthday" />
+</div>
+<p class="demo-value">Model value: {{ profileModel().birthday | date }}</p>
+<pre><code>protected profileModel = signal(&#123; birthday: new Date(1995, 5, 15) &#125;);
+protected profileForm = form(this.profileModel);
+
+&lt;z-date-picker [formField]="profileForm.birthday" /&gt;</code></pre>
+
+<h2>Custom date format</h2>
+<div class="demo-row">
+  <z-date-picker [ngModel]="today" [dateFormat]="fmt" />
+</div>
+<pre><code>protected fmt = (date: Date) =&gt; date.toISOString().slice(0, 10); // "2026-08-02"
+
+&lt;z-date-picker [(ngModel)]="date" [dateFormat]="fmt" /&gt;</code></pre>
+
+<h2>Disabled</h2>
+<div class="demo-row">
+  <z-date-picker [ngModel]="null" [disabled]="disabled()" />
+  <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
+</div>
+
+<h2>Options</h2>
+<ul>
+  <li><code>inline</code> -- default <code>false</code>.</li>
+  <li><code>clearable</code> -- default <code>true</code>.</li>
+  <li><code>minDate</code> / <code>maxDate</code> -- <code>Date</code>, inclusive.</li>
+  <li><code>isDateDisabled</code> -- <code>(date: Date) =&gt; boolean</code>, checked alongside min/max.</li>
+  <li><code>dateFormat</code> -- <code>(date: Date) =&gt; string</code>, formats the trigger's displayed text.</li>
+</ul>

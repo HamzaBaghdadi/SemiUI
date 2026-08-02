@@ -202,5 +202,12 @@
     "description": "A single-slide-at-a-time carousel with a required #slide template slot, autoplay (paused on hover), looping, arrow keys, and pointer-drag/swipe.",
     "files": ["carousel.component.ts", "carousel.component.html", "carousel.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "date-picker": {
+    "name": "date-picker",
+    "description": "A calendar date picker with an inline option (no popover, calendar always visible), min/max/custom date disabling, keyboard grid navigation, and ngModel/reactive/Signal Forms support.",
+    "files": ["date-picker.component.ts", "date-picker.component.html", "date-picker.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

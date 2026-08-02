@@ -150,4 +150,8 @@ export const appRoutes: Route[] = [
     path: 'components/carousel',
     loadComponent: () => import('./pages/carousel/carousel-docs.page').then((m) => m.CarouselDocsPage),
   },
+  {
+    path: 'components/date-picker',
+    loadComponent: () => import('./pages/date-picker/date-picker-docs.page').then((m) => m.DatePickerDocsPage),
+  },
 ];
