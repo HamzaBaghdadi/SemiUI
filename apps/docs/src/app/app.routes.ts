@@ -102,4 +102,8 @@ export const appRoutes: Route[] = [
     path: 'components/breadcrumb',
     loadComponent: () => import('./pages/breadcrumb/breadcrumb-docs.page').then((m) => m.BreadcrumbDocsPage),
   },
+  {
+    path: 'components/pagination',
+    loadComponent: () => import('./pages/pagination/pagination-docs.page').then((m) => m.PaginationDocsPage),
+  },
 ];

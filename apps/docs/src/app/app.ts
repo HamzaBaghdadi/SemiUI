@@ -40,5 +40,6 @@ export class App {
     { label: 'Avatar', path: '/components/avatar' },
     { label: 'Tag', path: '/components/tag' },
     { label: 'Breadcrumb', path: '/components/breadcrumb' },
+    { label: 'Pagination', path: '/components/pagination' },
   ];
 }

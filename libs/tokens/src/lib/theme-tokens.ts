@@ -184,5 +184,17 @@ export interface ThemeTokens {
       fontSize: string;
       gap: string;
     };
+    pagination: {
+      radius: string;
+      gap: string;
+      size: string;
+      border: string;
+      background: string;
+      foreground: string;
+      backgroundHover: string;
+      backgroundActive: string;
+      foregroundActive: string;
+      foregroundDisabled: string;
+    };
   };
 }

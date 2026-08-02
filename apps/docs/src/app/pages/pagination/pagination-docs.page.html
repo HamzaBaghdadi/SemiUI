@@ -1,0 +1,26 @@
+<h1>Pagination</h1>
+<p>Page-number buttons with prev/next (and optional first/last), collapsing to an ellipsis for large page counts.</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add pagination</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row">
+  <z-pagination [(page)]="page" [pageCount]="5" />
+</div>
+<p class="demo-value">Current page: {{ page() }}</p>
+<pre><code>&lt;z-pagination [(page)]="page" [pageCount]="5" /&gt;</code></pre>
+
+<h2>Large page counts (ellipsis)</h2>
+<p>Collapses to an ellipsis once the page count exceeds what fits -- <code>siblingCount</code> controls how many page numbers show on each side of the current page.</p>
+<div class="demo-row">
+  <z-pagination [(page)]="bigPage" [pageCount]="50" />
+</div>
+<p class="demo-value">Current page: {{ bigPage() }}</p>
+<pre><code>&lt;z-pagination [(page)]="page" [pageCount]="50" [siblingCount]="1" /&gt;</code></pre>
+
+<h2>No first/last buttons</h2>
+<div class="demo-row">
+  <z-pagination [(page)]="page" [pageCount]="5" [showFirstLast]="false" />
+</div>
+<pre><code>&lt;z-pagination [showFirstLast]="false" /&gt;</code></pre>

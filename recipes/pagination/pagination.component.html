@@ -1,0 +1,39 @@
+<nav aria-label="Pagination" class="z-pagination">
+  @if (showFirstLast()) {
+    <button type="button" class="z-pagination__button" [disabled]="page() === 1" aria-label="First page" (click)="goTo(1)">
+      <span class="z-pagination__icon-pair">
+        <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
+        <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
+      </span>
+    </button>
+  }
+  <button type="button" class="z-pagination__button" [disabled]="page() === 1" aria-label="Previous page" (click)="goTo(page() - 1)">
+    <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
+  </button>
+  @for (item of pageItems(); track $index) {
+    @if (item === 'ellipsis') {
+      <span class="z-pagination__ellipsis" aria-hidden="true">&hellip;</span>
+    } @else {
+      <button
+        type="button"
+        class="z-pagination__button z-pagination__button--page"
+        [attr.aria-current]="item === page() ? 'page' : null"
+        [attr.aria-label]="'Page ' + item"
+        (click)="goTo(item)"
+      >
+        {{ item }}
+      </button>
+    }
+  }
+  <button type="button" class="z-pagination__button" [disabled]="page() === pageCount()" aria-label="Next page" (click)="goTo(page() + 1)">
+    <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
+  </button>
+  @if (showFirstLast()) {
+    <button type="button" class="z-pagination__button" [disabled]="page() === pageCount()" aria-label="Last page" (click)="goTo(pageCount())">
+      <span class="z-pagination__icon-pair">
+        <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
+        <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
+      </span>
+    </button>
+  }
+</nav>

@@ -127,5 +127,11 @@
     "description": "A trail of ancestor pages, using Angular's RouterLink for navigable items.",
     "files": ["breadcrumb.component.ts", "breadcrumb.component.html", "breadcrumb.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "pagination": {
+    "name": "pagination",
+    "description": "Page-number buttons with prev/next and optional first/last, collapsing to an ellipsis for large page counts.",
+    "files": ["pagination.component.ts", "pagination.component.html", "pagination.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }
