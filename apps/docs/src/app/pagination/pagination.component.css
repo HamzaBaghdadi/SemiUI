@@ -22,8 +22,16 @@
   transition: background-color 0.1s ease;
 }
 
-.z-pagination__button:hover:not(:disabled) {
+/* :not([aria-current='page']) matters: without it, this rule's specificity (a class + two
+   pseudo-classes) beats the active-page rule below (a class + an attribute selector), so hovering
+   the active page reverted its background to the hover color while the foreground stayed the
+   active (usually light-on-dark) color -- unreadable low-contrast text. */
+.z-pagination__button:hover:not(:disabled):not([aria-current='page']) {
   background: var(--zaytoon-comp-pagination-background-hover);
+}
+
+.z-pagination__button--page[aria-current='page']:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--zaytoon-comp-pagination-background-active) 85%, black);
 }
 
 .z-pagination__button:focus-visible {

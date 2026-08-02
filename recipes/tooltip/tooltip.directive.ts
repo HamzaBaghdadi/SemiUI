@@ -72,7 +72,14 @@ export class TooltipDirective implements OnDestroy {
     this.panelRef = null;
   }
 
+  /** Tooltips are tied to a stationary hover -- scrolling disrupts that context, so it hides
+   *  immediately rather than chasing the anchor around (which read as janky/delayed). */
   @HostListener('window:scroll')
+  protected onScroll(): void {
+    this.clearShowTimeout();
+    this.hide();
+  }
+
   @HostListener('window:resize')
   protected updatePosition(): void {
     const panelRef = this.panelRef;

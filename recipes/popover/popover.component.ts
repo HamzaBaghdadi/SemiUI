@@ -37,6 +37,8 @@ export class PopoverComponent {
   offset = input(8);
   closeOnOutsideClick = input(true, { transform: booleanAttribute });
   closeOnEscape = input(true, { transform: booleanAttribute });
+  /** Hides the popover on scroll instead of repositioning it to follow the anchor. */
+  closeOnScroll = input(true, { transform: booleanAttribute });
   /** Renders a small triangle pointing at the anchor. Disable if the panel might get clamped near a viewport edge, where it would no longer line up. */
   showArrow = input(true, { transform: booleanAttribute });
 
@@ -117,8 +119,15 @@ export class PopoverComponent {
 
   @HostListener('window:scroll')
   protected onWindowScroll(): void {
+    if (!this.open()) {
+      return;
+    }
+    if (this.closeOnScroll()) {
+      this.hide();
+      return;
+    }
     const panel = this.panel()?.nativeElement;
-    if (this.open() && this.anchorEl && panel) {
+    if (this.anchorEl && panel) {
       this.computePosition(this.anchorEl, panel);
     }
   }

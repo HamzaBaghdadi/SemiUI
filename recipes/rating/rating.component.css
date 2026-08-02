@@ -41,14 +41,16 @@
 }
 
 .z-rating__star z-icon {
-  width: 85%;
-  height: 85%;
+  width: 100%;
+  height: 100%;
 }
 
-/* Lucide/ng-icons ship fill="none" as an SVG presentation attribute, which CSS author rules
-   (even from an external stylesheet) win over -- so this reliably fills the same star glyph
-   instead of needing a separate "filled" icon token. */
-.z-rating__star svg {
+/* ::ng-deep is required, not just belt-and-suspenders: the <svg> lives inside z-icon's own
+   <ng-icon> child component, two encapsulation boundaries away from RatingComponent's scoped
+   styles, so a plain `.z-rating__star svg` selector never matches anything at all -- it isn't
+   about the fill="none" presentation attribute's cascade priority (author CSS does win there),
+   it's that the rule can't reach the element in the first place without piercing encapsulation. */
+.z-rating__star ::ng-deep svg {
   fill: none;
   stroke: currentColor;
 }
@@ -57,6 +59,6 @@
   color: var(--zaytoon-comp-rating-filled-color);
 }
 
-.z-rating__star--filled svg {
+.z-rating__star--filled ::ng-deep svg {
   fill: currentColor;
 }

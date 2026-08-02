@@ -257,7 +257,7 @@ export const Aurora: ThemePreset = {
       rating: {
         filledColor: '#f59e0b',
         emptyColor: 'var(--zaytoon-color-border)',
-        gap: '0.125rem',
+        gap: '0',
         size: { sm: '1rem', md: '1.5rem', lg: '2rem' },
       },
     },
