@@ -291,7 +291,7 @@ export const Aurora: ThemePreset = {
         filledColor: '#f59e0b',
         emptyColor: 'var(--zaytoon-color-border)',
         gap: '0',
-        size: { sm: '1rem', md: '1.5rem', lg: '2rem' },
+        size: { sm: '1.25rem', md: '2rem', lg: '2.75rem' },
       },
       accordion: {
         border: 'var(--zaytoon-color-border)',

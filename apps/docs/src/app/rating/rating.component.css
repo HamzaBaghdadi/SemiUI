@@ -30,6 +30,10 @@
   transition: color 0.1s ease;
 }
 
+:host([data-disabled]) {
+  opacity: 0.6;
+}
+
 .z-rating__star:disabled {
   cursor: not-allowed;
 }

@@ -25,6 +25,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   host: {
     role: 'group',
     '[attr.data-size]': 'size()',
+    '[attr.data-disabled]': 'effectiveDisabled() ? \'\' : null',
   },
 })
 export class RatingComponent extends BaseFormFieldControl<number | null> {
