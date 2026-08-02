@@ -1,6 +1,6 @@
 import { EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ButtonSize, ButtonVariant, ColorTokens, ThemePreset } from '@zaytoon/tokens';
+import { ButtonSize, ButtonVariant, ColorTokens, DialogSize, ThemePreset } from '@zaytoon/tokens';
 import { ColorModeService } from './color-mode.service';
 import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
 import { ZAYTOON_ICONS } from './icon-tokens.token';
@@ -261,6 +261,21 @@ function createTestPreset(): ThemePreset {
           tickSize: '0.25rem',
           bubbleBackground: '#fff',
           bubbleForeground: '#000',
+        },
+        dialog: {
+          backdropColor: 'rgb(0 0 0 / 0.5)',
+          panelBackground: '#000',
+          panelBorder: '#333',
+          radius: '0.5rem',
+          shadow: 'none',
+          headerBorder: '#333',
+          footerBorder: '#333',
+          titleFontSize: '1.125rem',
+          titleFontWeight: '500',
+          padding: '1rem',
+          widths: Object.fromEntries(
+            (['sm', 'md', 'lg', 'full'] as const).map((size) => [size, '32rem']),
+          ) as Record<DialogSize, string>,
         },
       },
     },

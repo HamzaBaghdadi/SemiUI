@@ -47,5 +47,6 @@ export class App {
     { label: 'Tabs', path: '/components/tabs' },
     { label: 'Stepper', path: '/components/stepper' },
     { label: 'Slider', path: '/components/slider' },
+    { label: 'Dialog', path: '/components/dialog' },
   ];
 }

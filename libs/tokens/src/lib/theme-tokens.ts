@@ -1,6 +1,7 @@
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type TagVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline';
+export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
 
 export interface ButtonVariantTokens {
   background: string;
@@ -264,6 +265,19 @@ export interface ThemeTokens {
       tickSize: string;
       bubbleBackground: string;
       bubbleForeground: string;
+    };
+    dialog: {
+      backdropColor: string;
+      panelBackground: string;
+      panelBorder: string;
+      radius: string;
+      shadow: string;
+      headerBorder: string;
+      footerBorder: string;
+      titleFontSize: string;
+      titleFontWeight: string;
+      padding: string;
+      widths: Record<DialogSize, string>;
     };
   };
 }

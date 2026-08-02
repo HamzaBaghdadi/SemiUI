@@ -130,4 +130,8 @@ export const appRoutes: Route[] = [
     path: 'components/slider',
     loadComponent: () => import('./pages/slider/slider-docs.page').then((m) => m.SliderDocsPage),
   },
+  {
+    path: 'components/dialog',
+    loadComponent: () => import('./pages/dialog/dialog-docs.page').then((m) => m.DialogDocsPage),
+  },
 ];

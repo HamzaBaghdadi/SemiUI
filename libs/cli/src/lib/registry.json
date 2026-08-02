@@ -171,5 +171,11 @@
     "files": ["slider.component.ts", "slider.component.html", "slider.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
     "recipeDependencies": ["error-message"]
+  },
+  "dialog": {
+    "name": "dialog",
+    "description": "A modal dialog controlled by reference (show()/hide()/toggle()), always portaled to document.body, with focus trap, background scroll lock, and focus restoration on close.",
+    "files": ["dialog.component.ts", "dialog.component.html", "dialog.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }
