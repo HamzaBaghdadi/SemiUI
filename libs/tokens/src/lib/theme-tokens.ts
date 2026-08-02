@@ -158,5 +158,16 @@ export interface ThemeTokens {
       shimmer: string;
       radius: string;
     };
+    avatar: {
+      background: string;
+      foreground: string;
+      radius: string;
+      statusOnline: string;
+      statusAway: string;
+      statusBusy: string;
+      statusOffline: string;
+      size: Record<'sm' | 'md' | 'lg' | 'xl', string>;
+      fontSize: Record<'sm' | 'md' | 'lg' | 'xl', string>;
+    };
   };
 }

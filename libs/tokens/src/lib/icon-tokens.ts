@@ -21,4 +21,6 @@ export interface IconTokens {
   plus: IconRef;
   /** Generic decrement glyph (Input Number's horizontal-layout decrement button, etc). */
   minus: IconRef;
+  /** Avatar's fallback icon, shown when neither an image nor a name is available. */
+  avatarFallback: IconRef;
 }

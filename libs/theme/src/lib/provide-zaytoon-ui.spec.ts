@@ -146,6 +146,17 @@ function createTestPreset(): ThemePreset {
           shimmer: 'rgba(255,255,255,0.1)',
           radius: '0.375rem',
         },
+        avatar: {
+          background: '#111',
+          foreground: '#fff',
+          radius: '0.5rem',
+          statusOnline: '#0f0',
+          statusAway: '#ff0',
+          statusBusy: '#f00',
+          statusOffline: '#999',
+          size: { sm: '1.75rem', md: '2.5rem', lg: '3.5rem', xl: '5rem' },
+          fontSize: { sm: '0.625rem', md: '0.875rem', lg: '1.125rem', xl: '1.5rem' },
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),
@@ -160,6 +171,7 @@ function createTestPreset(): ThemePreset {
       search: { type: 'ng-icon', name: 'testSearch' },
       plus: { type: 'ng-icon', name: 'testPlus' },
       minus: { type: 'ng-icon', name: 'testMinus' },
+      avatarFallback: { type: 'ng-icon', name: 'testUser' },
     },
   };
 }

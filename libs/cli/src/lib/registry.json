@@ -109,5 +109,11 @@
     "description": "A shimmering loading placeholder block, with rect/circle/text shapes.",
     "files": ["skeleton.component.ts", "skeleton.component.html", "skeleton.component.css"],
     "npmDependencies": ["@zaytoon/tokens"]
+  },
+  "avatar": {
+    "name": "avatar",
+    "description": "An image avatar with initials/icon fallback, sizes, circle/square shape, and a status dot.",
+    "files": ["avatar.component.ts", "avatar.component.html", "avatar.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

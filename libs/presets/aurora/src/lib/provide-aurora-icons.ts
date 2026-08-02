@@ -9,6 +9,7 @@ import {
   lucideMinus,
   lucidePlus,
   lucideSearch,
+  lucideUser,
   lucideX,
 } from '@ng-icons/lucide';
 
@@ -24,5 +25,6 @@ export function provideAuroraIcons(): Provider[] {
     lucideMinus,
     lucideSearch,
     lucidePlus,
+    lucideUser,
   });
 }

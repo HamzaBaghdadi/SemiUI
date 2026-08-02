@@ -1,0 +1,12 @@
+<span class="z-avatar">
+  @if (showImage()) {
+    <img class="z-avatar__image" [src]="src()" [alt]="alt() || name()" (error)="onImageError()" />
+  } @else if (initials()) {
+    <span class="z-avatar__initials" [attr.aria-label]="name()">{{ initials() }}</span>
+  } @else {
+    <z-icon class="z-avatar__fallback-icon" [ref]="icons.avatarFallback" [attr.aria-label]="alt() || name()" />
+  }
+  @if (status()) {
+    <span class="z-avatar__status" [attr.data-status]="status()"></span>
+  }
+</span>

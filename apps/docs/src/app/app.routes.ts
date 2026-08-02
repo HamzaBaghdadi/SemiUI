@@ -90,4 +90,8 @@ export const appRoutes: Route[] = [
     path: 'components/skeleton',
     loadComponent: () => import('./pages/skeleton/skeleton-docs.page').then((m) => m.SkeletonDocsPage),
   },
+  {
+    path: 'components/avatar',
+    loadComponent: () => import('./pages/avatar/avatar-docs.page').then((m) => m.AvatarDocsPage),
+  },
 ];

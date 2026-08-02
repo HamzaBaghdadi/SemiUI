@@ -37,5 +37,6 @@ export class App {
     { label: 'Tooltip', path: '/components/tooltip' },
     { label: 'Divider', path: '/components/divider' },
     { label: 'Skeleton', path: '/components/skeleton' },
+    { label: 'Avatar', path: '/components/avatar' },
   ];
 }
