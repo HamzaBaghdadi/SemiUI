@@ -1,0 +1,62 @@
+:host {
+  display: inline-flex;
+  --z-rating-size: var(--zaytoon-comp-rating-size-md);
+}
+
+:host([data-size='sm']) {
+  --z-rating-size: var(--zaytoon-comp-rating-size-sm);
+}
+
+:host([data-size='lg']) {
+  --z-rating-size: var(--zaytoon-comp-rating-size-lg);
+}
+
+.z-rating {
+  display: inline-flex;
+  gap: var(--zaytoon-comp-rating-gap);
+}
+
+.z-rating__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--z-rating-size);
+  height: var(--z-rating-size);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--zaytoon-comp-rating-empty-color);
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+
+.z-rating__star:disabled {
+  cursor: not-allowed;
+}
+
+.z-rating__star:focus-visible {
+  outline: none;
+  border-radius: var(--zaytoon-radius-sm);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--zaytoon-color-ring) 35%, transparent);
+}
+
+.z-rating__star z-icon {
+  width: 85%;
+  height: 85%;
+}
+
+/* Lucide/ng-icons ship fill="none" as an SVG presentation attribute, which CSS author rules
+   (even from an external stylesheet) win over -- so this reliably fills the same star glyph
+   instead of needing a separate "filled" icon token. */
+.z-rating__star svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+.z-rating__star--filled {
+  color: var(--zaytoon-comp-rating-filled-color);
+}
+
+.z-rating__star--filled svg {
+  fill: currentColor;
+}

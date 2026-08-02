@@ -196,5 +196,11 @@ export interface ThemeTokens {
       foregroundActive: string;
       foregroundDisabled: string;
     };
+    rating: {
+      filledColor: string;
+      emptyColor: string;
+      gap: string;
+      size: Record<ButtonSize, string>;
+    };
   };
 }

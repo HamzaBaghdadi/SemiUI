@@ -41,5 +41,6 @@ export class App {
     { label: 'Tag', path: '/components/tag' },
     { label: 'Breadcrumb', path: '/components/breadcrumb' },
     { label: 'Pagination', path: '/components/pagination' },
+    { label: 'Rating', path: '/components/rating' },
   ];
 }

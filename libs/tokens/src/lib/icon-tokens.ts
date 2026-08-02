@@ -23,4 +23,6 @@ export interface IconTokens {
   minus: IconRef;
   /** Avatar's fallback icon, shown when neither an image nor a name is available. */
   avatarFallback: IconRef;
+  /** Rating's star -- filled/empty is a CSS fill toggle on this same icon, not two separate ones. */
+  rating: IconRef;
 }

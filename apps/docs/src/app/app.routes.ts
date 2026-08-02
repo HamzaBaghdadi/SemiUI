@@ -106,4 +106,8 @@ export const appRoutes: Route[] = [
     path: 'components/pagination',
     loadComponent: () => import('./pages/pagination/pagination-docs.page').then((m) => m.PaginationDocsPage),
   },
+  {
+    path: 'components/rating',
+    loadComponent: () => import('./pages/rating/rating-docs.page').then((m) => m.RatingDocsPage),
+  },
 ];

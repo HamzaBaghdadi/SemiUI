@@ -254,6 +254,12 @@ export const Aurora: ThemePreset = {
         foregroundActive: 'var(--zaytoon-color-primary-foreground)',
         foregroundDisabled: 'var(--zaytoon-color-muted-foreground)',
       },
+      rating: {
+        filledColor: '#f59e0b',
+        emptyColor: 'var(--zaytoon-color-border)',
+        gap: '0.125rem',
+        size: { sm: '1rem', md: '1.5rem', lg: '2rem' },
+      },
     },
   },
   darkColor,
@@ -269,5 +275,6 @@ export const Aurora: ThemePreset = {
     plus: { type: 'ng-icon', name: 'lucidePlus' },
     minus: { type: 'ng-icon', name: 'lucideMinus' },
     avatarFallback: { type: 'ng-icon', name: 'lucideUser' },
+    rating: { type: 'ng-icon', name: 'lucideStar' },
   },
 };

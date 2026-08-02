@@ -133,5 +133,12 @@
     "description": "Page-number buttons with prev/next and optional first/last, collapsing to an ellipsis for large page counts.",
     "files": ["pagination.component.ts", "pagination.component.html", "pagination.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "rating": {
+    "name": "rating",
+    "description": "A star rating supporting ngModel, reactive forms, and Signal Forms -- clicking the currently-selected star clears it.",
+    "files": ["rating.component.ts", "rating.component.html", "rating.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "recipeDependencies": ["error-message"]
   }
 }

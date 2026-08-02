@@ -188,6 +188,12 @@ function createTestPreset(): ThemePreset {
           foregroundActive: '#fff',
           foregroundDisabled: '#999',
         },
+        rating: {
+          filledColor: '#f59e0b',
+          emptyColor: '#333',
+          gap: '0.125rem',
+          size: Object.fromEntries(SIZES.map((size) => [size, '1.5rem'])) as Record<ButtonSize, string>,
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),
@@ -203,6 +209,7 @@ function createTestPreset(): ThemePreset {
       plus: { type: 'ng-icon', name: 'testPlus' },
       minus: { type: 'ng-icon', name: 'testMinus' },
       avatarFallback: { type: 'ng-icon', name: 'testUser' },
+      rating: { type: 'ng-icon', name: 'testStar' },
     },
   };
 }
