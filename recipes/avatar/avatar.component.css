@@ -27,13 +27,27 @@
   flex-shrink: 0;
   width: var(--z-avatar-size);
   height: var(--z-avatar-size);
+}
+
+/*
+ * The clipping boundary (overflow: hidden + border-radius) lives on this INNER wrapper, not on
+ * .z-avatar itself -- the status dot is a sibling of this wrapper, not a child of it. It's
+ * positioned at the avatar's corner (right: 0; bottom: 0), which sits in the region a circular
+ * clip mask cuts away; putting the dot inside the clipped element clipped the dot along with it.
+ */
+.z-avatar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: var(--zaytoon-radius-full);
   background: var(--zaytoon-comp-avatar-background);
   color: var(--zaytoon-comp-avatar-foreground);
 }
 
-:host([data-shape='square']) .z-avatar {
+:host([data-shape='square']) .z-avatar__inner {
   border-radius: var(--zaytoon-comp-avatar-radius);
 }
 

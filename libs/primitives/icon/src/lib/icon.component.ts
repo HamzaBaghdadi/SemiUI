@@ -17,6 +17,12 @@ import { IconRef } from '@zaytoon/tokens';
     :host,
     ng-icon {
       display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ng-icon {
+      width: 100%;
+      height: 100%;
     }
   `,
 })
