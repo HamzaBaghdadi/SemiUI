@@ -122,4 +122,8 @@ export const appRoutes: Route[] = [
     path: 'components/tabs',
     loadComponent: () => import('./pages/tabs/tabs-docs.page').then((m) => m.TabsDocsPage),
   },
+  {
+    path: 'components/stepper',
+    loadComponent: () => import('./pages/stepper/stepper-docs.page').then((m) => m.StepperDocsPage),
+  },
 ];

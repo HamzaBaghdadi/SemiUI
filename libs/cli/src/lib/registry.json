@@ -158,5 +158,11 @@
     "description": "A data-driven tab strip with a required #content template slot, an optional custom #label slot, horizontal/vertical orientation, a measured sliding indicator, and roving-tabindex keyboard navigation.",
     "files": ["tabs.component.ts", "tabs.component.html", "tabs.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+  },
+  "stepper": {
+    "name": "stepper",
+    "description": "A step progress indicator with completed/active/upcoming states, linear (no-skip-ahead) mode, horizontal/vertical orientation, and an optional #content template slot for the active step's panel.",
+    "files": ["stepper.component.ts", "stepper.component.html", "stepper.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

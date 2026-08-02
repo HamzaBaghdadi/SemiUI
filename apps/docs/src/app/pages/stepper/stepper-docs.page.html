@@ -1,0 +1,75 @@
+<h1>Stepper</h1>
+<p>
+  A step progress indicator: pass <code>items</code> (each needs at least a <code>label</code>,
+  optionally a <code>description</code>). Steps show as completed (checkmark), active, or
+  upcoming, based on how they compare to <code>activeIndex</code>. Clicking a step's circle jumps
+  to it; set <code>linear</code> to block clicking more than one step ahead, so users must
+  progress via <code>next()</code> / <code>previous()</code>. An optional <code>#content</code>
+  template slot renders the active step's panel below the indicator -- omit it to use Stepper as a
+  pure visual indicator next to content you manage elsewhere.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add stepper</code></pre>
+
+<h2>Basic usage (free navigation)</h2>
+<div class="demo-row" style="display: block;">
+  <z-stepper [items]="checkoutSteps">
+    <ng-template #content let-item>
+      <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+    </ng-template>
+  </z-stepper>
+</div>
+<pre><code>protected steps = [
+  &#123; label: 'Cart', description: 'Review items' &#125;,
+  &#123; label: 'Shipping', description: 'Delivery address' &#125;,
+  &#123; label: 'Payment', description: 'Card details' &#125;,
+  &#123; label: 'Confirm', description: 'Place order' &#125;,
+&#125;;
+
+&lt;z-stepper [items]="steps"&gt;
+  &lt;ng-template #content let-item&gt;
+    &lt;p&gt;Content for {{ '{{ item.label }}' }}&lt;/p&gt;
+  &lt;/ng-template&gt;
+&lt;/z-stepper&gt;</code></pre>
+
+<h2>Linear mode with next()/previous()</h2>
+<p>Steps ahead of the immediate next one are unclickable -- use the buttons (or call <code>next()</code> / <code>previous()</code> on the component instance) to progress.</p>
+<div class="demo-row">
+  <button type="button" (click)="goPrevious()">Previous</button>
+  <button type="button" (click)="goNext()">Next</button>
+</div>
+<div class="demo-row" style="display: block;">
+  <z-stepper #linearStepper [items]="checkoutSteps" [linear]="true">
+    <ng-template #content let-item>
+      <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+    </ng-template>
+  </z-stepper>
+</div>
+<pre><code>&lt;z-stepper #stepper [items]="steps" [linear]="true"&gt;...&lt;/z-stepper&gt;
+&lt;button (click)="stepper.previous()"&gt;Previous&lt;/button&gt;
+&lt;button (click)="stepper.next()"&gt;Next&lt;/button&gt;</code></pre>
+
+<h2>Vertical orientation</h2>
+<div class="demo-row" style="display: block;">
+  <z-stepper [items]="checkoutSteps" orientation="vertical">
+    <ng-template #content let-item>
+      <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+    </ng-template>
+  </z-stepper>
+</div>
+<pre><code>&lt;z-stepper [items]="steps" orientation="vertical"&gt;...&lt;/z-stepper&gt;</code></pre>
+
+<h2>Pure indicator (no #content)</h2>
+<p>Omit the <code>#content</code> template to use Stepper as just the visual progress row.</p>
+<div class="demo-row" style="display: block;">
+  <z-stepper [items]="checkoutSteps" [activeIndex]="2" />
+</div>
+
+<h2>Options</h2>
+<ul>
+  <li><code>items</code> -- array of <code>&#123; label: string; description?: string; disabled?: boolean &#125;</code>.</li>
+  <li><code>activeIndex</code> -- two-way bindable, default <code>0</code>.</li>
+  <li><code>orientation</code> -- <code>"horizontal"</code> (default) or <code>"vertical"</code>.</li>
+  <li><code>linear</code> -- default <code>false</code>; blocks clicking more than one step ahead.</li>
+</ul>

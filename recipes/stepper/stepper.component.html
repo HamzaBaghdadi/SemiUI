@@ -1,0 +1,41 @@
+<div class="z-stepper" role="list">
+  @for (item of items(); track $index; let i = $index; let last = $last) {
+    <div class="z-stepper__step" role="listitem" [attr.data-state]="stepState(i)">
+      <div class="z-stepper__row">
+        <button
+          type="button"
+          class="z-stepper__circle-button"
+          [disabled]="!canNavigateTo(i, item)"
+          [attr.aria-current]="i === activeIndex() ? 'step' : null"
+          [attr.aria-label]="'Step ' + (i + 1) + ': ' + item.label"
+          (click)="selectStep(i, item)"
+        >
+          <span class="z-stepper__circle">
+            @if (stepState(i) === 'completed') {
+              <z-icon [ref]="icons.checkboxCheck" />
+            } @else {
+              {{ i + 1 }}
+            }
+          </span>
+        </button>
+        @if (!last) {
+          <span class="z-stepper__connector"></span>
+        }
+      </div>
+      <div class="z-stepper__label-group">
+        <span class="z-stepper__label">{{ item.label }}</span>
+        @if (item.description) {
+          <span class="z-stepper__description">{{ item.description }}</span>
+        }
+      </div>
+    </div>
+  }
+</div>
+
+@if (contentTemplate(); as tpl) {
+  @if (items()[activeIndex()]; as activeItem) {
+    <div class="z-stepper__panel">
+      <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: activeItem, index: activeIndex() }" />
+    </div>
+  }
+}

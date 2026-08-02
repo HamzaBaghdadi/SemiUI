@@ -235,5 +235,22 @@ export interface ThemeTokens {
       paddingX: string;
       paddingY: string;
     };
+    stepper: {
+      circleSize: string;
+      circleBorder: string;
+      circleBackground: string;
+      circleForeground: string;
+      circleBackgroundActive: string;
+      circleForegroundActive: string;
+      circleBackgroundCompleted: string;
+      circleForegroundCompleted: string;
+      connectorColor: string;
+      connectorColorCompleted: string;
+      labelColor: string;
+      labelColorActive: string;
+      descriptionColor: string;
+      fontSize: string;
+      gap: string;
+    };
   };
 }
