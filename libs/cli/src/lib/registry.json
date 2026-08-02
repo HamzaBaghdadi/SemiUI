@@ -115,5 +115,11 @@
     "description": "An image avatar with initials/icon fallback, sizes, circle/square shape, and a status dot.",
     "files": ["avatar.component.ts", "avatar.component.html", "avatar.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+  },
+  "tag": {
+    "name": "tag",
+    "description": "A small label/chip with color variants, an optional leading icon, and a removable state.",
+    "files": ["tag.component.ts", "tag.component.html", "tag.component.css"],
+    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
   }
 }

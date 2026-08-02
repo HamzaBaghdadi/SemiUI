@@ -38,5 +38,6 @@ export class App {
     { label: 'Divider', path: '/components/divider' },
     { label: 'Skeleton', path: '/components/skeleton' },
     { label: 'Avatar', path: '/components/avatar' },
+    { label: 'Tag', path: '/components/tag' },
   ];
 }

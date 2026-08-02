@@ -1,5 +1,6 @@
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
+export type TagVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline';
 
 export interface ButtonVariantTokens {
   background: string;
@@ -168,6 +169,13 @@ export interface ThemeTokens {
       statusOffline: string;
       size: Record<'sm' | 'md' | 'lg' | 'xl', string>;
       fontSize: Record<'sm' | 'md' | 'lg' | 'xl', string>;
+    };
+    tag: {
+      radius: string;
+      fontSize: string;
+      paddingX: string;
+      paddingY: string;
+      variants: Record<TagVariant, ButtonVariantTokens>;
     };
   };
 }

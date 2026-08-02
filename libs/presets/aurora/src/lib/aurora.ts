@@ -202,6 +202,39 @@ export const Aurora: ThemePreset = {
         size: { sm: '1.75rem', md: '2.5rem', lg: '3.5rem', xl: '5rem' },
         fontSize: { sm: '0.625rem', md: '0.875rem', lg: '1.125rem', xl: '1.5rem' },
       },
+      tag: {
+        radius: '0.375rem',
+        fontSize: 'var(--zaytoon-typography-font-size-sm)',
+        paddingX: '0.5rem',
+        paddingY: '0.125rem',
+        variants: {
+          default: {
+            background: 'var(--zaytoon-color-muted)',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'transparent',
+          },
+          primary: {
+            background: 'color-mix(in srgb, var(--zaytoon-color-primary) 15%, transparent)',
+            foreground: 'var(--zaytoon-color-primary)',
+            border: 'transparent',
+          },
+          secondary: {
+            background: 'var(--zaytoon-color-muted)',
+            foreground: 'var(--zaytoon-color-muted-foreground)',
+            border: 'transparent',
+          },
+          destructive: {
+            background: 'color-mix(in srgb, var(--zaytoon-color-destructive) 15%, transparent)',
+            foreground: 'var(--zaytoon-color-destructive)',
+            border: 'transparent',
+          },
+          outline: {
+            background: 'transparent',
+            foreground: 'var(--zaytoon-color-foreground)',
+            border: 'var(--zaytoon-color-border)',
+          },
+        },
+      },
     },
   },
   darkColor,

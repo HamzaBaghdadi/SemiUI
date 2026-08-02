@@ -157,6 +157,18 @@ function createTestPreset(): ThemePreset {
           size: { sm: '1.75rem', md: '2.5rem', lg: '3.5rem', xl: '5rem' },
           fontSize: { sm: '0.625rem', md: '0.875rem', lg: '1.125rem', xl: '1.5rem' },
         },
+        tag: {
+          radius: '0.375rem',
+          fontSize: '0.875rem',
+          paddingX: '0.5rem',
+          paddingY: '0.125rem',
+          variants: Object.fromEntries(
+            (['default', 'primary', 'secondary', 'destructive', 'outline'] as const).map((variant) => [
+              variant,
+              { background: '#111', foreground: '#fff', border: 'transparent' },
+            ]),
+          ) as ThemePreset['tokens']['comp']['tag']['variants'],
+        },
       },
     },
     darkColor: createColorTokens({ background: '#000', foreground: '#fff' }),
