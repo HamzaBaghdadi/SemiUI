@@ -6,10 +6,16 @@
       [class.z-badge--dot]="dot()"
       [attr.data-variant]="variant()"
       [attr.data-position]="position()"
-      [attr.aria-label]="dot() ? 'Unread notification' : count() !== undefined ? count() + ' notifications' : null"
+      [attr.aria-label]="resolvedAriaLabel()"
     >
       @if (!dot()) {
-        {{ displayValue() }}
+        @if (icon(); as ref) {
+          <z-icon [ref]="ref" />
+        } @else if (label() !== undefined) {
+          {{ label() }}
+        } @else {
+          {{ displayValue() }}
+        }
       }
     </span>
   }

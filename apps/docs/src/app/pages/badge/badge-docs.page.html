@@ -1,8 +1,18 @@
 <h1>Badge</h1>
-<p>A small notification indicator -- a number, "N+" once past <code>max</code>, or a plain dot. By default it overlays whatever is projected into it (an icon, an avatar); set <code>standalone</code> to render inline instead, e.g. next to a text label.</p>
+<p>A small notification indicator -- not only a number: a plain dot, arbitrary text, an icon, or a number ("N+" once past <code>max</code>). By default it overlays whatever is projected into it (an icon, an avatar); set <code>standalone</code> to render inline instead, e.g. next to a text label.</p>
 
 <h2>Installation</h2>
 <pre><code>npx zaytoon add badge</code></pre>
+
+<h2>Text and icon content</h2>
+<p>Not limited to a number -- <code>label</code> shows arbitrary text, <code>icon</code> renders a <code>z-icon</code> instead. <code>icon</code> takes priority over <code>label</code>, which takes priority over <code>count</code>.</p>
+<div class="demo-row">
+  <z-badge label="NEW" variant="info" [standalone]="true" />
+  <z-badge label="Beta" variant="help" [standalone]="true" />
+  <z-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" />
+</div>
+<pre><code>&lt;z-badge label="NEW" variant="info" [standalone]="true" /&gt;
+&lt;z-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" /&gt;</code></pre>
 
 <h2>Overlaying an icon</h2>
 <div class="demo-row">

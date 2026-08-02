@@ -43,6 +43,11 @@
   padding: 0;
 }
 
+.z-badge z-icon {
+  width: 0.75em;
+  height: 0.75em;
+}
+
 .z-badge[data-variant='default'] {
   background: var(--zaytoon-comp-badge-variants-default-background);
   color: var(--zaytoon-comp-badge-variants-default-foreground);

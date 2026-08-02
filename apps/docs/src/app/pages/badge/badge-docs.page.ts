@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { IconRef } from '@zaytoon/tokens';
 import { BadgeComponent, BadgePosition } from '../../badge/badge.component';
 
 @Component({
@@ -10,6 +11,7 @@ import { BadgeComponent, BadgePosition } from '../../badge/badge.component';
 export class BadgeDocsPage {
   protected count = signal(3);
   protected positions: BadgePosition[] = ['top-right', 'top-left', 'bottom-right', 'bottom-left'];
+  protected starIcon: IconRef = { type: 'ng-icon', name: 'lucideStar' };
 
   increment(): void {
     this.count.update((value) => value + 1);
