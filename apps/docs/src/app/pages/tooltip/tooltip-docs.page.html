@@ -1,0 +1,39 @@
+<h1>Tooltip</h1>
+<p>
+  A <code>[zTooltip]</code> directive that shows a small floating label on hover/focus of any
+  element -- no extra markup needed. The panel is a dynamically created component (via
+  <code>ViewContainerRef.createComponent</code>), positioned with the same
+  <code>position: fixed</code> + viewport-flip technique as
+  <a routerLink="/components/popover">Popover</a>.
+</p>
+
+<h2>Installation</h2>
+<pre><code>npx zaytoon add tooltip</code></pre>
+
+<h2>Basic usage</h2>
+<div class="demo-row">
+  <button type="button" [zTooltip]="'Saves your changes'">Hover or focus me</button>
+</div>
+<pre><code>&lt;button [zTooltip]="'Saves your changes'"&gt;Hover or focus me&lt;/button&gt;</code></pre>
+
+<h2>Placement</h2>
+<p><code>tooltipPlacement</code> accepts <code>top</code> (default) / <code>bottom</code> / <code>left</code> / <code>right</code>, and flips top/bottom automatically when there isn't room.</p>
+<div class="demo-row">
+  <button type="button" [zTooltip]="'Above'" tooltipPlacement="top">Top</button>
+  <button type="button" [zTooltip]="'Below'" tooltipPlacement="bottom">Bottom</button>
+  <button type="button" [zTooltip]="'To the left'" tooltipPlacement="left">Left</button>
+  <button type="button" [zTooltip]="'To the right'" tooltipPlacement="right">Right</button>
+</div>
+
+<h2>Delay</h2>
+<p><code>tooltipDelay</code> is the time in milliseconds before it appears (default <code>300</code>).</p>
+<div class="demo-row">
+  <button type="button" [zTooltip]="'Appears instantly'" [tooltipDelay]="0">No delay</button>
+  <button type="button" [zTooltip]="'Appears after a full second'" [tooltipDelay]="1000">1s delay</button>
+</div>
+<pre><code>&lt;button [zTooltip]="'Appears instantly'" [tooltipDelay]="0"&gt;No delay&lt;/button&gt;</code></pre>
+
+<h2>Works on any element</h2>
+<div class="demo-row">
+  <span [zTooltip]="'Plain text can have one too'" style="text-decoration: underline dotted; cursor: help;">Hover this text</span>
+</div>

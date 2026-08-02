@@ -78,4 +78,8 @@ export const appRoutes: Route[] = [
     path: 'components/popover',
     loadComponent: () => import('./pages/popover/popover-docs.page').then((m) => m.PopoverDocsPage),
   },
+  {
+    path: 'components/tooltip',
+    loadComponent: () => import('./pages/tooltip/tooltip-docs.page').then((m) => m.TooltipDocsPage),
+  },
 ];

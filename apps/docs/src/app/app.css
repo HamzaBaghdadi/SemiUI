@@ -42,6 +42,8 @@
   flex-shrink: 0;
   padding: var(--zaytoon-spacing-lg);
   border-right: 1px solid var(--zaytoon-color-border);
+  height: calc(100dvh - 5rem);
+  overflow-y: auto;
 }
 
 .shell__nav h2 {
@@ -83,4 +85,6 @@
   flex: 1;
   padding: var(--zaytoon-spacing-lg);
   max-width: 900px;
+  height: calc(100dvh - 5rem);
+  overflow-y: auto;
 }

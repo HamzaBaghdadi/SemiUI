@@ -34,5 +34,6 @@ export class App {
     { label: 'OTP', path: '/components/otp' },
     { label: 'Multiselect', path: '/components/multiselect' },
     { label: 'Popover', path: '/components/popover' },
+    { label: 'Tooltip', path: '/components/tooltip' },
   ];
 }

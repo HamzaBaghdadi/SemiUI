@@ -86,5 +86,16 @@
     "description": "A popover controlled by reference from anywhere in the template (po.toggle($event)/show($event)/hide()), positioned against whatever triggered it.",
     "files": ["popover.component.ts", "popover.component.html", "popover.component.css"],
     "npmDependencies": ["@zaytoon/tokens"]
+  },
+  "tooltip": {
+    "name": "tooltip",
+    "description": "A [zTooltip] directive that shows a small floating label on hover/focus of any element.",
+    "files": [
+      "tooltip.directive.ts",
+      "tooltip-panel.component.ts",
+      "tooltip-panel.component.html",
+      "tooltip-panel.component.css"
+    ],
+    "npmDependencies": ["@zaytoon/tokens"]
   }
 }

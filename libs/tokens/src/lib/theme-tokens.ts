@@ -145,5 +145,13 @@ export interface ThemeTokens {
       paddingX: string;
       paddingY: string;
     };
+    tooltip: {
+      background: string;
+      foreground: string;
+      radius: string;
+      paddingX: string;
+      paddingY: string;
+      fontSize: string;
+    };
   };
 }
