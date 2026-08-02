@@ -1,10 +1,14 @@
-import { Component, DestroyRef, effect, inject, input } from '@angular/core';
+import { Component, DestroyRef, booleanAttribute, effect, inject, input, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { injectZaytoonIcons } from '@zaytoon/theme';
 import { IconRef, ToastVariant } from '@zaytoon/tokens';
 import { ToastEntry, ToastService } from './toast.service';
 
 export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+
+/** How many toasts deep behind the front one still get a visible (offset, dimmed) sliver when `stacked` and collapsed. */
+const MAX_VISIBLE_STACK_DEPTH = 3;
 
 /**
  * Renders the queue from `ToastService`. Mount exactly one of these, typically in the app root
@@ -14,11 +18,13 @@ export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-
  */
 @Component({
   selector: 'z-toast-container',
-  imports: [ZIconComponent],
+  imports: [ZIconComponent, NgTemplateOutlet],
   templateUrl: './toast-container.component.html',
   styleUrl: './toast-container.component.css',
   host: {
     '[attr.data-position]': 'position()',
+    '[attr.data-stacked]': 'stacked() ? \'\' : null',
+    '[attr.data-expanded]': 'stacked() && expanded() ? \'\' : null',
   },
 })
 export class ToastContainerComponent {
@@ -26,9 +32,30 @@ export class ToastContainerComponent {
   protected readonly icons = injectZaytoonIcons();
 
   position = input<ToastPosition>('top-right');
+  /** Collapses toasts into a peeking deck when more than one is queued; hovering expands them into a normal list, moving the mouse away collapses them back. */
+  stacked = input(false, { transform: booleanAttribute });
 
   protected readonly toasts = this.toastService.toasts;
+  protected readonly expanded = signal(false);
   private readonly timers = new Map<number, ReturnType<typeof setTimeout>>();
+
+  protected readonly maxVisibleStackDepth = MAX_VISIBLE_STACK_DEPTH;
+
+  protected stackDepth(indexFromNewest: number): number {
+    return Math.min(indexFromNewest, MAX_VISIBLE_STACK_DEPTH);
+  }
+
+  protected onGroupMouseEnter(): void {
+    this.expanded.set(true);
+  }
+
+  protected onGroupMouseLeave(): void {
+    this.expanded.set(false);
+  }
+
+  protected dismissFn(id: number): () => void {
+    return () => this.dismiss(id);
+  }
 
   constructor() {
     effect(() => {

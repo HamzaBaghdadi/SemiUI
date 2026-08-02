@@ -43,6 +43,41 @@ toastService.info('A new version is available.', 'Info');</code></pre>
 toastService.clear();</code></pre>
 <p>Hover a toast to pause its auto-dismiss timer -- it restarts (from the full duration) on mouse leave.</p>
 
+<h2>Icon and custom template</h2>
+<p>
+  <code>showIcon: false</code> suppresses the variant icon for a single toast. For full control,
+  <code>template</code> replaces the icon/title/description/close-button chrome entirely with your
+  own <code>&lt;ng-template&gt;</code> -- context is <code>&#123; $implicit: the toast entry, dismiss: () =&gt; void &#125;</code>.
+</p>
+<div class="demo-row">
+  <button type="button" (click)="showNoIcon()">No icon</button>
+  <button type="button" (click)="showCustomTemplate()">Custom template</button>
+</div>
+<ng-template #customToast let-toast let-dismiss="dismiss">
+  <div style="display: flex; align-items: center; gap: 0.75rem; width: 100%;">
+    <strong>🎉 Fully custom content</strong>
+    <button type="button" style="margin-left: auto;" (click)="dismiss()">Close</button>
+  </div>
+</ng-template>
+<pre><code>toastService.show(&#123; title: 'No icon', showIcon: false &#125;);
+
+&lt;ng-template #customToast let-toast let-dismiss="dismiss"&gt;
+  &lt;div&gt;🎉 Fully custom content &lt;button (click)="dismiss()"&gt;Close&lt;/button&gt;&lt;/div&gt;
+&lt;/ng-template&gt;
+// toastService.show(&#123; template: customToastTemplate &#125;);</code></pre>
+
+<h2>Stacked (peek deck)</h2>
+<p>
+  <code>stacked</code> collapses queued toasts into a peeking deck instead of a growing list --
+  hovering the group expands them into a normal spaced-out list, moving the mouse away collapses
+  them back.
+</p>
+<div class="demo-row">
+  <label><input type="checkbox" [checked]="stacked()" (change)="toggleStacked()" /> Stacked</label>
+  <button type="button" (click)="showStack()">Show 3 toasts</button>
+</div>
+<pre><code>&lt;z-toast-container [stacked]="true" /&gt;</code></pre>
+
 <h2>Position</h2>
 <div class="demo-row">
   <button type="button" (click)="setPosition('top-left')">Top left</button>
@@ -57,8 +92,14 @@ toastService.clear();</code></pre>
 
 <h2>Options</h2>
 <ul>
-  <li><code>ToastOptions</code> -- <code>title?</code>, <code>description?</code>, <code>variant?</code> (<code>"default"</code> / <code>"success"</code> / <code>"error"</code> / <code>"warning"</code> / <code>"info"</code>), <code>duration?</code> (ms, default <code>5000</code>, <code>0</code> = sticky).</li>
+  <li><code>ToastOptions</code> -- <code>title?</code>, <code>description?</code>, <code>variant?</code> (<code>"default"</code> / <code>"success"</code> / <code>"error"</code> / <code>"warning"</code> / <code>"info"</code>), <code>duration?</code> (ms, default <code>5000</code>, <code>0</code> = sticky), <code>showIcon?</code> (default <code>true</code>), <code>template?</code> (<code>TemplateRef</code> for fully custom content).</li>
   <li><code>ToastContainerComponent.position</code> -- one of the six corners/centers above, default <code>"top-right"</code>.</li>
+  <li><code>ToastContainerComponent.stacked</code> -- default <code>false</code>; collapses queued toasts into a peeking deck that expands on hover.</li>
+  <li>
+    Width, blur, and per-severity background/border/icon colors are all theme tokens
+    (<code>comp.toast.width</code>, <code>comp.toast.maxWidth</code>, <code>comp.toast.blur</code>,
+    <code>comp.toast.variants.*</code>) -- see <a routerLink="/theming">Theming</a>.
+  </li>
 </ul>
 
 <h2>Methods</h2>
@@ -68,4 +109,4 @@ toastService.clear();</code></pre>
   <li><code>dismiss(id)</code> / <code>clear()</code></li>
 </ul>
 
-<z-toast-container [position]="position()" />
+<z-toast-container [position]="position()" [stacked]="stacked()" />

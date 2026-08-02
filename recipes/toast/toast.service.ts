@@ -1,5 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, TemplateRef, signal } from '@angular/core';
 import { ToastVariant } from '@zaytoon/tokens';
+
+/** Context handed to a custom `template`: the toast entry itself, and a bound dismiss callback. */
+export interface ToastTemplateContext {
+  $implicit: ToastEntry;
+  dismiss: () => void;
+}
 
 export interface ToastOptions {
   title?: string;
@@ -7,6 +13,10 @@ export interface ToastOptions {
   variant?: ToastVariant;
   /** Milliseconds before auto-dismiss. Set 0 to keep the toast until manually dismissed. */
   duration?: number;
+  /** Shows the variant's default icon. Default `true`; set `false` for icon-less toasts. */
+  showIcon?: boolean;
+  /** Fully replaces this toast's icon/title/description/close-button chrome with a custom template. Context: `{ $implicit: the toast entry, dismiss: () => void }`. */
+  template?: TemplateRef<ToastTemplateContext>;
 }
 
 export interface ToastEntry {
@@ -15,6 +25,8 @@ export interface ToastEntry {
   description?: string;
   variant: ToastVariant;
   duration: number;
+  showIcon: boolean;
+  template?: TemplateRef<ToastTemplateContext>;
 }
 
 let nextToastId = 0;
@@ -39,6 +51,8 @@ export class ToastService {
         description: options.description,
         variant: options.variant ?? 'default',
         duration: options.duration ?? 5000,
+        showIcon: options.showIcon ?? true,
+        template: options.template,
       },
     ]);
     return id;

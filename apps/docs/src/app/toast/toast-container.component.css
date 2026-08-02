@@ -51,17 +51,58 @@
   flex-direction: column-reverse;
 }
 
+/* Stacked + collapsed: every toast overlaps at the same edge, offset/scaled/dimmed by how far
+   behind the front (newest) card it sits -- a peeking deck instead of a growing list. The
+   container needs an explicit height since position: absolute children can't contribute to it. */
+:host([data-stacked]:not([data-expanded])) .z-toast-container {
+  position: relative;
+  pointer-events: auto;
+  /* Every .z-toast becomes position: absolute below, so nothing is left in normal flow to give
+     the flex container a width or height -- both need an explicit fallback, or it collapses to a
+     zero-size box (unhoverable, and clicks/mouseenter can't reach it). */
+  width: var(--zaytoon-comp-toast-max-width);
+  min-height: 3.5rem;
+}
+
+:host([data-stacked]:not([data-expanded])) .z-toast {
+  position: absolute;
+  left: 0;
+  right: 0;
+  transform: translateY(calc(var(--stack-depth) * 0.55rem)) scale(calc(1 - var(--stack-depth) * 0.06));
+  opacity: calc(1 - var(--stack-depth) * 0.25);
+}
+
+:host([data-stacked]:not([data-expanded])[data-position^='top']) .z-toast {
+  top: 0;
+  transform-origin: top center;
+}
+
+:host([data-stacked]:not([data-expanded])[data-position^='bottom']) .z-toast {
+  bottom: 0;
+  transform-origin: bottom center;
+  transform: translateY(calc(var(--stack-depth) * -0.55rem)) scale(calc(1 - var(--stack-depth) * 0.06));
+}
+
+.z-toast[data-stack-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .z-toast {
   display: flex;
   align-items: flex-start;
   gap: var(--zaytoon-spacing-sm);
   box-sizing: border-box;
-  width: 100%;
+  width: var(--zaytoon-comp-toast-width);
   max-width: var(--zaytoon-comp-toast-max-width);
   padding: var(--zaytoon-comp-toast-padding-y) var(--zaytoon-comp-toast-padding-x);
   border-radius: var(--zaytoon-comp-toast-radius);
   box-shadow: var(--zaytoon-comp-toast-shadow);
   border: 1px solid;
+  backdrop-filter: var(--zaytoon-comp-toast-blur);
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
   pointer-events: auto;
 }
 
@@ -164,34 +205,138 @@
   height: 0.875rem;
 }
 
-@keyframes z-toast-enter {
+/* Enter/leave animate along the direction the toast's anchor position implies -- sliding in from
+   the edge it's pinned to (right/left/top/bottom) instead of a generic fade for every position,
+   with an ease-out-expo-like curve for a snappier "pop" than plain ease-out. */
+@keyframes z-toast-enter-right {
   from {
     opacity: 0;
-    transform: translateY(-0.5rem) scale(0.95);
+    transform: translateX(100%);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateX(0);
+  }
+}
+
+@keyframes z-toast-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes z-toast-enter-top {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes z-toast-enter-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .z-toast--enter {
-  animation: z-toast-enter 0.2s ease-out;
+  animation: z-toast-enter-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes z-toast-leave {
+:host([data-position$='left']) .z-toast--enter {
+  animation-name: z-toast-enter-left;
+}
+
+:host([data-position='top-center']) .z-toast--enter {
+  animation-name: z-toast-enter-top;
+}
+
+:host([data-position='bottom-center']) .z-toast--enter {
+  animation-name: z-toast-enter-bottom;
+}
+
+@keyframes z-toast-leave-right {
   from {
     opacity: 1;
+    transform: translateX(0);
     max-height: 10rem;
   }
   to {
     opacity: 0;
+    transform: translateX(100%);
+    max-height: 0;
+    margin-bottom: -1rem;
+  }
+}
+
+@keyframes z-toast-leave-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+    max-height: 10rem;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+    max-height: 0;
+    margin-bottom: -1rem;
+  }
+}
+
+@keyframes z-toast-leave-top {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 10rem;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+    max-height: 0;
+    margin-bottom: -1rem;
+  }
+}
+
+@keyframes z-toast-leave-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 10rem;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
     max-height: 0;
     margin-bottom: -1rem;
   }
 }
 
 .z-toast--leave {
-  animation: z-toast-leave 0.18s ease-in forwards;
+  animation: z-toast-leave-right 0.2s ease-in forwards;
   overflow: hidden;
+}
+
+:host([data-position$='left']) .z-toast--leave {
+  animation-name: z-toast-leave-left;
+}
+
+:host([data-position='top-center']) .z-toast--leave {
+  animation-name: z-toast-leave-top;
+}
+
+:host([data-position='bottom-center']) .z-toast--leave {
+  animation-name: z-toast-leave-bottom;
 }

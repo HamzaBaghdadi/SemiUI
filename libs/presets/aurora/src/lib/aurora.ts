@@ -506,34 +506,37 @@ export const Aurora: ThemePreset = {
         paddingX: 'var(--zaytoon-spacing-md)',
         paddingY: 'var(--zaytoon-spacing-sm)',
         gap: 'var(--zaytoon-spacing-sm)',
+        width: '100%',
         maxWidth: '24rem',
+        blur: 'blur(12px)',
         variants: {
           default: {
-            background: 'var(--zaytoon-color-background)',
+            background: 'color-mix(in srgb, var(--zaytoon-color-background) 88%, transparent)',
             foreground: 'var(--zaytoon-color-foreground)',
             border: 'var(--zaytoon-color-border)',
             iconColor: 'var(--zaytoon-color-muted-foreground)',
           },
           success: {
-            background: 'var(--zaytoon-color-background)',
+            background: 'color-mix(in srgb, #22c55e 14%, color-mix(in srgb, var(--zaytoon-color-background) 88%, transparent))',
             foreground: 'var(--zaytoon-color-foreground)',
             border: '#22c55e',
             iconColor: '#22c55e',
           },
           error: {
-            background: 'var(--zaytoon-color-background)',
+            background:
+              'color-mix(in srgb, var(--zaytoon-color-destructive) 14%, color-mix(in srgb, var(--zaytoon-color-background) 88%, transparent))',
             foreground: 'var(--zaytoon-color-foreground)',
             border: 'var(--zaytoon-color-destructive)',
             iconColor: 'var(--zaytoon-color-destructive)',
           },
           warning: {
-            background: 'var(--zaytoon-color-background)',
+            background: 'color-mix(in srgb, #f59e0b 14%, color-mix(in srgb, var(--zaytoon-color-background) 88%, transparent))',
             foreground: 'var(--zaytoon-color-foreground)',
             border: '#f59e0b',
             iconColor: '#f59e0b',
           },
           info: {
-            background: 'var(--zaytoon-color-background)',
+            background: 'color-mix(in srgb, #3b82f6 14%, color-mix(in srgb, var(--zaytoon-color-background) 88%, transparent))',
             foreground: 'var(--zaytoon-color-foreground)',
             border: '#3b82f6',
             iconColor: '#3b82f6',

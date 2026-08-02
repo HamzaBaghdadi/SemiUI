@@ -1,9 +1,12 @@
 @if (toasts().length > 0) {
-  <div class="z-toast-container">
-    @for (toast of toasts(); track toast.id) {
+  <div class="z-toast-container" (mouseenter)="onGroupMouseEnter()" (mouseleave)="onGroupMouseLeave()">
+    @for (toast of toasts(); track toast.id; let i = $index; let count = $count) {
       <div
         class="z-toast"
         [attr.data-variant]="toast.variant"
+        [style.--stack-depth]="stackDepth(count - 1 - i)"
+        [style.z-index]="count - (count - 1 - i)"
+        [attr.data-stack-hidden]="count - 1 - i > maxVisibleStackDepth ? '' : null"
         role="status"
         aria-live="polite"
         (mouseenter)="pause(toast.id)"
@@ -11,20 +14,24 @@
         animate.enter="z-toast--enter"
         animate.leave="z-toast--leave"
       >
-        @if (variantIcon(toast.variant); as icon) {
-          <z-icon class="z-toast__icon" [ref]="icon" />
+        @if (toast.template; as tpl) {
+          <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: toast, dismiss: dismissFn(toast.id) }" />
+        } @else {
+          @if (toast.showIcon && variantIcon(toast.variant); as icon) {
+            <z-icon class="z-toast__icon" [ref]="icon" />
+          }
+          <div class="z-toast__content">
+            @if (toast.title) {
+              <p class="z-toast__title">{{ toast.title }}</p>
+            }
+            @if (toast.description) {
+              <p class="z-toast__description">{{ toast.description }}</p>
+            }
+          </div>
+          <button type="button" class="z-toast__close" aria-label="Dismiss" (click)="dismiss(toast.id)">
+            <z-icon [ref]="icons.clear" />
+          </button>
         }
-        <div class="z-toast__content">
-          @if (toast.title) {
-            <p class="z-toast__title">{{ toast.title }}</p>
-          }
-          @if (toast.description) {
-            <p class="z-toast__description">{{ toast.description }}</p>
-          }
-        </div>
-        <button type="button" class="z-toast__close" aria-label="Dismiss" (click)="dismiss(toast.id)">
-          <z-icon [ref]="icons.clear" />
-        </button>
       </div>
     }
   </div>

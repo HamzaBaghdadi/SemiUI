@@ -343,7 +343,11 @@ export interface ThemeTokens {
       paddingX: string;
       paddingY: string;
       gap: string;
+      /** A definite width (e.g. `'24rem'`), so every toast is the same width regardless of content. Set to `'100%'` to fall back to the old shrink/stretch-to-content-up-to-maxWidth behavior. */
+      width: string;
       maxWidth: string;
+      /** `backdrop-filter` value applied to every toast, e.g. `'blur(12px)'`. `'none'` disables it. Pairs with translucent variant backgrounds (see `variants.*.background`). */
+      blur: string;
       variants: Record<ToastVariant, ToastVariantTokens>;
     };
     fileUpload: {

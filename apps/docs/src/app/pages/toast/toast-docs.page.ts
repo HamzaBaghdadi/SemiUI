@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, TemplateRef, inject, signal, viewChild } from '@angular/core';
 import { ToastContainerComponent, ToastPosition } from '../../toast/toast-container.component';
-import { ToastService } from '../../toast/toast.service';
+import { ToastService, ToastTemplateContext } from '../../toast/toast.service';
 
 @Component({
   selector: 'app-toast-docs-page',
@@ -10,8 +10,10 @@ import { ToastService } from '../../toast/toast.service';
 })
 export class ToastDocsPage {
   private readonly toastService = inject(ToastService);
+  private readonly customToastTemplate = viewChild<TemplateRef<ToastTemplateContext>>('customToast');
 
   protected position = signal<ToastPosition>('top-right');
+  protected stacked = signal(false);
 
   showDefault(): void {
     this.toastService.show({ title: 'Notification', description: 'This is a default toast.' });
@@ -43,5 +45,26 @@ export class ToastDocsPage {
 
   setPosition(position: ToastPosition): void {
     this.position.set(position);
+  }
+
+  toggleStacked(): void {
+    this.stacked.update((value) => !value);
+  }
+
+  showStack(): void {
+    this.toastService.show({ description: 'First notification', variant: 'info', duration: 0 });
+    this.toastService.show({ description: 'Second notification', variant: 'success', duration: 0 });
+    this.toastService.show({ description: 'Third notification', variant: 'warning', duration: 0 });
+  }
+
+  showNoIcon(): void {
+    this.toastService.show({ title: 'No icon', description: 'showIcon: false hides the variant icon.', showIcon: false });
+  }
+
+  showCustomTemplate(): void {
+    const tpl = this.customToastTemplate();
+    if (tpl) {
+      this.toastService.show({ template: tpl, duration: 0 });
+    }
   }
 }
