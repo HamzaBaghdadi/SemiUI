@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormField, form } from '@angular/forms/signals';
-import { DatePickerComponent } from '../../date-picker/date-picker.component';
+import { DatePickerComponent, DateRange } from '../../date-picker/date-picker.component';
 
 @Component({
   selector: 'app-date-picker-docs-page',
@@ -41,6 +41,10 @@ export class DatePickerDocsPage {
 
   // Custom format
   protected fmt = (date: Date): string => date.toISOString().slice(0, 10);
+
+  // Multiple / range selection modes
+  protected multipleDates: Date[] = [];
+  protected dateRange: DateRange | null = null;
 
   toggleDisabled(): void {
     this.disabled.update((value) => !value);

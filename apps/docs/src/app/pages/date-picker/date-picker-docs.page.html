@@ -106,6 +106,25 @@ protected profileForm = form(this.profileModel);
 <pre><code>&lt;z-date-picker [timeOnly]="true" /&gt;
 &lt;z-date-picker [manualInput]="true" /&gt;</code></pre>
 
+<h2>Multiple dates and range selection</h2>
+<p>
+  <code>selectionMode="multiple"</code> binds through <code>[(multipleValue)]</code> (a
+  <code>Date[]</code>) instead of <code>value</code> -- clicking a day toggles it in/out, and the
+  panel stays open across picks. <code>selectionMode="range"</code> binds through
+  <code>[(rangeValue)]</code> (a <code>&#123; start: Date; end: Date | null &#125;</code>) -- the
+  first click starts a range, the second completes it (order doesn't matter, they're sorted
+  automatically) and closes the panel. These two modes are plain two-way bindings, not routed
+  through ngModel/reactive forms/Signal Forms the way the default single mode is.
+</p>
+<div class="demo-row">
+  <z-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" placeholder="Pick several dates" />
+  <z-date-picker selectionMode="range" [(rangeValue)]="dateRange" placeholder="Pick a date range" />
+</div>
+<p class="demo-value">Multiple: {{ multipleDates.length }} date(s) selected</p>
+<p class="demo-value">Range: {{ dateRange ? (dateRange.start | date) + ' - ' + (dateRange.end ? (dateRange.end | date) : '...') : 'none' }}</p>
+<pre><code>&lt;z-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" /&gt;
+&lt;z-date-picker selectionMode="range" [(rangeValue)]="dateRange" /&gt;</code></pre>
+
 <h2>Disabled</h2>
 <div class="demo-row">
   <z-date-picker [ngModel]="null" [disabled]="disabled()" />
@@ -123,4 +142,5 @@ protected profileForm = form(this.profileModel);
   <li><code>showTime</code> -- default <code>false</code>; adds hour/minute controls. <code>timeFormat</code> -- <code>"24h"</code> (default) or <code>"12h"</code>.</li>
   <li><code>timeOnly</code> -- default <code>false</code>; hides the calendar, showing just the time controls (implies <code>showTime</code>).</li>
   <li><code>manualInput</code> -- default <code>false</code>; lets the field be typed into directly. <code>parseDate</code> -- <code>(text: string) =&gt; Date | null</code>, defaults to <code>new Date(text)</code>.</li>
+  <li><code>selectionMode</code> -- <code>"single"</code> (default, via <code>value</code>) / <code>"multiple"</code> (via <code>[(multipleValue)]</code>) / <code>"range"</code> (via <code>[(rangeValue)]</code>).</li>
 </ul>

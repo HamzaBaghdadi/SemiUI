@@ -385,6 +385,26 @@
   background: color-mix(in srgb, var(--zaytoon-comp-date-picker-day-background-selected) 85%, black);
 }
 
+/* The days strictly between a range's two endpoints -- a connecting tint, square (not pill-shaped)
+   so it visually joins its neighbors into one continuous band. */
+.z-date-picker__day[data-in-range] {
+  background: color-mix(in srgb, var(--zaytoon-comp-date-picker-day-background-selected) 16%, transparent);
+  border-radius: 0;
+}
+
+/* Only once the range actually has both endpoints (data-range-complete on the grid) do the start/end
+   cells become half-pills that connect into the in-range band -- a start with no end yet (still
+   picking the second date) is just a normal, fully-rounded selected day. */
+.z-date-picker__grid[data-range-complete] .z-date-picker__day[data-range-start] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.z-date-picker__grid[data-range-complete] .z-date-picker__day[data-range-end] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .z-date-picker__day:focus-visible {
   outline: 2px solid var(--zaytoon-color-ring);
   outline-offset: 1px;

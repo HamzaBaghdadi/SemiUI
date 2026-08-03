@@ -70,7 +70,14 @@
         <!-- Focus always lives on a day button (roving tabindex below), never on the grid container
              itself -- this keydown listener catches the bubbled event from whichever day is focused. -->
         <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
-        <div #grid class="z-date-picker__grid" role="grid" [id]="listboxId" (keydown)="onGridKeydown($event)">
+        <div
+          #grid
+          class="z-date-picker__grid"
+          role="grid"
+          [id]="listboxId"
+          [attr.data-range-complete]="selectionMode() === 'range' && rangeValue()?.end ? '' : null"
+          (keydown)="onGridKeydown($event)"
+        >
           @for (day of calendarDays(); track dateKey(day.date)) {
             <button
               type="button"
@@ -79,6 +86,9 @@
               [attr.data-date-key]="dateKey(day.date)"
               [attr.data-outside-month]="day.outsideMonth ? '' : null"
               [attr.data-selected]="isSelected(day.date) ? '' : null"
+              [attr.data-range-start]="selectionMode() === 'range' && isRangeStart(day.date) ? '' : null"
+              [attr.data-range-end]="selectionMode() === 'range' && isRangeEnd(day.date) ? '' : null"
+              [attr.data-in-range]="selectionMode() === 'range' && isInRange(day.date) ? '' : null"
               [attr.data-today]="isToday(day.date) ? '' : null"
               [attr.aria-selected]="isSelected(day.date)"
               [attr.aria-disabled]="isDayDisabled(day.date) ? 'true' : null"

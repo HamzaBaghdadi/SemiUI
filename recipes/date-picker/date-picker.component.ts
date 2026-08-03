@@ -11,6 +11,7 @@ import {
   effect,
   inject,
   input,
+  model,
   signal,
   viewChild,
 } from '@angular/core';
@@ -57,15 +58,28 @@ function defaultParseDate(text: string): Date | null {
 }
 
 export type DatePickerTimeFormat = '12h' | '24h';
+export type DatePickerSelectionMode = 'single' | 'multiple' | 'range';
+
+export interface DateRange {
+  start: Date;
+  /** Null while only the start has been picked -- a range in progress. */
+  end: Date | null;
+}
 
 let nextDatePickerId = 0;
 
 /**
  * A calendar date picker: a text field that opens a viewport-aware calendar panel, or the
  * calendar rendered directly with `inline` (no input, no popover, always visible). Supports
- * ngModel, reactive forms, and Signal Forms through `BaseFormFieldControl`. Keyboard navigation
- * follows the standard grid pattern: arrow keys move by day, Home/End jump to the start/end of the
- * week, PageUp/PageDown change month, Enter/Space selects.
+ * ngModel, reactive forms, and Signal Forms through `BaseFormFieldControl` for the default
+ * `selectionMode="single"`. Keyboard navigation follows the standard grid pattern: arrow keys move
+ * by day, Home/End jump to the start/end of the week, PageUp/PageDown change month, Enter/Space
+ * selects.
+ *
+ * `selectionMode="multiple"` / `"range"` bind through separate `multipleValue` / `rangeValue`
+ * two-way signals instead of `value` -- they're plain `model()`s, not routed through the
+ * ControlValueAccessor `BaseFormFieldControl` uses, so ngModel/formControl/Signal Forms integration
+ * is only available for the default single mode.
  */
 @Component({
   selector: 'z-date-picker',
@@ -105,6 +119,12 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   manualInput = input(false, { transform: booleanAttribute });
   /** Parses manually-typed text into a Date, or null if unparseable. Defaults to `new Date(text)`. */
   parseDate = input<(text: string) => Date | null>(defaultParseDate);
+  /** "single" (default, via `value`) / "multiple" (via `multipleValue`) / "range" (via `rangeValue`). */
+  selectionMode = input<DatePickerSelectionMode>('single');
+  /** Bound when `selectionMode="multiple"`. Two-way bindable; clicking a day toggles it in/out. */
+  multipleValue = model<Date[]>([]);
+  /** Bound when `selectionMode="range"`. Two-way bindable; `end` is null while a range is still in progress. */
+  rangeValue = model<DateRange | null>(null);
 
   /** Rendered above the calendar, inside the panel. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
@@ -149,39 +169,87 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     minute: '2-digit',
     hour12: this.timeFormat() === '12h',
   }));
-  protected readonly displayValue = computed(() => {
-    const value = this.value();
-    if (!value) {
-      return '';
-    }
+  private formatOne(date: Date): string {
     const custom = this.dateFormat();
     if (custom) {
-      return custom(value);
+      return custom(date);
     }
     if (this.timeOnly()) {
-      return value.toLocaleTimeString(undefined, this.timeFormatOptions());
+      return date.toLocaleTimeString(undefined, this.timeFormatOptions());
     }
     if (this.showTime()) {
       // toLocaleString(undefined, options) only includes the date/time fields present in
       // `options` -- timeFormatOptions() only requests hour/minute, so passing it directly here
       // would silently drop the date portion. Concatenating the two locale strings instead.
-      return `${value.toLocaleDateString()} ${value.toLocaleTimeString(undefined, this.timeFormatOptions())}`;
+      return `${date.toLocaleDateString()} ${date.toLocaleTimeString(undefined, this.timeFormatOptions())}`;
     }
-    return value.toLocaleDateString();
+    return date.toLocaleDateString();
+  }
+
+  protected readonly displayValue = computed(() => {
+    switch (this.selectionMode()) {
+      case 'multiple': {
+        const dates = this.multipleValue();
+        if (dates.length === 0) {
+          return '';
+        }
+        if (dates.length <= 3) {
+          return dates.map((d) => this.formatOne(d)).join(', ');
+        }
+        return `${dates.length} dates selected`;
+      }
+      case 'range': {
+        const range = this.rangeValue();
+        if (!range) {
+          return '';
+        }
+        return range.end ? `${this.formatOne(range.start)} - ${this.formatOne(range.end)}` : `${this.formatOne(range.start)} - ...`;
+      }
+      default: {
+        const value = this.value();
+        return value ? this.formatOne(value) : '';
+      }
+    }
   });
-  protected readonly showClear = computed(() => this.clearable() && !this.effectiveDisabled() && this.value() !== null);
+  protected readonly showClear = computed(() => {
+    if (this.effectiveDisabled() || !this.clearable()) {
+      return false;
+    }
+    switch (this.selectionMode()) {
+      case 'multiple':
+        return this.multipleValue().length > 0;
+      case 'range':
+        return this.rangeValue() !== null;
+      default:
+        return this.value() !== null;
+    }
+  });
 
   /** Keeps the visible month (and time controls) in sync with the bound value -- fires on the initial CVA-pushed value too, not just user clicks. */
   private readonly syncViewToValue = effect(() => {
-    const value = this.value();
-    if (value) {
-      this.viewYear.set(value.getFullYear());
-      this.viewMonth.set(value.getMonth());
-      this.viewHour.set(value.getHours());
-      this.viewMinute.set(value.getMinutes());
-      this.focusedDate.set(value);
+    const anchor = this.currentAnchorDate();
+    if (anchor) {
+      this.viewYear.set(anchor.getFullYear());
+      this.viewMonth.set(anchor.getMonth());
+      this.viewHour.set(anchor.getHours());
+      this.viewMinute.set(anchor.getMinutes());
+      this.focusedDate.set(anchor);
     }
   });
+
+  /** The date to sync the visible month/focus to, for whichever selection mode is active. */
+  private currentAnchorDate(): Date | null {
+    switch (this.selectionMode()) {
+      case 'multiple': {
+        const dates = this.multipleValue();
+        return dates.length > 0 ? dates[dates.length - 1] : null;
+      }
+      case 'range':
+        return this.rangeValue()?.end ?? this.rangeValue()?.start ?? null;
+      default:
+        return this.value();
+    }
+  }
 
   /** Moves DOM focus to whichever day button matches `focusedDate` after the grid re-renders (roving tabindex). */
   private readonly focusActiveDay = afterRenderEffect(() => {
@@ -227,8 +295,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
    * if there is one, else minDate's month if minDate is in the future, else today.
    */
   private resetViewToRelevantMonth(): void {
-    const value = this.value();
-    const base = value ?? this.defaultViewDate();
+    const base = this.currentAnchorDate() ?? this.defaultViewDate();
     this.viewYear.set(base.getFullYear());
     this.viewMonth.set(base.getMonth());
   }
@@ -252,7 +319,16 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     if (this.effectiveDisabled()) {
       return;
     }
-    this.value.set(null);
+    switch (this.selectionMode()) {
+      case 'multiple':
+        this.multipleValue.set([]);
+        break;
+      case 'range':
+        this.rangeValue.set(null);
+        break;
+      default:
+        this.value.set(null);
+    }
     this.close();
   }
 
@@ -268,9 +344,40 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     return this.isDateDisabled()(date);
   }
 
+  /** Whether `date` is one of the picked days -- for single, the value; for multiple, any of them; for range, either endpoint. */
   protected isSelected(date: Date): boolean {
-    const value = this.value();
-    return value !== null && sameDay(date, value);
+    switch (this.selectionMode()) {
+      case 'multiple':
+        return this.multipleValue().some((d) => sameDay(d, date));
+      case 'range': {
+        const range = this.rangeValue();
+        return !!range && (sameDay(range.start, date) || (range.end !== null && sameDay(range.end, date)));
+      }
+      default: {
+        const value = this.value();
+        return value !== null && sameDay(date, value);
+      }
+    }
+  }
+
+  protected isRangeStart(date: Date): boolean {
+    const range = this.rangeValue();
+    return !!range && sameDay(range.start, date);
+  }
+
+  protected isRangeEnd(date: Date): boolean {
+    const range = this.rangeValue();
+    return !!range && range.end !== null && sameDay(range.end, date);
+  }
+
+  /** Strictly between the range's endpoints (exclusive) -- for the connecting "in range" highlight. */
+  protected isInRange(date: Date): boolean {
+    const range = this.rangeValue();
+    if (!range || !range.end) {
+      return false;
+    }
+    const time = startOfDay(date).getTime();
+    return time > startOfDay(range.start).getTime() && time < startOfDay(range.end).getTime();
   }
 
   protected isToday(date: Date): boolean {
@@ -289,8 +396,42 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     if (this.isDayDisabled(day.date)) {
       return;
     }
-    this.value.set(this.showTime() ? this.combineDateAndTime(day.date) : day.date);
+    const picked = this.showTime() ? this.combineDateAndTime(day.date) : day.date;
     this.focusedDate.set(day.date);
+
+    switch (this.selectionMode()) {
+      case 'multiple':
+        this.toggleMultipleDay(picked);
+        return; // Panel stays open -- picking several dates is the point.
+      case 'range':
+        this.extendRange(picked);
+        return; // extendRange decides whether the range is complete enough to close the panel.
+      default:
+        this.value.set(picked);
+        this.closeAfterSingleSelection();
+    }
+  }
+
+  private toggleMultipleDay(date: Date): void {
+    const current = this.multipleValue();
+    const existingIndex = current.findIndex((d) => sameDay(d, date));
+    this.multipleValue.set(existingIndex >= 0 ? current.filter((_, i) => i !== existingIndex) : [...current, date]);
+  }
+
+  private extendRange(date: Date): void {
+    const current = this.rangeValue();
+    if (!current || current.end !== null) {
+      // No range yet, or the previous range was already complete -- start a fresh one.
+      this.rangeValue.set({ start: date, end: null });
+      return;
+    }
+    // Picking the second date: keep start/end in chronological order regardless of click order.
+    const range: DateRange = date < current.start ? { start: date, end: current.start } : { start: current.start, end: date };
+    this.rangeValue.set(range);
+    this.closeAfterSingleSelection();
+  }
+
+  private closeAfterSingleSelection(): void {
     if (!this.inline()) {
       // Leave the panel open when a time picker is showing, so picking a day doesn't immediately
       // close before the user's had a chance to also adjust the time.
