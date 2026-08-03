@@ -52,7 +52,7 @@ describe('runAdd', () => {
   it('respects a custom componentsDir from components.json', () => {
     writeFileSync(
       join(cwd, 'components.json'),
-      JSON.stringify({ preset: 'aurora', componentsDir: 'src/app/ui', prefix: 'z' }),
+      JSON.stringify({ preset: 'aurora', componentsDir: 'src/app/ui', prefix: 's' }),
       'utf8',
     );
 

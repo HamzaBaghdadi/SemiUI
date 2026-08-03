@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
@@ -10,8 +10,8 @@ export type AvatarStatus = 'online' | 'away' | 'busy' | 'offline';
  * person icon if neither is available. Automatically falls back on image load failure too.
  */
 @Component({
-  selector: 'z-avatar',
-  imports: [ZIconComponent],
+  selector: 's-avatar',
+  imports: [SIconComponent],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.css',
   host: {

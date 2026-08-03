@@ -32,7 +32,7 @@ export interface ToastEntry {
 let nextToastId = 0;
 
 /**
- * Queues toast notifications for `<z-toast-container>` (mounted once, typically in the app root)
+ * Queues toast notifications for `<s-toast-container>` (mounted once, typically in the app root)
  * to render. Injectable anywhere -- call `toastService.success('Saved!')` from any component or
  * service without needing a reference to the container.
  */

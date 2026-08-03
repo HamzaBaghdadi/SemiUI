@@ -4,7 +4,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseFormFieldControl } from './base-form-field-control';
 
 @Component({
-  selector: 'z-test-field',
+  selector: 's-test-field',
   template: `<input [value]="value()" (input)="value.set($any($event.target).value)" (blur)="handleBlur()" />`,
 })
 class TestFieldComponent extends BaseFormFieldControl<string> {
@@ -40,7 +40,7 @@ describe('BaseFormFieldControl', () => {
   describe('ngModel integration', () => {
     @Component({
       imports: [TestFieldComponent, FormsModule],
-      template: `<z-test-field [(ngModel)]="name" />`,
+      template: `<s-test-field [(ngModel)]="name" />`,
     })
     class NgModelHost {
       name = 'initial';
@@ -69,7 +69,7 @@ describe('BaseFormFieldControl', () => {
   describe('reactive forms integration', () => {
     @Component({
       imports: [TestFieldComponent, ReactiveFormsModule],
-      template: `<z-test-field [formControl]="control" />`,
+      template: `<s-test-field [formControl]="control" />`,
     })
     class ReactiveHost {
       control = new FormControl('reactive-initial', { nonNullable: true });

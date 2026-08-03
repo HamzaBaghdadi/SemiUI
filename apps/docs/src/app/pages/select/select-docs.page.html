@@ -12,10 +12,10 @@
 <h2>Primitive options</h2>
 <p>Plain values (strings, numbers) work directly -- no <code>optionLabel</code> needed.</p>
 <div class="demo-row">
-  <z-select [options]="fruits" [(ngModel)]="fruit" placeholder="Pick a fruit" />
+  <s-select [options]="fruits" [(ngModel)]="fruit" placeholder="Pick a fruit" />
 </div>
 <p class="demo-value">Model value: {{ fruit }}</p>
-<pre><code>&lt;z-select [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" placeholder="Pick a fruit" /&gt;</code></pre>
+<pre><code>&lt;s-select [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" placeholder="Pick a fruit" /&gt;</code></pre>
 
 <h2>Option objects</h2>
 <p>
@@ -23,10 +23,10 @@
   the bound value is the whole option object.
 </p>
 <div class="demo-row">
-  <z-select [options]="countries" optionLabel="name" [(ngModel)]="country" placeholder="Select a country" />
+  <s-select [options]="countries" optionLabel="name" [(ngModel)]="country" placeholder="Select a country" />
 </div>
 <p class="demo-value">Model value: {{ country | json }}</p>
-<pre><code>&lt;z-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry" placeholder="Select a country" /&gt;</code></pre>
+<pre><code>&lt;s-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry" placeholder="Select a country" /&gt;</code></pre>
 
 <h2>Reactive forms</h2>
 <p>
@@ -36,25 +36,25 @@
   touched.
 </p>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-select [options]="countries" optionLabel="name" formControlName="country" errorMessage="Please select a country." placeholder="Select a country" />
+  <s-select [options]="countries" optionLabel="name" formControlName="country" errorMessage="Please select a country." placeholder="Select a country" />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   country: new FormControl&lt;Country | undefined&gt;(undefined, Validators.required),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-select [options]="countries" optionLabel="name" formControlName="country" errorMessage="Please select a country." /&gt;
+  &lt;s-select [options]="countries" optionLabel="name" formControlName="country" errorMessage="Please select a country." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-select [options]="countries" optionLabel="name" [formField]="profileForm.country" placeholder="Select a country" />
+  <s-select [options]="countries" optionLabel="name" [formField]="profileForm.country" placeholder="Select a country" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().country | json }}</p>
 <pre><code>protected profileModel = signal(&#123; country: countries[0] &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-select [options]="countries" optionLabel="name" [formField]="profileForm.country" /&gt;</code></pre>
+&lt;s-select [options]="countries" optionLabel="name" [formField]="profileForm.country" /&gt;</code></pre>
 
 <h2>Custom templates</h2>
 <p>
@@ -72,7 +72,7 @@ protected profileForm = form(this.profileModel);
   </p>
 </div>
 <div class="demo-row">
-  <z-select [options]="countries" [(ngModel)]="country" placeholder="Select a country">
+  <s-select [options]="countries" [(ngModel)]="country" placeholder="Select a country">
     <ng-template #selected let-option>
       @if (option) {
         <strong>{{ $any(option).code }}</strong> &mdash; {{ $any(option).name }}
@@ -84,9 +84,9 @@ protected profileForm = form(this.profileModel);
     <ng-template #header>
       <strong>Available Countries</strong>
     </ng-template>
-  </z-select>
+  </s-select>
 </div>
-<pre><code>&lt;z-select [options]="countries" [(ngModel)]="selectedCountry"&gt;
+<pre><code>&lt;s-select [options]="countries" [(ngModel)]="selectedCountry"&gt;
   &lt;ng-template #selected let-option&gt;
     {{ '{{ option.code }}' }} &mdash; {{ '{{ option.name }}' }}
   &lt;/ng-template&gt;
@@ -94,7 +94,7 @@ protected profileForm = form(this.profileModel);
     {{ "{{ selected ? '✓' : '' }}" }} {{ '{{ option.name }}' }}
   &lt;/ng-template&gt;
   &lt;ng-template #header&gt;&lt;strong&gt;Available Countries&lt;/strong&gt;&lt;/ng-template&gt;
-&lt;/z-select&gt;</code></pre>
+&lt;/s-select&gt;</code></pre>
 
 <h2>Clear and search</h2>
 <p>
@@ -105,22 +105,22 @@ protected profileForm = form(this.profileModel);
   Turn either off per instance:
 </p>
 <div class="demo-row">
-  <z-select [options]="countries" optionLabel="name" [(ngModel)]="country" [clearable]="false" [filterable]="false" placeholder="No clear, no search" />
+  <s-select [options]="countries" optionLabel="name" [(ngModel)]="country" [clearable]="false" [filterable]="false" placeholder="No clear, no search" />
 </div>
-<pre><code>&lt;z-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry"
+<pre><code>&lt;s-select [options]="countries" optionLabel="name" [(ngModel)]="selectedCountry"
   [clearable]="false" [filterable]="false" /&gt;</code></pre>
 
 <h2>Loading</h2>
 <p>Shows a spinner in place of the chevron and blocks interaction, for async option loading. Dims via opacity rather than swapping to the disabled palette, so it reads as "busy" rather than "unavailable".</p>
 <div class="demo-row">
-  <z-select [options]="fruits" [loading]="loading()" placeholder="Pick a fruit" />
+  <s-select [options]="fruits" [loading]="loading()" placeholder="Pick a fruit" />
   <button type="button" (click)="toggleLoading()">Toggle loading</button>
 </div>
-<pre><code>&lt;z-select [loading]="true" /&gt;</code></pre>
+<pre><code>&lt;s-select [loading]="true" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />
+  <s-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
 
@@ -132,10 +132,10 @@ protected profileForm = form(this.profileModel);
   against the trigger, but escapes the clipping container entirely.
 </p>
 <div class="demo-row" style="overflow: hidden; height: 6rem; border: 1px dashed var(--semiui-color-border); padding: var(--semiui-spacing-md); align-items: flex-start;">
-  <z-select [options]="fruits" placeholder="Clipped without appendTo" style="width: 12rem;" />
-  <z-select [options]="fruits" appendTo="body" placeholder="appendTo body" style="width: 12rem;" />
+  <s-select [options]="fruits" placeholder="Clipped without appendTo" style="width: 12rem;" />
+  <s-select [options]="fruits" appendTo="body" placeholder="appendTo body" style="width: 12rem;" />
 </div>
-<pre><code>&lt;z-select [options]="fruits" appendTo="body" /&gt;</code></pre>
+<pre><code>&lt;s-select [options]="fruits" appendTo="body" /&gt;</code></pre>
 
 <h2>Keyboard</h2>
 <p>

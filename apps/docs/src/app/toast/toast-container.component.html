@@ -1,14 +1,14 @@
 @if (toasts().length > 0) {
   <div
     #toastList
-    class="z-toast-container"
+    class="s-toast-container"
     [style.height.px]="reservedHeightPx()"
     (mouseenter)="onGroupMouseEnter()"
     (mouseleave)="onGroupMouseLeave()"
   >
     @for (toast of toasts(); track toast.id; let i = $index; let count = $count) {
       <div
-        class="z-toast"
+        class="s-toast"
         [attr.data-variant]="toast.variant"
         [style.--stack-depth]="stackDepth(count - 1 - i)"
         [style.z-index]="count - (count - 1 - i)"
@@ -17,25 +17,25 @@
         aria-live="polite"
         (mouseenter)="pause(toast.id)"
         (mouseleave)="resume(toast)"
-        animate.enter="z-toast--enter"
-        animate.leave="z-toast--leave"
+        animate.enter="s-toast--enter"
+        animate.leave="s-toast--leave"
       >
         @if (toast.template; as tpl) {
           <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: toast, dismiss: dismissFn(toast.id) }" />
         } @else {
           @if (toast.showIcon && variantIcon(toast.variant); as icon) {
-            <z-icon class="z-toast__icon" [ref]="icon" />
+            <s-icon class="s-toast__icon" [ref]="icon" />
           }
-          <div class="z-toast__content">
+          <div class="s-toast__content">
             @if (toast.title) {
-              <p class="z-toast__title">{{ toast.title }}</p>
+              <p class="s-toast__title">{{ toast.title }}</p>
             }
             @if (toast.description) {
-              <p class="z-toast__description">{{ toast.description }}</p>
+              <p class="s-toast__description">{{ toast.description }}</p>
             }
           </div>
-          <button type="button" class="z-toast__close" aria-label="Dismiss" (click)="dismiss(toast.id)">
-            <z-icon [ref]="icons.clear" />
+          <button type="button" class="s-toast__close" aria-label="Dismiss" (click)="dismiss(toast.id)">
+            <s-icon [ref]="icons.clear" />
           </button>
         }
       </div>

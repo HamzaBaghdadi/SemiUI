@@ -1,27 +1,27 @@
 :host {
   display: inline-flex;
-  --z-rating-size: var(--semiui-comp-rating-size-md);
+  --s-rating-size: var(--semiui-comp-rating-size-md);
 }
 
 :host([data-size='sm']) {
-  --z-rating-size: var(--semiui-comp-rating-size-sm);
+  --s-rating-size: var(--semiui-comp-rating-size-sm);
 }
 
 :host([data-size='lg']) {
-  --z-rating-size: var(--semiui-comp-rating-size-lg);
+  --s-rating-size: var(--semiui-comp-rating-size-lg);
 }
 
-.z-rating {
+.s-rating {
   display: inline-flex;
   gap: var(--semiui-comp-rating-gap);
 }
 
-.z-rating__star {
+.s-rating__star {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--z-rating-size);
-  height: var(--z-rating-size);
+  width: var(--s-rating-size);
+  height: var(--s-rating-size);
   padding: 0;
   border: none;
   background: none;
@@ -34,35 +34,35 @@
   opacity: 0.6;
 }
 
-.z-rating__star:disabled {
+.s-rating__star:disabled {
   cursor: not-allowed;
 }
 
-.z-rating__star:focus-visible {
+.s-rating__star:focus-visible {
   outline: none;
   border-radius: var(--semiui-radius-sm);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--semiui-color-ring) 35%, transparent);
 }
 
-.z-rating__star z-icon {
+.s-rating__star s-icon {
   width: 100%;
   height: 100%;
 }
 
-/* ::ng-deep is required, not just belt-and-suspenders: the <svg> lives inside z-icon's own
+/* ::ng-deep is required, not just belt-and-suspenders: the <svg> lives inside s-icon's own
    <ng-icon> child component, two encapsulation boundaries away from RatingComponent's scoped
-   styles, so a plain `.z-rating__star svg` selector never matches anything at all -- it isn't
+   styles, so a plain `.s-rating__star svg` selector never matches anything at all -- it isn't
    about the fill="none" presentation attribute's cascade priority (author CSS does win there),
    it's that the rule can't reach the element in the first place without piercing encapsulation. */
-.z-rating__star ::ng-deep svg {
+.s-rating__star ::ng-deep svg {
   fill: none;
   stroke: currentColor;
 }
 
-.z-rating__star--filled {
+.s-rating__star--filled {
   color: var(--semiui-comp-rating-filled-color);
 }
 
-.z-rating__star--filled ::ng-deep svg {
+.s-rating__star--filled ::ng-deep svg {
   fill: currentColor;
 }

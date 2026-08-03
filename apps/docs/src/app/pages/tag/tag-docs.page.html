@@ -6,39 +6,39 @@
 
 <h2>Variants</h2>
 <div class="demo-row">
-  <z-tag variant="default">Default</z-tag>
-  <z-tag variant="primary">Primary</z-tag>
-  <z-tag variant="secondary">Secondary</z-tag>
-  <z-tag variant="destructive">Destructive</z-tag>
-  <z-tag variant="outline">Outline</z-tag>
+  <s-tag variant="default">Default</s-tag>
+  <s-tag variant="primary">Primary</s-tag>
+  <s-tag variant="secondary">Secondary</s-tag>
+  <s-tag variant="destructive">Destructive</s-tag>
+  <s-tag variant="outline">Outline</s-tag>
 </div>
-<pre><code>&lt;z-tag variant="primary"&gt;Primary&lt;/z-tag&gt;</code></pre>
+<pre><code>&lt;s-tag variant="primary"&gt;Primary&lt;/s-tag&gt;</code></pre>
 
 <h2>Severity</h2>
 <p>The same shared semantic color vocabulary as <a routerLink="/components/button">Button</a> and <a routerLink="/components/badge">Badge</a>.</p>
 <div class="demo-row">
-  <z-tag variant="success">Success</z-tag>
-  <z-tag variant="info">Info</z-tag>
-  <z-tag variant="warn">Warn</z-tag>
-  <z-tag variant="help">Help</z-tag>
-  <z-tag variant="danger">Danger</z-tag>
-  <z-tag variant="contrast">Contrast</z-tag>
+  <s-tag variant="success">Success</s-tag>
+  <s-tag variant="info">Info</s-tag>
+  <s-tag variant="warn">Warn</s-tag>
+  <s-tag variant="help">Help</s-tag>
+  <s-tag variant="danger">Danger</s-tag>
+  <s-tag variant="contrast">Contrast</s-tag>
 </div>
-<pre><code>&lt;z-tag variant="success"&gt;Success&lt;/z-tag&gt;</code></pre>
+<pre><code>&lt;s-tag variant="success"&gt;Success&lt;/s-tag&gt;</code></pre>
 
 <h2>With an icon</h2>
 <div class="demo-row">
-  <z-tag variant="primary" [icon]="{ type: 'ng-icon', name: 'lucideCheck' }">Verified</z-tag>
+  <s-tag variant="primary" [icon]="{ type: 'ng-icon', name: 'lucideCheck' }">Verified</s-tag>
 </div>
-<pre><code>&lt;z-tag [icon]="&#123; type: 'ng-icon', name: 'lucideCheck' &#125;"&gt;Verified&lt;/z-tag&gt;</code></pre>
+<pre><code>&lt;s-tag [icon]="&#123; type: 'ng-icon', name: 'lucideCheck' &#125;"&gt;Verified&lt;/s-tag&gt;</code></pre>
 
 <h2>Removable</h2>
 <div class="demo-row">
   @for (skill of skills(); track skill) {
-    <z-tag variant="secondary" [removable]="true" (removed)="remove(skill)">{{ skill }}</z-tag>
+    <s-tag variant="secondary" [removable]="true" (removed)="remove(skill)">{{ skill }}</s-tag>
   }
   @if (skills().length === 0) {
     <span class="demo-value">All tags removed.</span>
   }
 </div>
-<pre><code>&lt;z-tag [removable]="true" (removed)="onRemove(skill)"&gt;{{ '{{ skill }}' }}&lt;/z-tag&gt;</code></pre>
+<pre><code>&lt;s-tag [removable]="true" (removed)="onRemove(skill)"&gt;{{ '{{ skill }}' }}&lt;/s-tag&gt;</code></pre>

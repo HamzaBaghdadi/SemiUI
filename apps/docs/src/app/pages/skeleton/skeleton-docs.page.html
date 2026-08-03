@@ -6,28 +6,28 @@
 
 <h2>Shapes</h2>
 <div class="demo-row" style="flex-direction: column; align-items: stretch; gap: 1rem;">
-  <z-skeleton height="1.25rem" width="60%" />
-  <z-skeleton shape="circle" width="3rem" height="3rem" />
-  <z-skeleton shape="text" [lines]="3" />
+  <s-skeleton height="1.25rem" width="60%" />
+  <s-skeleton shape="circle" width="3rem" height="3rem" />
+  <s-skeleton shape="text" [lines]="3" />
 </div>
-<pre><code>&lt;z-skeleton height="1.25rem" width="60%" /&gt;
-&lt;z-skeleton shape="circle" width="3rem" height="3rem" /&gt;
-&lt;z-skeleton shape="text" [lines]="3" /&gt;</code></pre>
+<pre><code>&lt;s-skeleton height="1.25rem" width="60%" /&gt;
+&lt;s-skeleton shape="circle" width="3rem" height="3rem" /&gt;
+&lt;s-skeleton shape="text" [lines]="3" /&gt;</code></pre>
 
 <h2>Composing a card placeholder</h2>
 <div class="demo-row">
   <div style="display: flex; gap: 0.75rem; align-items: center; width: 20rem;">
-    <z-skeleton shape="circle" width="2.5rem" height="2.5rem" />
+    <s-skeleton shape="circle" width="2.5rem" height="2.5rem" />
     <div style="flex: 1;">
-      <z-skeleton height="0.875rem" width="50%" />
+      <s-skeleton height="0.875rem" width="50%" />
       <div style="height: 0.5rem;"></div>
-      <z-skeleton height="0.75rem" width="80%" />
+      <s-skeleton height="0.75rem" width="80%" />
     </div>
   </div>
 </div>
 
 <h2>No animation</h2>
 <div class="demo-row">
-  <z-skeleton [animated]="false" width="10rem" height="1.25rem" />
+  <s-skeleton [animated]="false" width="10rem" height="1.25rem" />
 </div>
-<pre><code>&lt;z-skeleton [animated]="false" /&gt;</code></pre>
+<pre><code>&lt;s-skeleton [animated]="false" /&gt;</code></pre>

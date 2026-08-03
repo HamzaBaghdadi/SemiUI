@@ -1,5 +1,5 @@
 import { Component, ElementRef, booleanAttribute, input, viewChild } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ButtonSize } from '@semiui/tokens';
 import { injectSemiUIIcons } from '@semiui/theme';
@@ -11,8 +11,8 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
  * keyboard interaction and assistive tech semantics come for free.
  */
 @Component({
-  selector: 'z-checkbox',
-  imports: [ZIconComponent, ErrorMessageComponent],
+  selector: 's-checkbox',
+  imports: [SIconComponent, ErrorMessageComponent],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.css',
 })

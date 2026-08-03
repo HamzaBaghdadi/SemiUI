@@ -1,9 +1,9 @@
 @if (icon(); as ref) {
-  <z-icon class="z-tag__icon" [ref]="ref" />
+  <s-icon class="s-tag__icon" [ref]="ref" />
 }
-<span class="z-tag__label"><ng-content /></span>
+<span class="s-tag__label"><ng-content /></span>
 @if (removable()) {
-  <button type="button" class="z-tag__remove" aria-label="Remove" (click)="onRemoveClick($event)">
-    <z-icon [ref]="icons.clear" />
+  <button type="button" class="s-tag__remove" aria-label="Remove" (click)="onRemoveClick($event)">
+    <s-icon [ref]="icons.clear" />
   </button>
 }

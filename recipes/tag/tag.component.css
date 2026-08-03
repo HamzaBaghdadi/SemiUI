@@ -77,13 +77,13 @@
   border: 1px solid var(--semiui-comp-tag-variants-outline-border);
 }
 
-.z-tag__icon {
+.s-tag__icon {
   width: 0.875em;
   height: 0.875em;
   flex-shrink: 0;
 }
 
-.z-tag__remove {
+.s-tag__remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,11 +98,11 @@
   cursor: pointer;
 }
 
-.z-tag__remove:hover {
+.s-tag__remove:hover {
   opacity: 1;
 }
 
-.z-tag__remove z-icon {
+.s-tag__remove s-icon {
   width: 100%;
   height: 100%;
 }

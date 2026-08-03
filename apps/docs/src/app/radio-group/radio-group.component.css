@@ -2,26 +2,26 @@
   display: inline-flex;
 }
 
-.z-radio-group {
+.s-radio-group {
   display: flex;
   flex-direction: column;
   gap: var(--semiui-spacing-sm);
 }
 
-.z-radio-group[data-direction='horizontal'] {
+.s-radio-group[data-direction='horizontal'] {
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: var(--semiui-spacing-lg);
 }
 
-.z-radio {
+.s-radio {
   display: inline-flex;
   align-items: center;
   gap: var(--semiui-spacing-sm);
   cursor: pointer;
 }
 
-.z-radio__input {
+.s-radio__input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -33,7 +33,7 @@
   border: 0;
 }
 
-.z-radio__dot {
+.s-radio__dot {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -47,17 +47,17 @@
   transition: border-color 0.15s ease;
 }
 
-.z-radio__dot[data-size='sm'] {
+.s-radio__dot[data-size='sm'] {
   width: var(--semiui-comp-radio-size-sm);
   height: var(--semiui-comp-radio-size-sm);
 }
 
-.z-radio__dot[data-size='lg'] {
+.s-radio__dot[data-size='lg'] {
   width: var(--semiui-comp-radio-size-lg);
   height: var(--semiui-comp-radio-size-lg);
 }
 
-.z-radio__dot::after {
+.s-radio__dot::after {
   content: '';
   width: 50%;
   height: 50%;
@@ -67,33 +67,33 @@
   transition: transform 0.15s ease;
 }
 
-.z-radio__input:checked + .z-radio__dot {
+.s-radio__input:checked + .s-radio__dot {
   border-color: var(--semiui-comp-radio-border-checked);
 }
 
-.z-radio__input:checked + .z-radio__dot::after {
+.s-radio__input:checked + .s-radio__dot::after {
   transform: scale(1);
 }
 
-.z-radio__input:focus-visible + .z-radio__dot {
+.s-radio__input:focus-visible + .s-radio__dot {
   outline: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-radio-focus-ring) 35%, transparent);
 }
 
-.z-radio__input[aria-invalid='true'] + .z-radio__dot {
+.s-radio__input[aria-invalid='true'] + .s-radio__dot {
   border-color: var(--semiui-color-destructive);
 }
 
-.z-radio__input:disabled + .z-radio__dot {
+.s-radio__input:disabled + .s-radio__dot {
   background: var(--semiui-comp-radio-background-disabled);
   border-color: var(--semiui-comp-radio-border-disabled);
 }
 
-.z-radio:has(.z-radio__input:disabled) {
+.s-radio:has(.s-radio__input:disabled) {
   cursor: not-allowed;
 }
 
-.z-radio__label {
+.s-radio__label {
   font-size: var(--semiui-typography-font-size-md);
   font-family: var(--semiui-typography-font-family);
   color: var(--semiui-color-foreground);

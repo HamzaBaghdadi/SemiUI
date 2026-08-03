@@ -11,7 +11,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { DialogSize } from '@semiui/tokens';
 
@@ -25,8 +25,8 @@ export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
  * one.
  */
 @Component({
-  selector: 'z-drawer',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-drawer',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './drawer.component.html',
   styleUrl: './drawer.component.css',
 })

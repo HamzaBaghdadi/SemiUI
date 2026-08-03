@@ -12,37 +12,37 @@
 
 <h2>Basic usage</h2>
 <div class="demo-row">
-  <z-button (click)="po.toggle($event)">Click to show popover</z-button>
-  <z-popover #po>
+  <s-button (click)="po.toggle($event)">Click to show popover</s-button>
+  <s-popover #po>
     <span>Popover opened!</span>
-  </z-popover>
+  </s-popover>
 </div>
-<pre><code>&lt;z-button (click)="po.toggle($event)"&gt;Click to show popover&lt;/z-button&gt;
+<pre><code>&lt;s-button (click)="po.toggle($event)"&gt;Click to show popover&lt;/s-button&gt;
 
-&lt;z-popover #po&gt;
+&lt;s-popover #po&gt;
   &lt;span&gt;Popover opened!&lt;/span&gt;
-&lt;/z-popover&gt;</code></pre>
+&lt;/s-popover&gt;</code></pre>
 
 <h2>show() / hide() from separate triggers</h2>
 <div class="demo-row">
-  <z-button variant="secondary" (click)="po2.show($event)">Show</z-button>
-  <z-button [outlined]="true" (click)="po2.hide()">Hide</z-button>
-  <z-popover #po2 placement="right">
+  <s-button variant="secondary" (click)="po2.show($event)">Show</s-button>
+  <s-button [outlined]="true" (click)="po2.hide()">Hide</s-button>
+  <s-popover #po2 placement="right">
     <strong>Rich content works too</strong>
     <p>Any projected content is fine -- text, forms, other components.</p>
-  </z-popover>
+  </s-popover>
 </div>
-<pre><code>&lt;z-button (click)="po.show($event)"&gt;Show&lt;/z-button&gt;
-&lt;z-button (click)="po.hide()"&gt;Hide&lt;/z-button&gt;
-&lt;z-popover #po placement="right"&gt;...&lt;/z-popover&gt;</code></pre>
+<pre><code>&lt;s-button (click)="po.show($event)"&gt;Show&lt;/s-button&gt;
+&lt;s-button (click)="po.hide()"&gt;Hide&lt;/s-button&gt;
+&lt;s-popover #po placement="right"&gt;...&lt;/s-popover&gt;</code></pre>
 
 <h2>Placement</h2>
 <p><code>placement</code> accepts <code>top</code> / <code>bottom</code> (default) / <code>left</code> / <code>right</code>, and flips top/bottom automatically when there isn't room.</p>
 <div class="demo-row">
-  <z-button (click)="poTop.toggle($event)">Top</z-button>
-  <z-popover #poTop placement="top"><span>I'm above the button.</span></z-popover>
-  <z-button (click)="poLeft.toggle($event)">Left</z-button>
-  <z-popover #poLeft placement="left"><span>I'm to the left.</span></z-popover>
+  <s-button (click)="poTop.toggle($event)">Top</s-button>
+  <s-popover #poTop placement="top"><span>I'm above the button.</span></s-popover>
+  <s-button (click)="poLeft.toggle($event)">Left</s-button>
+  <s-popover #poLeft placement="left"><span>I'm to the left.</span></s-popover>
 </div>
 
 <h2>Options</h2>
@@ -54,10 +54,10 @@
   <li><code>appendTo</code> -- set to <code>"body"</code> to move the panel to a direct child of <code>document.body</code>, escaping an ancestor's <code>overflow: hidden</code> clipping or a stacking context created by <code>transform</code>/<code>filter</code>. It's already <code>position: fixed</code>, so this doesn't change how it's positioned -- only where it lives in the DOM.</li>
 </ul>
 <div class="demo-row">
-  <z-button (click)="poNoArrow.toggle($event)">No arrow, no outside-click close</z-button>
-  <z-popover #poNoArrow [showArrow]="false" [closeOnOutsideClick]="false">
+  <s-button (click)="poNoArrow.toggle($event)">No arrow, no outside-click close</s-button>
+  <s-popover #poNoArrow [showArrow]="false" [closeOnOutsideClick]="false">
     <span>Only Escape or the trigger itself closes me.</span>
-  </z-popover>
+  </s-popover>
 </div>
 
 <h2>Append to body</h2>
@@ -68,9 +68,9 @@
   descendants. Setting <code>appendTo="body"</code> escapes it.
 </p>
 <div class="demo-row" style="overflow: hidden; height: 5rem; border: 1px dashed var(--semiui-color-border); padding: var(--semiui-spacing-md); transform: translate(0);">
-  <z-button (click)="poClipped.toggle($event)">Clipped (no appendTo)</z-button>
-  <z-popover #poClipped><span>You probably can't see me.</span></z-popover>
-  <z-button (click)="poAppended.toggle($event)">appendTo body</z-button>
-  <z-popover #poAppended appendTo="body"><span>I escape the clipping container.</span></z-popover>
+  <s-button (click)="poClipped.toggle($event)">Clipped (no appendTo)</s-button>
+  <s-popover #poClipped><span>You probably can't see me.</span></s-popover>
+  <s-button (click)="poAppended.toggle($event)">appendTo body</s-button>
+  <s-popover #poAppended appendTo="body"><span>I escape the clipping container.</span></s-popover>
 </div>
-<pre><code>&lt;z-popover #po appendTo="body"&gt;...&lt;/z-popover&gt;</code></pre>
+<pre><code>&lt;s-popover #po appendTo="body"&gt;...&lt;/s-popover&gt;</code></pre>

@@ -12,35 +12,35 @@
 
 <h2>Basic usage</h2>
 <div class="demo-row" style="display: block;">
-  <z-file-upload [(ngModel)]="files" [multiple]="true" />
+  <s-file-upload [(ngModel)]="files" [multiple]="true" />
 </div>
 <p class="demo-value">{{ files.length }} file(s) selected</p>
-<pre><code>&lt;z-file-upload [(ngModel)]="files" [multiple]="true" /&gt;</code></pre>
+<pre><code>&lt;s-file-upload [(ngModel)]="files" [multiple]="true" /&gt;</code></pre>
 
 <h2>Image previews</h2>
 <p>Image files get a thumbnail preview automatically; other file types show a generic file icon.</p>
 <div class="demo-row" style="display: block;">
-  <z-file-upload [(ngModel)]="imageFiles" accept="image/*" [multiple]="true" />
+  <s-file-upload [(ngModel)]="imageFiles" accept="image/*" [multiple]="true" />
 </div>
-<pre><code>&lt;z-file-upload [(ngModel)]="images" accept="image/*" [multiple]="true" /&gt;</code></pre>
+<pre><code>&lt;s-file-upload [(ngModel)]="images" accept="image/*" [multiple]="true" /&gt;</code></pre>
 
 <h2>Validation</h2>
 <p><code>maxFileSize</code> (bytes) and <code>maxFiles</code> reject files past the limit, shown with their reason below the dropzone.</p>
 <div class="demo-row" style="display: block;">
-  <z-file-upload [ngModel]="[]" [maxFiles]="2" [maxFileSize]="1048576" accept=".pdf,.doc,.docx" />
+  <s-file-upload [ngModel]="[]" [maxFiles]="2" [maxFileSize]="1048576" accept=".pdf,.doc,.docx" />
 </div>
-<pre><code>&lt;z-file-upload [(ngModel)]="documents" [maxFiles]="2" [maxFileSize]="1048576" accept=".pdf,.doc,.docx" /&gt;
+<pre><code>&lt;s-file-upload [(ngModel)]="documents" [maxFiles]="2" [maxFileSize]="1048576" accept=".pdf,.doc,.docx" /&gt;
 &lt;!-- maxFileSize is in bytes -- 1048576 = 1 MB --&gt;</code></pre>
 
 <h2>Single file</h2>
 <div class="demo-row" style="display: block;">
-  <z-file-upload [ngModel]="[]" [multiple]="false" />
+  <s-file-upload [ngModel]="[]" [multiple]="false" />
 </div>
-<pre><code>&lt;z-file-upload [(ngModel)]="file" [multiple]="false" /&gt;</code></pre>
+<pre><code>&lt;s-file-upload [(ngModel)]="file" [multiple]="false" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row" style="display: block;">
-  <z-file-upload [ngModel]="[]" [disabled]="disabled()" />
+  <s-file-upload [ngModel]="[]" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
 

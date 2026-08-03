@@ -13,7 +13,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -36,8 +36,8 @@ let nextSelectId = 0;
  * `#selected` / `#option` / `#icon` / `#header` / `#footer` template variables referenced below.
  */
 @Component({
-  selector: 'z-select',
-  imports: [ZIconComponent, NgTemplateOutlet, ErrorMessageComponent],
+  selector: 's-select',
+  imports: [SIconComponent, NgTemplateOutlet, ErrorMessageComponent],
   templateUrl: './select.component.html',
   styleUrl: './select.component.css',
   host: {
@@ -89,7 +89,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   protected readonly filterText = signal('');
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
   protected readonly fixedPosition = signal({ top: 0, left: 0, width: 0 });
-  protected readonly listboxId = `z-select-listbox-${nextSelectId++}`;
+  protected readonly listboxId = `s-select-listbox-${nextSelectId++}`;
   protected readonly activeOptionId = computed(() =>
     this.open() && this.activeIndex() >= 0 ? `${this.listboxId}-option-${this.activeIndex()}` : null,
   );

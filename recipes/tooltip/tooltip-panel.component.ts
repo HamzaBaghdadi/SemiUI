@@ -3,7 +3,7 @@ import { TooltipPlacement } from './tooltip.directive';
 
 /** Internal: the floating panel rendered dynamically by `TooltipDirective`. Not meant to be used directly. */
 @Component({
-  selector: 'z-tooltip-panel',
+  selector: 's-tooltip-panel',
   templateUrl: './tooltip-panel.component.html',
   styleUrl: './tooltip-panel.component.css',
 })

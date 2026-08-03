@@ -53,7 +53,7 @@ const PANEL_SPACE_ESTIMATE_PX = 380;
  * HSV from hex; the picker's own writes are recognized and skipped.
  */
 @Component({
-  selector: 'z-color-picker',
+  selector: 's-color-picker',
   imports: [ErrorMessageComponent, NgTemplateOutlet],
   templateUrl: './color-picker.component.html',
   styleUrl: './color-picker.component.css',

@@ -1,6 +1,6 @@
 import { Component, DestroyRef, ElementRef, afterRenderEffect, booleanAttribute, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { IconRef, ToastVariant } from '@semiui/tokens';
 import { ToastEntry, ToastService } from './toast.service';
@@ -17,8 +17,8 @@ const MAX_VISIBLE_STACK_DEPTH = 3;
  * remaining time) on mouse leave.
  */
 @Component({
-  selector: 'z-toast-container',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-toast-container',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './toast-container.component.html',
   styleUrl: './toast-container.component.css',
   host: {
@@ -64,7 +64,7 @@ export class ToastContainerComponent {
     if (!container) {
       return;
     }
-    const items = Array.from(container.querySelectorAll<HTMLElement>('.z-toast'));
+    const items = Array.from(container.querySelectorAll<HTMLElement>('.s-toast'));
     if (items.length === 0) {
       return;
     }

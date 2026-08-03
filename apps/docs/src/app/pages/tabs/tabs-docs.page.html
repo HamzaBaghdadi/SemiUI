@@ -14,11 +14,11 @@
 
 <h2>Basic usage</h2>
 <div class="demo-row" style="display: block;">
-  <z-tabs [items]="accountTabs">
+  <s-tabs [items]="accountTabs">
     <ng-template #content let-item>
       <p>Content for <strong>{{ item.label }}</strong>.</p>
     </ng-template>
-  </z-tabs>
+  </s-tabs>
 </div>
 <pre><code>protected items = [
   &#123; label: 'Profile' &#125;,
@@ -26,11 +26,11 @@
   &#123; label: 'Notifications', disabled: true &#125;,
 &#125;;
 
-&lt;z-tabs [items]="items"&gt;
+&lt;s-tabs [items]="items"&gt;
   &lt;ng-template #content let-item&gt;
     &lt;p&gt;Content for {{ '{{ item.label }}' }}&lt;/p&gt;
   &lt;/ng-template&gt;
-&lt;/z-tabs&gt;</code></pre>
+&lt;/s-tabs&gt;</code></pre>
 <p>The "Notifications" tab above has <code>disabled: true</code> -- it's skipped by both click and arrow-key navigation.</p>
 
 <h2>Controlled activeIndex</h2>
@@ -39,43 +39,43 @@
   <button type="button" (click)="goToBilling()">Jump to Billing</button>
 </div>
 <div class="demo-row" style="display: block;">
-  <z-tabs [items]="accountTabs" [(activeIndex)]="controlledIndex">
+  <s-tabs [items]="accountTabs" [(activeIndex)]="controlledIndex">
     <ng-template #content let-item>
       <p>Content for <strong>{{ item.label }}</strong>.</p>
     </ng-template>
-  </z-tabs>
+  </s-tabs>
 </div>
 <pre><code>protected activeIndex = signal(0);
 
-&lt;z-tabs [items]="items" [(activeIndex)]="activeIndex" /&gt;</code></pre>
+&lt;s-tabs [items]="items" [(activeIndex)]="activeIndex" /&gt;</code></pre>
 
 <h2>Vertical orientation</h2>
 <div class="demo-row" style="display: block;">
-  <z-tabs [items]="accountTabs" orientation="vertical">
+  <s-tabs [items]="accountTabs" orientation="vertical">
     <ng-template #content let-item>
       <p>Content for <strong>{{ item.label }}</strong>.</p>
     </ng-template>
-  </z-tabs>
+  </s-tabs>
 </div>
-<pre><code>&lt;z-tabs [items]="items" orientation="vertical"&gt;...&lt;/z-tabs&gt;</code></pre>
+<pre><code>&lt;s-tabs [items]="items" orientation="vertical"&gt;...&lt;/s-tabs&gt;</code></pre>
 
 <h2>Custom label template</h2>
 <div class="demo-row" style="display: block;">
-  <z-tabs [items]="accountTabs">
+  <s-tabs [items]="accountTabs">
     <ng-template #label let-item let-i="index">
       <strong>{{ i + 1 }}.</strong> {{ item.label }}
     </ng-template>
     <ng-template #content let-item>
       <p>Content for <strong>{{ item.label }}</strong>.</p>
     </ng-template>
-  </z-tabs>
+  </s-tabs>
 </div>
-<pre><code>&lt;z-tabs [items]="items"&gt;
+<pre><code>&lt;s-tabs [items]="items"&gt;
   &lt;ng-template #label let-item let-i="index"&gt;
     &lt;strong&gt;{{ '{{ i + 1 }}' }}.&lt;/strong&gt; {{ '{{ item.label }}' }}
   &lt;/ng-template&gt;
   &lt;ng-template #content let-item&gt;...&lt;/ng-template&gt;
-&lt;/z-tabs&gt;</code></pre>
+&lt;/s-tabs&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>

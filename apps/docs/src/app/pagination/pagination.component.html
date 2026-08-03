@@ -1,22 +1,22 @@
-<nav aria-label="Pagination" class="z-pagination">
+<nav aria-label="Pagination" class="s-pagination">
   @if (showFirstLast()) {
-    <button type="button" class="z-pagination__button" [disabled]="page() === 1" aria-label="First page" (click)="goTo(1)">
-      <span class="z-pagination__icon-pair">
-        <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
-        <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
+    <button type="button" class="s-pagination__button" [disabled]="page() === 1" aria-label="First page" (click)="goTo(1)">
+      <span class="s-pagination__icon-pair">
+        <s-icon class="s-pagination__icon s-pagination__icon--prev" [ref]="icons.chevronDown" />
+        <s-icon class="s-pagination__icon s-pagination__icon--prev" [ref]="icons.chevronDown" />
       </span>
     </button>
   }
-  <button type="button" class="z-pagination__button" [disabled]="page() === 1" aria-label="Previous page" (click)="goTo(page() - 1)">
-    <z-icon class="z-pagination__icon z-pagination__icon--prev" [ref]="icons.chevronDown" />
+  <button type="button" class="s-pagination__button" [disabled]="page() === 1" aria-label="Previous page" (click)="goTo(page() - 1)">
+    <s-icon class="s-pagination__icon s-pagination__icon--prev" [ref]="icons.chevronDown" />
   </button>
   @for (item of pageItems(); track $index) {
     @if (item === 'ellipsis') {
-      <span class="z-pagination__ellipsis" aria-hidden="true">&hellip;</span>
+      <span class="s-pagination__ellipsis" aria-hidden="true">&hellip;</span>
     } @else {
       <button
         type="button"
-        class="z-pagination__button z-pagination__button--page"
+        class="s-pagination__button s-pagination__button--page"
         [attr.aria-current]="item === page() ? 'page' : null"
         [attr.aria-label]="'Page ' + item"
         (click)="goTo(item)"
@@ -25,14 +25,14 @@
       </button>
     }
   }
-  <button type="button" class="z-pagination__button" [disabled]="page() === pageCount()" aria-label="Next page" (click)="goTo(page() + 1)">
-    <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
+  <button type="button" class="s-pagination__button" [disabled]="page() === pageCount()" aria-label="Next page" (click)="goTo(page() + 1)">
+    <s-icon class="s-pagination__icon s-pagination__icon--next" [ref]="icons.chevronDown" />
   </button>
   @if (showFirstLast()) {
-    <button type="button" class="z-pagination__button" [disabled]="page() === pageCount()" aria-label="Last page" (click)="goTo(pageCount())">
-      <span class="z-pagination__icon-pair">
-        <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
-        <z-icon class="z-pagination__icon z-pagination__icon--next" [ref]="icons.chevronDown" />
+    <button type="button" class="s-pagination__button" [disabled]="page() === pageCount()" aria-label="Last page" (click)="goTo(pageCount())">
+      <span class="s-pagination__icon-pair">
+        <s-icon class="s-pagination__icon s-pagination__icon--next" [ref]="icons.chevronDown" />
+        <s-icon class="s-pagination__icon s-pagination__icon--next" [ref]="icons.chevronDown" />
       </span>
     </button>
   }

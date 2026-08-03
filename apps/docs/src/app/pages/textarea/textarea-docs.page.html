@@ -10,15 +10,15 @@
 
 <h2>ngModel</h2>
 <div class="demo-row">
-  <z-textarea [(ngModel)]="bio" placeholder="Tell us about yourself" />
+  <s-textarea [(ngModel)]="bio" placeholder="Tell us about yourself" />
 </div>
 <p class="demo-value">Model value: {{ bio }}</p>
-<pre><code>&lt;z-textarea [(ngModel)]="bio" placeholder="Tell us about yourself" /&gt;</code></pre>
+<pre><code>&lt;s-textarea [(ngModel)]="bio" placeholder="Tell us about yourself" /&gt;</code></pre>
 
 <h2>Reactive forms + validation + maxLength</h2>
 <p><code>maxLength</code> shows a character counter and caps native input at that length.</p>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-textarea
+  <s-textarea
     formControlName="feedback"
     placeholder="Your feedback"
     [maxLength]="280"
@@ -30,28 +30,28 @@
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-textarea formControlName="feedback" [maxLength]="280" errorMessage="Feedback is required (max 280 characters)." /&gt;
+  &lt;s-textarea formControlName="feedback" [maxLength]="280" errorMessage="Feedback is required (max 280 characters)." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-textarea [formField]="profileForm.notes" placeholder="Notes" />
+  <s-textarea [formField]="profileForm.notes" placeholder="Notes" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().notes }}</p>
 <pre><code>protected profileModel = signal(&#123; notes: '' &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-textarea [formField]="profileForm.notes" /&gt;</code></pre>
+&lt;s-textarea [formField]="profileForm.notes" /&gt;</code></pre>
 
 <h2>Auto-resize</h2>
 <p>Grows to fit its content instead of scrolling internally -- keeps working even when the value is set programmatically, not just while typing.</p>
 <div class="demo-row">
-  <z-textarea [(ngModel)]="bio" [autoResize]="true" [rows]="2" placeholder="Grows as you type..." />
+  <s-textarea [(ngModel)]="bio" [autoResize]="true" [rows]="2" placeholder="Grows as you type..." />
 </div>
-<pre><code>&lt;z-textarea [autoResize]="true" [rows]="2" /&gt;</code></pre>
+<pre><code>&lt;s-textarea [autoResize]="true" [rows]="2" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-textarea [(ngModel)]="bio" [disabled]="disabled()" />
+  <s-textarea [(ngModel)]="bio" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

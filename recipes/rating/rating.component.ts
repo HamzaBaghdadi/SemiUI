@@ -1,5 +1,5 @@
 import { Component, booleanAttribute, computed, input, signal } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ButtonSize } from '@semiui/tokens';
 import { injectSemiUIIcons } from '@semiui/theme';
@@ -18,8 +18,8 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
  * at the actual property declaration.
  */
 @Component({
-  selector: 'z-rating',
-  imports: [ZIconComponent, ErrorMessageComponent],
+  selector: 's-rating',
+  imports: [SIconComponent, ErrorMessageComponent],
   templateUrl: './rating.component.html',
   styleUrl: './rating.component.css',
   host: {

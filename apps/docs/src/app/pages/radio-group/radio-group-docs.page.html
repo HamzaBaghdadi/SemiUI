@@ -12,58 +12,58 @@
 
 <h2>Primitive options</h2>
 <div class="demo-row">
-  <z-radio-group [options]="fruits" [(ngModel)]="fruit" />
+  <s-radio-group [options]="fruits" [(ngModel)]="fruit" />
 </div>
 <p class="demo-value">Model value: {{ fruit }}</p>
-<pre><code>&lt;z-radio-group [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" /&gt;</code></pre>
+<pre><code>&lt;s-radio-group [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="fruit" /&gt;</code></pre>
 
 <h2>Option objects, with a disabled option</h2>
 <p><code>optionDisabled</code> reads a per-option disabled flag, when options are objects.</p>
 <div class="demo-row">
-  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="plan" />
+  <s-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="plan" />
 </div>
 <p class="demo-value">Model value: {{ plan }}</p>
-<pre><code>&lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="selectedPlan" /&gt;</code></pre>
+<pre><code>&lt;s-radio-group [options]="plans" optionLabel="name" optionValue="id" optionDisabled="disabled" [(ngModel)]="selectedPlan" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." />
+  <s-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   plan: new FormControl&lt;string | undefined&gt;(undefined, Validators.required),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." /&gt;
+  &lt;s-radio-group [options]="plans" optionLabel="name" optionValue="id" formControlName="plan" errorMessage="Please choose a plan." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" />
+  <s-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().plan }}</p>
 <pre><code>protected profileModel = signal(&#123; plan: 'free' &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" /&gt;</code></pre>
+&lt;s-radio-group [options]="plans" optionLabel="name" optionValue="id" [formField]="profileForm.plan" /&gt;</code></pre>
 
 <h2>Horizontal direction</h2>
 <div class="demo-row">
-  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" />
+  <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" />
 </div>
-<pre><code>&lt;z-radio-group direction="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
+<pre><code>&lt;s-radio-group direction="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
 
 <h2>Sizes</h2>
 <div class="demo-row">
-  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="sm" />
+  <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="sm" />
 </div>
 <div class="demo-row">
-  <z-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="lg" />
+  <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="lg" />
 </div>
-<pre><code>&lt;z-radio-group size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
+<pre><code>&lt;s-radio-group size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-radio-group [options]="fruits" [(ngModel)]="fruit" [disabled]="disabled()" />
+  <s-radio-group [options]="fruits" [(ngModel)]="fruit" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

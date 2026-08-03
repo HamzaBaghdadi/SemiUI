@@ -1,10 +1,10 @@
-.z-pagination {
+.s-pagination {
   display: flex;
   align-items: center;
   gap: var(--semiui-comp-pagination-gap);
 }
 
-.z-pagination__button {
+.s-pagination__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,31 +26,31 @@
    pseudo-classes) beats the active-page rule below (a class + an attribute selector), so hovering
    the active page reverted its background to the hover color while the foreground stayed the
    active (usually light-on-dark) color -- unreadable low-contrast text. */
-.z-pagination__button:hover:not(:disabled):not([aria-current='page']) {
+.s-pagination__button:hover:not(:disabled):not([aria-current='page']) {
   background: var(--semiui-comp-pagination-background-hover);
 }
 
-.z-pagination__button--page[aria-current='page']:hover:not(:disabled) {
+.s-pagination__button--page[aria-current='page']:hover:not(:disabled) {
   background: color-mix(in srgb, var(--semiui-comp-pagination-background-active) 85%, black);
 }
 
-.z-pagination__button:focus-visible {
+.s-pagination__button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-color-ring) 35%, transparent);
 }
 
-.z-pagination__button:disabled {
+.s-pagination__button:disabled {
   cursor: not-allowed;
   color: var(--semiui-comp-pagination-foreground-disabled);
 }
 
-.z-pagination__button--page[aria-current='page'] {
+.s-pagination__button--page[aria-current='page'] {
   background: var(--semiui-comp-pagination-background-active);
   color: var(--semiui-comp-pagination-foreground-active);
   border-color: var(--semiui-comp-pagination-background-active);
 }
 
-.z-pagination__ellipsis {
+.s-pagination__ellipsis {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,23 +59,23 @@
   color: var(--semiui-comp-pagination-foreground-disabled);
 }
 
-.z-pagination__icon {
+.s-pagination__icon {
   width: 0.75em;
   height: 0.75em;
 }
 
-.z-pagination__icon--prev {
+.s-pagination__icon--prev {
   transform: rotate(90deg);
 }
 
-.z-pagination__icon--next {
+.s-pagination__icon--next {
   transform: rotate(-90deg);
 }
 
-.z-pagination__icon-pair {
+.s-pagination__icon-pair {
   display: inline-flex;
 }
 
-.z-pagination__icon-pair .z-pagination__icon:last-child {
+.s-pagination__icon-pair .s-pagination__icon:last-child {
   margin-left: -0.4em;
 }

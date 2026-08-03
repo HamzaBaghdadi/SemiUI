@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-.z-select__trigger {
+.s-select__trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +24,7 @@
     box-shadow 0.15s ease;
 }
 
-.z-select__value {
+.s-select__value {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -33,11 +33,11 @@
   text-align: left;
 }
 
-.z-select__placeholder {
+.s-select__placeholder {
   color: var(--semiui-comp-select-placeholder-foreground);
 }
 
-.z-select__icon {
+.s-select__icon {
   display: inline-flex;
   flex-shrink: 0;
   width: 1em;
@@ -46,16 +46,16 @@
   transition: transform 0.15s ease;
 }
 
-:host([data-open]) .z-select__icon {
+:host([data-open]) .s-select__icon {
   transform: rotate(180deg);
 }
 
-.z-select__clear {
+.s-select__clear {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  /* Same 1em x 1em footprint as .z-select__icon (border-box, padding included rather than added
+  /* Same 1em x 1em footprint as .s-select__icon (border-box, padding included rather than added
      on top) -- otherwise the trigger's row height grows by a hair whenever this appears/disappears. */
   width: 1em;
   height: 1em;
@@ -66,59 +66,59 @@
   cursor: pointer;
 }
 
-.z-select__clear:hover {
+.s-select__clear:hover {
   background: var(--semiui-comp-select-option-background-hover);
   color: var(--semiui-comp-select-foreground);
 }
 
-@keyframes z-select-spin {
+@keyframes s-select-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.z-select__icon--spin {
+.s-select__icon--spin {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  animation: z-select-spin 1s linear infinite;
+  animation: s-select-spin 1s linear infinite;
   transform-origin: 50% 50%;
   backface-visibility: hidden;
   will-change: transform;
 }
 
-.z-select__trigger:hover:not(:disabled):not([aria-invalid='true']) {
+.s-select__trigger:hover:not(:disabled):not([aria-invalid='true']) {
   border-color: var(--semiui-comp-select-border-hover);
 }
 
-.z-select__trigger:focus-visible {
+.s-select__trigger:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
-.z-select__trigger[aria-invalid='true'] {
+.s-select__trigger[aria-invalid='true'] {
   border-color: var(--semiui-comp-select-border-invalid);
 }
 
-.z-select__trigger:disabled {
+.s-select__trigger:disabled {
   cursor: not-allowed;
 }
 
 /* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
    the flat disabled palette -- it reads as "busy", not "unavailable". */
-.z-select__trigger:disabled:not(.z-select__trigger--loading) {
+.s-select__trigger:disabled:not(.s-select__trigger--loading) {
   background: var(--semiui-comp-select-background-disabled);
   color: var(--semiui-comp-select-foreground-disabled);
 }
 
-.z-select__trigger--loading {
+.s-select__trigger--loading {
   opacity: 0.6;
 }
 
-.z-select__panel {
+.s-select__panel {
   position: absolute;
   top: calc(100% + 0.25rem);
   left: 0;
@@ -132,19 +132,19 @@
   transform-origin: top;
 }
 
-.z-select__panel[data-placement='top'] {
+.s-select__panel[data-placement='top'] {
   top: auto;
   bottom: calc(100% + 0.25rem);
   transform-origin: bottom;
 }
 
-.z-select__panel[data-appended] {
+.s-select__panel[data-appended] {
   position: fixed;
   right: auto;
   bottom: auto;
 }
 
-@keyframes z-select-panel-enter {
+@keyframes s-select-panel-enter {
   from {
     opacity: 0;
     transform: scale(0.96);
@@ -155,11 +155,11 @@
   }
 }
 
-.z-select__panel--enter {
-  animation: z-select-panel-enter 0.12s ease-out;
+.s-select__panel--enter {
+  animation: s-select-panel-enter 0.12s ease-out;
 }
 
-@keyframes z-select-panel-leave {
+@keyframes s-select-panel-leave {
   from {
     opacity: 1;
     transform: scale(1);
@@ -170,27 +170,27 @@
   }
 }
 
-.z-select__panel--leave {
-  animation: z-select-panel-leave 0.1s ease-in;
+.s-select__panel--leave {
+  animation: s-select-panel-leave 0.1s ease-in;
 }
 
-.z-select__header,
-.z-select__footer {
+.s-select__header,
+.s-select__footer {
   padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
 }
 
-.z-select__filter {
+.s-select__filter {
   padding: var(--semiui-spacing-sm);
   border-bottom: 1px solid var(--semiui-comp-select-panel-border);
 }
 
-.z-select__filter-input-wrapper {
+.s-select__filter-input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.z-select__filter-input {
+.s-select__filter-input {
   width: 100%;
   box-sizing: border-box;
   padding: 0.375rem 1.75rem 0.375rem var(--semiui-spacing-sm);
@@ -202,17 +202,17 @@
   color: var(--semiui-comp-select-foreground);
 }
 
-.z-select__filter-input::placeholder {
+.s-select__filter-input::placeholder {
   color: var(--semiui-comp-select-placeholder-foreground);
 }
 
-.z-select__filter-input:focus {
+.s-select__filter-input:focus {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
-.z-select__filter-icon {
+.s-select__filter-icon {
   position: absolute;
   right: 0.5rem;
   width: 0.875em;
@@ -221,13 +221,13 @@
   pointer-events: none;
 }
 
-.z-select__empty {
+.s-select__empty {
   padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
   color: var(--semiui-comp-select-placeholder-foreground);
   text-align: center;
 }
 
-.z-select__list {
+.s-select__list {
   list-style: none;
   margin: 0;
   padding: 0.25rem;
@@ -235,18 +235,18 @@
   overflow-y: auto;
 }
 
-.z-select__option {
+.s-select__option {
   padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
   border-radius: var(--semiui-radius-sm);
   color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }
 
-.z-select__option[data-active] {
+.s-select__option[data-active] {
   background: var(--semiui-comp-select-option-background-hover);
 }
 
-.z-select__option[aria-selected='true'] {
+.s-select__option[aria-selected='true'] {
   background: var(--semiui-comp-select-option-background-selected);
   color: var(--semiui-comp-select-option-foreground-selected);
 }

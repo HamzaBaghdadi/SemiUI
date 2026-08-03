@@ -12,7 +12,7 @@ import {
   model,
   signal,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 /**
@@ -21,8 +21,8 @@ import { injectSemiUIIcons } from '@semiui/theme';
  * (paused on hover), looping, arrow keys, and pointer-drag/swipe.
  */
 @Component({
-  selector: 'z-carousel',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-carousel',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',
 })

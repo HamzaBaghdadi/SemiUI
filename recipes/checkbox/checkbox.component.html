@@ -1,8 +1,8 @@
-<label class="z-checkbox">
+<label class="s-checkbox">
   <input
     #nativeInput
     type="checkbox"
-    class="z-checkbox__input"
+    class="s-checkbox__input"
     [attr.data-size]="size()"
     [checked]="value()"
     [indeterminate]="indeterminate()"
@@ -12,17 +12,17 @@
     (change)="onChange($any($event.target).checked)"
     (blur)="handleBlur()"
   />
-  <span class="z-checkbox__box" [attr.data-size]="size()">
+  <span class="s-checkbox__box" [attr.data-size]="size()">
     @if (indeterminate()) {
-      <z-icon [ref]="icons.checkboxIndeterminate" />
+      <s-icon [ref]="icons.checkboxIndeterminate" />
     } @else if (value()) {
-      <z-icon [ref]="icons.checkboxCheck" />
+      <s-icon [ref]="icons.checkboxCheck" />
     }
   </span>
   @if (label()) {
-    <span class="z-checkbox__label">{{ label() }}</span>
+    <span class="s-checkbox__label">{{ label() }}</span>
   }
 </label>
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

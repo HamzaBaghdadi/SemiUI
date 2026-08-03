@@ -11,56 +11,56 @@
 
 <h2>Basic usage (ngModel)</h2>
 <div class="demo-row">
-  <z-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" />
+  <s-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" />
 </div>
 <p class="demo-value">Model value: {{ birthday | date }}</p>
-<pre><code>&lt;z-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" /&gt;</code></pre>
+<pre><code>&lt;s-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" /&gt;</code></pre>
 
 <h2>Inline</h2>
 <p>No input, no popover -- the calendar renders directly, e.g. for a dedicated "pick a date" page or a sidebar widget.</p>
 <div class="demo-row">
-  <z-date-picker [(ngModel)]="inlineDate" [inline]="true" />
+  <s-date-picker [(ngModel)]="inlineDate" [inline]="true" />
 </div>
-<pre><code>&lt;z-date-picker [(ngModel)]="date" [inline]="true" /&gt;</code></pre>
+<pre><code>&lt;s-date-picker [(ngModel)]="date" [inline]="true" /&gt;</code></pre>
 
 <h2>min/max and disabled dates</h2>
 <p>This one only allows the last 7 days up to today, and disables weekends within that range.</p>
 <div class="demo-row">
-  <z-date-picker [ngModel]="null" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" placeholder="Last 7 days, weekdays only" />
+  <s-date-picker [ngModel]="null" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" placeholder="Last 7 days, weekdays only" />
 </div>
 <pre><code>protected isWeekend = (date: Date) =&gt; date.getDay() === 0 || date.getDay() === 6;
 
-&lt;z-date-picker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" /&gt;</code></pre>
+&lt;s-date-picker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [isDateDisabled]="isWeekend" /&gt;</code></pre>
 
 <h2>Reactive forms</h2>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-date-picker formControlName="appointment" errorMessage="Please pick a date." placeholder="Pick an appointment date" />
+  <s-date-picker formControlName="appointment" errorMessage="Please pick a date." placeholder="Pick an appointment date" />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   appointment: new FormControl&lt;Date | null&gt;(null, Validators.required),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-date-picker formControlName="appointment" errorMessage="Please pick a date." /&gt;
+  &lt;s-date-picker formControlName="appointment" errorMessage="Please pick a date." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-date-picker [formField]="profileForm.birthday" />
+  <s-date-picker [formField]="profileForm.birthday" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().birthday | date }}</p>
 <pre><code>protected profileModel = signal(&#123; birthday: new Date(1995, 5, 15) &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-date-picker [formField]="profileForm.birthday" /&gt;</code></pre>
+&lt;s-date-picker [formField]="profileForm.birthday" /&gt;</code></pre>
 
 <h2>Custom date format</h2>
 <div class="demo-row">
-  <z-date-picker [ngModel]="today" [dateFormat]="fmt" />
+  <s-date-picker [ngModel]="today" [dateFormat]="fmt" />
 </div>
 <pre><code>protected fmt = (date: Date) =&gt; date.toISOString().slice(0, 10); // "2026-08-02"
 
-&lt;z-date-picker [(ngModel)]="date" [dateFormat]="fmt" /&gt;</code></pre>
+&lt;s-date-picker [(ngModel)]="date" [dateFormat]="fmt" /&gt;</code></pre>
 
 <h2>Month/year navigation, Today button, header/footer templates</h2>
 <p>
@@ -70,13 +70,13 @@ protected profileForm = form(this.profileModel);
   templates render inside the panel, above/below the calendar.
 </p>
 <div class="demo-row">
-  <z-date-picker [ngModel]="null" [showTodayButton]="true" placeholder="Click the month label">
+  <s-date-picker [ngModel]="null" [showTodayButton]="true" placeholder="Click the month label">
     <ng-template #header><strong>Pick a date</strong></ng-template>
-  </z-date-picker>
+  </s-date-picker>
 </div>
-<pre><code>&lt;z-date-picker [showTodayButton]="true"&gt;
+<pre><code>&lt;s-date-picker [showTodayButton]="true"&gt;
   &lt;ng-template #header&gt;&lt;strong&gt;Pick a date&lt;/strong&gt;&lt;/ng-template&gt;
-&lt;/z-date-picker&gt;</code></pre>
+&lt;/s-date-picker&gt;</code></pre>
 
 <h2>Time picker (12h/24h)</h2>
 <p>
@@ -86,11 +86,11 @@ protected profileForm = form(this.profileModel);
   also adjust the time before closing it.
 </p>
 <div class="demo-row">
-  <z-date-picker [ngModel]="null" [showTime]="true" placeholder="Pick a date and time" />
-  <z-date-picker [ngModel]="null" [showTime]="true" timeFormat="12h" placeholder="12h format" />
+  <s-date-picker [ngModel]="null" [showTime]="true" placeholder="Pick a date and time" />
+  <s-date-picker [ngModel]="null" [showTime]="true" timeFormat="12h" placeholder="12h format" />
 </div>
-<pre><code>&lt;z-date-picker [showTime]="true" /&gt;
-&lt;z-date-picker [showTime]="true" timeFormat="12h" /&gt;</code></pre>
+<pre><code>&lt;s-date-picker [showTime]="true" /&gt;
+&lt;s-date-picker [showTime]="true" timeFormat="12h" /&gt;</code></pre>
 
 <h2>Time-only and manual text entry</h2>
 <p>
@@ -100,11 +100,11 @@ protected profileForm = form(this.profileModel);
   <code>new Date(text)</code>) on blur or Enter; an unparseable value reverts to the last valid one.
 </p>
 <div class="demo-row">
-  <z-date-picker [ngModel]="null" [timeOnly]="true" placeholder="Pick a time" />
-  <z-date-picker [ngModel]="null" [manualInput]="true" placeholder="Type a date, e.g. 12/25/2026" />
+  <s-date-picker [ngModel]="null" [timeOnly]="true" placeholder="Pick a time" />
+  <s-date-picker [ngModel]="null" [manualInput]="true" placeholder="Type a date, e.g. 12/25/2026" />
 </div>
-<pre><code>&lt;z-date-picker [timeOnly]="true" /&gt;
-&lt;z-date-picker [manualInput]="true" /&gt;</code></pre>
+<pre><code>&lt;s-date-picker [timeOnly]="true" /&gt;
+&lt;s-date-picker [manualInput]="true" /&gt;</code></pre>
 
 <h2>Multiple dates and range selection</h2>
 <p>
@@ -117,17 +117,17 @@ protected profileForm = form(this.profileModel);
   through ngModel/reactive forms/Signal Forms the way the default single mode is.
 </p>
 <div class="demo-row">
-  <z-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" placeholder="Pick several dates" />
-  <z-date-picker selectionMode="range" [(rangeValue)]="dateRange" placeholder="Pick a date range" />
+  <s-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" placeholder="Pick several dates" />
+  <s-date-picker selectionMode="range" [(rangeValue)]="dateRange" placeholder="Pick a date range" />
 </div>
 <p class="demo-value">Multiple: {{ multipleDates.length }} date(s) selected</p>
 <p class="demo-value">Range: {{ dateRange ? (dateRange.start | date) + ' - ' + (dateRange.end ? (dateRange.end | date) : '...') : 'none' }}</p>
-<pre><code>&lt;z-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" /&gt;
-&lt;z-date-picker selectionMode="range" [(rangeValue)]="dateRange" /&gt;</code></pre>
+<pre><code>&lt;s-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" /&gt;
+&lt;s-date-picker selectionMode="range" [(rangeValue)]="dateRange" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-date-picker [ngModel]="null" [disabled]="disabled()" />
+  <s-date-picker [ngModel]="null" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
 

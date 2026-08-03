@@ -6,10 +6,10 @@
 
 <h2>ngModel</h2>
 <div class="demo-row">
-  <z-rating [(ngModel)]="stars" />
+  <s-rating [(ngModel)]="stars" />
 </div>
 <p class="demo-value">Model value: {{ stars }}</p>
-<pre><code>&lt;z-rating [(ngModel)]="stars" /&gt;</code></pre>
+<pre><code>&lt;s-rating [(ngModel)]="stars" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <p>
@@ -19,43 +19,43 @@
   demo uses <code>Validators.required</code> instead.
 </p>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-rating formControlName="stars" errorMessage="Please rate at least 1 star." />
+  <s-rating formControlName="stars" errorMessage="Please rate at least 1 star." />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   stars: new FormControl&lt;number | null&gt;(null, Validators.required),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-rating formControlName="stars" /&gt;
+  &lt;s-rating formControlName="stars" /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-rating [formField]="profileForm.stars" />
+  <s-rating [formField]="profileForm.stars" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().stars }}</p>
 <pre><code>protected profileModel = signal(&#123; stars: 4 &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-rating [formField]="profileForm.stars" /&gt;</code></pre>
+&lt;s-rating [formField]="profileForm.stars" /&gt;</code></pre>
 
 <h2>Max stars and sizes</h2>
 <div class="demo-row">
-  <z-rating [(ngModel)]="stars" [maxStars]="10" size="sm" />
+  <s-rating [(ngModel)]="stars" [maxStars]="10" size="sm" />
 </div>
 <div class="demo-row">
-  <z-rating [(ngModel)]="stars" size="lg" />
+  <s-rating [(ngModel)]="stars" size="lg" />
 </div>
-<pre><code>&lt;z-rating [maxStars]="10" size="sm" /&gt;  &lt;!-- size also "md" (default), "lg" --&gt;</code></pre>
+<pre><code>&lt;s-rating [maxStars]="10" size="sm" /&gt;  &lt;!-- size also "md" (default), "lg" --&gt;</code></pre>
 
 <h2>Readonly (e.g. displaying an average)</h2>
 <div class="demo-row">
-  <z-rating [ngModel]="4" [readOnly]="true" />
+  <s-rating [ngModel]="4" [readOnly]="true" />
 </div>
-<pre><code>&lt;z-rating [ngModel]="averageRating" [readOnly]="true" /&gt;</code></pre>
+<pre><code>&lt;s-rating [ngModel]="averageRating" [readOnly]="true" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-rating [(ngModel)]="stars" [disabled]="disabled()" />
+  <s-rating [(ngModel)]="stars" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

@@ -1,4 +1,4 @@
-.z-text-input {
+.s-text-input {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -14,25 +14,25 @@
     box-shadow 0.15s ease;
 }
 
-.z-text-input::placeholder {
+.s-text-input::placeholder {
   color: var(--semiui-comp-input-placeholder-foreground);
 }
 
-.z-text-input:hover:not(:disabled):not([aria-invalid='true']) {
+.s-text-input:hover:not(:disabled):not([aria-invalid='true']) {
   border-color: var(--semiui-comp-input-border-hover);
 }
 
-.z-text-input:focus-visible {
+.s-text-input:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-input-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-input-focus-ring) 35%, transparent);
 }
 
-.z-text-input[aria-invalid='true'] {
+.s-text-input[aria-invalid='true'] {
   border-color: var(--semiui-comp-input-border-invalid);
 }
 
-.z-text-input:disabled {
+.s-text-input:disabled {
   cursor: not-allowed;
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);

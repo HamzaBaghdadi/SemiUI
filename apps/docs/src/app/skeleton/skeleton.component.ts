@@ -2,7 +2,7 @@ import { Component, booleanAttribute, computed, input } from '@angular/core';
 
 /** A loading placeholder block. Use `shape="text"` with `lines` for paragraph-style placeholders. */
 @Component({
-  selector: 'z-skeleton',
+  selector: 's-skeleton',
   templateUrl: './skeleton.component.html',
   styleUrl: './skeleton.component.css',
   host: {

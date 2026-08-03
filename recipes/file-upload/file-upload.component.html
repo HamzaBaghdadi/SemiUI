@@ -1,5 +1,5 @@
 <div
-  class="z-file-upload__dropzone"
+  class="s-file-upload__dropzone"
   role="button"
   tabindex="0"
   [attr.data-drag-over]="isDragOver() ? '' : null"
@@ -14,22 +14,22 @@
   <input
     #fileInput
     type="file"
-    class="z-file-upload__native-input"
+    class="s-file-upload__native-input"
     [accept]="accept()"
     [multiple]="multiple()"
     [disabled]="effectiveDisabled()"
     (change)="onFileInputChange($event)"
     (click)="$event.stopPropagation()"
   />
-  <z-icon class="z-file-upload__icon" [ref]="icons.upload" />
-  <p class="z-file-upload__hint"><strong>Click to upload</strong> or drag and drop</p>
+  <s-icon class="s-file-upload__icon" [ref]="icons.upload" />
+  <p class="s-file-upload__hint"><strong>Click to upload</strong> or drag and drop</p>
   @if (accept()) {
-    <p class="z-file-upload__accept">{{ accept() }}</p>
+    <p class="s-file-upload__accept">{{ accept() }}</p>
   }
 </div>
 
 @if (rejections().length > 0) {
-  <ul class="z-file-upload__rejections">
+  <ul class="s-file-upload__rejections">
     @for (rejection of rejections(); track rejection.file) {
       <li>{{ rejection.file.name }} &mdash; {{ rejection.reason }}</li>
     }
@@ -37,27 +37,27 @@
 }
 
 @if (value().length > 0) {
-  <ul class="z-file-upload__list">
+  <ul class="s-file-upload__list">
     @for (file of value(); track file) {
-      <li class="z-file-upload__item">
+      <li class="s-file-upload__item">
         @if (previewUrl(file); as url) {
-          <img class="z-file-upload__thumb" [src]="url" [alt]="file.name" />
+          <img class="s-file-upload__thumb" [src]="url" [alt]="file.name" />
         } @else {
-          <span class="z-file-upload__thumb z-file-upload__thumb--icon">
-            <z-icon [ref]="icons.file" />
+          <span class="s-file-upload__thumb s-file-upload__thumb--icon">
+            <s-icon [ref]="icons.file" />
           </span>
         }
-        <span class="z-file-upload__item-info">
-          <span class="z-file-upload__item-name">{{ file.name }}</span>
-          <span class="z-file-upload__item-size">{{ formatSize(file.size) }}</span>
+        <span class="s-file-upload__item-info">
+          <span class="s-file-upload__item-name">{{ file.name }}</span>
+          <span class="s-file-upload__item-size">{{ formatSize(file.size) }}</span>
         </span>
-        <button type="button" class="z-file-upload__remove" aria-label="Remove file" (click)="removeFile(file)">
-          <z-icon [ref]="icons.clear" />
+        <button type="button" class="s-file-upload__remove" aria-label="Remove file" (click)="removeFile(file)">
+          <s-icon [ref]="icons.clear" />
         </button>
       </li>
     }
   </ul>
 }
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

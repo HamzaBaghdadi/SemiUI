@@ -10,10 +10,10 @@
 
 <h2>ngModel</h2>
 <div class="demo-row">
-  <z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" placeholder="Quantity" />
+  <s-input-number [(ngModel)]="quantity" [min]="0" [max]="10" placeholder="Quantity" />
 </div>
 <p class="demo-value">Model value: {{ quantity }}</p>
-<pre><code>&lt;z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" /&gt;</code></pre>
+<pre><code>&lt;s-input-number [(ngModel)]="quantity" [min]="0" [max]="10" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <p>
@@ -23,45 +23,45 @@
   blur to see it.
 </p>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-input-number formControlName="age" placeholder="Age" errorMessage="Age is required." />
+  <s-input-number formControlName="age" placeholder="Age" errorMessage="Age is required." />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   age: new FormControl&lt;number | null&gt;(null, Validators.required),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-input-number formControlName="age" errorMessage="Age is required." /&gt;
+  &lt;s-input-number formControlName="age" errorMessage="Age is required." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" />
+  <s-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().price }}</p>
 <pre><code>protected profileModel = signal(&#123; price: 19.99 &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" /&gt;</code></pre>
+&lt;s-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" /&gt;</code></pre>
 
 <h2>Prefix / suffix</h2>
 <p>Rendered as separate elements flanking the field, not embedded in the value -- keeps parsing simple.</p>
 <div class="demo-row">
-  <z-input-number [(ngModel)]="quantity" prefix="$" suffix=".00" [showButtons]="false" />
+  <s-input-number [(ngModel)]="quantity" prefix="$" suffix=".00" [showButtons]="false" />
 </div>
-<pre><code>&lt;z-input-number prefix="$" suffix=".00" [showButtons]="false" /&gt;</code></pre>
+<pre><code>&lt;s-input-number prefix="$" suffix=".00" [showButtons]="false" /&gt;</code></pre>
 
 <h2>Button layout</h2>
 <p><code>buttons</code> switches between stacked chevrons on the trailing edge (default) and a full-height [-] / [+] stepper flanking the field.</p>
 <div class="demo-row">
-  <z-input-number [(ngModel)]="quantity" [min]="0" [max]="10" buttons="horizontal" />
+  <s-input-number [(ngModel)]="quantity" [min]="0" [max]="10" buttons="horizontal" />
 </div>
-<pre><code>&lt;z-input-number buttons="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
+<pre><code>&lt;s-input-number buttons="horizontal" /&gt;  &lt;!-- default is "vertical" --&gt;</code></pre>
 
 <h2>Keyboard</h2>
 <p><code>↑</code> / <code>↓</code> step the value while the field is focused, same as clicking the buttons.</p>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-input-number [(ngModel)]="quantity" [disabled]="disabled()" />
+  <s-input-number [(ngModel)]="quantity" [disabled]="disabled()" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

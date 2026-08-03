@@ -1,4 +1,4 @@
-.z-error-message {
+.s-error-message {
   margin: 0.25rem 0 0;
   font-size: var(--semiui-typography-font-size-sm);
   color: var(--semiui-color-destructive);
@@ -7,7 +7,7 @@
   overflow-wrap: break-word;
 }
 
-@keyframes z-error-message-enter {
+@keyframes s-error-message-enter {
   from {
     opacity: 0;
     transform: translateY(-4px);
@@ -18,11 +18,11 @@
   }
 }
 
-.z-error-message--enter {
-  animation: z-error-message-enter 0.15s ease-out;
+.s-error-message--enter {
+  animation: s-error-message-enter 0.15s ease-out;
 }
 
-@keyframes z-error-message-leave {
+@keyframes s-error-message-leave {
   from {
     opacity: 1;
     transform: translateY(0);
@@ -33,6 +33,6 @@
   }
 }
 
-.z-error-message--leave {
-  animation: z-error-message-leave 0.15s ease-in;
+.s-error-message--leave {
+  animation: s-error-message-leave 0.15s ease-in;
 }

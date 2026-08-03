@@ -9,10 +9,10 @@
 
 <h2>ngModel</h2>
 <div class="demo-row">
-  <z-switch [(ngModel)]="notifications" label="Email notifications" />
+  <s-switch [(ngModel)]="notifications" label="Email notifications" />
 </div>
 <p class="demo-value">Model value: {{ notifications }}</p>
-<pre><code>&lt;z-switch [(ngModel)]="notifications" label="Email notifications" /&gt;</code></pre>
+<pre><code>&lt;s-switch [(ngModel)]="notifications" label="Email notifications" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <p>
@@ -20,43 +20,43 @@
   <a routerLink="/components/text-input">Text Input</a>.
 </p>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-switch formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." />
+  <s-switch formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   terms: new FormControl(false, &#123; nonNullable: true, validators: Validators.requiredTrue &#125;),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-switch formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." /&gt;
+  &lt;s-switch formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-switch [formField]="profileForm.marketing" label="Marketing emails" />
+  <s-switch [formField]="profileForm.marketing" label="Marketing emails" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().marketing }}</p>
 <pre><code>protected profileModel = signal(&#123; marketing: false &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-switch [formField]="profileForm.marketing" label="Marketing emails" /&gt;</code></pre>
+&lt;s-switch [formField]="profileForm.marketing" label="Marketing emails" /&gt;</code></pre>
 
 <h2>Sizes</h2>
 <div class="demo-row">
-  <z-switch [(ngModel)]="notifications" size="sm" label="Small" />
-  <z-switch [(ngModel)]="notifications" size="md" label="Medium" />
-  <z-switch [(ngModel)]="notifications" size="lg" label="Large" />
+  <s-switch [(ngModel)]="notifications" size="sm" label="Small" />
+  <s-switch [(ngModel)]="notifications" size="md" label="Medium" />
+  <s-switch [(ngModel)]="notifications" size="lg" label="Large" />
 </div>
-<pre><code>&lt;z-switch size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
+<pre><code>&lt;s-switch size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
 
 <h2>Icons</h2>
 <p><code>onIcon</code> / <code>offIcon</code> render inside the thumb -- both optional, omit either (or both) for a plain thumb.</p>
 <div class="demo-row">
-  <z-switch [(ngModel)]="notifications" [onIcon]="{ type: 'ng-icon', name: 'lucideCheck' }" [offIcon]="{ type: 'ng-icon', name: 'lucideX' }" />
+  <s-switch [(ngModel)]="notifications" [onIcon]="{ type: 'ng-icon', name: 'lucideCheck' }" [offIcon]="{ type: 'ng-icon', name: 'lucideX' }" />
 </div>
-<pre><code>&lt;z-switch [onIcon]="&#123; type: 'ng-icon', name: 'lucideCheck' &#125;" [offIcon]="&#123; type: 'ng-icon', name: 'lucideX' &#125;" /&gt;</code></pre>
+<pre><code>&lt;s-switch [onIcon]="&#123; type: 'ng-icon', name: 'lucideCheck' &#125;" [offIcon]="&#123; type: 'ng-icon', name: 'lucideX' &#125;" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-switch [(ngModel)]="notifications" [disabled]="disabled()" label="Disabled" />
+  <s-switch [(ngModel)]="notifications" [disabled]="disabled()" label="Disabled" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

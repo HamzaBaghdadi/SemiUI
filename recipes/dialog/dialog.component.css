@@ -1,4 +1,4 @@
-.z-dialog__backdrop {
+.s-dialog__backdrop {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -9,15 +9,15 @@
   background: var(--semiui-comp-dialog-backdrop-color);
 }
 
-.z-dialog__backdrop[data-blur] {
+.s-dialog__backdrop[data-blur] {
   backdrop-filter: blur(4px);
 }
 
-.z-dialog__backdrop[data-hidden] {
+.s-dialog__backdrop[data-hidden] {
   background: transparent;
 }
 
-.z-dialog__panel {
+.s-dialog__panel {
   box-sizing: border-box;
   width: 100%;
   max-width: var(--semiui-comp-dialog-widths-md);
@@ -31,20 +31,20 @@
   outline: none;
 }
 
-.z-dialog__panel[data-size='sm'] {
+.s-dialog__panel[data-size='sm'] {
   max-width: var(--semiui-comp-dialog-widths-sm);
 }
 
-.z-dialog__panel[data-size='lg'] {
+.s-dialog__panel[data-size='lg'] {
   max-width: var(--semiui-comp-dialog-widths-lg);
 }
 
-.z-dialog__panel[data-size='full'] {
+.s-dialog__panel[data-size='full'] {
   max-width: var(--semiui-comp-dialog-widths-full);
   height: calc(100vh - var(--semiui-spacing-lg) * 2);
 }
 
-.z-dialog__header {
+.s-dialog__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,19 +54,19 @@
   flex-shrink: 0;
 }
 
-.z-dialog__header-content {
+.s-dialog__header-content {
   flex: 1;
   min-width: 0;
 }
 
-.z-dialog__title {
+.s-dialog__title {
   margin: 0;
   font-size: var(--semiui-comp-dialog-title-font-size);
   font-weight: var(--semiui-comp-dialog-title-font-weight);
   color: var(--semiui-color-foreground);
 }
 
-.z-dialog__close {
+.s-dialog__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -80,28 +80,28 @@
   cursor: pointer;
 }
 
-.z-dialog__close:hover {
+.s-dialog__close:hover {
   background: var(--semiui-color-muted);
   color: var(--semiui-color-foreground);
 }
 
-.z-dialog__close:focus-visible {
+.s-dialog__close:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
-.z-dialog__close z-icon {
+.s-dialog__close s-icon {
   width: 1.25rem;
   height: 1.25rem;
 }
 
-.z-dialog__body {
+.s-dialog__body {
   padding: var(--semiui-comp-dialog-padding);
   overflow-y: auto;
   flex: 1;
 }
 
-.z-dialog__footer {
+.s-dialog__footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -111,7 +111,7 @@
   flex-shrink: 0;
 }
 
-@keyframes z-dialog-backdrop-enter {
+@keyframes s-dialog-backdrop-enter {
   from {
     opacity: 0;
   }
@@ -120,11 +120,11 @@
   }
 }
 
-.z-dialog__backdrop--enter {
-  animation: z-dialog-backdrop-enter 0.15s ease-out;
+.s-dialog__backdrop--enter {
+  animation: s-dialog-backdrop-enter 0.15s ease-out;
 }
 
-@keyframes z-dialog-backdrop-leave {
+@keyframes s-dialog-backdrop-leave {
   from {
     opacity: 1;
   }
@@ -133,11 +133,11 @@
   }
 }
 
-.z-dialog__backdrop--leave {
-  animation: z-dialog-backdrop-leave 0.15s ease-in forwards;
+.s-dialog__backdrop--leave {
+  animation: s-dialog-backdrop-leave 0.15s ease-in forwards;
 }
 
-@keyframes z-dialog-panel-enter {
+@keyframes s-dialog-panel-enter {
   from {
     opacity: 0;
     transform: scale(0.95) translateY(0.5rem);
@@ -148,11 +148,11 @@
   }
 }
 
-.z-dialog__panel--enter {
-  animation: z-dialog-panel-enter 0.18s ease-out;
+.s-dialog__panel--enter {
+  animation: s-dialog-panel-enter 0.18s ease-out;
 }
 
-@keyframes z-dialog-panel-leave {
+@keyframes s-dialog-panel-leave {
   from {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -163,6 +163,6 @@
   }
 }
 
-.z-dialog__panel--leave {
-  animation: z-dialog-panel-leave 0.15s ease-in forwards;
+.s-dialog__panel--leave {
+  animation: s-dialog-panel-leave 0.15s ease-in forwards;
 }

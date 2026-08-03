@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface StepItem {
@@ -21,8 +21,8 @@ export type StepState = 'completed' | 'active' | 'upcoming';
  * content you manage elsewhere.
  */
 @Component({
-  selector: 'z-stepper',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-stepper',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.css',
   host: {

@@ -29,7 +29,7 @@ let nextTabsId = 0;
  * tab's real rendered size, so it works correctly with variable-width labels.
  */
 @Component({
-  selector: 'z-tabs',
+  selector: 's-tabs',
   imports: [NgTemplateOutlet],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.css',
@@ -39,7 +39,7 @@ let nextTabsId = 0;
 })
 export class TabsComponent<TItem extends TabItem = TabItem> {
   private readonly tabButtons = viewChildren<ElementRef<HTMLButtonElement>>('tabButton');
-  protected readonly tabsId = `z-tabs-${nextTabsId++}`;
+  protected readonly tabsId = `s-tabs-${nextTabsId++}`;
 
   items = input<readonly TItem[]>([]);
   /** The selected tab's index. Two-way bindable. */

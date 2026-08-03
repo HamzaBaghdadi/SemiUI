@@ -2,14 +2,14 @@
   display: block;
 }
 
-.z-tabs__list {
+.s-tabs__list {
   position: relative;
   display: flex;
   gap: var(--semiui-comp-tabs-gap);
   border-bottom: 1px solid var(--semiui-comp-tabs-border);
 }
 
-:host([data-orientation='vertical']) .z-tabs__list {
+:host([data-orientation='vertical']) .s-tabs__list {
   flex-direction: column;
   border-bottom: none;
   border-right: 1px solid var(--semiui-comp-tabs-border);
@@ -22,7 +22,7 @@
   gap: var(--semiui-spacing-lg);
 }
 
-.z-tabs__tab {
+.s-tabs__tab {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
@@ -38,26 +38,26 @@
   transition: color 0.15s ease;
 }
 
-.z-tabs__tab:hover:not(:disabled) {
+.s-tabs__tab:hover:not(:disabled) {
   color: var(--semiui-comp-tabs-foreground-active);
 }
 
-.z-tabs__tab[aria-selected='true'] {
+.s-tabs__tab[aria-selected='true'] {
   color: var(--semiui-comp-tabs-foreground-active);
 }
 
-.z-tabs__tab:focus-visible {
+.s-tabs__tab:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: -2px;
   border-radius: var(--semiui-radius-sm);
 }
 
-.z-tabs__tab:disabled {
+.s-tabs__tab:disabled {
   color: var(--semiui-comp-tabs-foreground-disabled);
   cursor: not-allowed;
 }
 
-.z-tabs__indicator {
+.s-tabs__indicator {
   position: absolute;
   left: 0;
   top: 0;
@@ -66,35 +66,35 @@
   transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
 }
 
-:host(:not([data-orientation='vertical'])) .z-tabs__indicator {
+:host(:not([data-orientation='vertical'])) .s-tabs__indicator {
   height: var(--semiui-comp-tabs-indicator-thickness) !important;
   align-self: end;
   bottom: -1px;
   top: auto;
 }
 
-:host([data-orientation='vertical']) .z-tabs__indicator {
+:host([data-orientation='vertical']) .s-tabs__indicator {
   width: var(--semiui-comp-tabs-indicator-thickness) !important;
   right: -1px;
   left: auto;
 }
 
-.z-tabs__panel {
+.s-tabs__panel {
   padding-top: var(--semiui-spacing-md);
 }
 
-:host([data-orientation='vertical']) .z-tabs__panel {
+:host([data-orientation='vertical']) .s-tabs__panel {
   padding-top: 0;
 }
 
-.z-tabs__panel:focus-visible {
+.s-tabs__panel:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
   border-radius: var(--semiui-radius-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .z-tabs__indicator {
+  .s-tabs__indicator {
     transition: none;
   }
 }

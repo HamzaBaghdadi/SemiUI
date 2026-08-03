@@ -5,7 +5,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
 
 /** A multi-line text input: same form support as Text Input, plus optional auto-resize and a character counter. */
 @Component({
-  selector: 'z-textarea',
+  selector: 's-textarea',
   imports: [InputDirective, ErrorMessageComponent],
   templateUrl: './textarea.component.html',
   styleUrl: './textarea.component.css',

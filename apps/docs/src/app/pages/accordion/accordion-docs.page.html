@@ -11,53 +11,53 @@
 
 <h2>Basic usage</h2>
 <div class="demo-row" style="display: block;">
-  <z-accordion [items]="faqs">
+  <s-accordion [items]="faqs">
     <ng-template #content let-item>
       <p>{{ $any(item).answer }}</p>
     </ng-template>
-  </z-accordion>
+  </s-accordion>
 </div>
 <pre><code>protected faqs = [
   &#123; header: 'What is SemiUI?', answer: '...' &#125;,
   &#123; header: 'Is it free?', answer: '...' &#125;,
 &#125;;
 
-&lt;z-accordion [items]="faqs"&gt;
+&lt;s-accordion [items]="faqs"&gt;
   &lt;ng-template #content let-item&gt;
     &lt;p&gt;{{ '{{ item.answer }}' }}&lt;/p&gt;
   &lt;/ng-template&gt;
-&lt;/z-accordion&gt;</code></pre>
+&lt;/s-accordion&gt;</code></pre>
 
 <h2>Multiple open at once</h2>
 <div class="demo-row" style="display: block;">
-  <z-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]">
+  <s-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]">
     <ng-template #content let-item let-i="index">
       <p>Content for {{ $any(item).header }} (index {{ i }}).</p>
     </ng-template>
-  </z-accordion>
+  </s-accordion>
 </div>
-<pre><code>&lt;z-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]"&gt;
+<pre><code>&lt;s-accordion [items]="sections" [multiple]="true" [defaultOpenIndices]="[0, 1]"&gt;
   &lt;ng-template #content let-item&gt;...&lt;/ng-template&gt;
-&lt;/z-accordion&gt;</code></pre>
+&lt;/s-accordion&gt;</code></pre>
 <p>The third section above has <code>disabled: true</code> on its item -- its header is unclickable and dimmed.</p>
 
 <h2>Custom header template</h2>
 <div class="demo-row" style="display: block;">
-  <z-accordion [items]="faqs">
+  <s-accordion [items]="faqs">
     <ng-template #header let-item let-i="index">
       <strong>Q{{ i + 1 }}.</strong> {{ $any(item).header }}
     </ng-template>
     <ng-template #content let-item>
       <p>{{ $any(item).answer }}</p>
     </ng-template>
-  </z-accordion>
+  </s-accordion>
 </div>
-<pre><code>&lt;z-accordion [items]="faqs"&gt;
+<pre><code>&lt;s-accordion [items]="faqs"&gt;
   &lt;ng-template #header let-item let-i="index"&gt;
     &lt;strong&gt;Q{{ '{{ i + 1 }}' }}.&lt;/strong&gt; {{ '{{ item.header }}' }}
   &lt;/ng-template&gt;
   &lt;ng-template #content let-item&gt;&lt;p&gt;{{ '{{ item.answer }}' }}&lt;/p&gt;&lt;/ng-template&gt;
-&lt;/z-accordion&gt;</code></pre>
+&lt;/s-accordion&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>

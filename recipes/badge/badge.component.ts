@@ -1,19 +1,19 @@
 import { Component, booleanAttribute, computed, input } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { IconRef, TagVariant } from '@semiui/tokens';
 
 export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 
 /**
  * A small notification indicator. Its own content is one of, in priority order: `dot` (nothing,
- * just a small filled circle), `icon` (renders a `z-icon`), `label` (arbitrary text, shown as-is),
+ * just a small filled circle), `icon` (renders a `s-icon`), `label` (arbitrary text, shown as-is),
  * or `count` (a number, "N+" once past `max`) -- not only a number, despite `count` being the most
  * common case. By default it overlays whatever is projected into it (an icon, an avatar); set
  * `standalone` to render inline instead, e.g. next to a text label.
  */
 @Component({
-  selector: 'z-badge',
-  imports: [ZIconComponent],
+  selector: 's-badge',
+  imports: [SIconComponent],
   templateUrl: './badge.component.html',
   styleUrl: './badge.component.css',
   host: {

@@ -12,7 +12,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { DialogSize } from '@semiui/tokens';
 
@@ -23,18 +23,18 @@ import { DialogSize } from '@semiui/tokens';
  * scroll, and restores focus to whatever triggered it on close.
  *
  * ```html
- * <z-button (click)="dlg.show()">Open</z-button>
- * <z-dialog #dlg title="Confirm">
+ * <s-button (click)="dlg.show()">Open</s-button>
+ * <s-dialog #dlg title="Confirm">
  *   <p>Are you sure?</p>
  *   <ng-template #footer>
  *     <button (click)="dlg.hide()">Cancel</button>
  *   </ng-template>
- * </z-dialog>
+ * </s-dialog>
  * ```
  */
 @Component({
-  selector: 'z-dialog',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-dialog',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
 })

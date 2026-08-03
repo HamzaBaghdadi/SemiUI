@@ -10,7 +10,7 @@ export interface ComponentsConfig {
 export const DEFAULT_CONFIG: ComponentsConfig = {
   preset: 'aurora',
   componentsDir: 'src/app/components',
-  prefix: 'z',
+  prefix: 's',
 };
 
 function configPath(cwd: string): string {

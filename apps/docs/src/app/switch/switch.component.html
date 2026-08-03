@@ -1,9 +1,9 @@
-<span class="z-switch">
+<span class="s-switch">
   <button
     #track
     type="button"
     role="switch"
-    class="z-switch__track"
+    class="s-switch__track"
     [attr.aria-checked]="value()"
     [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
     [attr.aria-labelledby]="label() ? labelId : null"
@@ -12,11 +12,11 @@
     (click)="toggle()"
     (blur)="handleBlur()"
   >
-    <span class="z-switch__thumb">
+    <span class="s-switch__thumb">
       @if (value() && onIcon(); as icon) {
-        <z-icon [ref]="icon" />
+        <s-icon [ref]="icon" />
       } @else if (!value() && offIcon(); as icon) {
-        <z-icon [ref]="icon" />
+        <s-icon [ref]="icon" />
       }
     </span>
   </button>
@@ -25,9 +25,9 @@
          keyboard-operable (native Enter/Space activation) -- clicking this text is an enhancement,
          not a second control, so it's deliberately excluded from the tab sequence. -->
     <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-    <span [id]="labelId" class="z-switch__label" (click)="toggle()">{{ label() }}</span>
+    <span [id]="labelId" class="s-switch__label" (click)="toggle()">{{ label() }}</span>
   }
 </span>
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

@@ -1,31 +1,31 @@
-<div class="z-chart" [style.height.px]="height()">
-  <svg class="z-chart__svg" [attr.viewBox]="'0 0 ' + viewWidth + ' ' + viewHeight" preserveAspectRatio="xMidYMid meet">
+<div class="s-chart" [style.height.px]="height()">
+  <svg class="s-chart__svg" [attr.viewBox]="'0 0 ' + viewWidth + ' ' + viewHeight" preserveAspectRatio="xMidYMid meet">
     @if (type() === 'line' || type() === 'area' || type() === 'bar') {
       @if (showGrid()) {
         @for (y of gridLines(); track y) {
-          <line class="z-chart__gridline" x1="44" [attr.x2]="viewWidth - 16" [attr.y1]="y" [attr.y2]="y" />
+          <line class="s-chart__gridline" x1="44" [attr.x2]="viewWidth - 16" [attr.y1]="y" [attr.y2]="y" />
         }
       }
       @for (tick of ticks(); track $index; let i = $index) {
-        <text class="z-chart__axis-label" x="36" [attr.y]="gridLines()[i] + 4" text-anchor="end">{{ valueFormatter()(tick) }}</text>
+        <text class="s-chart__axis-label" x="36" [attr.y]="gridLines()[i] + 4" text-anchor="end">{{ valueFormatter()(tick) }}</text>
       }
       @for (lp of labelPositions(); track lp.label) {
-        <text class="z-chart__axis-label" [attr.x]="lp.x" [attr.y]="viewHeight - 12" text-anchor="middle">{{ lp.label }}</text>
+        <text class="s-chart__axis-label" [attr.x]="lp.x" [attr.y]="viewHeight - 12" text-anchor="middle">{{ lp.label }}</text>
       }
     }
 
     @if (type() === 'area') {
       @for (s of visibleSeries(); track s.name) {
-        <path class="z-chart__area" [attr.d]="areaPathFor(s)" [attr.fill]="seriesColor(s, series().indexOf(s))" />
+        <path class="s-chart__area" [attr.d]="areaPathFor(s)" [attr.fill]="seriesColor(s, series().indexOf(s))" />
       }
     }
 
     @if (type() === 'line' || type() === 'area') {
       @for (s of visibleSeries(); track s.name) {
-        <path class="z-chart__line" [attr.d]="linePathFor(s)" [attr.stroke]="seriesColor(s, series().indexOf(s))" fill="none" />
+        <path class="s-chart__line" [attr.d]="linePathFor(s)" [attr.stroke]="seriesColor(s, series().indexOf(s))" fill="none" />
         @for (point of seriesPoints(s); track $index; let pi = $index) {
           <circle
-            class="z-chart__point"
+            class="s-chart__point"
             [attr.cx]="point.x"
             [attr.cy]="point.y"
             r="4"
@@ -41,7 +41,7 @@
       @for (group of barGroups(); track group.label) {
         @for (bar of group.bars; track bar.series.name) {
           <rect
-            class="z-chart__bar"
+            class="s-chart__bar"
             [attr.x]="bar.x"
             [attr.y]="bar.y"
             [attr.width]="bar.width"
@@ -56,14 +56,14 @@
 
     @if (type() === 'pie' || type() === 'donut') {
       @for (slice of slices(); track slice.label) {
-        <path class="z-chart__slice" [attr.d]="slice.path" [attr.fill]="slice.color" (mouseenter)="showSliceHover(slice)" (mouseleave)="clearHover()" />
+        <path class="s-chart__slice" [attr.d]="slice.path" [attr.fill]="slice.color" (mouseenter)="showSliceHover(slice)" (mouseleave)="clearHover()" />
       }
     }
   </svg>
 
   @if (hover(); as h) {
-    <div class="z-chart__tooltip" [style.left.%]="(h.x / viewWidth) * 100" [style.top.%]="(h.y / viewHeight) * 100">
-      <span class="z-chart__tooltip-swatch" [style.background-color]="h.color"></span>
+    <div class="s-chart__tooltip" [style.left.%]="(h.x / viewWidth) * 100" [style.top.%]="(h.y / viewHeight) * 100">
+      <span class="s-chart__tooltip-swatch" [style.background-color]="h.color"></span>
       @if (h.seriesName) {
         <strong>{{ h.seriesName }}</strong>
       }
@@ -73,11 +73,11 @@
 </div>
 
 @if (showLegend()) {
-  <div class="z-chart__legend">
+  <div class="s-chart__legend">
     @if (type() === 'pie' || type() === 'donut') {
       @for (slice of slices(); track slice.label) {
-        <span class="z-chart__legend-item">
-          <span class="z-chart__legend-swatch" [style.background-color]="slice.color"></span>
+        <span class="s-chart__legend-item">
+          <span class="s-chart__legend-swatch" [style.background-color]="slice.color"></span>
           {{ slice.label }} ({{ slice.percent.toFixed(0) }}%)
         </span>
       }
@@ -85,11 +85,11 @@
       @for (s of series(); track s.name; let i = $index) {
         <button
           type="button"
-          class="z-chart__legend-item z-chart__legend-item--button"
-          [class.z-chart__legend-item--hidden]="hiddenSeries().has(s.name)"
+          class="s-chart__legend-item s-chart__legend-item--button"
+          [class.s-chart__legend-item--hidden]="hiddenSeries().has(s.name)"
           (click)="toggleSeries(s.name)"
         >
-          <span class="z-chart__legend-swatch" [style.background-color]="seriesColor(s, i)"></span>
+          <span class="s-chart__legend-swatch" [style.background-color]="seriesColor(s, i)"></span>
           {{ s.name }}
         </button>
       }

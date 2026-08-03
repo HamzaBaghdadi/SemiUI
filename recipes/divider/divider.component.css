@@ -11,17 +11,17 @@
   border-top: 1px solid var(--semiui-color-border);
 }
 
-.z-divider__label {
+.s-divider__label {
   font-size: var(--semiui-typography-font-size-sm);
   color: var(--semiui-color-muted-foreground);
   white-space: nowrap;
 }
 
-.z-divider__label:not(:empty) {
+.s-divider__label:not(:empty) {
   padding: 0 var(--semiui-spacing-md);
 }
 
-.z-divider__label:empty {
+.s-divider__label:empty {
   display: none;
 }
 
@@ -39,6 +39,6 @@
   border-left: 1px solid var(--semiui-color-border);
 }
 
-:host([data-orientation='vertical']) .z-divider__label:not(:empty) {
+:host([data-orientation='vertical']) .s-divider__label:not(:empty) {
   padding: var(--semiui-spacing-sm) 0;
 }

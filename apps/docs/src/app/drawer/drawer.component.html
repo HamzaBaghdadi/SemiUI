@@ -4,16 +4,16 @@
   <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
   <div
     #backdrop
-    class="z-drawer__backdrop"
+    class="s-drawer__backdrop"
     [attr.data-blur]="blurBackdrop() ? '' : null"
     [attr.data-hidden]="showBackdrop() ? null : ''"
     (click)="onBackdropClick()"
-    animate.enter="z-drawer__backdrop--enter"
-    animate.leave="z-drawer__backdrop--leave"
+    animate.enter="s-drawer__backdrop--enter"
+    animate.leave="s-drawer__backdrop--leave"
   >
     <div
       #panel
-      class="z-drawer__panel"
+      class="s-drawer__panel"
       [attr.data-side]="side()"
       [attr.data-size]="size()"
       role="dialog"
@@ -22,36 +22,36 @@
       tabindex="-1"
       (click)="$event.stopPropagation()"
       (keydown)="onPanelKeydown($event)"
-      animate.enter="z-drawer__panel--enter"
-      animate.leave="z-drawer__panel--leave"
+      animate.enter="s-drawer__panel--enter"
+      animate.leave="s-drawer__panel--leave"
     >
       @if (headlessTemplate(); as tpl) {
         <ng-container [ngTemplateOutlet]="tpl" />
       } @else {
         @if (headerTemplate(); as tpl) {
-          <div class="z-drawer__header">
-            <div class="z-drawer__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
+          <div class="s-drawer__header">
+            <div class="s-drawer__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
             @if (closable()) {
-              <button type="button" class="z-drawer__close" aria-label="Close" (click)="hide()">
-                <z-icon [ref]="icons.clear" />
+              <button type="button" class="s-drawer__close" aria-label="Close" (click)="hide()">
+                <s-icon [ref]="icons.clear" />
               </button>
             }
           </div>
         } @else if (title() || closable()) {
-          <div class="z-drawer__header">
-            <h2 class="z-drawer__title">{{ title() }}</h2>
+          <div class="s-drawer__header">
+            <h2 class="s-drawer__title">{{ title() }}</h2>
             @if (closable()) {
-              <button type="button" class="z-drawer__close" aria-label="Close" (click)="hide()">
-                <z-icon [ref]="icons.clear" />
+              <button type="button" class="s-drawer__close" aria-label="Close" (click)="hide()">
+                <s-icon [ref]="icons.clear" />
               </button>
             }
           </div>
         }
-        <div class="z-drawer__body">
+        <div class="s-drawer__body">
           <ng-content />
         </div>
         @if (footerTemplate(); as tpl) {
-          <div class="z-drawer__footer">
+          <div class="s-drawer__footer">
             <ng-container [ngTemplateOutlet]="tpl" />
           </div>
         }

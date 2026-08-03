@@ -1,8 +1,8 @@
 <button
   #triggerButton
   type="button"
-  class="z-select__trigger"
-  [class.z-select__trigger--loading]="loading()"
+  class="s-select__trigger"
+  [class.s-select__trigger--loading]="loading()"
   role="combobox"
   aria-haspopup="listbox"
   [attr.aria-expanded]="open()"
@@ -14,30 +14,30 @@
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
-  <span class="z-select__value">
+  <span class="s-select__value">
     @if (selectedTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedOption() }" />
     } @else if (selectedOption() !== undefined) {
       {{ selectedLabel() }}
     } @else {
-      <span class="z-select__placeholder">{{ placeholder() }}</span>
+      <span class="s-select__placeholder">{{ placeholder() }}</span>
     }
   </span>
   @if (showClear()) {
     <!-- Not a real <button>: nesting interactive elements inside the trigger <button> is invalid
          HTML. It's excluded from the tab sequence on purpose -- Backspace/Delete on the trigger
          is the keyboard-equivalent way to clear the value. -->
-    <span class="z-select__clear" role="button" tabindex="-1" aria-label="Clear selection" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
-      <z-icon [ref]="icons.clear" />
+    <span class="s-select__clear" role="button" tabindex="-1" aria-label="Clear selection" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+      <s-icon [ref]="icons.clear" />
     </span>
   }
-  <span class="z-select__icon">
+  <span class="s-select__icon">
     @if (loading()) {
-      <z-icon class="z-select__icon--spin" [ref]="icons.loading" />
+      <s-icon class="s-select__icon--spin" [ref]="icons.loading" />
     } @else if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
-      <z-icon [ref]="icons.chevronDown" />
+      <s-icon [ref]="icons.chevronDown" />
     }
   </span>
 </button>
@@ -45,25 +45,25 @@
 @if (open()) {
   <div
     #panel
-    class="z-select__panel"
+    class="s-select__panel"
     [attr.data-placement]="panelPlacement()"
     [attr.data-appended]="appendTo() === 'body' ? '' : null"
     [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
     [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
     [style.width.px]="appendTo() === 'body' ? fixedPosition().width : null"
-    animate.enter="z-select__panel--enter"
-    animate.leave="z-select__panel--leave"
+    animate.enter="s-select__panel--enter"
+    animate.leave="s-select__panel--leave"
   >
     @if (headerTemplate(); as tpl) {
-      <div class="z-select__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+      <div class="s-select__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
     @if (filterable()) {
-      <div class="z-select__filter">
-        <div class="z-select__filter-input-wrapper">
+      <div class="s-select__filter">
+        <div class="s-select__filter-input-wrapper">
           <input
             #filterInput
             type="text"
-            class="z-select__filter-input"
+            class="s-select__filter-input"
             role="searchbox"
             aria-label="Filter options"
             [attr.aria-controls]="listboxId"
@@ -73,11 +73,11 @@
             (input)="onFilterInput($any($event.target).value)"
             (keydown)="onFilterKeydown($event)"
           />
-          <z-icon class="z-select__filter-icon" [ref]="icons.search" />
+          <s-icon class="s-select__filter-icon" [ref]="icons.search" />
         </div>
       </div>
     }
-    <ul class="z-select__list" role="listbox" [id]="listboxId">
+    <ul class="s-select__list" role="listbox" [id]="listboxId">
       @for (option of filteredOptions(); track $index; let i = $index) {
         <!-- Deliberately not focusable / no per-item keydown: this follows the ARIA "combobox
              with listbox popup" pattern, where keyboard focus stays on the trigger button (or the
@@ -86,7 +86,7 @@
         <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
         <li
           [id]="listboxId + '-option-' + i"
-          class="z-select__option"
+          class="s-select__option"
           role="option"
           [attr.aria-selected]="option === selectedOption()"
           [attr.data-active]="i === activeIndex() ? '' : null"
@@ -103,14 +103,14 @@
           }
         </li>
       } @empty {
-        <li class="z-select__empty">{{ emptyMessage() }}</li>
+        <li class="s-select__empty">{{ emptyMessage() }}</li>
       }
     </ul>
     @if (footerTemplate(); as tpl) {
-      <div class="z-select__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
+      <div class="s-select__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
   </div>
 }
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

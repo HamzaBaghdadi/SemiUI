@@ -40,40 +40,40 @@
   transform: translateX(-50%);
 }
 
-.z-toast-container {
+.s-toast-container {
   display: flex;
   flex-direction: column;
   gap: var(--semiui-comp-toast-gap);
   pointer-events: none;
 }
 
-:host([data-position^='bottom']) .z-toast-container {
+:host([data-position^='bottom']) .s-toast-container {
   flex-direction: column-reverse;
 }
 
-/* Stacked (either sub-state) needs the container itself hoverable, not just its .z-toast children
+/* Stacked (either sub-state) needs the container itself hoverable, not just its .s-toast children
    -- otherwise the *gaps* between expanded toasts (including the flex `gap` spacing) are dead
    zones with no hoverable element at all. Moving the cursor across one of those gaps bubbled a
    mouseleave from the child just left, with no immediate re-enter to replace it (nothing there
    registers a hover), collapsing the group; reaching the next toast then re-expanded it --
    producing a rapid expand/collapse flicker while the cursor was still very much over the group. */
-:host([data-stacked]) .z-toast-container {
+:host([data-stacked]) .s-toast-container {
   pointer-events: auto;
 }
 
 /* Stacked + collapsed: every toast overlaps at the same edge, offset/scaled/dimmed by how far
    behind the front (newest) card it sits -- a peeking deck instead of a growing list. The
    container needs an explicit height since position: absolute children can't contribute to it. */
-:host([data-stacked]:not([data-expanded])) .z-toast-container {
+:host([data-stacked]:not([data-expanded])) .s-toast-container {
   position: relative;
-  /* Every .z-toast becomes position: absolute below, so nothing is left in normal flow to give
+  /* Every .s-toast becomes position: absolute below, so nothing is left in normal flow to give
      the flex container a width or height -- both need an explicit fallback, or it collapses to a
      zero-size box (unhoverable, and clicks/mouseenter can't reach it). */
   width: var(--semiui-comp-toast-width);
   min-height: 3.5rem;
 }
 
-:host([data-stacked]:not([data-expanded])) .z-toast {
+:host([data-stacked]:not([data-expanded])) .s-toast {
   position: absolute;
   left: 0;
   right: 0;
@@ -81,23 +81,23 @@
   opacity: calc(1 - var(--stack-depth) * 0.25);
 }
 
-:host([data-stacked]:not([data-expanded])[data-position^='top']) .z-toast {
+:host([data-stacked]:not([data-expanded])[data-position^='top']) .s-toast {
   top: 0;
   transform-origin: top center;
 }
 
-:host([data-stacked]:not([data-expanded])[data-position^='bottom']) .z-toast {
+:host([data-stacked]:not([data-expanded])[data-position^='bottom']) .s-toast {
   bottom: 0;
   transform-origin: bottom center;
   transform: translateY(calc(var(--stack-depth) * -0.55rem)) scale(calc(1 - var(--stack-depth) * 0.06));
 }
 
-.z-toast[data-stack-hidden] {
+.s-toast[data-stack-hidden] {
   opacity: 0;
   pointer-events: none;
 }
 
-.z-toast {
+.s-toast {
   display: flex;
   align-items: flex-start;
   gap: var(--semiui-spacing-sm);
@@ -116,81 +116,81 @@
   pointer-events: auto;
 }
 
-.z-toast[data-variant='default'] {
+.s-toast[data-variant='default'] {
   background: var(--semiui-comp-toast-variants-default-background);
   color: var(--semiui-comp-toast-variants-default-foreground);
   border-color: var(--semiui-comp-toast-variants-default-border);
 }
 
-.z-toast[data-variant='success'] {
+.s-toast[data-variant='success'] {
   background: var(--semiui-comp-toast-variants-success-background);
   color: var(--semiui-comp-toast-variants-success-foreground);
   border-color: var(--semiui-comp-toast-variants-success-border);
 }
 
-.z-toast[data-variant='error'] {
+.s-toast[data-variant='error'] {
   background: var(--semiui-comp-toast-variants-error-background);
   color: var(--semiui-comp-toast-variants-error-foreground);
   border-color: var(--semiui-comp-toast-variants-error-border);
 }
 
-.z-toast[data-variant='warning'] {
+.s-toast[data-variant='warning'] {
   background: var(--semiui-comp-toast-variants-warning-background);
   color: var(--semiui-comp-toast-variants-warning-foreground);
   border-color: var(--semiui-comp-toast-variants-warning-border);
 }
 
-.z-toast[data-variant='info'] {
+.s-toast[data-variant='info'] {
   background: var(--semiui-comp-toast-variants-info-background);
   color: var(--semiui-comp-toast-variants-info-foreground);
   border-color: var(--semiui-comp-toast-variants-info-border);
 }
 
-.z-toast__icon {
+.s-toast__icon {
   flex-shrink: 0;
   width: 1.25rem;
   height: 1.25rem;
   margin-top: 0.125rem;
 }
 
-.z-toast[data-variant='success'] .z-toast__icon {
+.s-toast[data-variant='success'] .s-toast__icon {
   color: var(--semiui-comp-toast-variants-success-icon-color);
 }
 
-.z-toast[data-variant='error'] .z-toast__icon {
+.s-toast[data-variant='error'] .s-toast__icon {
   color: var(--semiui-comp-toast-variants-error-icon-color);
 }
 
-.z-toast[data-variant='warning'] .z-toast__icon {
+.s-toast[data-variant='warning'] .s-toast__icon {
   color: var(--semiui-comp-toast-variants-warning-icon-color);
 }
 
-.z-toast[data-variant='info'] .z-toast__icon {
+.s-toast[data-variant='info'] .s-toast__icon {
   color: var(--semiui-comp-toast-variants-info-icon-color);
 }
 
-.z-toast__content {
+.s-toast__content {
   flex: 1;
   min-width: 0;
 }
 
-.z-toast__title {
+.s-toast__title {
   margin: 0;
   font-weight: var(--semiui-typography-font-weight-medium);
   font-size: var(--semiui-typography-font-size-sm);
 }
 
-.z-toast__description {
+.s-toast__description {
   margin: 0;
   font-size: var(--semiui-typography-font-size-sm);
   opacity: 0.85;
 }
 
-.z-toast__title + .z-toast__description {
+.s-toast__title + .s-toast__description {
   margin-top: 0.125rem;
 }
 
-.z-toast__close {
+.s-toast__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -205,12 +205,12 @@
   cursor: pointer;
 }
 
-.z-toast__close:hover {
+.s-toast__close:hover {
   opacity: 1;
   background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
-.z-toast__close z-icon {
+.s-toast__close s-icon {
   width: 0.875rem;
   height: 0.875rem;
 }
@@ -218,7 +218,7 @@
 /* Enter/leave animate along the direction the toast's anchor position implies -- sliding in from
    the edge it's pinned to (right/left/top/bottom) instead of a generic fade for every position,
    with an ease-out-expo-like curve for a snappier "pop" than plain ease-out. */
-@keyframes z-toast-enter-right {
+@keyframes s-toast-enter-right {
   from {
     opacity: 0;
     transform: translateX(100%);
@@ -229,7 +229,7 @@
   }
 }
 
-@keyframes z-toast-enter-left {
+@keyframes s-toast-enter-left {
   from {
     opacity: 0;
     transform: translateX(-100%);
@@ -240,7 +240,7 @@
   }
 }
 
-@keyframes z-toast-enter-top {
+@keyframes s-toast-enter-top {
   from {
     opacity: 0;
     transform: translateY(-100%);
@@ -251,7 +251,7 @@
   }
 }
 
-@keyframes z-toast-enter-bottom {
+@keyframes s-toast-enter-bottom {
   from {
     opacity: 0;
     transform: translateY(100%);
@@ -262,23 +262,23 @@
   }
 }
 
-.z-toast--enter {
-  animation: z-toast-enter-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.s-toast--enter {
+  animation: s-toast-enter-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-:host([data-position$='left']) .z-toast--enter {
-  animation-name: z-toast-enter-left;
+:host([data-position$='left']) .s-toast--enter {
+  animation-name: s-toast-enter-left;
 }
 
-:host([data-position='top-center']) .z-toast--enter {
-  animation-name: z-toast-enter-top;
+:host([data-position='top-center']) .s-toast--enter {
+  animation-name: s-toast-enter-top;
 }
 
-:host([data-position='bottom-center']) .z-toast--enter {
-  animation-name: z-toast-enter-bottom;
+:host([data-position='bottom-center']) .s-toast--enter {
+  animation-name: s-toast-enter-bottom;
 }
 
-@keyframes z-toast-leave-right {
+@keyframes s-toast-leave-right {
   from {
     opacity: 1;
     transform: translateX(0);
@@ -292,7 +292,7 @@
   }
 }
 
-@keyframes z-toast-leave-left {
+@keyframes s-toast-leave-left {
   from {
     opacity: 1;
     transform: translateX(0);
@@ -306,7 +306,7 @@
   }
 }
 
-@keyframes z-toast-leave-top {
+@keyframes s-toast-leave-top {
   from {
     opacity: 1;
     transform: translateY(0);
@@ -320,7 +320,7 @@
   }
 }
 
-@keyframes z-toast-leave-bottom {
+@keyframes s-toast-leave-bottom {
   from {
     opacity: 1;
     transform: translateY(0);
@@ -334,19 +334,19 @@
   }
 }
 
-.z-toast--leave {
-  animation: z-toast-leave-right 0.2s ease-in forwards;
+.s-toast--leave {
+  animation: s-toast-leave-right 0.2s ease-in forwards;
   overflow: hidden;
 }
 
-:host([data-position$='left']) .z-toast--leave {
-  animation-name: z-toast-leave-left;
+:host([data-position$='left']) .s-toast--leave {
+  animation-name: s-toast-leave-left;
 }
 
-:host([data-position='top-center']) .z-toast--leave {
-  animation-name: z-toast-leave-top;
+:host([data-position='top-center']) .s-toast--leave {
+  animation-name: s-toast-leave-top;
 }
 
-:host([data-position='bottom-center']) .z-toast--leave {
-  animation-name: z-toast-leave-bottom;
+:host([data-position='bottom-center']) .s-toast--leave {
+  animation-name: s-toast-leave-bottom;
 }

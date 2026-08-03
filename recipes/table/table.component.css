@@ -2,7 +2,7 @@
   display: block;
 }
 
-.z-table__toolbar {
+.s-table__toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,7 +10,7 @@
   margin-bottom: var(--semiui-spacing-sm);
 }
 
-.z-table__filter {
+.s-table__filter {
   display: block;
   width: 100%;
   max-width: 20rem;
@@ -19,7 +19,7 @@
 /* Visually hidden but still reachable by assistive tech -- the search field's accessible name
    comes from this wrapping <label>'s text rather than a visible label, since the placeholder
    already communicates intent visually and a real rendered label would be redundant clutter. */
-.z-table__visually-hidden {
+.s-table__visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -31,29 +31,29 @@
   border: 0;
 }
 
-.z-table__scroll {
+.s-table__scroll {
   overflow-x: auto;
   border: 1px solid var(--semiui-comp-table-border);
   border-radius: var(--semiui-comp-table-radius);
 }
 
-.z-table {
+.s-table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--semiui-comp-table-font-size);
 }
 
-.z-table__head {
+.s-table__head {
   background: var(--semiui-comp-table-header-background);
 }
 
-.z-table__head[data-sticky] {
+.s-table__head[data-sticky] {
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-.z-table__th {
+.s-table__th {
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   text-align: left;
@@ -63,22 +63,22 @@
   white-space: nowrap;
 }
 
-.z-table__th--sortable {
+.s-table__th--sortable {
   cursor: pointer;
   user-select: none;
 }
 
-.z-table__th--checkbox {
+.s-table__th--checkbox {
   width: 2.5rem;
 }
 
-.z-table__th-content {
+.s-table__th-content {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.z-table__sort-icon {
+.s-table__sort-icon {
   width: 0.75rem;
   height: 0.75rem;
   color: var(--semiui-comp-table-sort-icon-color);
@@ -86,48 +86,48 @@
   transition: transform 0.15s ease, color 0.15s ease;
 }
 
-.z-table__sort-icon--active {
+.s-table__sort-icon--active {
   color: var(--semiui-comp-table-sort-icon-color-active);
 }
 
-.z-table__sort-icon--desc {
+.s-table__sort-icon--desc {
   transform: rotate(0deg);
 }
 
-.z-table__td {
+.s-table__td {
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   border-bottom: 1px solid var(--semiui-comp-table-border);
   color: var(--semiui-color-foreground);
 }
 
-.z-table__td--checkbox {
+.s-table__td--checkbox {
   width: 2.5rem;
 }
 
 /* No standalone single-radio component exists (only a whole RadioGroup, which renders every
    option together as one block -- it doesn't fit "one radio per table row, interleaved with the
-   rest of that row's cells"). Reusing z-radio's exact class names/tokens here instead, so this
+   rest of that row's cells"). Reusing s-radio's exact class names/tokens here instead, so this
    still looks and behaves identically to the real component. */
-.z-radio__input:checked + .z-radio__dot {
+.s-radio__input:checked + .s-radio__dot {
   border-color: var(--semiui-comp-radio-border-checked);
 }
 
-.z-radio__input:checked + .z-radio__dot::after {
+.s-radio__input:checked + .s-radio__dot::after {
   transform: scale(1);
 }
 
-.z-radio__input:focus-visible + .z-radio__dot {
+.s-radio__input:focus-visible + .s-radio__dot {
   outline: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-radio-focus-ring) 35%, transparent);
 }
 
-.z-radio__input:disabled + .z-radio__dot {
+.s-radio__input:disabled + .s-radio__dot {
   background: var(--semiui-comp-radio-background-disabled);
   border-color: var(--semiui-comp-radio-border-disabled);
 }
 
-.z-radio__input {
+.s-radio__input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -139,7 +139,7 @@
   border: 0;
 }
 
-.z-radio__dot {
+.s-radio__dot {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -154,7 +154,7 @@
   transition: border-color 0.15s ease;
 }
 
-.z-radio__dot::after {
+.s-radio__dot::after {
   content: '';
   width: 50%;
   height: 50%;
@@ -164,44 +164,44 @@
   transition: transform 0.15s ease;
 }
 
-.z-table__tr:last-child .z-table__td {
+.s-table__tr:last-child .s-table__td {
   border-bottom: none;
 }
 
-.z-table[data-striped] .z-table__tr:nth-child(even) {
+.s-table[data-striped] .s-table__tr:nth-child(even) {
   background: var(--semiui-comp-table-row-background-striped);
 }
 
-.z-table__tr:hover {
+.s-table__tr:hover {
   background: var(--semiui-comp-table-row-background-hover);
 }
 
-.z-table__tr--clickable {
+.s-table__tr--clickable {
   cursor: pointer;
 }
 
-.z-table__tr[data-selected] {
+.s-table__tr[data-selected] {
   background: var(--semiui-comp-table-row-background-selected);
 }
 
-.z-table__state-row .z-table__loading,
-.z-table__state-row .z-table__empty {
+.s-table__state-row .s-table__loading,
+.s-table__state-row .s-table__empty {
   padding: var(--semiui-spacing-xl) 0;
   text-align: center;
   color: var(--semiui-color-muted-foreground);
 }
 
-.z-table__loading {
+.s-table__loading {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--semiui-spacing-xs);
 }
 
-.z-table__loading-icon {
+.s-table__loading-icon {
   width: 1rem;
   height: 1rem;
-  animation: z-table-spin 0.8s linear infinite;
+  animation: s-table-spin 0.8s linear infinite;
   transform-origin: 50% 50%;
   /* Without this, some browsers recompute the (slightly larger, anti-aliased) axis-aligned
      bounding box at diagonal rotation angles and re-run layout on the surrounding flex row, which
@@ -211,13 +211,13 @@
   will-change: transform;
 }
 
-@keyframes z-table-spin {
+@keyframes s-table-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.z-table__footer {
+.s-table__footer {
   margin-top: var(--semiui-spacing-sm);
   display: flex;
   align-items: center;
@@ -228,27 +228,27 @@
 
 /* Nothing but pagination in the footer (no summary, no rows-per-page, no #footer template) --
    center it instead of leaving it stranded flush against one side. */
-.z-table__footer:not([data-has-extras]) {
+.s-table__footer:not([data-has-extras]) {
   justify-content: center;
 }
 
-.z-table__footer[data-has-extras] {
+.s-table__footer[data-has-extras] {
   justify-content: space-between;
 }
 
-.z-table__summary {
+.s-table__summary {
   font-size: var(--semiui-comp-table-font-size);
   color: var(--semiui-color-muted-foreground);
 }
 
-.z-table__footer-end {
+.s-table__footer-end {
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-md);
   margin-left: auto;
 }
 
-.z-table__rows-per-page {
+.s-table__rows-per-page {
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-xs);
@@ -256,6 +256,6 @@
   color: var(--semiui-color-muted-foreground);
 }
 
-.z-table__rows-per-page z-select {
+.s-table__rows-per-page s-select {
   width: 5rem;
 }

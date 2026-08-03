@@ -1,9 +1,9 @@
-<div class="z-tabs__list" role="tablist" [attr.aria-orientation]="orientation()">
+<div class="s-tabs__list" role="tablist" [attr.aria-orientation]="orientation()">
   @for (item of items(); track $index; let i = $index) {
     <button
       #tabButton
       type="button"
-      class="z-tabs__tab"
+      class="s-tabs__tab"
       role="tab"
       [id]="tabId(i)"
       [attr.aria-selected]="i === activeIndex()"
@@ -22,7 +22,7 @@
     </button>
   }
   <span
-    class="z-tabs__indicator"
+    class="s-tabs__indicator"
     [style.transform]="indicatorStyle().transform"
     [style.width]="indicatorStyle().width"
     [style.height]="indicatorStyle().height"
@@ -30,7 +30,7 @@
 </div>
 
 @if (items()[activeIndex()]; as activeItem) {
-  <div class="z-tabs__panel" role="tabpanel" [id]="panelId(activeIndex())" [attr.aria-labelledby]="tabId(activeIndex())" tabindex="0">
+  <div class="s-tabs__panel" role="tabpanel" [id]="panelId(activeIndex())" [attr.aria-labelledby]="tabId(activeIndex())" tabindex="0">
     <ng-container [ngTemplateOutlet]="contentTemplate()" [ngTemplateOutletContext]="{ $implicit: activeItem, index: activeIndex() }" />
   </div>
 }

@@ -1,41 +1,41 @@
 :host {
   display: inline-flex;
-  --z-avatar-size: var(--semiui-comp-avatar-size-md);
-  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-md);
+  --s-avatar-size: var(--semiui-comp-avatar-size-md);
+  --s-avatar-font-size: var(--semiui-comp-avatar-font-size-md);
 }
 
 :host([data-size='sm']) {
-  --z-avatar-size: var(--semiui-comp-avatar-size-sm);
-  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-sm);
+  --s-avatar-size: var(--semiui-comp-avatar-size-sm);
+  --s-avatar-font-size: var(--semiui-comp-avatar-font-size-sm);
 }
 
 :host([data-size='lg']) {
-  --z-avatar-size: var(--semiui-comp-avatar-size-lg);
-  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-lg);
+  --s-avatar-size: var(--semiui-comp-avatar-size-lg);
+  --s-avatar-font-size: var(--semiui-comp-avatar-font-size-lg);
 }
 
 :host([data-size='xl']) {
-  --z-avatar-size: var(--semiui-comp-avatar-size-xl);
-  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-xl);
+  --s-avatar-size: var(--semiui-comp-avatar-size-xl);
+  --s-avatar-font-size: var(--semiui-comp-avatar-font-size-xl);
 }
 
-.z-avatar {
+.s-avatar {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: var(--z-avatar-size);
-  height: var(--z-avatar-size);
+  width: var(--s-avatar-size);
+  height: var(--s-avatar-size);
 }
 
 /*
  * The clipping boundary (overflow: hidden + border-radius) lives on this INNER wrapper, not on
- * .z-avatar itself -- the status dot is a sibling of this wrapper, not a child of it. It's
+ * .s-avatar itself -- the status dot is a sibling of this wrapper, not a child of it. It's
  * positioned at the avatar's corner (right: 0; bottom: 0), which sits in the region a circular
  * clip mask cuts away; putting the dot inside the clipped element clipped the dot along with it.
  */
-.z-avatar__inner {
+.s-avatar__inner {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,29 +47,29 @@
   color: var(--semiui-comp-avatar-foreground);
 }
 
-:host([data-shape='square']) .z-avatar__inner {
+:host([data-shape='square']) .s-avatar__inner {
   border-radius: var(--semiui-comp-avatar-radius);
 }
 
-.z-avatar__image {
+.s-avatar__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.z-avatar__initials {
-  font-size: var(--z-avatar-font-size);
+.s-avatar__initials {
+  font-size: var(--s-avatar-font-size);
   font-weight: var(--semiui-typography-font-weight-medium);
   font-family: var(--semiui-typography-font-family);
   text-transform: uppercase;
 }
 
-.z-avatar__fallback-icon {
+.s-avatar__fallback-icon {
   width: 55%;
   height: 55%;
 }
 
-.z-avatar__status {
+.s-avatar__status {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -82,18 +82,18 @@
   border: 2px solid var(--semiui-color-background);
 }
 
-.z-avatar__status[data-status='online'] {
+.s-avatar__status[data-status='online'] {
   background: var(--semiui-comp-avatar-status-online);
 }
 
-.z-avatar__status[data-status='away'] {
+.s-avatar__status[data-status='away'] {
   background: var(--semiui-comp-avatar-status-away);
 }
 
-.z-avatar__status[data-status='busy'] {
+.s-avatar__status[data-status='busy'] {
   background: var(--semiui-comp-avatar-status-busy);
 }
 
-.z-avatar__status[data-status='offline'] {
+.s-avatar__status[data-status='offline'] {
   background: var(--semiui-comp-avatar-status-offline);
 }

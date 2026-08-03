@@ -9,7 +9,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
  * forms, and Signal Forms through `BaseFormFieldControl`.
  */
 @Component({
-  selector: 'z-otp',
+  selector: 's-otp',
   imports: [ErrorMessageComponent],
   templateUrl: './otp.component.html',
   styleUrl: './otp.component.css',

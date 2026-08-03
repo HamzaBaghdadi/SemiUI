@@ -1,6 +1,6 @@
 import { Component, ElementRef, booleanAttribute, computed, input, viewChild } from '@angular/core';
 import { InputDirective } from '@semiui/primitives/input';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -12,8 +12,8 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
  * value is `number | null` -- `null` for an empty field, never `NaN`.
  */
 @Component({
-  selector: 'z-input-number',
-  imports: [InputDirective, ZIconComponent, ErrorMessageComponent],
+  selector: 's-input-number',
+  imports: [InputDirective, SIconComponent, ErrorMessageComponent],
   templateUrl: './input-number.component.html',
   styleUrl: './input-number.component.css',
 })

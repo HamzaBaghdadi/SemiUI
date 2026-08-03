@@ -5,7 +5,7 @@ import { Component, input } from '@angular/core';
  * label with the line continuing on both sides; with no content, it's just a plain line.
  */
 @Component({
-  selector: 'z-divider',
+  selector: 's-divider',
   templateUrl: './divider.component.html',
   styleUrl: './divider.component.css',
   host: {

@@ -6,7 +6,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
 export type TextInputType = 'text' | 'email' | 'tel' | 'url' | 'number' | 'search';
 
 @Component({
-  selector: 'z-text-input',
+  selector: 's-text-input',
   imports: [InputDirective, ErrorMessageComponent],
   templateUrl: './text-input.component.html',
   styleUrl: './text-input.component.css',

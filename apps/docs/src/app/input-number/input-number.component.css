@@ -1,4 +1,4 @@
-.z-input-number {
+.s-input-number {
   display: flex;
   align-items: stretch;
   width: 100%;
@@ -14,24 +14,24 @@
     box-shadow 0.15s ease;
 }
 
-.z-input-number:hover:not(:has(.z-input-number__input:disabled)):not(:has(.z-input-number__input[aria-invalid='true'])) {
+.s-input-number:hover:not(:has(.s-input-number__input:disabled)):not(:has(.s-input-number__input[aria-invalid='true'])) {
   border-color: var(--semiui-comp-input-border-hover);
 }
 
-.z-input-number:has(.z-input-number__input:focus-visible) {
+.s-input-number:has(.s-input-number__input:focus-visible) {
   border-color: var(--semiui-comp-input-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-input-focus-ring) 35%, transparent);
 }
 
-.z-input-number:has(.z-input-number__input[aria-invalid='true']) {
+.s-input-number:has(.s-input-number__input[aria-invalid='true']) {
   border-color: var(--semiui-comp-input-border-invalid);
 }
 
-.z-input-number:has(.z-input-number__input:disabled) {
+.s-input-number:has(.s-input-number__input:disabled) {
   background: var(--semiui-comp-input-background-disabled);
 }
 
-.z-input-number__affix {
+.s-input-number__affix {
   display: inline-flex;
   align-items: center;
   padding: 0 0 0 var(--semiui-comp-input-padding-x);
@@ -40,11 +40,11 @@
   color: var(--semiui-comp-input-placeholder-foreground);
 }
 
-.z-input-number__affix + .z-input-number__input {
+.s-input-number__affix + .s-input-number__input {
   padding-left: var(--semiui-spacing-xs);
 }
 
-.z-input-number__input {
+.s-input-number__input {
   flex: 1;
   min-width: 0;
   box-sizing: border-box;
@@ -58,24 +58,24 @@
   text-align: left;
 }
 
-.z-input-number[data-buttons='horizontal'] .z-input-number__input {
+.s-input-number[data-buttons='horizontal'] .s-input-number__input {
   text-align: center;
   padding-left: var(--semiui-spacing-xs);
   padding-right: var(--semiui-spacing-xs);
 }
 
-.z-input-number__input::placeholder {
+.s-input-number__input::placeholder {
   color: var(--semiui-comp-input-placeholder-foreground);
 }
 
-.z-input-number__input:disabled {
+.s-input-number__input:disabled {
   cursor: not-allowed;
   color: var(--semiui-comp-input-foreground-disabled);
 }
 
 /* Vertical layout: stacked chevrons on the trailing edge, in their own muted-tinted rail so they
    read as a distinct control rather than blending into the field. */
-.z-input-number__buttons {
+.s-input-number__buttons {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -83,7 +83,7 @@
   background: color-mix(in srgb, var(--semiui-color-muted) 45%, transparent);
 }
 
-.z-input-number__button {
+.s-input-number__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -99,36 +99,36 @@
     color 0.1s ease;
 }
 
-.z-input-number__button:first-child {
+.s-input-number__button:first-child {
   border-bottom: 1px solid var(--semiui-comp-input-border);
 }
 
-.z-input-number__button:hover:not(:disabled) {
+.s-input-number__button:hover:not(:disabled) {
   background: var(--semiui-color-muted);
   color: var(--semiui-color-foreground);
 }
 
-.z-input-number__button:active:not(:disabled) {
+.s-input-number__button:active:not(:disabled) {
   background: color-mix(in srgb, var(--semiui-color-muted) 80%, black);
 }
 
-.z-input-number__button:disabled {
+.s-input-number__button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
 }
 
-.z-input-number__button-icon {
+.s-input-number__button-icon {
   width: 0.7em;
   height: 0.7em;
 }
 
-.z-input-number__button-icon--up {
+.s-input-number__button-icon--up {
   transform: rotate(180deg);
 }
 
 /* Horizontal layout: full-height [-] / [+] steppers flanking the field, each tinted so they read
    as clickable controls immediately instead of blending into the input's own background. */
-.z-input-number__step {
+.s-input-number__step {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
@@ -141,28 +141,28 @@
   transition: background-color 0.1s ease;
 }
 
-.z-input-number__step--decrement {
+.s-input-number__step--decrement {
   border-right: 1px solid var(--semiui-comp-input-border);
 }
 
-.z-input-number__step--increment {
+.s-input-number__step--increment {
   border-left: 1px solid var(--semiui-comp-input-border);
 }
 
-.z-input-number__step:hover:not(:disabled) {
+.s-input-number__step:hover:not(:disabled) {
   background: var(--semiui-color-muted);
 }
 
-.z-input-number__step:active:not(:disabled) {
+.s-input-number__step:active:not(:disabled) {
   background: color-mix(in srgb, var(--semiui-color-muted) 80%, black);
 }
 
-.z-input-number__step:disabled {
+.s-input-number__step:disabled {
   cursor: not-allowed;
   opacity: 0.4;
 }
 
-.z-input-number__step-icon {
+.s-input-number__step-icon {
   width: 0.8em;
   height: 0.8em;
 }

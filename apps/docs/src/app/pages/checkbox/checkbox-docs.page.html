@@ -10,51 +10,51 @@
 
 <h2>ngModel</h2>
 <div class="demo-row">
-  <z-checkbox [(ngModel)]="subscribed" label="Subscribe to updates" />
+  <s-checkbox [(ngModel)]="subscribed" label="Subscribe to updates" />
 </div>
 <p class="demo-value">Model value: {{ subscribed }}</p>
-<pre><code>&lt;z-checkbox [(ngModel)]="subscribed" label="Subscribe to updates" /&gt;</code></pre>
+<pre><code>&lt;s-checkbox [(ngModel)]="subscribed" label="Subscribe to updates" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-checkbox formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." />
+  <s-checkbox formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   terms: new FormControl(false, &#123; nonNullable: true, validators: Validators.requiredTrue &#125;),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-checkbox formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." /&gt;
+  &lt;s-checkbox formControlName="terms" label="I agree to the terms" errorMessage="You must agree to continue." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-checkbox [formField]="profileForm.marketing" label="Marketing emails" />
+  <s-checkbox [formField]="profileForm.marketing" label="Marketing emails" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().marketing }}</p>
 <pre><code>protected profileModel = signal(&#123; marketing: false &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-checkbox [formField]="profileForm.marketing" label="Marketing emails" /&gt;</code></pre>
+&lt;s-checkbox [formField]="profileForm.marketing" label="Marketing emails" /&gt;</code></pre>
 
 <h2>Sizes</h2>
 <div class="demo-row">
-  <z-checkbox [(ngModel)]="subscribed" size="sm" label="Small" />
-  <z-checkbox [(ngModel)]="subscribed" size="md" label="Medium" />
-  <z-checkbox [(ngModel)]="subscribed" size="lg" label="Large" />
+  <s-checkbox [(ngModel)]="subscribed" size="sm" label="Small" />
+  <s-checkbox [(ngModel)]="subscribed" size="md" label="Medium" />
+  <s-checkbox [(ngModel)]="subscribed" size="lg" label="Large" />
 </div>
-<pre><code>&lt;z-checkbox size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
+<pre><code>&lt;s-checkbox size="sm" /&gt;  &lt;!-- also "md" (default) and "lg" --&gt;</code></pre>
 
 <h2>Indeterminate</h2>
 <p>Purely presentational -- shows a dash instead of a checkmark without changing the bound value.</p>
 <div class="demo-row">
-  <z-checkbox [(ngModel)]="subscribed" [indeterminate]="indeterminate()" label="Select all" />
+  <s-checkbox [(ngModel)]="subscribed" [indeterminate]="indeterminate()" label="Select all" />
   <button type="button" (click)="indeterminate.set(!indeterminate())">Toggle indeterminate</button>
 </div>
-<pre><code>&lt;z-checkbox [indeterminate]="true" label="Select all" /&gt;</code></pre>
+<pre><code>&lt;s-checkbox [indeterminate]="true" label="Select all" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-checkbox [(ngModel)]="subscribed" [disabled]="disabled()" label="Disabled" />
+  <s-checkbox [(ngModel)]="subscribed" [disabled]="disabled()" label="Disabled" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>

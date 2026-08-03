@@ -1,15 +1,15 @@
 import { Component, ElementRef, computed, input, signal, viewChild } from '@angular/core';
 import { InputDirective } from '@semiui/primitives/input';
 import { ButtonDirective } from '@semiui/primitives/button';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { IconRef } from '@semiui/tokens';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
-  selector: 'z-password',
-  imports: [InputDirective, ButtonDirective, ZIconComponent, ErrorMessageComponent],
+  selector: 's-password',
+  imports: [InputDirective, ButtonDirective, SIconComponent, ErrorMessageComponent],
   templateUrl: './password.component.html',
   styleUrl: './password.component.css',
 })

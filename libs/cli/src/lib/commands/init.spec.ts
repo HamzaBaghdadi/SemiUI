@@ -43,7 +43,7 @@ describe('runInit', () => {
     runInit(cwd);
 
     const config = JSON.parse(readFileSync(join(cwd, 'components.json'), 'utf8'));
-    expect(config).toEqual({ preset: 'aurora', componentsDir: 'src/app/components', prefix: 'z' });
+    expect(config).toEqual({ preset: 'aurora', componentsDir: 'src/app/components', prefix: 's' });
     expect(installDependencies).toHaveBeenCalledWith(
       cwd,
       'npm',

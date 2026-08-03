@@ -14,7 +14,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
  * `[formField]` in the docs.
  */
 @Component({
-  selector: 'z-slider',
+  selector: 's-slider',
   imports: [ErrorMessageComponent],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css',

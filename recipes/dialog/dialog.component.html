@@ -4,16 +4,16 @@
   <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
   <div
     #backdrop
-    class="z-dialog__backdrop"
+    class="s-dialog__backdrop"
     [attr.data-blur]="blurBackdrop() ? '' : null"
     [attr.data-hidden]="showBackdrop() ? null : ''"
     (click)="onBackdropClick()"
-    animate.enter="z-dialog__backdrop--enter"
-    animate.leave="z-dialog__backdrop--leave"
+    animate.enter="s-dialog__backdrop--enter"
+    animate.leave="s-dialog__backdrop--leave"
   >
     <div
       #panel
-      class="z-dialog__panel"
+      class="s-dialog__panel"
       [attr.data-size]="size()"
       role="dialog"
       aria-modal="true"
@@ -21,36 +21,36 @@
       tabindex="-1"
       (click)="$event.stopPropagation()"
       (keydown)="onPanelKeydown($event)"
-      animate.enter="z-dialog__panel--enter"
-      animate.leave="z-dialog__panel--leave"
+      animate.enter="s-dialog__panel--enter"
+      animate.leave="s-dialog__panel--leave"
     >
       @if (headlessTemplate(); as tpl) {
         <ng-container [ngTemplateOutlet]="tpl" />
       } @else {
         @if (headerTemplate(); as tpl) {
-          <div class="z-dialog__header">
-            <div class="z-dialog__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
+          <div class="s-dialog__header">
+            <div class="s-dialog__header-content"><ng-container [ngTemplateOutlet]="tpl" /></div>
             @if (closable()) {
-              <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
-                <z-icon [ref]="icons.clear" />
+              <button type="button" class="s-dialog__close" aria-label="Close" (click)="hide()">
+                <s-icon [ref]="icons.clear" />
               </button>
             }
           </div>
         } @else if (title() || closable()) {
-          <div class="z-dialog__header">
-            <h2 class="z-dialog__title">{{ title() }}</h2>
+          <div class="s-dialog__header">
+            <h2 class="s-dialog__title">{{ title() }}</h2>
             @if (closable()) {
-              <button type="button" class="z-dialog__close" aria-label="Close" (click)="hide()">
-                <z-icon [ref]="icons.clear" />
+              <button type="button" class="s-dialog__close" aria-label="Close" (click)="hide()">
+                <s-icon [ref]="icons.clear" />
               </button>
             }
           </div>
         }
-        <div class="z-dialog__body">
+        <div class="s-dialog__body">
           <ng-content />
         </div>
         @if (footerTemplate(); as tpl) {
-          <div class="z-dialog__footer">
+          <div class="s-dialog__footer">
             <ng-container [ngTemplateOutlet]="tpl" />
           </div>
         }

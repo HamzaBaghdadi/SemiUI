@@ -1,5 +1,5 @@
 import { Component, booleanAttribute, computed, input, model } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 function range(start: number, end: number): number[] {
@@ -8,8 +8,8 @@ function range(start: number, end: number): number[] {
 
 /** Page-number buttons with prev/next (and optional first/last), collapsing to an ellipsis for large page counts. */
 @Component({
-  selector: 'z-pagination',
-  imports: [ZIconComponent],
+  selector: 's-pagination',
+  imports: [SIconComponent],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
 })

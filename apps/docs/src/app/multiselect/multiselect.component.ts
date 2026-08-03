@@ -13,7 +13,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -36,8 +36,8 @@ let nextMultiselectId = 0;
  * Supports ngModel, reactive forms, and Signal Forms through `BaseFormFieldControl`.
  */
 @Component({
-  selector: 'z-multiselect',
-  imports: [ZIconComponent, NgTemplateOutlet, ErrorMessageComponent, TagComponent],
+  selector: 's-multiselect',
+  imports: [SIconComponent, NgTemplateOutlet, ErrorMessageComponent, TagComponent],
   templateUrl: './multiselect.component.html',
   styleUrl: './multiselect.component.css',
   host: {
@@ -66,7 +66,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   showSelectAll = input(true, { transform: booleanAttribute });
   /** Once more than this many items are selected, the trigger shows "N selected" instead of chips. */
   maxChipsDisplay = input(3);
-  /** Shows a remove ("x") button on each chip, via `<z-tag removable>`. Set to `false` for read-only chips. */
+  /** Shows a remove ("x") button on each chip, via `<s-tag removable>`. Set to `false` for read-only chips. */
   removableChips = input(true, { transform: booleanAttribute });
   /** Shows a spinner in place of the chevron and disables interaction, for async option loading. */
   loading = input(false, { transform: booleanAttribute });
@@ -88,7 +88,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   protected readonly filterText = signal('');
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
   protected readonly fixedPosition = signal({ top: 0, left: 0, width: 0 });
-  protected readonly listboxId = `z-multiselect-listbox-${nextMultiselectId++}`;
+  protected readonly listboxId = `s-multiselect-listbox-${nextMultiselectId++}`;
   protected readonly activeOptionId = computed(() =>
     this.open() && this.activeIndex() >= 0 ? `${this.listboxId}-option-${this.activeIndex()}` : null,
   );

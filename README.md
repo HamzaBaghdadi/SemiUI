@@ -39,7 +39,7 @@ Light/dark mode comes free — inject `ColorModeService` from `@semiui/theme` an
 | --- | --- |
 | [`@semiui/tokens`](libs/tokens) | Framework-agnostic design token contract + the `flattenTokensToCssVars` utility. No Angular dependency. |
 | [`@semiui/theme`](libs/theme) | `provideSemiUI()`, `ColorModeService`, and the CSS-stylesheet injection that makes light/dark mode work. |
-| [`@semiui/primitives`](libs/primitives) | Unstyled behavior: `ButtonDirective`, `InputDirective`, `ZIconComponent`, `BaseFormFieldControl` (the shared `ControlValueAccessor` + Angular Signal Forms plumbing every form component builds on). |
+| [`@semiui/primitives`](libs/primitives) | Unstyled behavior: `ButtonDirective`, `InputDirective`, `SIconComponent`, `BaseFormFieldControl` (the shared `ControlValueAccessor` + Angular Signal Forms plumbing every form component builds on). |
 | [`@semiui/presets-aurora`](libs/presets/aurora) | The default preset: a full light + dark color palette and component tokens. |
 | [`semiui`](libs/cli) | The CLI (`init` / `add`). |
 

@@ -2,24 +2,24 @@
   display: inline-flex;
 }
 
-.z-switch {
+.s-switch {
   display: inline-flex;
   align-items: center;
   gap: var(--semiui-spacing-sm);
   cursor: pointer;
 }
 
-.z-switch__track {
-  --z-switch-track-width: var(--semiui-comp-switch-track-width-md);
-  --z-switch-track-height: var(--semiui-comp-switch-track-height-md);
-  --z-switch-thumb-size: var(--semiui-comp-switch-thumb-size-md);
+.s-switch__track {
+  --s-switch-track-width: var(--semiui-comp-switch-track-width-md);
+  --s-switch-track-height: var(--semiui-comp-switch-track-height-md);
+  --s-switch-thumb-size: var(--semiui-comp-switch-thumb-size-md);
   position: relative;
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: var(--z-switch-track-width);
-  height: var(--z-switch-track-height);
+  width: var(--s-switch-track-width);
+  height: var(--s-switch-track-height);
   padding: var(--semiui-comp-switch-track-padding);
   border: var(--semiui-comp-switch-track-border-width) solid var(--semiui-comp-switch-border);
   border-radius: var(--semiui-comp-switch-radius);
@@ -30,44 +30,44 @@
     border-color var(--semiui-comp-switch-transition-duration) ease;
 }
 
-.z-switch__track[data-size='sm'] {
-  --z-switch-track-width: var(--semiui-comp-switch-track-width-sm);
-  --z-switch-track-height: var(--semiui-comp-switch-track-height-sm);
-  --z-switch-thumb-size: var(--semiui-comp-switch-thumb-size-sm);
+.s-switch__track[data-size='sm'] {
+  --s-switch-track-width: var(--semiui-comp-switch-track-width-sm);
+  --s-switch-track-height: var(--semiui-comp-switch-track-height-sm);
+  --s-switch-thumb-size: var(--semiui-comp-switch-thumb-size-sm);
 }
 
-.z-switch__track[data-size='lg'] {
-  --z-switch-track-width: var(--semiui-comp-switch-track-width-lg);
-  --z-switch-track-height: var(--semiui-comp-switch-track-height-lg);
-  --z-switch-thumb-size: var(--semiui-comp-switch-thumb-size-lg);
+.s-switch__track[data-size='lg'] {
+  --s-switch-track-width: var(--semiui-comp-switch-track-width-lg);
+  --s-switch-track-height: var(--semiui-comp-switch-track-height-lg);
+  --s-switch-thumb-size: var(--semiui-comp-switch-thumb-size-lg);
 }
 
-.z-switch__track[aria-checked='true'] {
+.s-switch__track[aria-checked='true'] {
   background: var(--semiui-comp-switch-background-checked);
   border-color: var(--semiui-comp-switch-border-checked);
 }
 
-.z-switch__track:focus-visible {
+.s-switch__track:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-switch-focus-ring) 35%, transparent);
 }
 
-.z-switch__track:disabled {
+.s-switch__track:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.z-switch:has(.z-switch__track:disabled) {
+.s-switch:has(.s-switch__track:disabled) {
   cursor: not-allowed;
 }
 
-.z-switch__thumb {
+.s-switch__thumb {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: var(--z-switch-thumb-size);
-  height: var(--z-switch-thumb-size);
+  width: var(--s-switch-thumb-size);
+  height: var(--s-switch-thumb-size);
   border-radius: var(--semiui-radius-full);
   background: var(--semiui-comp-switch-thumb-background);
   color: var(--semiui-comp-switch-background-checked);
@@ -77,21 +77,21 @@
   transition: transform var(--semiui-comp-switch-transition-duration) ease;
 }
 
-.z-switch__thumb z-icon {
+.s-switch__thumb s-icon {
   width: 0.65rem;
   height: 0.65rem;
 }
 
-.z-switch__track[aria-checked='true'] .z-switch__thumb {
+.s-switch__track[aria-checked='true'] .s-switch__thumb {
   transform: translateX(
     calc(
-      var(--z-switch-track-width) - var(--z-switch-thumb-size) - (var(--semiui-comp-switch-track-padding) * 2) -
+      var(--s-switch-track-width) - var(--s-switch-thumb-size) - (var(--semiui-comp-switch-track-padding) * 2) -
         (var(--semiui-comp-switch-track-border-width) * 2)
     )
   );
 }
 
-.z-switch__label {
+.s-switch__label {
   font-size: var(--semiui-typography-font-size-md);
   font-family: var(--semiui-typography-font-family);
   color: var(--semiui-color-foreground);

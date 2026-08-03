@@ -1,39 +1,39 @@
 <ng-template #calendarContent>
   @if (headerTemplate(); as tpl) {
-    <div class="z-date-picker__custom-header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+    <div class="s-date-picker__custom-header"><ng-container [ngTemplateOutlet]="tpl" /></div>
   }
 
   @if (!timeOnly()) {
-    <div class="z-date-picker__header">
-      <button type="button" class="z-date-picker__nav" aria-label="Previous" (click)="navPrevious()">
-        <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--prev" />
+    <div class="s-date-picker__header">
+      <button type="button" class="s-date-picker__nav" aria-label="Previous" (click)="navPrevious()">
+        <s-icon [ref]="icons.chevronDown" class="s-date-picker__nav-icon s-date-picker__nav-icon--prev" />
       </button>
-      <span class="z-date-picker__header-buttons">
+      <span class="s-date-picker__header-buttons">
         @if (navView() === 'days') {
-          <button type="button" class="z-date-picker__unit-button" (click)="openMonthsView()">{{ monthOnlyLabel() }}</button>
+          <button type="button" class="s-date-picker__unit-button" (click)="openMonthsView()">{{ monthOnlyLabel() }}</button>
         }
         <button
           type="button"
-          class="z-date-picker__unit-button"
+          class="s-date-picker__unit-button"
           [attr.aria-expanded]="yearsPanelOpen()"
           (click)="toggleYearsPanel()"
         >
           {{ viewYear() }}
         </button>
       </span>
-      <button type="button" class="z-date-picker__nav" aria-label="Next" (click)="navNext()">
-        <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--next" />
+      <button type="button" class="s-date-picker__nav" aria-label="Next" (click)="navNext()">
+        <s-icon [ref]="icons.chevronDown" class="s-date-picker__nav-icon s-date-picker__nav-icon--next" />
       </button>
     </div>
 
     @if (yearsPanelOpen()) {
       <!-- Its own side panel next to the main one (not swapped in place) so picking a year never
            resizes or replaces the day/month grid underneath it. -->
-      <div class="z-date-picker__years-panel" role="listbox" aria-label="Year">
+      <div class="s-date-picker__years-panel" role="listbox" aria-label="Year">
         @for (year of yearsListItems(); track year) {
           <button
             type="button"
-            class="z-date-picker__unit"
+            class="s-date-picker__unit"
             role="option"
             [attr.data-year]="year"
             [attr.data-selected]="year === viewYear() ? '' : null"
@@ -48,11 +48,11 @@
 
     @switch (navView()) {
       @case ('months') {
-        <div class="z-date-picker__unit-grid">
+        <div class="s-date-picker__unit-grid">
           @for (name of monthNames(); track $index) {
             <button
               type="button"
-              class="z-date-picker__unit"
+              class="s-date-picker__unit"
               [attr.data-selected]="$index === viewMonth() ? '' : null"
               (click)="selectMonth($index)"
             >
@@ -62,9 +62,9 @@
         </div>
       }
       @default {
-        <div class="z-date-picker__weekdays">
+        <div class="s-date-picker__weekdays">
           @for (weekday of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']; track weekday) {
-            <span class="z-date-picker__weekday">{{ weekday }}</span>
+            <span class="s-date-picker__weekday">{{ weekday }}</span>
           }
         </div>
         <!-- Focus always lives on a day button (roving tabindex below), never on the grid container
@@ -72,7 +72,7 @@
         <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -->
         <div
           #grid
-          class="z-date-picker__grid"
+          class="s-date-picker__grid"
           role="grid"
           [id]="listboxId"
           [attr.data-range-complete]="selectionMode() === 'range' && rangeValue()?.end ? '' : null"
@@ -81,7 +81,7 @@
           @for (day of calendarDays(); track dateKey(day.date)) {
             <button
               type="button"
-              class="z-date-picker__day"
+              class="s-date-picker__day"
               role="gridcell"
               [attr.data-date-key]="dateKey(day.date)"
               [attr.data-outside-month]="day.outsideMonth ? '' : null"
@@ -105,11 +105,11 @@
   }
 
   @if ((showTime() || timeOnly()) && (timeOnly() || navView() === 'days')) {
-    <div class="z-date-picker__time">
+    <div class="s-date-picker__time">
       @if (timeFormat() === '12h') {
         <input
           type="number"
-          class="z-date-picker__time-input"
+          class="s-date-picker__time-input"
           min="1"
           max="12"
           aria-label="Hour"
@@ -119,7 +119,7 @@
       } @else {
         <input
           type="number"
-          class="z-date-picker__time-input"
+          class="s-date-picker__time-input"
           min="0"
           max="23"
           aria-label="Hour"
@@ -127,10 +127,10 @@
           (change)="setHour($any($event.target).valueAsNumber)"
         />
       }
-      <span class="z-date-picker__time-sep">:</span>
+      <span class="s-date-picker__time-sep">:</span>
       <input
         type="number"
-        class="z-date-picker__time-input"
+        class="s-date-picker__time-input"
         min="0"
         max="59"
         aria-label="Minute"
@@ -138,15 +138,15 @@
         (change)="setMinute($any($event.target).valueAsNumber)"
       />
       @if (timeFormat() === '12h') {
-        <button type="button" class="z-date-picker__period" (click)="togglePeriod()">{{ period() }}</button>
+        <button type="button" class="s-date-picker__period" (click)="togglePeriod()">{{ period() }}</button>
       }
     </div>
   }
 
   @if (showTodayButton() || footerTemplate()) {
-    <div class="z-date-picker__footer">
+    <div class="s-date-picker__footer">
       @if (showTodayButton()) {
-        <button type="button" class="z-date-picker__today" (click)="goToToday()">Today</button>
+        <button type="button" class="s-date-picker__today" (click)="goToToday()">Today</button>
       }
       @if (footerTemplate(); as tpl) {
         <ng-container [ngTemplateOutlet]="tpl" />
@@ -156,15 +156,15 @@
 </ng-template>
 
 @if (inline()) {
-  <div class="z-date-picker__inline-panel">
+  <div class="s-date-picker__inline-panel">
     <ng-container [ngTemplateOutlet]="calendarContent" />
   </div>
 } @else {
-  <div class="z-date-picker__trigger-wrapper">
+  <div class="s-date-picker__trigger-wrapper">
     <input
       #triggerInput
       type="text"
-      class="z-date-picker__trigger"
+      class="s-date-picker__trigger"
       [readonly]="!manualInput()"
       role="combobox"
       aria-haspopup="grid"
@@ -181,22 +181,22 @@
     @if (showClear()) {
       <!-- Not a real <button>: nesting interactive elements inside role="combobox" input is invalid
            HTML, same rationale as Select's clear affordance. -->
-      <span class="z-date-picker__clear" role="button" tabindex="-1" aria-label="Clear date" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
-        <z-icon [ref]="icons.clear" />
+      <span class="s-date-picker__clear" role="button" tabindex="-1" aria-label="Clear date" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+        <s-icon [ref]="icons.clear" />
       </span>
     }
-    <span class="z-date-picker__icon">
-      <z-icon [ref]="icons.chevronDown" />
+    <span class="s-date-picker__icon">
+      <s-icon [ref]="icons.chevronDown" />
     </span>
   </div>
 
   @if (open()) {
-    <div class="z-date-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-date-picker__panel--enter" animate.leave="z-date-picker__panel--leave">
+    <div class="s-date-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="s-date-picker__panel--enter" animate.leave="s-date-picker__panel--leave">
       <ng-container [ngTemplateOutlet]="calendarContent" />
     </div>
   }
 }
 
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

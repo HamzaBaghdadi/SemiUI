@@ -2,39 +2,39 @@
   display: block;
 }
 
-.z-stepper {
+.s-stepper {
   display: flex;
   gap: var(--semiui-comp-stepper-gap);
 }
 
-:host([data-orientation='vertical']) .z-stepper {
+:host([data-orientation='vertical']) .s-stepper {
   flex-direction: column;
   width: fit-content;
 }
 
-.z-stepper__step {
+.s-stepper__step {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
-:host([data-orientation='vertical']) .z-stepper__step {
+:host([data-orientation='vertical']) .s-stepper__step {
   flex: none;
   flex-direction: row;
   gap: var(--semiui-spacing-sm);
 }
 
-.z-stepper__row {
+.s-stepper__row {
   display: flex;
   align-items: center;
 }
 
-:host([data-orientation='vertical']) .z-stepper__row {
+:host([data-orientation='vertical']) .s-stepper__row {
   flex-direction: column;
   align-self: stretch;
 }
 
-.z-stepper__circle-button {
+.s-stepper__circle-button {
   display: inline-flex;
   border: none;
   background: none;
@@ -44,16 +44,16 @@
   border-radius: var(--semiui-radius-full);
 }
 
-.z-stepper__circle-button:disabled {
+.s-stepper__circle-button:disabled {
   cursor: not-allowed;
 }
 
-.z-stepper__circle-button:focus-visible {
+.s-stepper__circle-button:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 
-.z-stepper__circle {
+.s-stepper__circle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,24 +69,24 @@
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.z-stepper__circle z-icon {
+.s-stepper__circle s-icon {
   width: 1rem;
   height: 1rem;
 }
 
-.z-stepper__step[data-state='active'] .z-stepper__circle {
+.s-stepper__step[data-state='active'] .s-stepper__circle {
   background: var(--semiui-comp-stepper-circle-background-active);
   color: var(--semiui-comp-stepper-circle-foreground-active);
   border-color: var(--semiui-comp-stepper-circle-background-active);
 }
 
-.z-stepper__step[data-state='completed'] .z-stepper__circle {
+.s-stepper__step[data-state='completed'] .s-stepper__circle {
   background: var(--semiui-comp-stepper-circle-background-completed);
   color: var(--semiui-comp-stepper-circle-foreground-completed);
   border-color: var(--semiui-comp-stepper-circle-background-completed);
 }
 
-.z-stepper__connector {
+.s-stepper__connector {
   flex: 1;
   height: 1px;
   background: var(--semiui-comp-stepper-connector-color);
@@ -94,49 +94,49 @@
   transition: background-color 0.15s ease;
 }
 
-:host([data-orientation='vertical']) .z-stepper__connector {
+:host([data-orientation='vertical']) .s-stepper__connector {
   width: 1px;
   height: 1.5rem;
   flex: none;
   margin: var(--semiui-spacing-xs) 0;
 }
 
-.z-stepper__step[data-state='completed'] .z-stepper__connector {
+.s-stepper__step[data-state='completed'] .s-stepper__connector {
   background: var(--semiui-comp-stepper-connector-color-completed);
 }
 
-.z-stepper__label-group {
+.s-stepper__label-group {
   display: flex;
   flex-direction: column;
   margin-top: var(--semiui-spacing-xs);
 }
 
-:host([data-orientation='vertical']) .z-stepper__label-group {
+:host([data-orientation='vertical']) .s-stepper__label-group {
   margin-top: 0;
   padding-bottom: var(--semiui-spacing-md);
 }
 
-.z-stepper__label {
+.s-stepper__label {
   font-size: var(--semiui-comp-stepper-font-size);
   color: var(--semiui-comp-stepper-label-color);
   font-weight: 500;
 }
 
-.z-stepper__step[data-state='active'] .z-stepper__label,
-.z-stepper__step[data-state='completed'] .z-stepper__label {
+.s-stepper__step[data-state='active'] .s-stepper__label,
+.s-stepper__step[data-state='completed'] .s-stepper__label {
   color: var(--semiui-comp-stepper-label-color-active);
 }
 
-.z-stepper__description {
+.s-stepper__description {
   font-size: calc(var(--semiui-comp-stepper-font-size) * 0.85);
   color: var(--semiui-comp-stepper-description-color);
 }
 
-.z-stepper__panel {
+.s-stepper__panel {
   margin-top: var(--semiui-spacing-lg);
 }
 
-@keyframes z-stepper-panel-enter {
+@keyframes s-stepper-panel-enter {
   from {
     opacity: 0;
     transform: translateX(0.75rem);
@@ -147,11 +147,11 @@
   }
 }
 
-.z-stepper__panel--enter {
-  animation: z-stepper-panel-enter 0.2s ease-out;
+.s-stepper__panel--enter {
+  animation: s-stepper-panel-enter 0.2s ease-out;
 }
 
-@keyframes z-stepper-check-enter {
+@keyframes s-stepper-check-enter {
   from {
     opacity: 0;
     transform: scale(0.4);
@@ -162,6 +162,6 @@
   }
 }
 
-.z-stepper__check--enter {
-  animation: z-stepper-check-enter 0.2s ease-out;
+.s-stepper__check--enter {
+  animation: s-stepper-check-enter 0.2s ease-out;
 }

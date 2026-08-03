@@ -1,9 +1,9 @@
-<div class="z-rating" (mouseleave)="onGroupLeave()">
+<div class="s-rating" (mouseleave)="onGroupLeave()">
   @for (star of starIndices(); track star) {
     <button
       type="button"
-      class="z-rating__star"
-      [class.z-rating__star--filled]="star <= displayValue()"
+      class="s-rating__star"
+      [class.s-rating__star--filled]="star <= displayValue()"
       [disabled]="effectiveDisabled() || readOnly()"
       [attr.aria-label]="'Rate ' + star + (star === 1 ? ' star' : ' stars')"
       [attr.aria-pressed]="star <= (value() ?? 0)"
@@ -11,10 +11,10 @@
       (mouseenter)="onStarEnter(star)"
       (blur)="handleBlur()"
     >
-      <z-icon [ref]="icons.rating" />
+      <s-icon [ref]="icons.rating" />
     </button>
   }
 </div>
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

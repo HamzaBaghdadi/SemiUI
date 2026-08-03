@@ -1,10 +1,10 @@
-<div class="z-otp" (paste)="onPaste($event)">
+<div class="s-otp" (paste)="onPaste($event)">
   @for (i of indices(); track i) {
     <input
       #box
       [type]="mask() ? 'password' : 'text'"
       [attr.inputmode]="type() === 'numeric' ? 'numeric' : 'text'"
-      class="z-otp__box"
+      class="s-otp__box"
       maxlength="1"
       autocomplete="one-time-code"
       [attr.aria-label]="'Digit ' + (i + 1)"
@@ -18,5 +18,5 @@
   }
 </div>
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

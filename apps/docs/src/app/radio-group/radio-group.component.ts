@@ -12,7 +12,7 @@ let nextRadioGroupId = 0;
  * ngModel, reactive forms, and Signal Forms through `BaseFormFieldControl`.
  */
 @Component({
-  selector: 'z-radio-group',
+  selector: 's-radio-group',
   imports: [ErrorMessageComponent],
   templateUrl: './radio-group.component.html',
   styleUrl: './radio-group.component.css',
@@ -32,7 +32,7 @@ export class RadioGroupComponent<TOption = unknown> extends BaseFormFieldControl
   size = input<ButtonSize>('md');
   direction = input<'vertical' | 'horizontal'>('vertical');
 
-  protected readonly groupName = `z-radio-group-${nextRadioGroupId++}`;
+  protected readonly groupName = `s-radio-group-${nextRadioGroupId++}`;
 
   protected override emptyValue(): unknown {
     return undefined;

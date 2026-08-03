@@ -1,7 +1,7 @@
 <ng-template #pickerContent>
   <div
     #svArea
-    class="z-color-picker__sv-area"
+    class="s-color-picker__sv-area"
     [style.background-color]="hueColor()"
     (pointerdown)="onSvPointerDown($event)"
     (pointermove)="onSvPointerMove($event)"
@@ -9,23 +9,23 @@
     (pointercancel)="onSvPointerUp()"
   >
     <div
-      class="z-color-picker__sv-thumb"
+      class="s-color-picker__sv-thumb"
       [style.left.%]="hsv().s"
       [style.top.%]="100 - hsv().v"
       [style.background-color]="thumbColor()"
     ></div>
   </div>
 
-  <div #hueTrack class="z-color-picker__hue-track" (pointerdown)="onHuePointerDown($event)" (pointermove)="onHuePointerMove($event)" (pointerup)="onHuePointerUp()" (pointercancel)="onHuePointerUp()">
-    <div class="z-color-picker__hue-thumb" [style.left.%]="(hsv().h / 360) * 100" [style.background-color]="hueColor()"></div>
+  <div #hueTrack class="s-color-picker__hue-track" (pointerdown)="onHuePointerDown($event)" (pointermove)="onHuePointerMove($event)" (pointerup)="onHuePointerUp()" (pointercancel)="onHuePointerUp()">
+    <div class="s-color-picker__hue-thumb" [style.left.%]="(hsv().h / 360) * 100" [style.background-color]="hueColor()"></div>
   </div>
 
-  <div class="z-color-picker__hex-row">
-    <span class="z-color-picker__hex-prefix">#</span>
+  <div class="s-color-picker__hex-row">
+    <span class="s-color-picker__hex-prefix">#</span>
     <input
       #hexInputEl
       type="text"
-      class="z-color-picker__hex-input"
+      class="s-color-picker__hex-input"
       spellcheck="false"
       maxlength="7"
       [value]="hexInputDisplay()"
@@ -36,11 +36,11 @@
   </div>
 
   @if (showPresets() && presets().length > 0) {
-    <div class="z-color-picker__presets">
+    <div class="s-color-picker__presets">
       @for (preset of presets(); track preset) {
         <button
           type="button"
-          class="z-color-picker__preset"
+          class="s-color-picker__preset"
           [style.background-color]="preset"
           [attr.aria-label]="'Select color ' + preset"
           [attr.data-selected]="value() === preset ? '' : null"
@@ -52,38 +52,38 @@
 </ng-template>
 
 @if (inline()) {
-  <div class="z-color-picker__inline-panel">
+  <div class="s-color-picker__inline-panel">
     <ng-container [ngTemplateOutlet]="pickerContent" />
   </div>
 } @else {
   <button
     #triggerButton
     type="button"
-    class="z-color-picker__trigger"
+    class="s-color-picker__trigger"
     [attr.aria-expanded]="open()"
     [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
     [disabled]="effectiveDisabled()"
     (click)="toggle()"
   >
-    <span class="z-color-picker__swatch" [attr.data-empty]="value() ? null : ''" [style.background-color]="value() ?? 'transparent'"></span>
+    <span class="s-color-picker__swatch" [attr.data-empty]="value() ? null : ''" [style.background-color]="value() ?? 'transparent'"></span>
     @if (showValueText()) {
-      <span class="z-color-picker__value-text">
+      <span class="s-color-picker__value-text">
         @if (value()) {
           {{ value() }}
         } @else {
-          <span class="z-color-picker__placeholder">{{ placeholder() }}</span>
+          <span class="s-color-picker__placeholder">{{ placeholder() }}</span>
         }
       </span>
     }
   </button>
 
   @if (open()) {
-    <div class="z-color-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="z-color-picker__panel--enter" animate.leave="z-color-picker__panel--leave">
+    <div class="s-color-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="s-color-picker__panel--enter" animate.leave="s-color-picker__panel--leave">
       <ng-container [ngTemplateOutlet]="pickerContent" />
     </div>
   }
 }
 
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

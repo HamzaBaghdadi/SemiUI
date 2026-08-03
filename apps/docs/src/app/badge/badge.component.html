@@ -1,16 +1,16 @@
-<span class="z-badge-wrapper">
+<span class="s-badge-wrapper">
   <ng-content />
   @if (shouldShow()) {
     <span
-      class="z-badge"
-      [class.z-badge--dot]="dot()"
+      class="s-badge"
+      [class.s-badge--dot]="dot()"
       [attr.data-variant]="variant()"
       [attr.data-position]="position()"
       [attr.aria-label]="resolvedAriaLabel()"
     >
       @if (!dot()) {
         @if (icon(); as ref) {
-          <z-icon [ref]="ref" />
+          <s-icon [ref]="ref" />
         } @else if (label() !== undefined) {
           {{ label() }}
         } @else {

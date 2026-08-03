@@ -2,7 +2,7 @@ import { Directive, HostListener, input, output } from '@angular/core';
 
 /** Behavior-only primitive: disabled state, click/keyboard press handling. No visual styling. */
 @Directive({
-  selector: '[zButton]',
+  selector: '[sButton]',
   host: {
     role: 'button',
     '[attr.tabindex]': 'disabled() ? -1 : 0',

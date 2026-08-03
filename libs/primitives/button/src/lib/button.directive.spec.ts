@@ -4,7 +4,7 @@ import { ButtonDirective } from './button.directive';
 
 @Component({
   imports: [ButtonDirective],
-  template: `<button zButton [disabled]="disabled" (pressed)="onPressed()">Click</button>`,
+  template: `<button sButton [disabled]="disabled" (pressed)="onPressed()">Click</button>`,
 })
 class HostComponent {
   disabled = false;

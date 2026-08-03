@@ -1,25 +1,25 @@
-<div class="z-input-number" [attr.data-buttons]="buttons()">
+<div class="s-input-number" [attr.data-buttons]="buttons()">
   @if (showButtons() && buttons() === 'horizontal') {
     <button
       type="button"
-      class="z-input-number__step z-input-number__step--decrement"
+      class="s-input-number__step s-input-number__step--decrement"
       tabindex="-1"
       aria-label="Decrement"
       [disabled]="effectiveDisabled() || atMin()"
       (click)="decrement()"
     >
-      <z-icon class="z-input-number__step-icon" [ref]="icons.minus" />
+      <s-icon class="s-input-number__step-icon" [ref]="icons.minus" />
     </button>
   }
   @if (prefix()) {
-    <span class="z-input-number__affix">{{ prefix() }}</span>
+    <span class="s-input-number__affix">{{ prefix() }}</span>
   }
   <input
     #nativeInput
-    zInput
+    sInput
     type="text"
     inputmode="decimal"
-    class="z-input-number__input"
+    class="s-input-number__input"
     [placeholder]="placeholder()"
     [value]="displayValue()"
     [disabled]="effectiveDisabled()"
@@ -29,46 +29,46 @@
     (blur)="onBlur()"
   />
   @if (suffix()) {
-    <span class="z-input-number__affix">{{ suffix() }}</span>
+    <span class="s-input-number__affix">{{ suffix() }}</span>
   }
   @if (showButtons()) {
     @if (buttons() === 'horizontal') {
       <button
         type="button"
-        class="z-input-number__step z-input-number__step--increment"
+        class="s-input-number__step s-input-number__step--increment"
         tabindex="-1"
         aria-label="Increment"
         [disabled]="effectiveDisabled() || atMax()"
         (click)="increment()"
       >
-        <z-icon class="z-input-number__step-icon" [ref]="icons.plus" />
+        <s-icon class="s-input-number__step-icon" [ref]="icons.plus" />
       </button>
     } @else {
-      <span class="z-input-number__buttons">
+      <span class="s-input-number__buttons">
         <button
           type="button"
-          class="z-input-number__button"
+          class="s-input-number__button"
           tabindex="-1"
           aria-label="Increment"
           [disabled]="effectiveDisabled() || atMax()"
           (click)="increment()"
         >
-          <z-icon class="z-input-number__button-icon z-input-number__button-icon--up" [ref]="icons.chevronDown" />
+          <s-icon class="s-input-number__button-icon s-input-number__button-icon--up" [ref]="icons.chevronDown" />
         </button>
         <button
           type="button"
-          class="z-input-number__button"
+          class="s-input-number__button"
           tabindex="-1"
           aria-label="Decrement"
           [disabled]="effectiveDisabled() || atMin()"
           (click)="decrement()"
         >
-          <z-icon class="z-input-number__button-icon" [ref]="icons.chevronDown" />
+          <s-icon class="s-input-number__button-icon" [ref]="icons.chevronDown" />
         </button>
       </span>
     }
   }
 </div>
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

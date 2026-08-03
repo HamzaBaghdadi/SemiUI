@@ -11,56 +11,56 @@
 
 <h2>Line</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="line" [labels]="months" [series]="revenueSeries" [valueFormatter]="currencyFormatter" />
+  <s-chart type="line" [labels]="months" [series]="revenueSeries" [valueFormatter]="currencyFormatter" />
 </div>
 <pre><code>protected labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 protected series = [&#123; name: 'Revenue', values: [4200, 5100, 4800, 6300, 7100, 6800] &#125;];
 
-&lt;z-chart type="line" [labels]="labels" [series]="series" /&gt;</code></pre>
+&lt;s-chart type="line" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>Multiple series (line)</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="line" [labels]="months" [series]="multiSeries" [valueFormatter]="currencyFormatter" />
+  <s-chart type="line" [labels]="months" [series]="multiSeries" [valueFormatter]="currencyFormatter" />
 </div>
 <pre><code>protected series = [
   &#123; name: '2025', values: [3200, 4100, 3800, 5300, 5900, 5600] &#125;,
   &#123; name: '2026', values: [4200, 5100, 4800, 6300, 7100, 6800] &#125;,
 &#125;;
 
-&lt;z-chart type="line" [labels]="labels" [series]="series" /&gt;</code></pre>
+&lt;s-chart type="line" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>Bar</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="bar" [labels]="months" [series]="multiSeries" [valueFormatter]="currencyFormatter" />
+  <s-chart type="bar" [labels]="months" [series]="multiSeries" [valueFormatter]="currencyFormatter" />
 </div>
-<pre><code>&lt;z-chart type="bar" [labels]="labels" [series]="series" /&gt;</code></pre>
+<pre><code>&lt;s-chart type="bar" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>Area</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="area" [labels]="months" [series]="revenueSeries" [valueFormatter]="currencyFormatter" />
+  <s-chart type="area" [labels]="months" [series]="revenueSeries" [valueFormatter]="currencyFormatter" />
 </div>
-<pre><code>&lt;z-chart type="area" [labels]="labels" [series]="series" /&gt;</code></pre>
+<pre><code>&lt;s-chart type="area" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>Pie</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="pie" [labels]="browserLabels" [series]="browserSeries" />
+  <s-chart type="pie" [labels]="browserLabels" [series]="browserSeries" />
 </div>
 <pre><code>protected labels = ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other'];
 protected series = [&#123; name: 'Share', values: [64, 18, 8, 6, 4] &#125;];
 
-&lt;z-chart type="pie" [labels]="labels" [series]="series" /&gt;</code></pre>
+&lt;s-chart type="pie" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>Donut</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="donut" [labels]="browserLabels" [series]="browserSeries" />
+  <s-chart type="donut" [labels]="browserLabels" [series]="browserSeries" />
 </div>
-<pre><code>&lt;z-chart type="donut" [labels]="labels" [series]="series" /&gt;</code></pre>
+<pre><code>&lt;s-chart type="donut" [labels]="labels" [series]="series" /&gt;</code></pre>
 
 <h2>No grid, no legend</h2>
 <div class="demo-row" style="display: block;">
-  <z-chart type="bar" [labels]="months" [series]="revenueSeries" [showGrid]="false" [showLegend]="false" />
+  <s-chart type="bar" [labels]="months" [series]="revenueSeries" [showGrid]="false" [showLegend]="false" />
 </div>
-<pre><code>&lt;z-chart type="bar" [labels]="labels" [series]="series" [showGrid]="false" [showLegend]="false" /&gt;</code></pre>
+<pre><code>&lt;s-chart type="bar" [labels]="labels" [series]="series" [showGrid]="false" [showLegend]="false" /&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>

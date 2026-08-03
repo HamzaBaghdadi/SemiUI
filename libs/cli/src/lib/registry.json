@@ -89,7 +89,7 @@
   },
   "tooltip": {
     "name": "tooltip",
-    "description": "A [zTooltip] directive that shows a small floating label on hover/focus of any element.",
+    "description": "A [sTooltip] directive that shows a small floating label on hover/focus of any element.",
     "files": [
       "tooltip.directive.ts",
       "tooltip-panel.component.ts",
@@ -193,7 +193,7 @@
   },
   "toast": {
     "name": "toast",
-    "description": "A ToastService (injectable anywhere) plus a <z-toast-container> to mount once in your app root -- success()/error()/warning()/info() helpers, auto-dismiss with pause-on-hover, positioned corners.",
+    "description": "A ToastService (injectable anywhere) plus a <s-toast-container> to mount once in your app root -- success()/error()/warning()/info() helpers, auto-dismiss with pause-on-hover, positioned corners.",
     "files": ["toast.service.ts", "toast-container.component.ts", "toast-container.component.html", "toast-container.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
@@ -219,7 +219,7 @@
   },
   "table": {
     "name": "table",
-    "description": "A data-driven table with optional per-column sorting, a global filter box (via <z-text-input>), single/multiple row selection (via <z-checkbox>), a rows-per-page dropdown (via <z-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <z-pagination>.",
+    "description": "A data-driven table with optional per-column sorting, a global filter box (via <s-text-input>), single/multiple row selection (via <s-checkbox>), a rows-per-page dropdown (via <s-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <s-pagination>.",
     "files": ["table.component.ts", "table.component.html", "table.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["pagination", "checkbox", "select", "text-input"]

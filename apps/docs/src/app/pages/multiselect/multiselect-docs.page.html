@@ -14,39 +14,39 @@
 
 <h2>Primitive options</h2>
 <div class="demo-row">
-  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" placeholder="Pick fruits" />
+  <s-multiselect [options]="fruits" [(ngModel)]="selectedFruits" placeholder="Pick fruits" />
 </div>
 <p class="demo-value">Model value: {{ selectedFruits | json }}</p>
-<pre><code>&lt;z-multiselect [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="selectedFruits" placeholder="Pick fruits" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [options]="['Apple', 'Banana', 'Cherry']" [(ngModel)]="selectedFruits" placeholder="Pick fruits" /&gt;</code></pre>
 
 <h2>Option objects</h2>
 <div class="demo-row">
-  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" placeholder="Select skills" />
+  <s-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" placeholder="Select skills" />
 </div>
 <p class="demo-value">Model value: {{ selectedSkillCodes | json }}</p>
-<pre><code>&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes" /&gt;</code></pre>
 
 <h2>Reactive forms + validation</h2>
 <div class="demo-row" [formGroup]="reactiveForm">
-  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." placeholder="Select skills" />
+  <s-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." placeholder="Select skills" />
 </div>
 <pre><code>protected reactiveForm = new FormGroup(&#123;
   skills: new FormControl&lt;string[]&gt;([], &#123; nonNullable: true, validators: Validators.required &#125;),
 &#125;);
 
 &lt;div [formGroup]="reactiveForm"&gt;
-  &lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." /&gt;
+  &lt;s-multiselect [options]="skills" optionLabel="name" optionValue="code" formControlName="skills" errorMessage="Pick at least one skill." /&gt;
 &lt;/div&gt;</code></pre>
 
 <h2>Signal Forms</h2>
 <div class="demo-row">
-  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" />
+  <s-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" />
 </div>
 <p class="demo-value">Model value: {{ profileModel().skills | json }}</p>
 <pre><code>protected profileModel = signal(&#123; skills: ['ts', 'ng'] &#125;);
 protected profileForm = form(this.profileModel);
 
-&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" /&gt;</code></pre>
+&lt;s-multiselect [options]="skills" optionLabel="name" optionValue="code" [formField]="profileForm.skills" /&gt;</code></pre>
 
 <h2>Custom templates</h2>
 <p>
@@ -64,7 +64,7 @@ protected profileForm = form(this.profileModel);
   </p>
 </div>
 <div class="demo-row">
-  <z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="templatedSkillCodes" placeholder="Select skills">
+  <s-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="templatedSkillCodes" placeholder="Select skills">
     <ng-template #selected let-options>
       @for (option of options; track $index) {
         <strong>{{ $any(option).code }}</strong>
@@ -78,9 +78,9 @@ protected profileForm = form(this.profileModel);
     <ng-template #header>
       <strong>Available Skills</strong>
     </ng-template>
-  </z-multiselect>
+  </s-multiselect>
 </div>
-<pre><code>&lt;z-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes"&gt;
+<pre><code>&lt;s-multiselect [options]="skills" optionLabel="name" optionValue="code" [(ngModel)]="selectedSkillCodes"&gt;
   &lt;ng-template #selected let-options&gt;
     &lt;!-- options is the full array of selected values --&gt;
   &lt;/ng-template&gt;
@@ -88,7 +88,7 @@ protected profileForm = form(this.profileModel);
     {{ "{{ selected ? '✓' : '' }}" }} {{ '{{ option.name }}' }}
   &lt;/ng-template&gt;
   &lt;ng-template #header&gt;&lt;strong&gt;Available Skills&lt;/strong&gt;&lt;/ng-template&gt;
-&lt;/z-multiselect&gt;</code></pre>
+&lt;/s-multiselect&gt;</code></pre>
 
 <h2>Removable chips</h2>
 <p>
@@ -97,9 +97,9 @@ protected profileForm = form(this.profileModel);
   Set <code>removableChips="false"</code> for read-only chips.
 </p>
 <div class="demo-row">
-  <z-multiselect [options]="fruits" [(ngModel)]="pinnedFruits" [removableChips]="false" placeholder="Pick fruits" />
+  <s-multiselect [options]="fruits" [(ngModel)]="pinnedFruits" [removableChips]="false" placeholder="Pick fruits" />
 </div>
-<pre><code>&lt;z-multiselect [options]="fruits" [removableChips]="false" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [options]="fruits" [removableChips]="false" /&gt;</code></pre>
 
 <h2>closeOnSelect and maxChipsDisplay</h2>
 <p>
@@ -108,21 +108,21 @@ protected profileForm = form(this.profileModel);
   <code>closeOnSelect</code> for single-pick-then-close behavior instead.
 </p>
 <div class="demo-row">
-  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [closeOnSelect]="true" [maxChipsDisplay]="2" placeholder="Pick fruits" />
+  <s-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [closeOnSelect]="true" [maxChipsDisplay]="2" placeholder="Pick fruits" />
 </div>
-<pre><code>&lt;z-multiselect [closeOnSelect]="true" [maxChipsDisplay]="2" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [closeOnSelect]="true" [maxChipsDisplay]="2" /&gt;</code></pre>
 
 <h2>Loading</h2>
 <p>Same as Select: a spinner replaces the chevron, interaction is blocked, and it dims via opacity rather than the disabled palette.</p>
 <div class="demo-row">
-  <z-multiselect [options]="fruits" [loading]="loading()" placeholder="Pick fruits" />
+  <s-multiselect [options]="fruits" [loading]="loading()" placeholder="Pick fruits" />
   <button type="button" (click)="toggleLoading()">Toggle loading</button>
 </div>
-<pre><code>&lt;z-multiselect [loading]="true" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [loading]="true" /&gt;</code></pre>
 
 <h2>Disabled</h2>
 <div class="demo-row">
-  <z-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [disabled]="disabled()" placeholder="Pick fruits" />
+  <s-multiselect [options]="fruits" [(ngModel)]="selectedFruits" [disabled]="disabled()" placeholder="Pick fruits" />
   <button type="button" (click)="toggleDisabled()">Toggle disabled</button>
 </div>
 
@@ -133,7 +133,7 @@ protected profileForm = form(this.profileModel);
   stacking context while staying pixel-positioned against the trigger.
 </p>
 <div class="demo-row" style="overflow: hidden; height: 6rem; border: 1px dashed var(--semiui-color-border); padding: var(--semiui-spacing-md); align-items: flex-start;">
-  <z-multiselect [options]="fruits" placeholder="Clipped without appendTo" style="width: 12rem;" />
-  <z-multiselect [options]="fruits" appendTo="body" placeholder="appendTo body" style="width: 12rem;" />
+  <s-multiselect [options]="fruits" placeholder="Clipped without appendTo" style="width: 12rem;" />
+  <s-multiselect [options]="fruits" appendTo="body" placeholder="appendTo body" style="width: 12rem;" />
 </div>
-<pre><code>&lt;z-multiselect [options]="fruits" appendTo="body" /&gt;</code></pre>
+<pre><code>&lt;s-multiselect [options]="fruits" appendTo="body" /&gt;</code></pre>

@@ -2,67 +2,67 @@
   display: block;
 }
 
-.z-chart {
+.s-chart {
   position: relative;
   width: 100%;
 }
 
-.z-chart__svg {
+.s-chart__svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-.z-chart__gridline {
+.s-chart__gridline {
   stroke: var(--semiui-comp-chart-grid-color);
   stroke-width: 1;
 }
 
-.z-chart__axis-label {
+.s-chart__axis-label {
   fill: var(--semiui-comp-chart-axis-label-color);
   font-size: var(--semiui-comp-chart-axis-label-font-size);
 }
 
-.z-chart__line {
+.s-chart__line {
   stroke-width: var(--semiui-comp-chart-line-stroke-width);
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
-.z-chart__area {
+.s-chart__area {
   opacity: var(--semiui-comp-chart-area-opacity);
 }
 
-.z-chart__point {
+.s-chart__point {
   cursor: pointer;
   transition: r 0.1s ease;
 }
 
-.z-chart__point:hover {
+.s-chart__point:hover {
   r: 6;
 }
 
-.z-chart__bar {
+.s-chart__bar {
   cursor: pointer;
   transition: opacity 0.1s ease;
 }
 
-.z-chart__bar:hover {
+.s-chart__bar:hover {
   opacity: 0.8;
 }
 
-.z-chart__slice {
+.s-chart__slice {
   cursor: pointer;
   stroke: var(--semiui-color-background);
   stroke-width: 2;
   transition: opacity 0.1s ease;
 }
 
-.z-chart__slice:hover {
+.s-chart__slice:hover {
   opacity: 0.85;
 }
 
-.z-chart__tooltip {
+.s-chart__tooltip {
   position: absolute;
   transform: translate(-50%, -120%);
   box-sizing: border-box;
@@ -78,7 +78,7 @@
   gap: 0.25rem;
 }
 
-.z-chart__tooltip-swatch {
+.s-chart__tooltip-swatch {
   display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
@@ -86,7 +86,7 @@
   flex-shrink: 0;
 }
 
-.z-chart__legend {
+.s-chart__legend {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -96,14 +96,14 @@
   font-size: var(--semiui-comp-chart-legend-font-size);
 }
 
-.z-chart__legend-item {
+.s-chart__legend-item {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
   color: var(--semiui-color-foreground);
 }
 
-.z-chart__legend-item--button {
+.s-chart__legend-item--button {
   border: none;
   background: transparent;
   padding: 0;
@@ -111,11 +111,11 @@
   cursor: pointer;
 }
 
-.z-chart__legend-item--hidden {
+.s-chart__legend-item--hidden {
   opacity: 0.4;
 }
 
-.z-chart__legend-swatch {
+.s-chart__legend-swatch {
   display: inline-block;
   width: 0.625rem;
   height: 0.625rem;

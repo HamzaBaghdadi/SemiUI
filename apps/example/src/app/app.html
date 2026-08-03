@@ -7,26 +7,26 @@
   <section>
     <h2>Variants</h2>
     @for (variant of variants; track variant) {
-      <z-button [variant]="variant" (pressed)="clickCount = clickCount + 1">{{ variant }}</z-button>
+      <s-button [variant]="variant" (pressed)="clickCount = clickCount + 1">{{ variant }}</s-button>
     }
   </section>
 
   <section>
     <h2>Sizes</h2>
     @for (size of sizes; track size) {
-      <z-button [size]="size" (pressed)="clickCount = clickCount + 1">Size {{ size }}</z-button>
+      <s-button [size]="size" (pressed)="clickCount = clickCount + 1">Size {{ size }}</s-button>
     }
-    <z-button icon [iconLeading]="saveIcon" aria-label="Save" (pressed)="clickCount = clickCount + 1" />
+    <s-button icon [iconLeading]="saveIcon" aria-label="Save" (pressed)="clickCount = clickCount + 1" />
   </section>
 
   <section>
     <h2>Icons</h2>
-    <z-button [iconLeading]="saveIcon" (pressed)="clickCount = clickCount + 1">Save</z-button>
+    <s-button [iconLeading]="saveIcon" (pressed)="clickCount = clickCount + 1">Save</s-button>
   </section>
 
   <section>
     <h2>Loading</h2>
-    <z-button [loading]="loading()" (pressed)="toggleLoading()">Submit</z-button>
+    <s-button [loading]="loading()" (pressed)="toggleLoading()">Submit</s-button>
     <button type="button" (click)="toggleLoading()">Toggle loading</button>
   </section>
 

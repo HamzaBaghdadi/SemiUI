@@ -5,84 +5,84 @@
 <pre><code>npx semiui add badge</code></pre>
 
 <h2>Text and icon content</h2>
-<p>Not limited to a number -- <code>label</code> shows arbitrary text, <code>icon</code> renders a <code>z-icon</code> instead. <code>icon</code> takes priority over <code>label</code>, which takes priority over <code>count</code>.</p>
+<p>Not limited to a number -- <code>label</code> shows arbitrary text, <code>icon</code> renders a <code>s-icon</code> instead. <code>icon</code> takes priority over <code>label</code>, which takes priority over <code>count</code>.</p>
 <div class="demo-row">
-  <z-badge label="NEW" variant="info" [standalone]="true" />
-  <z-badge label="Beta" variant="help" [standalone]="true" />
-  <z-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" />
+  <s-badge label="NEW" variant="info" [standalone]="true" />
+  <s-badge label="Beta" variant="help" [standalone]="true" />
+  <s-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" />
 </div>
-<pre><code>&lt;z-badge label="NEW" variant="info" [standalone]="true" /&gt;
-&lt;z-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" /&gt;</code></pre>
+<pre><code>&lt;s-badge label="NEW" variant="info" [standalone]="true" /&gt;
+&lt;s-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" /&gt;</code></pre>
 
 <h2>Overlaying an icon</h2>
 <div class="demo-row">
-  <z-badge [count]="count()">
+  <s-badge [count]="count()">
     <button type="button" aria-label="Notifications" style="width: 2.5rem; height: 2.5rem; border-radius: 9999px;">🔔</button>
-  </z-badge>
+  </s-badge>
   <button type="button" (click)="increment()">Add notification</button>
 </div>
-<pre><code>&lt;z-badge [count]="unreadCount"&gt;
+<pre><code>&lt;s-badge [count]="unreadCount"&gt;
   &lt;button aria-label="Notifications"&gt;🔔&lt;/button&gt;
-&lt;/z-badge&gt;</code></pre>
+&lt;/s-badge&gt;</code></pre>
 
 <h2>Max count ("N+")</h2>
 <div class="demo-row">
-  <z-badge [count]="150" [max]="99">
+  <s-badge [count]="150" [max]="99">
     <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span>
-  </z-badge>
+  </s-badge>
 </div>
-<pre><code>&lt;z-badge [count]="150" [max]="99"&gt;...&lt;/z-badge&gt;  &lt;!-- shows "99+" --&gt;</code></pre>
+<pre><code>&lt;s-badge [count]="150" [max]="99"&gt;...&lt;/s-badge&gt;  &lt;!-- shows "99+" --&gt;</code></pre>
 
 <h2>Dot</h2>
 <div class="demo-row">
-  <z-badge [dot]="true" variant="destructive">
+  <s-badge [dot]="true" variant="destructive">
     <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span>
-  </z-badge>
+  </s-badge>
 </div>
-<pre><code>&lt;z-badge [dot]="true" variant="destructive"&gt;...&lt;/z-badge&gt;</code></pre>
+<pre><code>&lt;s-badge [dot]="true" variant="destructive"&gt;...&lt;/s-badge&gt;</code></pre>
 
 <h2>Position and variants</h2>
 <div class="demo-row">
   @for (position of positions; track position) {
-    <z-badge [count]="1" [position]="position" variant="primary">
+    <s-badge [count]="1" [position]="position" variant="primary">
       <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:0.5rem;background:var(--semiui-color-muted);"></span>
-    </z-badge>
+    </s-badge>
   }
 </div>
 <div class="demo-row">
-  <z-badge [count]="1" variant="default"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></z-badge>
-  <z-badge [count]="1" variant="secondary"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></z-badge>
-  <z-badge [count]="1" variant="outline"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></z-badge>
+  <s-badge [count]="1" variant="default"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></s-badge>
+  <s-badge [count]="1" variant="secondary"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></s-badge>
+  <s-badge [count]="1" variant="outline"><span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span></s-badge>
 </div>
-<pre><code>&lt;z-badge [count]="1" position="bottom-left" variant="secondary"&gt;...&lt;/z-badge&gt;</code></pre>
+<pre><code>&lt;s-badge [count]="1" position="bottom-left" variant="secondary"&gt;...&lt;/s-badge&gt;</code></pre>
 
 <h2>Severity</h2>
 <p>The same shared semantic color vocabulary as <a routerLink="/components/button">Button</a> and <a routerLink="/components/tag">Tag</a>.</p>
 <div class="demo-row">
-  <z-badge [count]="1" variant="success" [standalone]="true" />
-  <z-badge [count]="1" variant="info" [standalone]="true" />
-  <z-badge [count]="1" variant="warn" [standalone]="true" />
-  <z-badge [count]="1" variant="help" [standalone]="true" />
-  <z-badge [count]="1" variant="danger" [standalone]="true" />
-  <z-badge [count]="1" variant="contrast" [standalone]="true" />
+  <s-badge [count]="1" variant="success" [standalone]="true" />
+  <s-badge [count]="1" variant="info" [standalone]="true" />
+  <s-badge [count]="1" variant="warn" [standalone]="true" />
+  <s-badge [count]="1" variant="help" [standalone]="true" />
+  <s-badge [count]="1" variant="danger" [standalone]="true" />
+  <s-badge [count]="1" variant="contrast" [standalone]="true" />
 </div>
-<pre><code>&lt;z-badge [count]="1" variant="success" [standalone]="true" /&gt;</code></pre>
+<pre><code>&lt;s-badge [count]="1" variant="success" [standalone]="true" /&gt;</code></pre>
 
 <h2>Standalone (inline, no overlay)</h2>
 <div class="demo-row">
   <span>Inbox</span>
-  <z-badge [count]="5" [standalone]="true" />
+  <s-badge [count]="5" [standalone]="true" />
 </div>
 <pre><code>&lt;span&gt;Inbox&lt;/span&gt;
-&lt;z-badge [count]="5" [standalone]="true" /&gt;</code></pre>
+&lt;s-badge [count]="5" [standalone]="true" /&gt;</code></pre>
 
 <h2>Zero count</h2>
 <p>Hidden by default when <code>count</code> is exactly <code>0</code>; set <code>showZero</code> to keep it visible.</p>
 <div class="demo-row">
-  <z-badge [count]="0">
+  <s-badge [count]="0">
     <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span>
-  </z-badge>
-  <z-badge [count]="0" [showZero]="true">
+  </s-badge>
+  <s-badge [count]="0" [showZero]="true">
     <span style="display:inline-block;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--semiui-color-muted);"></span>
-  </z-badge>
+  </s-badge>
 </div>

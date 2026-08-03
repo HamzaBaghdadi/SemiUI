@@ -22,7 +22,7 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    compiled.querySelector<HTMLButtonElement>('z-button button')?.click();
+    compiled.querySelector<HTMLButtonElement>('s-button button')?.click();
     fixture.detectChanges();
 
     expect(compiled.textContent).toContain('Click count: 1');

@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model, output, signal } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -30,14 +30,14 @@ export interface TableCellContext<T> {
 /**
  * A data-driven table: pass `columns` and `data`. Sorting (click a sortable header), a global
  * filter box, row selection (single/multiple, with a header checkbox for "select all visible" in
- * multiple mode), and pagination (reusing `<z-pagination>`) are all opt-in via inputs rather than
+ * multiple mode), and pagination (reusing `<s-pagination>`) are all opt-in via inputs rather than
  * always present, so a plain read-only table stays plain. An optional `#cell` template slot
  * customizes rendering per cell -- context is `{ $implicit: row, column, value, index }`, so the
  * template typically `@switch`es on `column.field`.
  */
 @Component({
-  selector: 'z-table',
-  imports: [ZIconComponent, NgTemplateOutlet, PaginationComponent, TextInputComponent, CheckboxComponent, SelectComponent],
+  selector: 's-table',
+  imports: [SIconComponent, NgTemplateOutlet, PaginationComponent, TextInputComponent, CheckboxComponent, SelectComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })

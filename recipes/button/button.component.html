@@ -1,21 +1,21 @@
 <button
-  class="z-button"
-  [class.z-button--loading]="loading()"
-  zButton
+  class="s-button"
+  [class.s-button--loading]="loading()"
+  sButton
   [disabled]="isDisabled()"
   [attr.aria-busy]="loading() ? 'true' : null"
   (pressed)="pressed.emit()"
 >
   @if (loading()) {
-    <z-icon class="z-button__icon z-button__icon--spin" [ref]="loadingIcon()" />
+    <s-icon class="s-button__icon s-button__icon--spin" [ref]="loadingIcon()" />
   }
   @if (showLeadingIcon()) {
-    <z-icon class="z-button__icon" [ref]="iconLeading()!" />
+    <s-icon class="s-button__icon" [ref]="iconLeading()!" />
   }
   @if (!icon()) {
-    <span class="z-button__label"><ng-content /></span>
+    <span class="s-button__label"><ng-content /></span>
   }
   @if (showTrailingIcon()) {
-    <z-icon class="z-button__icon" [ref]="iconTrailing()!" />
+    <s-icon class="s-button__icon" [ref]="iconTrailing()!" />
   }
 </button>

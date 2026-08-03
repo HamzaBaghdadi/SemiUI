@@ -1,12 +1,12 @@
 import { Component, booleanAttribute, computed, input, output } from '@angular/core';
 import { ButtonDirective } from '@semiui/primitives/button';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { ButtonSize, ButtonVariant, IconRef } from '@semiui/tokens';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 @Component({
-  selector: 'z-button',
-  imports: [ButtonDirective, ZIconComponent],
+  selector: 's-button',
+  imports: [ButtonDirective, SIconComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
   host: {

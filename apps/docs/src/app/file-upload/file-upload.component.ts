@@ -1,5 +1,5 @@
 import { Component, DestroyRef, ElementRef, booleanAttribute, inject, input, signal, viewChild } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -28,8 +28,8 @@ function formatBytes(bytes: number): string {
  * `BaseFormFieldControl`.
  */
 @Component({
-  selector: 'z-file-upload',
-  imports: [ZIconComponent, ErrorMessageComponent],
+  selector: 's-file-upload',
+  imports: [SIconComponent, ErrorMessageComponent],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.css',
 })

@@ -33,7 +33,7 @@ const TICK_COUNT = 4;
  * needing to re-pass `series` from the consumer.
  */
 @Component({
-  selector: 'z-chart',
+  selector: 's-chart',
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css',
 })

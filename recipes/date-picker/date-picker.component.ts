@@ -15,7 +15,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -82,8 +82,8 @@ let nextDatePickerId = 0;
  * is only available for the default single mode.
  */
 @Component({
-  selector: 'z-date-picker',
-  imports: [ZIconComponent, ErrorMessageComponent, NgTemplateOutlet],
+  selector: 's-date-picker',
+  imports: [SIconComponent, ErrorMessageComponent, NgTemplateOutlet],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.css',
   host: {
@@ -131,7 +131,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   /** Rendered below the calendar (and the Today button, if shown), inside the panel. */
   protected footerTemplate = contentChild<unknown, TemplateRef<unknown>>('footer', { read: TemplateRef });
 
-  protected readonly listboxId = `z-date-picker-grid-${nextDatePickerId++}`;
+  protected readonly listboxId = `s-date-picker-grid-${nextDatePickerId++}`;
   protected readonly open = signal(false);
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
   protected readonly viewYear = signal(new Date().getFullYear());

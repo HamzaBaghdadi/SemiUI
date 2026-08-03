@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface BreadcrumbItem {
@@ -11,8 +11,8 @@ export interface BreadcrumbItem {
 
 /** A trail of ancestor pages. Items with a `link` are real anchors whose "current page" state is driven by routerLinkActive (exact match) against the actual router URL, not by being the last item in the array. Items without a `link` render as plain, non-navigable text. */
 @Component({
-  selector: 'z-breadcrumb',
-  imports: [RouterLink, RouterLinkActive, ZIconComponent],
+  selector: 's-breadcrumb',
+  imports: [RouterLink, RouterLinkActive, SIconComponent],
   templateUrl: './breadcrumb.component.html',
   styleUrl: './breadcrumb.component.css',
 })

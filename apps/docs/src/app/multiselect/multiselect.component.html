@@ -1,12 +1,12 @@
-<!-- A <div role="button"> rather than a native <button>: chips render via <z-tag removable>,
+<!-- A <div role="button"> rather than a native <button>: chips render via <s-tag removable>,
      which renders a real nested <button> for its remove affordance -- nesting a <button> inside
      a <button> is invalid HTML and browsers will split the DOM to "fix" it. Keyboard activation
      (Enter/Space to open) is handled explicitly in onTriggerKeydown below rather than relying on
      the browser's native button-only click-synthesis. -->
 <div
   #triggerButton
-  class="z-multiselect__trigger"
-  [class.z-multiselect__trigger--loading]="loading()"
+  class="s-multiselect__trigger"
+  [class.s-multiselect__trigger--loading]="loading()"
   role="button"
   aria-haspopup="listbox"
   [attr.aria-expanded]="open()"
@@ -19,16 +19,16 @@
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
-  <span class="z-multiselect__value">
+  <span class="s-multiselect__value">
     @if (selectedTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedOptions() }" />
     } @else if (selectedOptions().length === 0) {
-      <span class="z-multiselect__placeholder">{{ placeholder() }}</span>
+      <span class="s-multiselect__placeholder">{{ placeholder() }}</span>
     } @else if (selectedOptions().length > maxChipsDisplay()) {
-      <span class="z-multiselect__summary">{{ selectedOptions().length }} selected</span>
+      <span class="s-multiselect__summary">{{ selectedOptions().length }} selected</span>
     } @else {
       @for (option of selectedOptions(); track $index) {
-        <z-tag [removable]="removableChips()" (removed)="removeChip(option)">{{ labelFor(option) }}</z-tag>
+        <s-tag [removable]="removableChips()" (removed)="removeChip(option)">{{ labelFor(option) }}</s-tag>
       }
     }
   </span>
@@ -36,17 +36,17 @@
     <!-- Not a real <button>: excluded from the tab sequence on purpose, matching Select's clear
          affordance -- reopening the panel and unchecking items (or "Clear all" inside it) is the
          keyboard path. -->
-    <span class="z-multiselect__clear" role="button" tabindex="-1" aria-label="Clear all" (mousedown)="$event.preventDefault()" (click)="clearAll($event)">
-      <z-icon [ref]="icons.clear" />
+    <span class="s-multiselect__clear" role="button" tabindex="-1" aria-label="Clear all" (mousedown)="$event.preventDefault()" (click)="clearAll($event)">
+      <s-icon [ref]="icons.clear" />
     </span>
   }
-  <span class="z-multiselect__icon">
+  <span class="s-multiselect__icon">
     @if (loading()) {
-      <z-icon class="z-multiselect__icon--spin" [ref]="icons.loading" />
+      <s-icon class="s-multiselect__icon--spin" [ref]="icons.loading" />
     } @else if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
-      <z-icon [ref]="icons.chevronDown" />
+      <s-icon [ref]="icons.chevronDown" />
     }
   </span>
 </div>
@@ -54,47 +54,47 @@
 @if (open()) {
   <div
     #panel
-    class="z-multiselect__panel"
+    class="s-multiselect__panel"
     [attr.data-placement]="panelPlacement()"
     [attr.data-appended]="appendTo() === 'body' ? '' : null"
     [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
     [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
     [style.width.px]="appendTo() === 'body' ? fixedPosition().width : null"
-    animate.enter="z-multiselect__panel--enter"
-    animate.leave="z-multiselect__panel--leave"
+    animate.enter="s-multiselect__panel--enter"
+    animate.leave="s-multiselect__panel--leave"
   >
     @if (headerTemplate(); as tpl) {
-      <div class="z-multiselect__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
+      <div class="s-multiselect__header"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
     @if (filterable() || showSelectAll()) {
-      <div class="z-multiselect__filter">
+      <div class="s-multiselect__filter">
         @if (showSelectAll()) {
           <!-- Pointer-only convenience is not the case here: a real <button role="checkbox">
                is fully keyboard-operable (native Enter/Space), same as Checkbox's native input. -->
           <button
             type="button"
-            class="z-multiselect__select-all"
+            class="s-multiselect__select-all"
             role="checkbox"
             [attr.aria-checked]="allFilteredSelected() ? 'true' : someFilteredSelected() ? 'mixed' : 'false'"
             aria-label="Select all"
             [disabled]="effectiveDisabled() || loading()"
             (click)="toggleSelectAll()"
           >
-            <span class="z-multiselect__select-all-box" [attr.data-checked]="allFilteredSelected() ? '' : null">
+            <span class="s-multiselect__select-all-box" [attr.data-checked]="allFilteredSelected() ? '' : null">
               @if (allFilteredSelected()) {
-                <z-icon [ref]="icons.checkboxCheck" />
+                <s-icon [ref]="icons.checkboxCheck" />
               } @else if (someFilteredSelected()) {
-                <z-icon [ref]="icons.checkboxIndeterminate" />
+                <s-icon [ref]="icons.checkboxIndeterminate" />
               }
             </span>
           </button>
         }
         @if (filterable()) {
-          <div class="z-multiselect__filter-input-wrapper">
+          <div class="s-multiselect__filter-input-wrapper">
             <input
               #filterInput
               type="text"
-              class="z-multiselect__filter-input"
+              class="s-multiselect__filter-input"
               role="searchbox"
               aria-label="Filter options"
               [attr.aria-controls]="listboxId"
@@ -104,12 +104,12 @@
               (input)="onFilterInput($any($event.target).value)"
               (keydown)="onFilterKeydown($event)"
             />
-            <z-icon class="z-multiselect__filter-icon" [ref]="icons.search" />
+            <s-icon class="s-multiselect__filter-icon" [ref]="icons.search" />
           </div>
         }
       </div>
     }
-    <ul class="z-multiselect__list" role="listbox" aria-multiselectable="true" [id]="listboxId">
+    <ul class="s-multiselect__list" role="listbox" aria-multiselectable="true" [id]="listboxId">
       @for (option of filteredOptions(); track $index; let i = $index) {
         <!-- Deliberately not focusable / no per-item keydown -- same ARIA "combobox with listbox
              popup" pattern as Select; the active option is tracked virtually via
@@ -117,16 +117,16 @@
         <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
         <li
           [id]="listboxId + '-option-' + i"
-          class="z-multiselect__option"
+          class="s-multiselect__option"
           role="option"
           [attr.aria-selected]="isSelected(option)"
           [attr.data-active]="i === activeIndex() ? '' : null"
           (click)="toggleOption(option)"
           (mouseenter)="activeIndex.set(i)"
         >
-          <span class="z-multiselect__checkbox" [attr.data-checked]="isSelected(option) ? '' : null">
+          <span class="s-multiselect__checkbox" [attr.data-checked]="isSelected(option) ? '' : null">
             @if (isSelected(option)) {
-              <z-icon [ref]="icons.checkboxCheck" />
+              <s-icon [ref]="icons.checkboxCheck" />
             }
           </span>
           @if (optionTemplate(); as tpl) {
@@ -139,14 +139,14 @@
           }
         </li>
       } @empty {
-        <li class="z-multiselect__empty">{{ emptyMessage() }}</li>
+        <li class="s-multiselect__empty">{{ emptyMessage() }}</li>
       }
     </ul>
     @if (footerTemplate(); as tpl) {
-      <div class="z-multiselect__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
+      <div class="s-multiselect__footer"><ng-container [ngTemplateOutlet]="tpl" /></div>
     }
   </div>
 }
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

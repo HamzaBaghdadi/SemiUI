@@ -1,4 +1,4 @@
-.z-breadcrumb {
+.s-breadcrumb {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -10,35 +10,35 @@
   font-family: var(--semiui-typography-font-family);
 }
 
-.z-breadcrumb__item {
+.s-breadcrumb__item {
   display: inline-flex;
   align-items: center;
   gap: var(--semiui-comp-breadcrumb-gap);
 }
 
-.z-breadcrumb__link {
+.s-breadcrumb__link {
   color: var(--semiui-comp-breadcrumb-foreground);
   text-decoration: none;
 }
 
-.z-breadcrumb__link:hover {
+.s-breadcrumb__link:hover {
   color: var(--semiui-comp-breadcrumb-current-foreground);
   text-decoration: underline;
 }
 
-.z-breadcrumb__current {
+.s-breadcrumb__current {
   color: var(--semiui-comp-breadcrumb-current-foreground);
   font-weight: var(--semiui-typography-font-weight-medium);
 }
 
 /* A linked item that routerLinkActive confirms matches the current route -- still a real,
-   clickable anchor (unlike .z-breadcrumb__current), just styled to read as "you are here". */
-.z-breadcrumb__link--current {
+   clickable anchor (unlike .s-breadcrumb__current), just styled to read as "you are here". */
+.s-breadcrumb__link--current {
   color: var(--semiui-comp-breadcrumb-current-foreground);
   font-weight: var(--semiui-typography-font-weight-medium);
 }
 
-.z-breadcrumb__separator {
+.s-breadcrumb__separator {
   display: inline-flex;
   width: 0.75em;
   height: 0.75em;

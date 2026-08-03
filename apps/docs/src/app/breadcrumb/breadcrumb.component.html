@@ -1,22 +1,22 @@
 <nav aria-label="Breadcrumb">
-  <ol class="z-breadcrumb">
+  <ol class="s-breadcrumb">
     @for (item of items(); track $index; let last = $last) {
-      <li class="z-breadcrumb__item">
+      <li class="s-breadcrumb__item">
         @if (item.link) {
           <a
-            class="z-breadcrumb__link"
+            class="s-breadcrumb__link"
             [routerLink]="item.link"
-            routerLinkActive="z-breadcrumb__link--current"
+            routerLinkActive="s-breadcrumb__link--current"
             [routerLinkActiveOptions]="{ exact: true }"
             #rla="routerLinkActive"
             [attr.aria-current]="rla.isActive ? 'page' : null"
             >{{ item.label }}</a
           >
         } @else {
-          <span class="z-breadcrumb__current" [attr.aria-current]="last ? 'page' : null">{{ item.label }}</span>
+          <span class="s-breadcrumb__current" [attr.aria-current]="last ? 'page' : null">{{ item.label }}</span>
         }
         @if (!last) {
-          <z-icon class="z-breadcrumb__separator" [ref]="icons.chevronDown" />
+          <s-icon class="s-breadcrumb__separator" [ref]="icons.chevronDown" />
         }
       </li>
     }

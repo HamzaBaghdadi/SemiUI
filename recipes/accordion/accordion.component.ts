@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, afterRenderEffect, booleanAttribute, contentChild, input, signal } from '@angular/core';
-import { ZIconComponent } from '@semiui/primitives/icon';
+import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface AccordionItem {
@@ -18,14 +18,14 @@ let nextAccordionId = 0;
  * without measuring content height in JS.
  */
 @Component({
-  selector: 'z-accordion',
-  imports: [ZIconComponent, NgTemplateOutlet],
+  selector: 's-accordion',
+  imports: [SIconComponent, NgTemplateOutlet],
   templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.css',
 })
 export class AccordionComponent<TItem extends AccordionItem = AccordionItem> {
   protected readonly icons = injectSemiUIIcons();
-  protected readonly accordionId = `z-accordion-${nextAccordionId++}`;
+  protected readonly accordionId = `s-accordion-${nextAccordionId++}`;
 
   items = input<readonly TItem[]>([]);
   /** Allows more than one panel to stay open at once. Default: only one panel open at a time. */

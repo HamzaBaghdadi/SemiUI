@@ -4,7 +4,7 @@ import { InputDirective } from './input.directive';
 
 @Component({
   imports: [InputDirective],
-  template: `<input zInput [disabled]="disabled" [invalid]="invalid" [readonly]="readOnly" />`,
+  template: `<input sInput [disabled]="disabled" [invalid]="invalid" [readonly]="readOnly" />`,
 })
 class HostComponent {
   disabled = false;

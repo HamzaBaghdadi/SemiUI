@@ -13,7 +13,7 @@
 
 <h2>Basic usage with sorting</h2>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="basicColumns" [data]="people" />
+  <s-table [columns]="basicColumns" [data]="people" />
 </div>
 <pre><code>protected columns: TableColumn&lt;Person&gt;[] = [
   &#123; field: 'name', header: 'Name', sortable: true &#125;,
@@ -22,35 +22,35 @@
   &#123; field: 'age', header: 'Age', sortable: true, align: 'right', width: '5rem' &#125;,
 &#125;;
 
-&lt;z-table [columns]="columns" [data]="people" /&gt;</code></pre>
+&lt;s-table [columns]="columns" [data]="people" /&gt;</code></pre>
 
 <h2>Custom cell template</h2>
 <p>Renders a colored <a routerLink="/components/tag">Tag</a> for the status column instead of plain text.</p>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="statusColumns" [data]="people">
+  <s-table [columns]="statusColumns" [data]="people">
     <ng-template #cell let-row let-column="column" let-value="value">
       @if (column.field === 'status') {
-        <z-tag [variant]="statusVariant(value)">{{ value }}</z-tag>
+        <s-tag [variant]="statusVariant(value)">{{ value }}</s-tag>
       } @else {
         {{ value }}
       }
     </ng-template>
-  </z-table>
+  </s-table>
 </div>
-<pre><code>&lt;z-table [columns]="columns" [data]="people"&gt;
+<pre><code>&lt;s-table [columns]="columns" [data]="people"&gt;
   &lt;ng-template #cell let-row let-column="column" let-value="value"&gt;
     &#64;if (column.field === 'status') &#123;
-      &lt;z-tag [variant]="statusVariant(value)"&gt;{{ '{{ value }}' }}&lt;/z-tag&gt;
+      &lt;s-tag [variant]="statusVariant(value)"&gt;{{ '{{ value }}' }}&lt;/s-tag&gt;
     &#125; &#64;else &#123;
       {{ '{{ value }}' }}
     &#125;
   &lt;/ng-template&gt;
-&lt;/z-table&gt;</code></pre>
+&lt;/s-table&gt;</code></pre>
 
 <h2>Filterable, selectable, paginated</h2>
 <p>47 rows, filtered client-side across every column, multi-select with a header "select all visible" checkbox, 10 rows per page.</p>
 <div class="demo-row" style="display: block;">
-  <z-table
+  <s-table
     [columns]="basicColumns"
     [data]="manyPeople"
     [filterable]="true"
@@ -61,7 +61,7 @@
   />
 </div>
 <p class="demo-value">{{ selection.length }} row(s) selected</p>
-<pre><code>&lt;z-table
+<pre><code>&lt;s-table
   [columns]="columns"
   [data]="people"
   [filterable]="true"
@@ -73,9 +73,9 @@
 
 <h2>Single selection</h2>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="basicColumns" [data]="people" selectionMode="single" />
+  <s-table [columns]="basicColumns" [data]="people" selectionMode="single" />
 </div>
-<pre><code>&lt;z-table [columns]="columns" [data]="people" selectionMode="single" /&gt;</code></pre>
+<pre><code>&lt;s-table [columns]="columns" [data]="people" selectionMode="single" /&gt;</code></pre>
 
 <h2>Sorting is opt-in per column</h2>
 <p>
@@ -84,7 +84,7 @@
   unsortable grid; no sort icons, no clickable headers.
 </p>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="readOnlyColumns" [data]="people" />
+  <s-table [columns]="readOnlyColumns" [data]="people" />
 </div>
 <pre><code>protected columns: TableColumn&lt;Person&gt;[] = [
   &#123; field: 'name', header: 'Name' &#125;,  // no sortable -- this column never sorts
@@ -100,7 +100,7 @@
   that. With nothing else in the footer, pagination centers itself instead of sitting flush right.
 </p>
 <div class="demo-row" style="display: block;">
-  <z-table
+  <s-table
     [columns]="basicColumns"
     [data]="manyPeople"
     [paginated]="true"
@@ -114,9 +114,9 @@
     <ng-template #footer>
       <button type="button" (click)="footerPageSize.set(10)">Reset page size</button>
     </ng-template>
-  </z-table>
+  </s-table>
 </div>
-<pre><code>&lt;z-table
+<pre><code>&lt;s-table
   [columns]="columns"
   [data]="people"
   [paginated]="true"
@@ -127,22 +127,22 @@
 &gt;
   &lt;ng-template #header&gt;...&lt;/ng-template&gt;
   &lt;ng-template #footer&gt;...&lt;/ng-template&gt;
-&lt;/z-table&gt;</code></pre>
+&lt;/s-table&gt;</code></pre>
 
 <h2>Loading and empty states</h2>
 <div class="demo-row">
   <button type="button" (click)="toggleLoading()">Toggle loading</button>
 </div>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="basicColumns" [data]="[]" [loading]="isLoadingDemo()" emptyMessage="No people found.">
+  <s-table [columns]="basicColumns" [data]="[]" [loading]="isLoadingDemo()" emptyMessage="No people found.">
     <ng-template #loading>
       <div style="padding: 1.5rem; text-align: center;">Fetching people, hold on&hellip;</div>
     </ng-template>
-  </z-table>
+  </s-table>
 </div>
-<pre><code>&lt;z-table [loading]="isLoading()"&gt;
+<pre><code>&lt;s-table [loading]="isLoading()"&gt;
   &lt;ng-template #loading&gt;Fetching people, hold on&amp;hellip;&lt;/ng-template&gt;
-&lt;/z-table&gt;</code></pre>
+&lt;/s-table&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>

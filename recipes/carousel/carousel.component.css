@@ -2,24 +2,24 @@
   display: block;
 }
 
-.z-carousel {
+.s-carousel {
   position: relative;
   outline: none;
 }
 
-.z-carousel:focus-visible {
+.s-carousel:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
   border-radius: var(--semiui-comp-carousel-radius);
 }
 
-.z-carousel__body {
+.s-carousel__body {
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-sm);
 }
 
-.z-carousel__viewport {
+.s-carousel__viewport {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -27,21 +27,21 @@
   touch-action: pan-y;
 }
 
-.z-carousel__track {
+.s-carousel__track {
   display: flex;
   transition: transform 0.3s ease;
 }
 
-.z-carousel__track--dragging {
+.s-carousel__track--dragging {
   transition: none;
 }
 
-.z-carousel__slide {
+.s-carousel__slide {
   flex: 0 0 calc(100% / var(--items-per-view, 1));
   min-width: 0;
 }
 
-.z-carousel__arrow {
+.s-carousel__arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -57,45 +57,45 @@
   cursor: pointer;
 }
 
-.z-carousel__arrow:hover:not(:disabled) {
+.s-carousel__arrow:hover:not(:disabled) {
   background: var(--semiui-comp-carousel-arrow-background-hover);
 }
 
-.z-carousel__arrow:disabled {
+.s-carousel__arrow:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.z-carousel__arrow:focus-visible {
+.s-carousel__arrow:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 
-.z-carousel__arrow--prev {
+.s-carousel__arrow--prev {
   left: var(--semiui-spacing-sm);
 }
 
-.z-carousel__arrow--next {
+.s-carousel__arrow--next {
   right: var(--semiui-spacing-sm);
 }
 
 /* Outside arrows flank the viewport as normal flex siblings instead of floating on top of the
-   slides -- position/top/left/right from the base .z-carousel__arrow rule above don't apply. */
-.z-carousel__arrow--outside {
+   slides -- position/top/left/right from the base .s-carousel__arrow rule above don't apply. */
+.s-carousel__arrow--outside {
   position: static;
   flex-shrink: 0;
   transform: none;
 }
 
-.z-carousel__arrow-icon--prev {
+.s-carousel__arrow-icon--prev {
   transform: rotate(90deg);
 }
 
-.z-carousel__arrow-icon--next {
+.s-carousel__arrow-icon--next {
   transform: rotate(-90deg);
 }
 
-.z-carousel__dots {
+.s-carousel__dots {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,7 +103,7 @@
   margin-top: var(--semiui-spacing-sm);
 }
 
-.z-carousel__dot {
+.s-carousel__dot {
   width: var(--semiui-comp-carousel-dot-size);
   height: var(--semiui-comp-carousel-dot-size);
   padding: 0;
@@ -114,18 +114,18 @@
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
-.z-carousel__dot[aria-selected='true'] {
+.s-carousel__dot[aria-selected='true'] {
   background: var(--semiui-comp-carousel-dot-color-active);
   transform: scale(1.2);
 }
 
-.z-carousel__dot:focus-visible {
+.s-carousel__dot:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .z-carousel__track {
+  .s-carousel__track {
     transition: none;
   }
 }

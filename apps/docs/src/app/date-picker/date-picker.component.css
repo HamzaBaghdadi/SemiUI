@@ -7,13 +7,13 @@
   display: inline-block;
 }
 
-.z-date-picker__trigger-wrapper {
+.s-date-picker__trigger-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.z-date-picker__trigger {
+.s-date-picker__trigger {
   width: 100%;
   box-sizing: border-box;
   padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
@@ -27,32 +27,32 @@
   cursor: pointer;
 }
 
-.z-date-picker__trigger::placeholder {
+.s-date-picker__trigger::placeholder {
   color: var(--semiui-comp-select-placeholder-foreground);
 }
 
-.z-date-picker__trigger:hover:not(:disabled) {
+.s-date-picker__trigger:hover:not(:disabled) {
   border-color: var(--semiui-comp-select-border-hover);
 }
 
-.z-date-picker__trigger:focus-visible {
+.s-date-picker__trigger:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
-.z-date-picker__trigger[aria-invalid='true'] {
+.s-date-picker__trigger[aria-invalid='true'] {
   border-color: var(--semiui-comp-select-border-invalid);
 }
 
-.z-date-picker__trigger:disabled {
+.s-date-picker__trigger:disabled {
   cursor: not-allowed;
   background: var(--semiui-comp-select-background-disabled);
   color: var(--semiui-comp-select-foreground-disabled);
 }
 
-.z-date-picker__clear,
-.z-date-picker__icon {
+.s-date-picker__clear,
+.s-date-picker__icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -66,22 +66,22 @@
   color: var(--semiui-color-muted-foreground);
 }
 
-.z-date-picker__icon {
+.s-date-picker__icon {
   right: var(--semiui-comp-select-padding-x);
   pointer-events: none;
   transition: transform 0.15s ease;
 }
 
-:host([data-open]) .z-date-picker__icon {
+:host([data-open]) .s-date-picker__icon {
   transform: translateY(-50%) rotate(180deg);
 }
 
-.z-date-picker__clear {
+.s-date-picker__clear {
   right: calc(var(--semiui-comp-select-padding-x) + 1.4em);
   cursor: pointer;
 }
 
-.z-date-picker__panel {
+.s-date-picker__panel {
   position: absolute;
   top: calc(100% + 0.25rem);
   left: 0;
@@ -97,13 +97,13 @@
   min-width: calc(var(--semiui-comp-date-picker-day-size) * 7);
 }
 
-.z-date-picker__panel[data-placement='top'] {
+.s-date-picker__panel[data-placement='top'] {
   top: auto;
   bottom: calc(100% + 0.25rem);
   transform-origin: bottom;
 }
 
-.z-date-picker__inline-panel {
+.s-date-picker__inline-panel {
   position: relative;
   display: inline-block;
   padding: var(--semiui-spacing-sm);
@@ -113,7 +113,7 @@
   min-width: calc(var(--semiui-comp-date-picker-day-size) * 7);
 }
 
-.z-date-picker__header {
+.s-date-picker__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -121,7 +121,7 @@
   margin-bottom: var(--semiui-spacing-sm);
 }
 
-.z-date-picker__nav {
+.s-date-picker__nav {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,30 +134,30 @@
   cursor: pointer;
 }
 
-.z-date-picker__nav:hover {
+.s-date-picker__nav:hover {
   background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
-.z-date-picker__nav-icon {
+.s-date-picker__nav-icon {
   width: 0.875rem;
   height: 0.875rem;
 }
 
-.z-date-picker__nav-icon--prev {
+.s-date-picker__nav-icon--prev {
   transform: rotate(90deg);
 }
 
-.z-date-picker__nav-icon--next {
+.s-date-picker__nav-icon--next {
   transform: rotate(-90deg);
 }
 
-.z-date-picker__header-buttons {
+.s-date-picker__header-buttons {
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-xs);
 }
 
-.z-date-picker__unit-button {
+.s-date-picker__unit-button {
   border: none;
   background: transparent;
   padding: 0.125rem var(--semiui-spacing-xs);
@@ -169,15 +169,15 @@
   cursor: pointer;
 }
 
-.z-date-picker__unit-button:hover {
+.s-date-picker__unit-button:hover {
   background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
-.z-date-picker__unit-button[aria-expanded='true'] {
+.s-date-picker__unit-button[aria-expanded='true'] {
   background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
-.z-date-picker__years-panel {
+.s-date-picker__years-panel {
   position: absolute;
   top: 0;
   left: calc(100% + var(--semiui-spacing-sm));
@@ -195,19 +195,19 @@
   box-shadow: var(--semiui-comp-select-panel-shadow);
 }
 
-.z-date-picker__years-panel .z-date-picker__unit {
+.s-date-picker__years-panel .s-date-picker__unit {
   flex-shrink: 0;
   width: 100%;
   text-align: center;
 }
 
-.z-date-picker__unit-grid {
+.s-date-picker__unit-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--semiui-spacing-xs);
 }
 
-.z-date-picker__unit {
+.s-date-picker__unit {
   box-sizing: border-box;
   padding: var(--semiui-spacing-sm) var(--semiui-spacing-xs);
   border: 1px solid transparent;
@@ -219,25 +219,25 @@
   cursor: pointer;
 }
 
-.z-date-picker__unit:hover {
+.s-date-picker__unit:hover {
   background: var(--semiui-comp-date-picker-day-background-hover);
 }
 
-.z-date-picker__unit[data-selected] {
+.s-date-picker__unit[data-selected] {
   background: var(--semiui-comp-date-picker-day-background-selected);
   color: var(--semiui-comp-date-picker-day-foreground-selected);
 }
 
-.z-date-picker__unit:focus-visible {
+.s-date-picker__unit:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
-.z-date-picker__custom-header {
+.s-date-picker__custom-header {
   margin-bottom: var(--semiui-spacing-sm);
 }
 
-.z-date-picker__time {
+.s-date-picker__time {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,7 +247,7 @@
   border-top: 1px solid var(--semiui-comp-select-panel-border);
 }
 
-.z-date-picker__time-input {
+.s-date-picker__time-input {
   box-sizing: border-box;
   width: 3rem;
   padding: 0.25rem;
@@ -260,18 +260,18 @@
   text-align: center;
 }
 
-.z-date-picker__time-input:focus-visible {
+.s-date-picker__time-input:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
-.z-date-picker__time-sep {
+.s-date-picker__time-sep {
   font-weight: var(--semiui-typography-font-weight-medium);
   color: var(--semiui-comp-date-picker-month-label-foreground);
 }
 
-.z-date-picker__period {
+.s-date-picker__period {
   box-sizing: border-box;
   padding: 0.25rem var(--semiui-spacing-sm);
   border: 1px solid var(--semiui-comp-select-border);
@@ -283,16 +283,16 @@
   cursor: pointer;
 }
 
-.z-date-picker__period:hover {
+.s-date-picker__period:hover {
   background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
-.z-date-picker__period:focus-visible {
+.s-date-picker__period:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
-.z-date-picker__footer {
+.s-date-picker__footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,7 +302,7 @@
   border-top: 1px solid var(--semiui-comp-select-panel-border);
 }
 
-.z-date-picker__today {
+.s-date-picker__today {
   border: none;
   background: transparent;
   padding: 0.25rem var(--semiui-spacing-sm);
@@ -313,22 +313,22 @@
   cursor: pointer;
 }
 
-.z-date-picker__today:hover {
+.s-date-picker__today:hover {
   background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
-.z-date-picker__today:focus-visible {
+.s-date-picker__today:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
-.z-date-picker__weekdays {
+.s-date-picker__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: var(--semiui-spacing-xs);
 }
 
-.z-date-picker__weekday {
+.s-date-picker__weekday {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -337,7 +337,7 @@
   color: var(--semiui-comp-date-picker-weekday-foreground);
 }
 
-.z-date-picker__grid {
+.s-date-picker__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   /* Always reserves 6 rows (the max a month can span) so the panel doesn't grow/shrink -- and
@@ -345,7 +345,7 @@
   grid-template-rows: repeat(6, var(--semiui-comp-date-picker-day-size));
 }
 
-.z-date-picker__day {
+.s-date-picker__day {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,19 +361,19 @@
   cursor: pointer;
 }
 
-.z-date-picker__day[data-outside-month] {
+.s-date-picker__day[data-outside-month] {
   color: var(--semiui-comp-date-picker-day-foreground-outside-month);
 }
 
-.z-date-picker__day:hover:not(:disabled) {
+.s-date-picker__day:hover:not(:disabled) {
   background: var(--semiui-comp-date-picker-day-background-hover);
 }
 
-.z-date-picker__day[data-today] {
+.s-date-picker__day[data-today] {
   border-color: var(--semiui-comp-date-picker-day-border-today);
 }
 
-.z-date-picker__day[data-selected] {
+.s-date-picker__day[data-selected] {
   background: var(--semiui-comp-date-picker-day-background-selected);
   color: var(--semiui-comp-date-picker-day-foreground-selected);
 }
@@ -381,13 +381,13 @@
 /* :hover:not(:disabled) above has higher specificity than [data-selected] alone, so without this
    rule hovering a selected day replaced its selected color with the plain hover background --
    the selection highlight effectively vanished the moment you moved the mouse over it. */
-.z-date-picker__day[data-selected]:hover:not(:disabled) {
+.s-date-picker__day[data-selected]:hover:not(:disabled) {
   background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 85%, black);
 }
 
 /* The days strictly between a range's two endpoints -- a connecting tint, square (not pill-shaped)
    so it visually joins its neighbors into one continuous band. */
-.z-date-picker__day[data-in-range] {
+.s-date-picker__day[data-in-range] {
   background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 16%, transparent);
   border-radius: 0;
 }
@@ -395,27 +395,27 @@
 /* Only once the range actually has both endpoints (data-range-complete on the grid) do the start/end
    cells become half-pills that connect into the in-range band -- a start with no end yet (still
    picking the second date) is just a normal, fully-rounded selected day. */
-.z-date-picker__grid[data-range-complete] .z-date-picker__day[data-range-start] {
+.s-date-picker__grid[data-range-complete] .s-date-picker__day[data-range-start] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.z-date-picker__grid[data-range-complete] .z-date-picker__day[data-range-end] {
+.s-date-picker__grid[data-range-complete] .s-date-picker__day[data-range-end] {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.z-date-picker__day:focus-visible {
+.s-date-picker__day:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
-.z-date-picker__day:disabled {
+.s-date-picker__day:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-@keyframes z-date-picker-panel-enter {
+@keyframes s-date-picker-panel-enter {
   from {
     opacity: 0;
     transform: scale(0.96);
@@ -426,11 +426,11 @@
   }
 }
 
-.z-date-picker__panel--enter {
-  animation: z-date-picker-panel-enter 0.12s ease-out;
+.s-date-picker__panel--enter {
+  animation: s-date-picker-panel-enter 0.12s ease-out;
 }
 
-@keyframes z-date-picker-panel-leave {
+@keyframes s-date-picker-panel-leave {
   from {
     opacity: 1;
     transform: scale(1);
@@ -441,6 +441,6 @@
   }
 }
 
-.z-date-picker__panel--leave {
-  animation: z-date-picker-panel-leave 0.1s ease-in;
+.s-date-picker__panel--leave {
+  animation: s-date-picker-panel-leave 0.1s ease-in;
 }

@@ -12,7 +12,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: ['app', 'z'],
+          prefix: ['app', 's'],
           style: 'camelCase',
         },
       ],
@@ -20,7 +20,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: ['app', 'z'],
+          prefix: ['app', 's'],
           style: 'kebab-case',
         },
       ],
@@ -31,7 +31,7 @@ export default [
     rules: {
       '@angular-eslint/template/label-has-associated-control': [
         'error',
-        { controlComponents: ['z-text-input', 'z-select'] },
+        { controlComponents: ['s-text-input', 's-select'] },
       ],
     },
   },

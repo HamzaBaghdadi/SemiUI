@@ -1,5 +1,5 @@
 <div
-  class="z-carousel"
+  class="s-carousel"
   tabindex="0"
   role="region"
   aria-roledescription="carousel"
@@ -8,34 +8,34 @@
   (keydown.arrowleft)="previous()"
   (keydown.arrowright)="next()"
 >
-  <div class="z-carousel__body">
+  <div class="s-carousel__body">
     @if (showArrows() && arrowsOutside() && items().length > 1) {
       <button
         type="button"
-        class="z-carousel__arrow z-carousel__arrow--outside z-carousel__arrow--prev"
+        class="s-carousel__arrow s-carousel__arrow--outside s-carousel__arrow--prev"
         aria-label="Previous slide"
         [disabled]="!loop() && activeIndex() === 0"
         (click)="previous()"
       >
-        <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
+        <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
       </button>
     }
 
     <div
-      class="z-carousel__viewport"
+      class="s-carousel__viewport"
       (pointerdown)="onPointerDown($event)"
       (pointermove)="onPointerMove($event)"
       (pointerup)="onPointerUp()"
       (pointercancel)="onPointerUp()"
     >
       <div
-        class="z-carousel__track"
-        [class.z-carousel__track--dragging]="isDragging()"
+        class="s-carousel__track"
+        [class.s-carousel__track--dragging]="isDragging()"
         [style.transform]="trackTransform()"
         [style.--items-per-view]="itemsPerView()"
       >
         @for (item of items(); track $index; let i = $index) {
-          <div class="z-carousel__slide" [attr.aria-hidden]="i < activeIndex() || i >= activeIndex() + itemsPerView()">
+          <div class="s-carousel__slide" [attr.aria-hidden]="i < activeIndex() || i >= activeIndex() + itemsPerView()">
             <ng-container [ngTemplateOutlet]="slideTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
           </div>
         }
@@ -45,12 +45,12 @@
     @if (showArrows() && arrowsOutside() && items().length > 1) {
       <button
         type="button"
-        class="z-carousel__arrow z-carousel__arrow--outside z-carousel__arrow--next"
+        class="s-carousel__arrow s-carousel__arrow--outside s-carousel__arrow--next"
         aria-label="Next slide"
         [disabled]="!loop() && activeIndex() === maxIndex()"
         (click)="next()"
       >
-        <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
+        <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
       </button>
     }
   </div>
@@ -58,30 +58,30 @@
   @if (showArrows() && !arrowsOutside() && items().length > 1) {
     <button
       type="button"
-      class="z-carousel__arrow z-carousel__arrow--prev"
+      class="s-carousel__arrow s-carousel__arrow--prev"
       aria-label="Previous slide"
       [disabled]="!loop() && activeIndex() === 0"
       (click)="previous()"
     >
-      <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
+      <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
     </button>
     <button
       type="button"
-      class="z-carousel__arrow z-carousel__arrow--next"
+      class="s-carousel__arrow s-carousel__arrow--next"
       aria-label="Next slide"
       [disabled]="!loop() && activeIndex() === maxIndex()"
       (click)="next()"
     >
-      <z-icon class="z-carousel__arrow-icon z-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
+      <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
     </button>
   }
 
   @if (showDots() && items().length > 1) {
-    <div class="z-carousel__dots" role="tablist">
+    <div class="s-carousel__dots" role="tablist">
       @for (position of dotPositions(); track position) {
         <button
           type="button"
-          class="z-carousel__dot"
+          class="s-carousel__dot"
           role="tab"
           [attr.aria-selected]="position === activeIndex()"
           [attr.aria-label]="'Go to slide ' + (position + 1)"

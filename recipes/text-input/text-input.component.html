@@ -1,7 +1,7 @@
 <input
   #nativeInput
-  zInput
-  class="z-text-input"
+  sInput
+  class="s-text-input"
   [type]="type()"
   [placeholder]="placeholder()"
   [value]="value()"
@@ -11,5 +11,5 @@
   (blur)="handleBlur()"
 />
 @if (effectiveInvalid()) {
-  <z-error-message [message]="errorMessage()" />
+  <s-error-message [message]="errorMessage()" />
 }

@@ -1,7 +1,7 @@
 <h1>Toast</h1>
 <p>
   A <code>ToastService</code> injectable from anywhere in your app, plus a
-  <code>&lt;z-toast-container&gt;</code> you mount once (typically in your app root component's
+  <code>&lt;s-toast-container&gt;</code> you mount once (typically in your app root component's
   template) to render whatever's queued. Call <code>toastService.success('Saved!')</code> from any
   component, service, or interceptor -- no reference to the container needed.
 </p>
@@ -11,7 +11,7 @@
 <pre><code>// app.ts
 &#64;Component(&#123;
   imports: [ToastContainerComponent, RouterOutlet],
-  template: `&lt;router-outlet /&gt;&lt;z-toast-container /&gt;`,
+  template: `&lt;router-outlet /&gt;&lt;s-toast-container /&gt;`,
 &#125;)
 export class App &#123;&#125;</code></pre>
 <div class="callout">
@@ -76,7 +76,7 @@ toastService.clear();</code></pre>
   <label><input type="checkbox" [checked]="stacked()" (change)="toggleStacked()" /> Stacked</label>
   <button type="button" (click)="showStack()">Show 3 toasts</button>
 </div>
-<pre><code>&lt;z-toast-container [stacked]="true" /&gt;</code></pre>
+<pre><code>&lt;s-toast-container [stacked]="true" /&gt;</code></pre>
 
 <h2>Position</h2>
 <div class="demo-row">
@@ -88,7 +88,7 @@ toastService.clear();</code></pre>
   <button type="button" (click)="setPosition('bottom-right')">Bottom right</button>
 </div>
 <p class="demo-value">Current position: {{ position() }} -- trigger a toast above to see it.</p>
-<pre><code>&lt;z-toast-container position="bottom-right" /&gt;</code></pre>
+<pre><code>&lt;s-toast-container position="bottom-right" /&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>
@@ -109,4 +109,4 @@ toastService.clear();</code></pre>
   <li><code>dismiss(id)</code> / <code>clear()</code></li>
 </ul>
 
-<z-toast-container [position]="position()" [stacked]="stacked()" />
+<s-toast-container [position]="position()" [stacked]="stacked()" />

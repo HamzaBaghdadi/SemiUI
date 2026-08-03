@@ -2,7 +2,7 @@
   display: contents;
 }
 
-.z-popover {
+.s-popover {
   position: fixed;
   z-index: 50;
   max-width: 20rem;
@@ -17,7 +17,7 @@
   font-family: var(--semiui-typography-font-family);
 }
 
-.z-popover[data-arrow]::after {
+.s-popover[data-arrow]::after {
   content: '';
   position: absolute;
   width: 0.5rem;
@@ -26,7 +26,7 @@
   border: 1px solid var(--semiui-comp-popover-border);
 }
 
-.z-popover[data-arrow][data-placement='bottom']::after {
+.s-popover[data-arrow][data-placement='bottom']::after {
   top: -0.3rem;
   left: 50%;
   margin-left: -0.25rem;
@@ -35,7 +35,7 @@
   transform: rotate(45deg);
 }
 
-.z-popover[data-arrow][data-placement='top']::after {
+.s-popover[data-arrow][data-placement='top']::after {
   bottom: -0.3rem;
   left: 50%;
   margin-left: -0.25rem;
@@ -44,7 +44,7 @@
   transform: rotate(45deg);
 }
 
-.z-popover[data-arrow][data-placement='left']::after {
+.s-popover[data-arrow][data-placement='left']::after {
   right: -0.3rem;
   top: 50%;
   margin-top: -0.25rem;
@@ -53,7 +53,7 @@
   transform: rotate(45deg);
 }
 
-.z-popover[data-arrow][data-placement='right']::after {
+.s-popover[data-arrow][data-placement='right']::after {
   left: -0.3rem;
   top: 50%;
   margin-top: -0.25rem;
@@ -62,7 +62,7 @@
   transform: rotate(45deg);
 }
 
-@keyframes z-popover-enter {
+@keyframes s-popover-enter {
   from {
     opacity: 0;
     transform: scale(0.96);
@@ -73,11 +73,11 @@
   }
 }
 
-.z-popover--enter {
-  animation: z-popover-enter 0.12s ease-out;
+.s-popover--enter {
+  animation: s-popover-enter 0.12s ease-out;
 }
 
-@keyframes z-popover-leave {
+@keyframes s-popover-leave {
   from {
     opacity: 1;
     transform: scale(1);
@@ -88,6 +88,6 @@
   }
 }
 
-.z-popover--leave {
-  animation: z-popover-leave 0.1s ease-in;
+.s-popover--leave {
+  animation: s-popover-leave 0.1s ease-in;
 }

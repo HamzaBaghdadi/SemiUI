@@ -11,18 +11,18 @@ const VIEWPORT_MARGIN_PX = 8;
  * created component (not a static template), so it works on any element without extra markup:
  *
  * ```html
- * <button [zTooltip]="'Save your changes'">Save</button>
+ * <button [sTooltip]="'Save your changes'">Save</button>
  * ```
  */
 @Directive({
-  selector: '[zTooltip]',
+  selector: '[sTooltip]',
 })
 export class TooltipDirective implements OnDestroy {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly viewContainerRef = inject(ViewContainerRef);
 
   /** The tooltip text. Omit or pass an empty string to disable the tooltip entirely. */
-  zTooltip = input('');
+  sTooltip = input('');
   tooltipPlacement = input<TooltipPlacement>('top');
   /** Delay, in ms, before the tooltip appears after hover/focus starts. */
   tooltipDelay = input(300);
@@ -33,7 +33,7 @@ export class TooltipDirective implements OnDestroy {
   @HostListener('mouseenter')
   @HostListener('focus')
   protected onShow(): void {
-    if (!this.zTooltip()) {
+    if (!this.sTooltip()) {
       return;
     }
     this.clearShowTimeout();
@@ -58,7 +58,7 @@ export class TooltipDirective implements OnDestroy {
       return;
     }
     this.panelRef = this.viewContainerRef.createComponent(TooltipPanelComponent);
-    this.panelRef.setInput('text', this.zTooltip());
+    this.panelRef.setInput('text', this.sTooltip());
     this.panelRef.setInput('placement', this.tooltipPlacement());
     // Forces synchronous rendering so the panel's real size is measurable immediately -- both
     // detectChanges() calls happen before the browser gets a chance to paint, so there's no
@@ -86,11 +86,11 @@ export class TooltipDirective implements OnDestroy {
     if (!panelRef) {
       return;
     }
-    // location.nativeElement is the <z-tooltip-panel> host, which is `display: contents` (no
+    // location.nativeElement is the <s-tooltip-panel> host, which is `display: contents` (no
     // generated box of its own) -- getBoundingClientRect() on it returns an all-zero rect, so the
-    // actual .z-tooltip child has to be measured instead.
+    // actual .s-tooltip child has to be measured instead.
     const hostEl = panelRef.location.nativeElement as HTMLElement;
-    const panelEl = (hostEl.querySelector('.z-tooltip') as HTMLElement | null) ?? hostEl;
+    const panelEl = (hostEl.querySelector('.s-tooltip') as HTMLElement | null) ?? hostEl;
     const anchorRect = this.elementRef.nativeElement.getBoundingClientRect();
     const panelRect = panelEl.getBoundingClientRect();
 

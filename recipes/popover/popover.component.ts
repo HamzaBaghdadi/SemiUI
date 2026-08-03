@@ -20,12 +20,12 @@ const VIEWPORT_MARGIN_PX = 8;
  * against, using `position: fixed` so it renders correctly regardless of DOM nesting.
  *
  * ```html
- * <z-button (click)="po.toggle($event)">Click to show popover</z-button>
- * <z-popover #po><span>Popover opened!</span></z-popover>
+ * <s-button (click)="po.toggle($event)">Click to show popover</s-button>
+ * <s-popover #po><span>Popover opened!</span></s-popover>
  * ```
  */
 @Component({
-  selector: 'z-popover',
+  selector: 's-popover',
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.css',
 })

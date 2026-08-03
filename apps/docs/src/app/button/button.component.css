@@ -1,4 +1,4 @@
-.z-button {
+.s-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -15,29 +15,29 @@
     color 0.15s ease;
 }
 
-.z-button:focus-visible {
+.s-button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
 }
 
-.z-button[aria-disabled='true'] {
+.s-button[aria-disabled='true'] {
   cursor: not-allowed;
 }
 
 /* Loading is functionally disabled (no clicks) but visually distinct from a plain disabled
    button: it keeps the variant's normal colors and just dims via opacity, rather than swapping
    to the flat disabled palette -- so it still reads as "this button", not "this button is gone". */
-.z-button[aria-disabled='true']:not(.z-button--loading) {
+.s-button[aria-disabled='true']:not(.s-button--loading) {
   background: var(--semiui-comp-button-background-disabled);
   color: var(--semiui-comp-button-foreground-disabled);
   border-color: var(--semiui-comp-button-background-disabled);
 }
 
-.z-button--loading {
+.s-button--loading {
   opacity: 0.6;
 }
 
-.z-button__icon {
+.s-button__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -46,14 +46,14 @@
   height: 1em;
 }
 
-@keyframes z-button-spin {
+@keyframes s-button-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.z-button__icon--spin {
-  animation: z-button-spin 1s linear infinite;
+.s-button__icon--spin {
+  animation: s-button-spin 1s linear infinite;
   transform-origin: 50% 50%;
   /* Forces its own compositing layer so the rotation is a pure GPU transform -- without this,
      some browsers recompute the (slightly larger, anti-aliased) axis-aligned bounding box at
@@ -63,18 +63,18 @@
   will-change: transform;
 }
 
-/* sizes -- data-size lives on the <z-button> host, not on the inner .z-button */
-:host([data-size='sm']) .z-button {
+/* sizes -- data-size lives on the <s-button> host, not on the inner .s-button */
+:host([data-size='sm']) .s-button {
   padding: var(--semiui-comp-button-padding-y-sm) var(--semiui-comp-button-padding-x-sm);
   font-size: var(--semiui-comp-button-font-size-sm);
 }
 
-:host([data-size='md']) .z-button {
+:host([data-size='md']) .s-button {
   padding: var(--semiui-comp-button-padding-y-md) var(--semiui-comp-button-padding-x-md);
   font-size: var(--semiui-comp-button-font-size-md);
 }
 
-:host([data-size='lg']) .z-button {
+:host([data-size='lg']) .s-button {
   padding: var(--semiui-comp-button-padding-y-lg) var(--semiui-comp-button-padding-x-lg);
   font-size: var(--semiui-comp-button-font-size-lg);
 }
@@ -83,74 +83,74 @@
    every side, so it works at sm/md/lg instead of needing its own dedicated size/token set.
    Two attribute selectors gives this higher specificity than the plain [data-size='*'] rules
    above, regardless of source order. */
-:host([data-icon-only]) .z-button {
+:host([data-icon-only]) .s-button {
   aspect-ratio: 1 / 1;
 }
-:host([data-size='sm'][data-icon-only]) .z-button {
+:host([data-size='sm'][data-icon-only]) .s-button {
   padding: var(--semiui-comp-button-padding-y-sm);
 }
-:host([data-size='md'][data-icon-only]) .z-button {
+:host([data-size='md'][data-icon-only]) .s-button {
   padding: var(--semiui-comp-button-padding-y-md);
 }
-:host([data-size='lg'][data-icon-only]) .z-button {
+:host([data-size='lg'][data-icon-only]) .s-button {
   padding: var(--semiui-comp-button-padding-y-lg);
 }
 
-/* variants -- data-variant lives on the <z-button> host, not on the inner .z-button.
+/* variants -- data-variant lives on the <s-button> host, not on the inner .s-button.
    Solid-background variants derive hover/active shades from their own background with
    color-mix() instead of separate tokens, so they adapt automatically in light and dark mode.
    The border follows the same color-mix() as the background on hover/active so it never reads
    as a stale, mismatched outline once the fill darkens.
 
-   Each variant block also sets --z-button-accent/--z-button-accent-border -- not used by the
+   Each variant block also sets --s-button-accent/--s-button-accent-border -- not used by the
    solid style itself, only read by the [data-outlined]/[data-text] modifier rules further down.
    That indirection is what lets those modifiers stay variant-agnostic (one rule instead of one
    per variant): whichever variant is active has already pointed the custom property at its own
    color by the time the modifier rule reads it. */
-:host([data-variant='primary']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='primary']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-primary-background);
   color: var(--semiui-comp-button-variants-primary-foreground);
   border-color: var(--semiui-comp-button-variants-primary-border);
-  --z-button-accent: var(--semiui-comp-button-variants-primary-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-primary-border);
+  --s-button-accent: var(--semiui-comp-button-variants-primary-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-primary-border);
 }
-:host([data-variant='primary']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='primary']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-primary-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-primary-border) 85%, black);
 }
-:host([data-variant='primary']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='primary']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-primary-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-primary-border) 70%, black);
 }
 
-:host([data-variant='secondary']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='secondary']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-secondary-background);
   color: var(--semiui-comp-button-variants-secondary-foreground);
   border-color: var(--semiui-comp-button-variants-secondary-border);
-  --z-button-accent: var(--semiui-comp-button-variants-secondary-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-secondary-border);
+  --s-button-accent: var(--semiui-comp-button-variants-secondary-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-secondary-border);
 }
-:host([data-variant='secondary']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='secondary']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-border) 85%, black);
 }
-:host([data-variant='secondary']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='secondary']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-border) 70%, black);
 }
 
-:host([data-variant='destructive']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='destructive']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-destructive-background);
   color: var(--semiui-comp-button-variants-destructive-foreground);
   border-color: var(--semiui-comp-button-variants-destructive-border);
-  --z-button-accent: var(--semiui-comp-button-variants-destructive-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-destructive-border);
+  --s-button-accent: var(--semiui-comp-button-variants-destructive-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-destructive-border);
 }
-:host([data-variant='destructive']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='destructive']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-destructive-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-destructive-border) 85%, black);
 }
-:host([data-variant='destructive']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='destructive']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-destructive-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-destructive-border) 70%, black);
 }
@@ -158,101 +158,101 @@
 /* Severity variants (danger/success/info/warn/help/contrast) follow the exact same
    base/hover/active color-mix() pattern as primary/secondary/destructive above. danger is a
    plain alias of destructive -- same tokens, just reachable under PrimeNG-style naming too. */
-:host([data-variant='danger']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='danger']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-danger-background);
   color: var(--semiui-comp-button-variants-danger-foreground);
   border-color: var(--semiui-comp-button-variants-danger-border);
-  --z-button-accent: var(--semiui-comp-button-variants-danger-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-danger-border);
+  --s-button-accent: var(--semiui-comp-button-variants-danger-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-danger-border);
 }
-:host([data-variant='danger']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='danger']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-danger-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-danger-border) 85%, black);
 }
-:host([data-variant='danger']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='danger']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-danger-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-danger-border) 70%, black);
 }
 
-:host([data-variant='success']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='success']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-success-background);
   color: var(--semiui-comp-button-variants-success-foreground);
   border-color: var(--semiui-comp-button-variants-success-border);
-  --z-button-accent: var(--semiui-comp-button-variants-success-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-success-border);
+  --s-button-accent: var(--semiui-comp-button-variants-success-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-success-border);
 }
-:host([data-variant='success']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='success']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-success-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-success-border) 85%, black);
 }
-:host([data-variant='success']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='success']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-success-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-success-border) 70%, black);
 }
 
-:host([data-variant='info']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='info']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-info-background);
   color: var(--semiui-comp-button-variants-info-foreground);
   border-color: var(--semiui-comp-button-variants-info-border);
-  --z-button-accent: var(--semiui-comp-button-variants-info-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-info-border);
+  --s-button-accent: var(--semiui-comp-button-variants-info-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-info-border);
 }
-:host([data-variant='info']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='info']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-info-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-info-border) 85%, black);
 }
-:host([data-variant='info']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='info']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-info-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-info-border) 70%, black);
 }
 
-:host([data-variant='warn']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='warn']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-warn-background);
   color: var(--semiui-comp-button-variants-warn-foreground);
   border-color: var(--semiui-comp-button-variants-warn-border);
-  --z-button-accent: var(--semiui-comp-button-variants-warn-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-warn-border);
+  --s-button-accent: var(--semiui-comp-button-variants-warn-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-warn-border);
 }
-:host([data-variant='warn']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='warn']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-warn-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-warn-border) 85%, black);
 }
-:host([data-variant='warn']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='warn']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-warn-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-warn-border) 70%, black);
 }
 
-:host([data-variant='help']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='help']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-help-background);
   color: var(--semiui-comp-button-variants-help-foreground);
   border-color: var(--semiui-comp-button-variants-help-border);
-  --z-button-accent: var(--semiui-comp-button-variants-help-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-help-border);
+  --s-button-accent: var(--semiui-comp-button-variants-help-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-help-border);
 }
-:host([data-variant='help']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='help']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-help-background) 85%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-help-border) 85%, black);
 }
-:host([data-variant='help']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='help']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-help-background) 70%, black);
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-help-border) 70%, black);
 }
 
-:host([data-variant='contrast']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='contrast']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-contrast-background);
   color: var(--semiui-comp-button-variants-contrast-foreground);
   border-color: var(--semiui-comp-button-variants-contrast-border);
-  --z-button-accent: var(--semiui-comp-button-variants-contrast-background);
-  --z-button-accent-border: var(--semiui-comp-button-variants-contrast-border);
+  --s-button-accent: var(--semiui-comp-button-variants-contrast-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-contrast-border);
 }
-:host([data-variant='contrast']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='contrast']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-contrast-background) 85%, transparent);
 }
-:host([data-variant='contrast']) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='contrast']) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-contrast-background) 70%, transparent);
 }
 
-:host([data-variant='link']) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='link']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-link-background);
   color: var(--semiui-comp-button-variants-link-foreground);
   border-color: var(--semiui-comp-button-variants-link-border);
@@ -260,34 +260,34 @@
   padding-right: 0;
   text-underline-offset: 3px;
 }
-:host([data-variant='link']) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-variant='link']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   text-decoration: underline;
 }
 
 /* outlined/text modifiers -- combine with any variant above (e.g. data-variant="success"
-   data-outlined), reading whichever --z-button-accent(-border) that variant block set. Placed
+   data-outlined), reading whichever --s-button-accent(-border) that variant block set. Placed
    after every variant block so they win the source-order tiebreak (same specificity: one host
    attribute selector + one descendant). */
-:host([data-outlined]) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-outlined]) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: transparent;
-  color: var(--z-button-accent);
-  border-color: var(--z-button-accent-border, var(--z-button-accent));
+  color: var(--s-button-accent);
+  border-color: var(--s-button-accent-border, var(--s-button-accent));
 }
-:host([data-outlined]) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
-  background: color-mix(in srgb, var(--z-button-accent) 12%, transparent);
+:host([data-outlined]) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
+  background: color-mix(in srgb, var(--s-button-accent) 12%, transparent);
 }
-:host([data-outlined]) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
-  background: color-mix(in srgb, var(--z-button-accent) 20%, transparent);
+:host([data-outlined]) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
+  background: color-mix(in srgb, var(--s-button-accent) 20%, transparent);
 }
 
-:host([data-text]) .z-button:where(:not([aria-disabled='true']), .z-button--loading) {
+:host([data-text]) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: transparent;
-  color: var(--z-button-accent);
+  color: var(--s-button-accent);
   border-color: transparent;
 }
-:host([data-text]) .z-button:hover:where(:not([aria-disabled='true']), .z-button--loading) {
-  background: color-mix(in srgb, var(--z-button-accent) 12%, transparent);
+:host([data-text]) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
+  background: color-mix(in srgb, var(--s-button-accent) 12%, transparent);
 }
-:host([data-text]) .z-button:active:where(:not([aria-disabled='true']), .z-button--loading) {
-  background: color-mix(in srgb, var(--z-button-accent) 20%, transparent);
+:host([data-text]) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
+  background: color-mix(in srgb, var(--s-button-accent) 20%, transparent);
 }

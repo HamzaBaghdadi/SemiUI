@@ -2,7 +2,7 @@
   display: block;
 }
 
-.z-accordion {
+.s-accordion {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--semiui-comp-accordion-border);
@@ -10,19 +10,19 @@
   overflow: hidden;
 }
 
-.z-accordion__item {
+.s-accordion__item {
   border-bottom: 1px solid var(--semiui-comp-accordion-border);
 }
 
-.z-accordion__item:last-child {
+.s-accordion__item:last-child {
   border-bottom: none;
 }
 
-.z-accordion__header-wrap {
+.s-accordion__header-wrap {
   margin: 0;
 }
 
-.z-accordion__header {
+.s-accordion__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,37 +41,37 @@
   transition: background-color 0.15s ease;
 }
 
-.z-accordion__header:hover:not(:disabled) {
+.s-accordion__header:hover:not(:disabled) {
   background: var(--semiui-comp-accordion-header-background-hover);
 }
 
-.z-accordion__header:focus-visible {
+.s-accordion__header:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: -2px;
 }
 
-.z-accordion__header:disabled {
+.s-accordion__header:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.z-accordion__header-label {
+.s-accordion__header-label {
   flex: 1;
   min-width: 0;
 }
 
-.z-accordion__chevron {
+.s-accordion__chevron {
   flex-shrink: 0;
   width: 1rem;
   height: 1rem;
   transition: transform 0.2s ease;
 }
 
-.z-accordion__item[data-expanded] .z-accordion__chevron {
+.s-accordion__item[data-expanded] .s-accordion__chevron {
   transform: rotate(180deg);
 }
 
-.z-accordion__panel {
+.s-accordion__panel {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.2s ease;
@@ -79,7 +79,7 @@
   color: var(--semiui-comp-accordion-panel-foreground);
 }
 
-.z-accordion__item[data-expanded] .z-accordion__panel {
+.s-accordion__item[data-expanded] .s-accordion__panel {
   grid-template-rows: 1fr;
 }
 
@@ -87,21 +87,21 @@
  * No padding here -- an element's own padding always contributes to its minimum rendered size
  * (min-height: 0 only shrinks the content box, never the padding itself), so putting the panel's
  * padding on the same element as min-height: 0 kept the collapsed row stuck at padding-bottom's
- * height instead of truly 0. Padding lives one level deeper instead, on .z-accordion__panel-content,
+ * height instead of truly 0. Padding lives one level deeper instead, on .s-accordion__panel-content,
  * which this element's overflow: hidden correctly clips away when the grid row collapses to 0fr.
  */
-.z-accordion__panel-inner {
+.s-accordion__panel-inner {
   overflow: hidden;
   min-height: 0;
 }
 
-.z-accordion__panel-content {
+.s-accordion__panel-content {
   padding: 0 var(--semiui-comp-accordion-padding-x) var(--semiui-comp-accordion-padding-y);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .z-accordion__panel,
-  .z-accordion__chevron {
+  .s-accordion__panel,
+  .s-accordion__chevron {
     transition: none;
   }
 }
