@@ -203,6 +203,61 @@
   margin-bottom: var(--zaytoon-spacing-sm);
 }
 
+.z-date-picker__time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zaytoon-spacing-xs);
+  margin-top: var(--zaytoon-spacing-sm);
+  padding-top: var(--zaytoon-spacing-sm);
+  border-top: 1px solid var(--zaytoon-comp-select-panel-border);
+}
+
+.z-date-picker__time-input {
+  box-sizing: border-box;
+  width: 3rem;
+  padding: 0.25rem;
+  border: 1px solid var(--zaytoon-comp-select-border);
+  border-radius: var(--zaytoon-radius-sm);
+  background: var(--zaytoon-comp-select-background);
+  color: var(--zaytoon-comp-select-foreground);
+  font: inherit;
+  font-size: var(--zaytoon-comp-date-picker-font-size);
+  text-align: center;
+}
+
+.z-date-picker__time-input:focus-visible {
+  outline: none;
+  border-color: var(--zaytoon-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+}
+
+.z-date-picker__time-sep {
+  font-weight: var(--zaytoon-typography-font-weight-medium);
+  color: var(--zaytoon-comp-date-picker-month-label-foreground);
+}
+
+.z-date-picker__period {
+  box-sizing: border-box;
+  padding: 0.25rem var(--zaytoon-spacing-sm);
+  border: 1px solid var(--zaytoon-comp-select-border);
+  border-radius: var(--zaytoon-radius-sm);
+  background: transparent;
+  color: var(--zaytoon-comp-date-picker-day-foreground);
+  font: inherit;
+  font-size: var(--zaytoon-comp-date-picker-font-size);
+  cursor: pointer;
+}
+
+.z-date-picker__period:hover {
+  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+}
+
+.z-date-picker__period:focus-visible {
+  outline: 2px solid var(--zaytoon-color-ring);
+  outline-offset: 1px;
+}
+
 .z-date-picker__footer {
   display: flex;
   align-items: center;

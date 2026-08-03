@@ -50,6 +50,14 @@ function dateKey(date: Date): string {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
+/** Best-effort fallback parser for manual text entry -- good enough for locale-formatted dates like "8/2/2026" or ISO strings; pass a custom `parseDate` for anything stricter. */
+function defaultParseDate(text: string): Date | null {
+  const parsed = new Date(text);
+  return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+export type DatePickerTimeFormat = '12h' | '24h';
+
 let nextDatePickerId = 0;
 
 /**
@@ -84,9 +92,19 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   maxDate = input<Date>();
   /** Additional per-date disable predicate, checked alongside min/max. */
   isDateDisabled = input<(date: Date) => boolean>(() => false);
-  dateFormat = input<(date: Date) => string>((date) => date.toLocaleDateString());
+  /** Formats the trigger's displayed text. Defaults to a locale date (or date+time / time-only string, depending on showTime/timeOnly) if omitted. */
+  dateFormat = input<(date: Date) => string>();
   /** Shows a "Today" button in the panel footer that jumps to and selects the current date. */
   showTodayButton = input(false, { transform: booleanAttribute });
+  /** Adds hour/minute controls below the calendar; the picked day and time combine into one Date. */
+  showTime = input(false, { transform: booleanAttribute });
+  timeFormat = input<DatePickerTimeFormat>('24h');
+  /** Hides the calendar entirely, showing just the time controls -- implies showTime. */
+  timeOnly = input(false, { transform: booleanAttribute });
+  /** Lets the trigger be typed into directly instead of only opened by click; committed on blur/Enter via `parseDate`. */
+  manualInput = input(false, { transform: booleanAttribute });
+  /** Parses manually-typed text into a Date, or null if unparseable. Defaults to `new Date(text)`. */
+  parseDate = input<(text: string) => Date | null>(defaultParseDate);
 
   /** Rendered above the calendar, inside the panel. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
@@ -103,6 +121,9 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly navView = signal<'days' | 'months' | 'years'>('days');
   /** The first year shown in the years grid -- a 12-year block, recomputed whenever viewYear lands outside the current block. */
   protected readonly yearRangeStart = signal(Math.floor(new Date().getFullYear() / 12) * 12);
+  /** Internal 24-hour representation, regardless of `timeFormat` (which only affects display). */
+  protected readonly viewHour = signal(new Date().getHours());
+  protected readonly viewMinute = signal(new Date().getMinutes());
 
   protected readonly calendarDays = computed<CalendarDay[]>(() => this.buildCalendarDays(this.viewYear(), this.viewMonth()));
   protected readonly monthLabel = computed(() =>
@@ -116,18 +137,47 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     const items = this.yearRangeItems();
     return `${items[0]} - ${items[items.length - 1]}`;
   });
+  /** 12 -> "12", 13 -> "1", 0 (unused internally, hours are 0-23) -- the hour shown in the 12h controls. */
+  protected readonly hour12 = computed(() => {
+    const h = this.viewHour() % 12;
+    return h === 0 ? 12 : h;
+  });
+  protected readonly period = computed<'AM' | 'PM'>(() => (this.viewHour() < 12 ? 'AM' : 'PM'));
+  private readonly timeFormatOptions = computed<Intl.DateTimeFormatOptions>(() => ({
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: this.timeFormat() === '12h',
+  }));
   protected readonly displayValue = computed(() => {
     const value = this.value();
-    return value ? this.dateFormat()(value) : '';
+    if (!value) {
+      return '';
+    }
+    const custom = this.dateFormat();
+    if (custom) {
+      return custom(value);
+    }
+    if (this.timeOnly()) {
+      return value.toLocaleTimeString(undefined, this.timeFormatOptions());
+    }
+    if (this.showTime()) {
+      // toLocaleString(undefined, options) only includes the date/time fields present in
+      // `options` -- timeFormatOptions() only requests hour/minute, so passing it directly here
+      // would silently drop the date portion. Concatenating the two locale strings instead.
+      return `${value.toLocaleDateString()} ${value.toLocaleTimeString(undefined, this.timeFormatOptions())}`;
+    }
+    return value.toLocaleDateString();
   });
   protected readonly showClear = computed(() => this.clearable() && !this.effectiveDisabled() && this.value() !== null);
 
-  /** Keeps the visible month in sync with the bound value -- fires on the initial CVA-pushed value too, not just user clicks. */
+  /** Keeps the visible month (and time controls) in sync with the bound value -- fires on the initial CVA-pushed value too, not just user clicks. */
   private readonly syncViewToValue = effect(() => {
     const value = this.value();
     if (value) {
       this.viewYear.set(value.getFullYear());
       this.viewMonth.set(value.getMonth());
+      this.viewHour.set(value.getHours());
+      this.viewMinute.set(value.getMinutes());
       this.focusedDate.set(value);
     }
   });
@@ -237,13 +287,97 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     if (this.isDayDisabled(day.date)) {
       return;
     }
-    this.value.set(day.date);
+    this.value.set(this.showTime() ? this.combineDateAndTime(day.date) : day.date);
     this.focusedDate.set(day.date);
     if (!this.inline()) {
-      this.close();
-      this.triggerInput()?.nativeElement.focus();
+      // Leave the panel open when a time picker is showing, so picking a day doesn't immediately
+      // close before the user's had a chance to also adjust the time.
+      if (!this.showTime()) {
+        this.close();
+        this.triggerInput()?.nativeElement.focus();
+      }
     } else {
       this.handleBlur();
+    }
+  }
+
+  private combineDateAndTime(date: Date): Date {
+    const result = new Date(date);
+    result.setHours(this.viewHour(), this.viewMinute(), 0, 0);
+    return result;
+  }
+
+  protected setHour(hour: number): void {
+    if (hour < 0 || hour > 23) {
+      return;
+    }
+    this.viewHour.set(hour);
+    this.applyTimeChange();
+  }
+
+  protected setHour12(hour12: number): void {
+    if (hour12 < 1 || hour12 > 12) {
+      return;
+    }
+    const isPM = this.period() === 'PM';
+    const hour24 = (hour12 % 12) + (isPM ? 12 : 0);
+    this.setHour(hour24);
+  }
+
+  protected setMinute(minute: number): void {
+    if (minute < 0 || minute > 59) {
+      return;
+    }
+    this.viewMinute.set(minute);
+    this.applyTimeChange();
+  }
+
+  protected togglePeriod(): void {
+    this.setHour((this.viewHour() + 12) % 24);
+  }
+
+  /** Applies the currently-set hour/minute to the bound value -- immediately if one exists (or, in timeOnly mode, establishing today's date the first time a time is picked). */
+  private applyTimeChange(): void {
+    const current = this.value();
+    if (current) {
+      this.value.set(this.combineDateAndTime(current));
+    } else if (this.timeOnly()) {
+      this.value.set(this.combineDateAndTime(startOfDay(new Date())));
+    }
+  }
+
+  protected onTriggerKeydownEnter(event: Event): void {
+    if (this.manualInput()) {
+      event.preventDefault();
+      this.commitManualText((event.target as HTMLInputElement).value);
+    } else {
+      this.toggle();
+    }
+  }
+
+  protected onTriggerBlur(event: FocusEvent): void {
+    if (this.manualInput()) {
+      this.commitManualText((event.target as HTMLInputElement).value);
+    }
+  }
+
+  private commitManualText(text: string): void {
+    const trimmed = text.trim();
+    if (trimmed === '') {
+      this.value.set(null);
+      return;
+    }
+    const parsed = this.parseDate()(trimmed);
+    if (parsed && !this.isDayDisabled(startOfDay(parsed))) {
+      this.value.set(this.timeOnly() || this.showTime() ? parsed : startOfDay(parsed));
+      return;
+    }
+    // Parse failed (or the date's disabled) -- revert the DOM to the last valid displayValue().
+    // Angular's [value] binding won't repaint this on its own: displayValue() itself hasn't
+    // changed since we never committed the bad input to `value`, so there's nothing to react to.
+    const input = this.triggerInput()?.nativeElement;
+    if (input) {
+      input.value = this.displayValue();
     }
   }
 

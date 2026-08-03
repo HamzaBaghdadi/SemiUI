@@ -78,6 +78,34 @@ protected profileForm = form(this.profileModel);
   &lt;ng-template #header&gt;&lt;strong&gt;Pick a date&lt;/strong&gt;&lt;/ng-template&gt;
 &lt;/z-date-picker&gt;</code></pre>
 
+<h2>Time picker (12h/24h)</h2>
+<p>
+  <code>showTime</code> adds hour/minute controls below the calendar -- the picked day and time
+  combine into one <code>Date</code>. <code>timeFormat</code> is <code>"24h"</code> (default) or
+  <code>"12h"</code> (adds an AM/PM toggle). The panel stays open after picking a day so you can
+  also adjust the time before closing it.
+</p>
+<div class="demo-row">
+  <z-date-picker [ngModel]="null" [showTime]="true" placeholder="Pick a date and time" />
+  <z-date-picker [ngModel]="null" [showTime]="true" timeFormat="12h" placeholder="12h format" />
+</div>
+<pre><code>&lt;z-date-picker [showTime]="true" /&gt;
+&lt;z-date-picker [showTime]="true" timeFormat="12h" /&gt;</code></pre>
+
+<h2>Time-only and manual text entry</h2>
+<p>
+  <code>timeOnly</code> hides the calendar entirely, showing just the time controls (implies
+  <code>showTime</code>). <code>manualInput</code> lets you type directly into the field instead of
+  only opening the panel by click -- committed via <code>parseDate</code> (defaults to
+  <code>new Date(text)</code>) on blur or Enter; an unparseable value reverts to the last valid one.
+</p>
+<div class="demo-row">
+  <z-date-picker [ngModel]="null" [timeOnly]="true" placeholder="Pick a time" />
+  <z-date-picker [ngModel]="null" [manualInput]="true" placeholder="Type a date, e.g. 12/25/2026" />
+</div>
+<pre><code>&lt;z-date-picker [timeOnly]="true" /&gt;
+&lt;z-date-picker [manualInput]="true" /&gt;</code></pre>
+
 <h2>Disabled</h2>
 <div class="demo-row">
   <z-date-picker [ngModel]="null" [disabled]="disabled()" />
@@ -92,4 +120,7 @@ protected profileForm = form(this.profileModel);
   <li><code>isDateDisabled</code> -- <code>(date: Date) =&gt; boolean</code>, checked alongside min/max.</li>
   <li><code>dateFormat</code> -- <code>(date: Date) =&gt; string</code>, formats the trigger's displayed text.</li>
   <li><code>showTodayButton</code> -- default <code>false</code>; adds a footer "Today" button that jumps to and selects the current date.</li>
+  <li><code>showTime</code> -- default <code>false</code>; adds hour/minute controls. <code>timeFormat</code> -- <code>"24h"</code> (default) or <code>"12h"</code>.</li>
+  <li><code>timeOnly</code> -- default <code>false</code>; hides the calendar, showing just the time controls (implies <code>showTime</code>).</li>
+  <li><code>manualInput</code> -- default <code>false</code>; lets the field be typed into directly. <code>parseDate</code> -- <code>(text: string) =&gt; Date | null</code>, defaults to <code>new Date(text)</code>.</li>
 </ul>
