@@ -10,8 +10,14 @@ export function detectPackageManager(cwd: string): PackageManager {
   return 'npm';
 }
 
-export function installDependencies(cwd: string, packageManager: PackageManager, packages: string[]): void {
+export function installDependencies(
+  cwd: string,
+  packageManager: PackageManager,
+  packages: string[],
+  dev = false,
+): void {
   if (packages.length === 0) return;
-  const args = packageManager === 'yarn' ? ['add', ...packages] : ['install', ...packages];
+  const installWord = packageManager === 'yarn' ? 'add' : 'install';
+  const args = dev ? [installWord, '-D', ...packages] : [installWord, ...packages];
   execFileSync(packageManager, args, { cwd, stdio: 'inherit', shell: true });
 }

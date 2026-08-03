@@ -1,21 +1,30 @@
 <h1>CLI Reference</h1>
-<p>The <code>semiui</code> package is a single binary with two commands.</p>
+<p>
+  <code>@semiui/cli</code> installs as the <code>semiui</code> command and is a single binary
+  with two commands.
+</p>
 
 <h2><code>semiui init</code></h2>
-<pre><code>npx semiui init</code></pre>
-<p>Run this once, from the root of an Angular project (wherever <code>angular.json</code> is).</p>
+<pre><code>npx @semiui/cli init</code></pre>
+<p>
+  Run this once, from the root of an Angular project (wherever <code>angular.json</code> is).
+  It's the one command you have to invoke by the scoped package name -- <code>npx</code> can only
+  resolve a bare command like <code>semiui</code> from a local install, and this is what creates
+  that local install. Every command after this can use the short <code>semiui</code> form.
+</p>
 <ul>
   <li>Refuses to run if no <code>angular.json</code> is found in the current directory.</li>
   <li>
     Writes <code>components.json</code> with defaults (<code>preset: "aurora"</code>,
-    <code>componentsDir: "src/app/components"</code>, <code>prefix: "z"</code>) -- and does
+    <code>componentsDir: "src/app/components"</code>, <code>prefix: "s"</code>) -- and does
     nothing if one already exists, so it's safe to run again.
   </li>
   <li>
     Detects your package manager from the lockfile present (<code>pnpm-lock.yaml</code> &rarr;
     pnpm, <code>yarn.lock</code> &rarr; yarn, otherwise npm) and installs
     <code>@semiui/tokens</code>, <code>@semiui/theme</code>, <code>@semiui/primitives</code>,
-    and <code>@semiui/presets-aurora</code>.
+    and <code>@semiui/presets-aurora</code>, plus <code>@semiui/cli</code> itself as a dev
+    dependency so plain <code>npx semiui add ...</code> resolves locally from here on.
   </li>
   <li>Prints the <code>provideSemiUI</code> wiring for <code>app.config.ts</code>.</li>
 </ul>
@@ -215,7 +224,7 @@ npx semiui add --all --path src/app/ui</code></pre>
 
 <h2>Works offline</h2>
 <p>
-  Component source ships bundled inside the <code>semiui</code> npm package itself -- there's no
-  registry server involved, so <code>add</code> works without network access beyond the initial
-  <code>npm install</code>.
+  Component source ships bundled inside the <code>@semiui/cli</code> npm package itself -- there's
+  no registry server involved, so <code>add</code> works without network access beyond the initial
+  install.
 </p>

@@ -22,6 +22,13 @@ export function runInit(cwd: string): void {
   console.log(`Installing ${deps.join(', ')} (${packageManager})...`);
   installDependencies(cwd, packageManager, deps);
 
+  // @semiui/cli itself isn't a runtime dep -- installed as a devDependency so that after this
+  // first `npx @semiui/cli init`, plain `npx semiui add <component>` resolves locally instead of
+  // needing the scoped package name again (npx only resolves a bare command name like "semiui"
+  // from a local node_modules/.bin, never by searching bin names on the registry).
+  console.log(`Installing @semiui/cli as a dev dependency (${packageManager})...`);
+  installDependencies(cwd, packageManager, ['@semiui/cli'], true);
+
   console.log(`
 Next: wire up the theme provider in your app config (e.g. src/app/app.config.ts):
 

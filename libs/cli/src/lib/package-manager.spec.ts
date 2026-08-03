@@ -55,4 +55,18 @@ describe('installDependencies', () => {
     installDependencies('/some/dir', 'yarn', ['@semiui/tokens']);
     expect(execFileSync).toHaveBeenCalledWith('yarn', ['add', '@semiui/tokens'], expect.anything());
   });
+
+  it('runs `npm install -D <packages>` when dev is true', () => {
+    installDependencies('/some/dir', 'npm', ['@semiui/cli'], true);
+    expect(execFileSync).toHaveBeenCalledWith(
+      'npm',
+      ['install', '-D', '@semiui/cli'],
+      expect.objectContaining({ cwd: '/some/dir' }),
+    );
+  });
+
+  it('runs `yarn add -D <packages>` for yarn when dev is true', () => {
+    installDependencies('/some/dir', 'yarn', ['@semiui/cli'], true);
+    expect(execFileSync).toHaveBeenCalledWith('yarn', ['add', '-D', '@semiui/cli'], expect.anything());
+  });
 });

@@ -10,7 +10,7 @@ An Angular UI library built on two ideas:
 In an existing Angular 22 app:
 
 ```sh
-npx semiui init
+npx @semiui/cli init
 npx semiui add button
 ```
 
@@ -41,7 +41,7 @@ Light/dark mode comes free — inject `ColorModeService` from `@semiui/theme` an
 | [`@semiui/theme`](libs/theme) | `provideSemiUI()`, `ColorModeService`, and the CSS-stylesheet injection that makes light/dark mode work. |
 | [`@semiui/primitives`](libs/primitives) | Unstyled behavior: `ButtonDirective`, `InputDirective`, `SIconComponent`, `BaseFormFieldControl` (the shared `ControlValueAccessor` + Angular Signal Forms plumbing every form component builds on). |
 | [`@semiui/presets-aurora`](libs/presets/aurora) | The default preset: a full light + dark color palette and component tokens. |
-| [`semiui`](libs/cli) | The CLI (`init` / `add`). |
+| [`@semiui/cli`](libs/cli) | The CLI, installs as the `semiui` command (`init` / `add`). |
 
 Recipes — the actual styled components (`Button`, `TextInput`, `Password`) — live in [`recipes/`](recipes) and are deliberately **not** published to npm; the CLI copies them into consumer projects instead.
 

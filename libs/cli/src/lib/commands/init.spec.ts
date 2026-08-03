@@ -49,6 +49,7 @@ describe('runInit', () => {
       'npm',
       expect.arrayContaining(['@semiui/tokens', '@semiui/theme', '@semiui/primitives', '@semiui/presets-aurora']),
     );
+    expect(installDependencies).toHaveBeenCalledWith(cwd, 'npm', ['@semiui/cli'], true);
   });
 
   it('does not overwrite an existing components.json', () => {
