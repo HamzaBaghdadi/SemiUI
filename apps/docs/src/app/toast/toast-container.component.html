@@ -1,5 +1,11 @@
 @if (toasts().length > 0) {
-  <div class="z-toast-container" (mouseenter)="onGroupMouseEnter()" (mouseleave)="onGroupMouseLeave()">
+  <div
+    #toastList
+    class="z-toast-container"
+    [style.height.px]="reservedHeightPx()"
+    (mouseenter)="onGroupMouseEnter()"
+    (mouseleave)="onGroupMouseLeave()"
+  >
     @for (toast of toasts(); track toast.id; let i = $index; let count = $count) {
       <div
         class="z-toast"

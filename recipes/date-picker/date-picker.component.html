@@ -9,7 +9,9 @@
         <z-icon [ref]="icons.chevronDown" class="z-date-picker__nav-icon z-date-picker__nav-icon--prev" />
       </button>
       <span class="z-date-picker__header-buttons">
-        <button type="button" class="z-date-picker__unit-button" (click)="openMonthsView()">{{ monthOnlyLabel() }}</button>
+        @if (navView() === 'days') {
+          <button type="button" class="z-date-picker__unit-button" (click)="openMonthsView()">{{ monthOnlyLabel() }}</button>
+        }
         <button
           type="button"
           class="z-date-picker__unit-button"
@@ -27,7 +29,7 @@
     @if (yearsPanelOpen()) {
       <!-- Its own side panel next to the main one (not swapped in place) so picking a year never
            resizes or replaces the day/month grid underneath it. -->
-      <div #yearsPanel class="z-date-picker__years-panel" role="listbox" aria-label="Year">
+      <div class="z-date-picker__years-panel" role="listbox" aria-label="Year">
         @for (year of yearsListItems(); track year) {
           <button
             type="button"

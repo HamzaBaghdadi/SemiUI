@@ -82,7 +82,6 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');
-  private readonly yearsPanel = viewChild<ElementRef<HTMLDivElement>>('yearsPanel');
 
   placeholder = input('Pick a date');
   errorMessage = input('');
@@ -193,16 +192,6 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     const gridEl = this.grid()?.nativeElement;
     const button = gridEl?.querySelector<HTMLButtonElement>(`[data-date-key="${dateKey(focused)}"]`);
     button?.focus();
-  });
-
-  /** Scrolls the current year into the middle of the years side panel's viewport whenever it opens. */
-  private readonly scrollYearsPanelToCurrent = afterRenderEffect(() => {
-    if (!this.yearsPanelOpen()) {
-      return;
-    }
-    const panelEl = this.yearsPanel()?.nativeElement;
-    const button = panelEl?.querySelector<HTMLButtonElement>(`[data-year="${this.viewYear()}"]`);
-    button?.scrollIntoView({ block: 'center' });
   });
 
   protected override emptyValue(): Date | null {

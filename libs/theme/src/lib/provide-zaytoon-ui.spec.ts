@@ -340,8 +340,7 @@ function createTestPreset(): ThemePreset {
           paddingX: '1rem',
           paddingY: '0.5rem',
           gap: '0.5rem',
-          width: '100%',
-          maxWidth: '24rem',
+          width: '24rem',
           blur: 'none',
           variants: Object.fromEntries(
             (['default', 'success', 'error', 'warning', 'info'] as const).map((variant) => [

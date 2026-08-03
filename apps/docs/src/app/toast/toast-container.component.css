@@ -51,16 +51,25 @@
   flex-direction: column-reverse;
 }
 
+/* Stacked (either sub-state) needs the container itself hoverable, not just its .z-toast children
+   -- otherwise the *gaps* between expanded toasts (including the flex `gap` spacing) are dead
+   zones with no hoverable element at all. Moving the cursor across one of those gaps bubbled a
+   mouseleave from the child just left, with no immediate re-enter to replace it (nothing there
+   registers a hover), collapsing the group; reaching the next toast then re-expanded it --
+   producing a rapid expand/collapse flicker while the cursor was still very much over the group. */
+:host([data-stacked]) .z-toast-container {
+  pointer-events: auto;
+}
+
 /* Stacked + collapsed: every toast overlaps at the same edge, offset/scaled/dimmed by how far
    behind the front (newest) card it sits -- a peeking deck instead of a growing list. The
    container needs an explicit height since position: absolute children can't contribute to it. */
 :host([data-stacked]:not([data-expanded])) .z-toast-container {
   position: relative;
-  pointer-events: auto;
   /* Every .z-toast becomes position: absolute below, so nothing is left in normal flow to give
      the flex container a width or height -- both need an explicit fallback, or it collapses to a
      zero-size box (unhoverable, and clicks/mouseenter can't reach it). */
-  width: var(--zaytoon-comp-toast-max-width);
+  width: var(--zaytoon-comp-toast-width);
   min-height: 3.5rem;
 }
 
@@ -94,7 +103,8 @@
   gap: var(--zaytoon-spacing-sm);
   box-sizing: border-box;
   width: var(--zaytoon-comp-toast-width);
-  max-width: var(--zaytoon-comp-toast-max-width);
+  /* Not a token -- a fixed safety clamp so a wide `width` token doesn't overflow small viewports. */
+  max-width: 100%;
   padding: var(--zaytoon-comp-toast-padding-y) var(--zaytoon-comp-toast-padding-x);
   border-radius: var(--zaytoon-comp-toast-radius);
   box-shadow: var(--zaytoon-comp-toast-shadow);

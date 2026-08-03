@@ -496,8 +496,7 @@ export const Aurora: ThemePreset = {
         paddingX: 'var(--zaytoon-spacing-md)',
         paddingY: 'var(--zaytoon-spacing-sm)',
         gap: 'var(--zaytoon-spacing-sm)',
-        width: '100%',
-        maxWidth: '24rem',
+        width: '24rem',
         blur: 'blur(12px)',
         variants: {
           default: {

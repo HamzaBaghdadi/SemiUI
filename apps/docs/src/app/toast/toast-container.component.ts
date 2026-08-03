@@ -1,4 +1,4 @@
-import { Component, DestroyRef, booleanAttribute, effect, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, afterRenderEffect, booleanAttribute, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { injectZaytoonIcons } from '@zaytoon/theme';
@@ -35,11 +35,43 @@ export class ToastContainerComponent {
   /** Collapses toasts into a peeking deck when more than one is queued; hovering expands them into a normal list, moving the mouse away collapses them back. */
   stacked = input(false, { transform: booleanAttribute });
 
+  private readonly toastListEl = viewChild<ElementRef<HTMLDivElement>>('toastList');
+
   protected readonly toasts = this.toastService.toasts;
   protected readonly expanded = signal(false);
+  /**
+   * The container's own box was resizing on every expand/collapse toggle (a `min-height: 3.5rem`
+   * collapsed deck growing to a tall expanded list) -- and since that resize was ITSELF triggered
+   * by hover, Chromium's hit-test re-evaluation after the layout shift would flip the hover target
+   * for a frame, flipping `expanded` back, shrinking the box again, flipping hover again... an
+   * infinite once-per-frame oscillation the instant the cursor sat still over the container.
+   * Reserving the expanded height permanently (measured from the actual toasts, not guessed) means
+   * the box never resizes at all -- only the children's transform/opacity change on hover -- so
+   * there's no layout shift for the hit-test to react to.
+   */
+  protected readonly reservedHeightPx = signal<number | null>(null);
   private readonly timers = new Map<number, ReturnType<typeof setTimeout>>();
 
   protected readonly maxVisibleStackDepth = MAX_VISIBLE_STACK_DEPTH;
+
+  private readonly measureReservedHeight = afterRenderEffect(() => {
+    const list = this.toasts();
+    if (!this.stacked() || list.length === 0) {
+      this.reservedHeightPx.set(null);
+      return;
+    }
+    const container = this.toastListEl()?.nativeElement;
+    if (!container) {
+      return;
+    }
+    const items = Array.from(container.querySelectorAll<HTMLElement>('.z-toast'));
+    if (items.length === 0) {
+      return;
+    }
+    const gapPx = parseFloat(getComputedStyle(container).rowGap) || 0;
+    const total = items.reduce((sum, el) => sum + el.offsetHeight, 0) + gapPx * (items.length - 1);
+    this.reservedHeightPx.set(total);
+  });
 
   protected stackDepth(indexFromNewest: number): number {
     return Math.min(indexFromNewest, MAX_VISIBLE_STACK_DEPTH);
