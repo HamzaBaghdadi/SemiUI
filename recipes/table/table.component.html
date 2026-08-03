@@ -1,14 +1,19 @@
-@if (filterable()) {
+@if (filterable() || headerTemplate()) {
   <div class="z-table__toolbar">
-    <input
-      type="text"
-      class="z-table__filter-input"
-      role="searchbox"
-      aria-label="Filter table rows"
-      [placeholder]="filterPlaceholder()"
-      [value]="filterText()"
-      (input)="onFilterInput($any($event.target).value)"
-    />
+    @if (filterable()) {
+      <label class="z-table__filter">
+        <span class="z-table__visually-hidden">Filter table rows</span>
+        <z-text-input
+          type="search"
+          [placeholder]="filterPlaceholder()"
+          [value]="filterText()"
+          (valueChange)="onFilterInput($event)"
+        />
+      </label>
+    }
+    @if (headerTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" />
+    }
   </div>
 }
 
@@ -18,12 +23,11 @@
       <tr>
         @if (selectionMode() === 'multiple') {
           <th class="z-table__th z-table__th--checkbox">
-            <input
-              type="checkbox"
-              aria-label="Select all rows on this page"
-              [checked]="allVisibleSelected()"
+            <z-checkbox
+              ariaLabel="Select all rows on this page"
+              [value]="allVisibleSelected()"
               [indeterminate]="someVisibleSelected()"
-              (change)="toggleSelectAllVisible()"
+              (valueChange)="toggleSelectAllVisible()"
             />
           </th>
         } @else if (selectionMode() === 'single') {
@@ -57,10 +61,14 @@
       @if (loading()) {
         <tr class="z-table__state-row">
           <td [attr.colspan]="columns().length + (selectionMode() !== 'none' ? 1 : 0)">
-            <div class="z-table__loading">
-              <z-icon class="z-table__loading-icon" [ref]="icons.loading" />
-              Loading...
-            </div>
+            @if (loadingTemplate(); as tpl) {
+              <ng-container [ngTemplateOutlet]="tpl" />
+            } @else {
+              <div class="z-table__loading">
+                <z-icon class="z-table__loading-icon" [ref]="icons.loading" />
+                Loading...
+              </div>
+            }
           </td>
         </tr>
       } @else if (pagedData().length === 0) {
@@ -79,11 +87,24 @@
           >
             @if (selectionMode() === 'multiple') {
               <td class="z-table__td z-table__td--checkbox" (click)="$event.stopPropagation()">
-                <input type="checkbox" [attr.aria-label]="'Select row ' + (i + 1)" [checked]="isSelected(row)" (change)="toggleRowSelection(row)" />
+                <z-checkbox [ariaLabel]="'Select row ' + (i + 1)" [value]="isSelected(row)" (valueChange)="toggleRowSelection(row)" />
               </td>
             } @else if (selectionMode() === 'single') {
+              <!-- No standalone single-radio component exists to reuse here -- see the CSS for why.
+                   A <label> (matching z-radio's own markup), not a <span>: the input is visually
+                   hidden down to 1x1px, so clicking the visible dot only reaches it through the
+                   browser's native "click anywhere in a <label> activates its control" behavior. -->
               <td class="z-table__td z-table__td--checkbox" (click)="$event.stopPropagation()">
-                <input type="radio" [attr.aria-label]="'Select row ' + (i + 1)" [checked]="isSelected(row)" (change)="toggleRowSelection(row)" />
+                <label class="z-radio">
+                  <input
+                    type="radio"
+                    class="z-radio__input"
+                    [attr.aria-label]="'Select row ' + (i + 1)"
+                    [checked]="isSelected(row)"
+                    (change)="toggleRowSelection(row)"
+                  />
+                  <span class="z-radio__dot"></span>
+                </label>
               </td>
             }
             @for (column of columns(); track column.field) {
@@ -105,8 +126,32 @@
   </table>
 </div>
 
-@if (paginated() && !loading() && pagedData().length > 0) {
-  <div class="z-table__footer">
-    <z-pagination [page]="currentPage()" (pageChange)="onPageChange($event)" [pageCount]="totalPages()" />
+@if (!loading() && pagedData().length > 0 && (paginated() || showSummary() || rowsPerPageOptions().length > 0 || footerTemplate())) {
+  <div class="z-table__footer" [attr.data-has-extras]="hasFooterExtras() ? '' : null">
+    @if (showSummary()) {
+      <span class="z-table__summary">{{ summaryText() }}</span>
+    }
+    @if (paginated()) {
+      <z-pagination [page]="currentPage()" (pageChange)="onPageChange($event)" [pageCount]="totalPages()" />
+    }
+    @if (rowsPerPageOptions().length > 0 || footerTemplate()) {
+      <span class="z-table__footer-end">
+        @if (rowsPerPageOptions().length > 0) {
+          <label class="z-table__rows-per-page">
+            Rows per page
+            <z-select
+              [options]="rowsPerPageOptions()"
+              [value]="pageSize()"
+              (valueChange)="onPageSizeChange($any($event))"
+              [clearable]="false"
+              [filterable]="false"
+            />
+          </label>
+        }
+        @if (footerTemplate(); as tpl) {
+          <ng-container [ngTemplateOutlet]="tpl" />
+        }
+      </span>
+    }
   </div>
 }

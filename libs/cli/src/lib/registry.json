@@ -219,10 +219,10 @@
   },
   "table": {
     "name": "table",
-    "description": "A data-driven table with sorting, a global filter box, single/multiple row selection, an optional #cell template for custom rendering, and built-in pagination via <z-pagination>.",
+    "description": "A data-driven table with optional per-column sorting, a global filter box (via <z-text-input>), single/multiple row selection (via <z-checkbox>), a rows-per-page dropdown (via <z-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <z-pagination>.",
     "files": ["table.component.ts", "table.component.html", "table.component.css"],
     "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
-    "recipeDependencies": ["pagination"]
+    "recipeDependencies": ["pagination", "checkbox", "select", "text-input"]
   },
   "chart": {
     "name": "chart",

@@ -6,6 +6,7 @@
     [attr.data-size]="size()"
     [checked]="value()"
     [indeterminate]="indeterminate()"
+    [attr.aria-label]="ariaLabel() || null"
     [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
     [disabled]="effectiveDisabled()"
     (change)="onChange($any($event.target).checked)"

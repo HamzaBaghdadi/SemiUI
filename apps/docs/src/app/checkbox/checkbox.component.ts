@@ -21,6 +21,8 @@ export class CheckboxComponent extends BaseFormFieldControl<boolean> {
   private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   label = input('');
+  /** Accessible name for icon/label-less checkboxes (e.g. a bare selection checkbox in a table cell). Forwarded to the native input; unnecessary when `label` is set, since that already associates via the wrapping `<label>`. */
+  ariaLabel = input<string>();
   errorMessage = input('');
   size = input<ButtonSize>('md');
   /**

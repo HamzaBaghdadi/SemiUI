@@ -3,20 +3,32 @@
 }
 
 .z-table__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zaytoon-spacing-md);
   margin-bottom: var(--zaytoon-spacing-sm);
 }
 
-.z-table__filter-input {
+.z-table__filter {
+  display: block;
   width: 100%;
   max-width: 20rem;
-  box-sizing: border-box;
-  padding: 0.375rem var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-table-border);
-  border-radius: var(--zaytoon-radius-sm);
-  background: var(--zaytoon-color-background);
-  color: var(--zaytoon-color-foreground);
-  font: inherit;
-  font-size: var(--zaytoon-comp-table-font-size);
+}
+
+/* Visually hidden but still reachable by assistive tech -- the search field's accessible name
+   comes from this wrapping <label>'s text rather than a visible label, since the placeholder
+   already communicates intent visually and a real rendered label would be redundant clutter. */
+.z-table__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .z-table__scroll {
@@ -93,6 +105,65 @@
   width: 2.5rem;
 }
 
+/* No standalone single-radio component exists (only a whole RadioGroup, which renders every
+   option together as one block -- it doesn't fit "one radio per table row, interleaved with the
+   rest of that row's cells"). Reusing z-radio's exact class names/tokens here instead, so this
+   still looks and behaves identically to the real component. */
+.z-radio__input:checked + .z-radio__dot {
+  border-color: var(--zaytoon-comp-radio-border-checked);
+}
+
+.z-radio__input:checked + .z-radio__dot::after {
+  transform: scale(1);
+}
+
+.z-radio__input:focus-visible + .z-radio__dot {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-radio-focus-ring) 35%, transparent);
+}
+
+.z-radio__input:disabled + .z-radio__dot {
+  background: var(--zaytoon-comp-radio-background-disabled);
+  border-color: var(--zaytoon-comp-radio-border-disabled);
+}
+
+.z-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.z-radio__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--zaytoon-comp-radio-size-md);
+  height: var(--zaytoon-comp-radio-size-md);
+  border: 1px solid var(--zaytoon-comp-radio-border);
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-radio-background);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.z-radio__dot::after {
+  content: '';
+  width: 50%;
+  height: 50%;
+  border-radius: var(--zaytoon-radius-full);
+  background: var(--zaytoon-comp-radio-dot-background);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
 .z-table__tr:last-child .z-table__td {
   border-bottom: none;
 }
@@ -131,6 +202,13 @@
   width: 1rem;
   height: 1rem;
   animation: z-table-spin 0.8s linear infinite;
+  transform-origin: 50% 50%;
+  /* Without this, some browsers recompute the (slightly larger, anti-aliased) axis-aligned
+     bounding box at diagonal rotation angles and re-run layout on the surrounding flex row, which
+     reads as the icon drifting/bobbing instead of spinning cleanly in place -- same fix as
+     Button's loading spinner. */
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 @keyframes z-table-spin {
@@ -142,5 +220,42 @@
 .z-table__footer {
   margin-top: var(--zaytoon-spacing-sm);
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--zaytoon-spacing-sm);
   justify-content: flex-end;
+}
+
+/* Nothing but pagination in the footer (no summary, no rows-per-page, no #footer template) --
+   center it instead of leaving it stranded flush against one side. */
+.z-table__footer:not([data-has-extras]) {
+  justify-content: center;
+}
+
+.z-table__footer[data-has-extras] {
+  justify-content: space-between;
+}
+
+.z-table__summary {
+  font-size: var(--zaytoon-comp-table-font-size);
+  color: var(--zaytoon-color-muted-foreground);
+}
+
+.z-table__footer-end {
+  display: flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-md);
+  margin-left: auto;
+}
+
+.z-table__rows-per-page {
+  display: flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-xs);
+  font-size: var(--zaytoon-comp-table-font-size);
+  color: var(--zaytoon-color-muted-foreground);
+}
+
+.z-table__rows-per-page z-select {
+  width: 5rem;
 }

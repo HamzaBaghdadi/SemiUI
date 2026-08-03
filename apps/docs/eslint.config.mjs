@@ -28,7 +28,11 @@ export default [
   },
   {
     files: ['**/*.html'],
-    // Override or add rules here
-    rules: {},
+    rules: {
+      '@angular-eslint/template/label-has-associated-control': [
+        'error',
+        { controlComponents: ['z-text-input', 'z-select'] },
+      ],
+    },
   },
 ];

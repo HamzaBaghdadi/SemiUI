@@ -54,8 +54,18 @@ export class TableDocsPage {
     { field: 'status', header: 'Status', sortable: true },
   ];
 
+  /** No column sets `sortable: true` -- sorting is opt-in per column, so this table simply has none. */
+  protected readOnlyColumns: TableColumn<Person>[] = [
+    { field: 'name', header: 'Name' },
+    { field: 'role', header: 'Role' },
+    { field: 'age', header: 'Age', align: 'right', width: '5rem' },
+  ];
+
   protected selection: Person[] = [];
-  protected loading = signal(false);
+  // Not named `loading` -- that would collide with the demo's own <ng-template #loading> content
+  // template reference variable, which shadows a same-named component property in that scope.
+  protected isLoadingDemo = signal(false);
+  protected footerPageSize = signal(10);
 
   protected statusVariant(status: Person['status']): 'primary' | 'default' | 'destructive' {
     if (status === 'active') return 'primary';
@@ -64,6 +74,6 @@ export class TableDocsPage {
   }
 
   toggleLoading(): void {
-    this.loading.update((value) => !value);
+    this.isLoadingDemo.update((value) => !value);
   }
 }

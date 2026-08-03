@@ -77,13 +77,72 @@
 </div>
 <pre><code>&lt;z-table [columns]="columns" [data]="people" selectionMode="single" /&gt;</code></pre>
 
+<h2>Sorting is opt-in per column</h2>
+<p>
+  There's no table-wide "enable sorting" switch -- each column decides for itself via
+  <code>sortable</code>. Omit it everywhere (like this one does) and the table is just a plain,
+  unsortable grid; no sort icons, no clickable headers.
+</p>
+<div class="demo-row" style="display: block;">
+  <z-table [columns]="readOnlyColumns" [data]="people" />
+</div>
+<pre><code>protected columns: TableColumn&lt;Person&gt;[] = [
+  &#123; field: 'name', header: 'Name' &#125;,  // no sortable -- this column never sorts
+&#125;;</code></pre>
+
+<h2>Summary, rows-per-page, and header/footer templates</h2>
+<p>
+  <code>showSummary</code> adds a "Showing X to Y of Z entries" label -- customize the wording via
+  <code>summaryTemplate</code>'s <code>&#123;first&#125;</code>/<code>&#123;last&#125;</code>/<code>&#123;total&#125;</code>
+  placeholders. <code>rowsPerPageOptions</code> adds a page-size dropdown (via
+  <a routerLink="/components/select">Select</a>) that writes back to <code>[(pageSize)]</code>.
+  <code>#header</code>/<code>#footer</code> templates render in the toolbar/footer alongside all of
+  that. With nothing else in the footer, pagination centers itself instead of sitting flush right.
+</p>
+<div class="demo-row" style="display: block;">
+  <z-table
+    [columns]="basicColumns"
+    [data]="manyPeople"
+    [paginated]="true"
+    [(pageSize)]="footerPageSize"
+    [rowsPerPageOptions]="[5, 10, 25]"
+    [showSummary]="true"
+  >
+    <ng-template #header>
+      <strong>{{ manyPeople.length }} people</strong>
+    </ng-template>
+    <ng-template #footer>
+      <button type="button" (click)="footerPageSize.set(10)">Reset page size</button>
+    </ng-template>
+  </z-table>
+</div>
+<pre><code>&lt;z-table
+  [columns]="columns"
+  [data]="people"
+  [paginated]="true"
+  [(pageSize)]="pageSize"
+  [rowsPerPageOptions]="[5, 10, 25]"
+  [showSummary]="true"
+  summaryTemplate="&#123;first&#125;-&#123;last&#125; of &#123;total&#125;"
+&gt;
+  &lt;ng-template #header&gt;...&lt;/ng-template&gt;
+  &lt;ng-template #footer&gt;...&lt;/ng-template&gt;
+&lt;/z-table&gt;</code></pre>
+
 <h2>Loading and empty states</h2>
 <div class="demo-row">
   <button type="button" (click)="toggleLoading()">Toggle loading</button>
 </div>
 <div class="demo-row" style="display: block;">
-  <z-table [columns]="basicColumns" [data]="[]" [loading]="loading()" emptyMessage="No people found." />
+  <z-table [columns]="basicColumns" [data]="[]" [loading]="isLoadingDemo()" emptyMessage="No people found.">
+    <ng-template #loading>
+      <div style="padding: 1.5rem; text-align: center;">Fetching people, hold on&hellip;</div>
+    </ng-template>
+  </z-table>
 </div>
+<pre><code>&lt;z-table [loading]="isLoading()"&gt;
+  &lt;ng-template #loading&gt;Fetching people, hold on&amp;hellip;&lt;/ng-template&gt;
+&lt;/z-table&gt;</code></pre>
 
 <h2>Options</h2>
 <ul>
@@ -93,8 +152,18 @@
   <li><code>selectionMode</code> -- <code>"none"</code> (default) / <code>"single"</code> / <code>"multiple"</code>.</li>
   <li><code>selection</code> -- two-way bindable array of selected rows.</li>
   <li><code>filterable</code> -- default <code>false</code>; global search across every column's field value.</li>
-  <li><code>paginated</code> -- default <code>false</code>; <code>pageSize</code> default <code>10</code>.</li>
+  <li><code>paginated</code> -- default <code>false</code>; <code>pageSize</code> default <code>10</code>, two-way bindable.</li>
+  <li><code>rowsPerPageOptions</code> -- default <code>[]</code> (hidden); a page-size dropdown when non-empty, e.g. <code>[5, 10, 25]</code>.</li>
+  <li><code>showSummary</code> -- default <code>false</code>; a "Showing X to Y of Z entries" label. <code>summaryTemplate</code> customizes the wording via <code>&#123;first&#125;</code>/<code>&#123;last&#125;</code>/<code>&#123;total&#125;</code> placeholders.</li>
   <li><code>loading</code> / <code>striped</code> / <code>stickyHeader</code> / <code>emptyMessage</code>.</li>
+</ul>
+
+<h2>Templates</h2>
+<ul>
+  <li><code>#cell</code> -- per-cell rendering. Context: <code>&#123; $implicit: row, column, value, index &#125;</code>.</li>
+  <li><code>#header</code> -- rendered in the toolbar, alongside the filter box.</li>
+  <li><code>#footer</code> -- rendered in the footer, alongside the summary/rows-per-page dropdown/pagination.</li>
+  <li><code>#loading</code> -- replaces the default spinner + "Loading..." row while <code>loading</code> is <code>true</code>.</li>
 </ul>
 
 <h2>Outputs</h2>

@@ -2,7 +2,10 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model, output, signal } from '@angular/core';
 import { ZIconComponent } from '@zaytoon/primitives/icon';
 import { injectZaytoonIcons } from '@zaytoon/theme';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { SelectComponent } from '../select/select.component';
+import { TextInputComponent } from '../text-input/text-input.component';
 
 export interface TableColumn<T = unknown> {
   field: string;
@@ -34,7 +37,7 @@ export interface TableCellContext<T> {
  */
 @Component({
   selector: 'z-table',
-  imports: [ZIconComponent, NgTemplateOutlet, PaginationComponent],
+  imports: [ZIconComponent, NgTemplateOutlet, PaginationComponent, TextInputComponent, CheckboxComponent, SelectComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
@@ -51,17 +54,32 @@ export class TableComponent<T = Record<string, unknown>> {
   filterable = input(false, { transform: booleanAttribute });
   filterPlaceholder = input('Search...');
   paginated = input(false, { transform: booleanAttribute });
-  pageSize = input(10);
+  /** Rows per page. Two-way bindable -- the rows-per-page dropdown (when `rowsPerPageOptions` is set) writes back to it directly. */
+  pageSize = model(10);
+  /** Shows a rows-per-page dropdown in the footer when non-empty, e.g. `[5, 10, 25, 50]`. */
+  rowsPerPageOptions = input<readonly number[]>([]);
   loading = input(false, { transform: booleanAttribute });
   striped = input(true, { transform: booleanAttribute });
   stickyHeader = input(false, { transform: booleanAttribute });
   emptyMessage = input('No data available');
+  /**
+   * Shows a "Showing X to Y of Z entries" summary in the footer. Pass a template string with
+   * `{first}`/`{last}`/`{total}` placeholders to customize the wording.
+   */
+  showSummary = input(false, { transform: booleanAttribute });
+  summaryTemplate = input('Showing {first} to {last} of {total} entries');
 
   /** Emitted when a row is clicked, regardless of selectionMode. */
   rowClick = output<T>();
 
   /** Custom per-cell rendering. Context: `{ $implicit: row, column, value, index }`. Falls back to the raw field value as text. */
   protected cellTemplate = contentChild<unknown, TemplateRef<TableCellContext<T>>>('cell', { read: TemplateRef });
+  /** Rendered above the table, alongside the filter box (if shown). */
+  protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
+  /** Rendered in the footer, alongside pagination/summary/rows-per-page. */
+  protected footerTemplate = contentChild<unknown, TemplateRef<unknown>>('footer', { read: TemplateRef });
+  /** Replaces the default spinner + "Loading..." row while `loading` is true. */
+  protected loadingTemplate = contentChild<unknown, TemplateRef<unknown>>('loading', { read: TemplateRef });
 
   protected readonly sortField = signal('');
   protected readonly sortDirection = signal<SortDirection>(null);
@@ -124,6 +142,24 @@ export class TableComponent<T = Record<string, unknown>> {
 
   protected readonly someVisibleSelected = computed(
     () => !this.allVisibleSelected() && this.pagedData().some((row) => this.isSelected(row)),
+  );
+
+  protected readonly summaryText = computed(() => {
+    const total = this.sortedData().length;
+    const template = this.summaryTemplate();
+    if (total === 0) {
+      return template.replace('{first}', '0').replace('{last}', '0').replace('{total}', '0');
+    }
+    const page = this.paginated() ? Math.min(this.currentPage(), this.totalPages()) : 1;
+    const size = this.paginated() ? this.pageSize() : total;
+    const first = (page - 1) * size + 1;
+    const last = Math.min(page * size, total);
+    return template.replace('{first}', String(first)).replace('{last}', String(last)).replace('{total}', String(total));
+  });
+
+  /** Whether the footer has anything besides pagination -- when it doesn't, pagination centers itself instead of sitting flush to one side. */
+  protected readonly hasFooterExtras = computed(
+    () => this.showSummary() || this.rowsPerPageOptions().length > 0 || !!this.footerTemplate(),
   );
 
   protected cellValue(row: T, field: string): unknown {
@@ -196,5 +232,10 @@ export class TableComponent<T = Record<string, unknown>> {
 
   protected onPageChange(page: number): void {
     this.currentPage.set(page);
+  }
+
+  protected onPageSizeChange(size: number): void {
+    this.pageSize.set(size);
+    this.currentPage.set(1);
   }
 }
