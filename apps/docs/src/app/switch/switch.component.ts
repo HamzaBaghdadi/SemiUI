@@ -1,7 +1,7 @@
 import { Component, ElementRef, input, viewChild } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { ButtonSize, IconRef } from '@zaytoon/tokens';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { ButtonSize, IconRef } from '@semiui/tokens';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 let nextSwitchId = 0;

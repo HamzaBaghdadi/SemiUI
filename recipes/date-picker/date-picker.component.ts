@@ -15,9 +15,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 export interface CalendarDay {
@@ -92,7 +92,7 @@ let nextDatePickerId = 0;
   },
 })
 export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');

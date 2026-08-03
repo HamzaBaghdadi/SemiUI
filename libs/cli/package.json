@@ -1,10 +1,10 @@
 {
-  "name": "zaytoon",
+  "name": "semiui",
   "version": "0.0.1",
   "publishConfig": { "access": "public" },
   "type": "commonjs",
   "main": "./index.cjs",
   "types": "./index.d.ts",
-  "bin": { "zaytoon": "./index.cjs" },
+  "bin": { "semiui": "./index.cjs" },
   "dependencies": {}
 }

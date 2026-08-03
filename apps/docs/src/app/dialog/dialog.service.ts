@@ -10,7 +10,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DialogSize } from '@zaytoon/tokens';
+import { DialogSize } from '@semiui/tokens';
 import { DialogComponent } from './dialog.component';
 
 /** Injected into a component opened via `DialogService.open()` to read the `data` passed at open time. */

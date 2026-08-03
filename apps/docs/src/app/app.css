@@ -1,7 +1,7 @@
 :host {
   display: block;
-  font-family: var(--zaytoon-typography-font-family);
-  color: var(--zaytoon-color-foreground);
+  font-family: var(--semiui-typography-font-family);
+  color: var(--semiui-color-foreground);
   min-height: 100vh;
 }
 
@@ -9,28 +9,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--zaytoon-spacing-md) var(--zaytoon-spacing-lg);
-  border-bottom: 1px solid var(--zaytoon-color-border);
+  padding: var(--semiui-spacing-md) var(--semiui-spacing-lg);
+  border-bottom: 1px solid var(--semiui-color-border);
 }
 
 .shell__brand {
-  color: var(--zaytoon-color-foreground);
+  color: var(--semiui-color-foreground);
   text-decoration: none;
-  font-weight: var(--zaytoon-typography-font-weight-medium);
+  font-weight: var(--semiui-typography-font-weight-medium);
   font-size: 1.25rem;
 }
 
 .shell__mode-toggle {
-  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-sm);
-  border-radius: var(--zaytoon-radius-sm);
-  border: 1px solid var(--zaytoon-color-border);
-  background: var(--zaytoon-color-background);
-  color: var(--zaytoon-color-foreground);
+  padding: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
+  border-radius: var(--semiui-radius-sm);
+  border: 1px solid var(--semiui-color-border);
+  background: var(--semiui-color-background);
+  color: var(--semiui-color-foreground);
   cursor: pointer;
 }
 
 .shell__mode-toggle:hover {
-  background: var(--zaytoon-color-muted);
+  background: var(--semiui-color-muted);
 }
 
 .shell__body {
@@ -40,18 +40,18 @@
 .shell__nav {
   width: 220px;
   flex-shrink: 0;
-  padding: var(--zaytoon-spacing-lg);
-  border-right: 1px solid var(--zaytoon-color-border);
-  height: calc(100dvh - 5.2rem);
-  overflow-y: auto;
+  padding: var(--semiui-spacing-lg);
+  border-right: 1px solid var(--semiui-color-border);
+  /* height: calc(100dvh - 5.2rem);
+  overflow-y: auto; */
 }
 
 .shell__nav h2 {
-  font-size: var(--zaytoon-typography-font-size-sm);
-  color: var(--zaytoon-color-muted-foreground);
+  font-size: var(--semiui-typography-font-size-sm);
+  color: var(--semiui-color-muted-foreground);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin: var(--zaytoon-spacing-lg) 0 var(--zaytoon-spacing-sm);
+  margin: var(--semiui-spacing-lg) 0 var(--semiui-spacing-sm);
 }
 
 .shell__nav h2:first-child {
@@ -66,24 +66,24 @@
 
 .shell__nav a {
   display: block;
-  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-sm);
-  border-radius: var(--zaytoon-radius-sm);
-  color: var(--zaytoon-color-foreground);
+  padding: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-color-foreground);
   text-decoration: none;
 }
 
 .shell__nav a:hover {
-  background: var(--zaytoon-color-muted);
+  background: var(--semiui-color-muted);
 }
 
 .shell__nav a.is-active {
-  background: var(--zaytoon-color-muted);
-  color: var(--zaytoon-color-primary);
+  background: var(--semiui-color-muted);
+  color: var(--semiui-color-primary);
 }
 
 .shell__content {
   flex: 1;
-  padding: var(--zaytoon-spacing-lg);
-  height: calc(100dvh - 5.2rem);
-  overflow-y: auto;
+  padding: var(--semiui-spacing-lg);
+  /* height: calc(100dvh - 5.2rem);
+  overflow-y: auto; */
 }

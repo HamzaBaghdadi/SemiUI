@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface StepItem {
   label: string;
@@ -30,7 +30,7 @@ export type StepState = 'completed' | 'active' | 'upcoming';
   },
 })
 export class StepperComponent<TItem extends StepItem = StepItem> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   items = input<readonly TItem[]>([]);
   /** The current step's index. Two-way bindable. */

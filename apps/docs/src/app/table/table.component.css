@@ -6,8 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--zaytoon-spacing-md);
-  margin-bottom: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-md);
+  margin-bottom: var(--semiui-spacing-sm);
 }
 
 .z-table__filter {
@@ -33,18 +33,18 @@
 
 .z-table__scroll {
   overflow-x: auto;
-  border: 1px solid var(--zaytoon-comp-table-border);
-  border-radius: var(--zaytoon-comp-table-radius);
+  border: 1px solid var(--semiui-comp-table-border);
+  border-radius: var(--semiui-comp-table-radius);
 }
 
 .z-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--zaytoon-comp-table-font-size);
+  font-size: var(--semiui-comp-table-font-size);
 }
 
 .z-table__head {
-  background: var(--zaytoon-comp-table-header-background);
+  background: var(--semiui-comp-table-header-background);
 }
 
 .z-table__head[data-sticky] {
@@ -55,11 +55,11 @@
 
 .z-table__th {
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-table-cell-padding-y) var(--zaytoon-comp-table-cell-padding-x);
+  padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   text-align: left;
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  color: var(--zaytoon-comp-table-header-foreground);
-  border-bottom: 1px solid var(--zaytoon-comp-table-border);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-comp-table-header-foreground);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
   white-space: nowrap;
 }
 
@@ -81,13 +81,13 @@
 .z-table__sort-icon {
   width: 0.75rem;
   height: 0.75rem;
-  color: var(--zaytoon-comp-table-sort-icon-color);
+  color: var(--semiui-comp-table-sort-icon-color);
   transform: rotate(180deg);
   transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .z-table__sort-icon--active {
-  color: var(--zaytoon-comp-table-sort-icon-color-active);
+  color: var(--semiui-comp-table-sort-icon-color-active);
 }
 
 .z-table__sort-icon--desc {
@@ -96,9 +96,9 @@
 
 .z-table__td {
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-table-cell-padding-y) var(--zaytoon-comp-table-cell-padding-x);
-  border-bottom: 1px solid var(--zaytoon-comp-table-border);
-  color: var(--zaytoon-color-foreground);
+  padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
+  color: var(--semiui-color-foreground);
 }
 
 .z-table__td--checkbox {
@@ -110,7 +110,7 @@
    rest of that row's cells"). Reusing z-radio's exact class names/tokens here instead, so this
    still looks and behaves identically to the real component. */
 .z-radio__input:checked + .z-radio__dot {
-  border-color: var(--zaytoon-comp-radio-border-checked);
+  border-color: var(--semiui-comp-radio-border-checked);
 }
 
 .z-radio__input:checked + .z-radio__dot::after {
@@ -119,12 +119,12 @@
 
 .z-radio__input:focus-visible + .z-radio__dot {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-radio-focus-ring) 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-radio-focus-ring) 35%, transparent);
 }
 
 .z-radio__input:disabled + .z-radio__dot {
-  background: var(--zaytoon-comp-radio-background-disabled);
-  border-color: var(--zaytoon-comp-radio-border-disabled);
+  background: var(--semiui-comp-radio-background-disabled);
+  border-color: var(--semiui-comp-radio-border-disabled);
 }
 
 .z-radio__input {
@@ -145,11 +145,11 @@
   justify-content: center;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: var(--zaytoon-comp-radio-size-md);
-  height: var(--zaytoon-comp-radio-size-md);
-  border: 1px solid var(--zaytoon-comp-radio-border);
-  border-radius: var(--zaytoon-radius-full);
-  background: var(--zaytoon-comp-radio-background);
+  width: var(--semiui-comp-radio-size-md);
+  height: var(--semiui-comp-radio-size-md);
+  border: 1px solid var(--semiui-comp-radio-border);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-radio-background);
   cursor: pointer;
   transition: border-color 0.15s ease;
 }
@@ -158,8 +158,8 @@
   content: '';
   width: 50%;
   height: 50%;
-  border-radius: var(--zaytoon-radius-full);
-  background: var(--zaytoon-comp-radio-dot-background);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-radio-dot-background);
   transform: scale(0);
   transition: transform 0.15s ease;
 }
@@ -169,11 +169,11 @@
 }
 
 .z-table[data-striped] .z-table__tr:nth-child(even) {
-  background: var(--zaytoon-comp-table-row-background-striped);
+  background: var(--semiui-comp-table-row-background-striped);
 }
 
 .z-table__tr:hover {
-  background: var(--zaytoon-comp-table-row-background-hover);
+  background: var(--semiui-comp-table-row-background-hover);
 }
 
 .z-table__tr--clickable {
@@ -181,21 +181,21 @@
 }
 
 .z-table__tr[data-selected] {
-  background: var(--zaytoon-comp-table-row-background-selected);
+  background: var(--semiui-comp-table-row-background-selected);
 }
 
 .z-table__state-row .z-table__loading,
 .z-table__state-row .z-table__empty {
-  padding: var(--zaytoon-spacing-xl) 0;
+  padding: var(--semiui-spacing-xl) 0;
   text-align: center;
-  color: var(--zaytoon-color-muted-foreground);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .z-table__loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--zaytoon-spacing-xs);
+  gap: var(--semiui-spacing-xs);
 }
 
 .z-table__loading-icon {
@@ -218,11 +218,11 @@
 }
 
 .z-table__footer {
-  margin-top: var(--zaytoon-spacing-sm);
+  margin-top: var(--semiui-spacing-sm);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
   justify-content: flex-end;
 }
 
@@ -237,23 +237,23 @@
 }
 
 .z-table__summary {
-  font-size: var(--zaytoon-comp-table-font-size);
-  color: var(--zaytoon-color-muted-foreground);
+  font-size: var(--semiui-comp-table-font-size);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .z-table__footer-end {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-md);
+  gap: var(--semiui-spacing-md);
   margin-left: auto;
 }
 
 .z-table__rows-per-page {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-xs);
-  font-size: var(--zaytoon-comp-table-font-size);
-  color: var(--zaytoon-color-muted-foreground);
+  gap: var(--semiui-spacing-xs);
+  font-size: var(--semiui-comp-table-font-size);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .z-table__rows-per-page z-select {

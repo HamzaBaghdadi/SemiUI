@@ -10,7 +10,7 @@ describe('detectPackageManager', () => {
   let cwd: string;
 
   beforeEach(() => {
-    cwd = mkdtempSync(join(tmpdir(), 'zaytoon-cli-test-'));
+    cwd = mkdtempSync(join(tmpdir(), 'semiui-cli-test-'));
   });
 
   afterEach(() => {
@@ -43,16 +43,16 @@ describe('installDependencies', () => {
   });
 
   it('runs `npm install <packages>`', () => {
-    installDependencies('/some/dir', 'npm', ['@zaytoon/tokens']);
+    installDependencies('/some/dir', 'npm', ['@semiui/tokens']);
     expect(execFileSync).toHaveBeenCalledWith(
       'npm',
-      ['install', '@zaytoon/tokens'],
+      ['install', '@semiui/tokens'],
       expect.objectContaining({ cwd: '/some/dir' }),
     );
   });
 
   it('runs `yarn add <packages>` for yarn', () => {
-    installDependencies('/some/dir', 'yarn', ['@zaytoon/tokens']);
-    expect(execFileSync).toHaveBeenCalledWith('yarn', ['add', '@zaytoon/tokens'], expect.anything());
+    installDependencies('/some/dir', 'yarn', ['@semiui/tokens']);
+    expect(execFileSync).toHaveBeenCalledWith('yarn', ['add', '@semiui/tokens'], expect.anything());
   });
 });

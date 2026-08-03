@@ -1,8 +1,8 @@
 <h1>CLI Reference</h1>
-<p>The <code>zaytoon</code> package is a single binary with two commands.</p>
+<p>The <code>semiui</code> package is a single binary with two commands.</p>
 
-<h2><code>zaytoon init</code></h2>
-<pre><code>npx zaytoon init</code></pre>
+<h2><code>semiui init</code></h2>
+<pre><code>npx semiui init</code></pre>
 <p>Run this once, from the root of an Angular project (wherever <code>angular.json</code> is).</p>
 <ul>
   <li>Refuses to run if no <code>angular.json</code> is found in the current directory.</li>
@@ -14,14 +14,14 @@
   <li>
     Detects your package manager from the lockfile present (<code>pnpm-lock.yaml</code> &rarr;
     pnpm, <code>yarn.lock</code> &rarr; yarn, otherwise npm) and installs
-    <code>@zaytoon/tokens</code>, <code>@zaytoon/theme</code>, <code>@zaytoon/primitives</code>,
-    and <code>@zaytoon/presets-aurora</code>.
+    <code>@semiui/tokens</code>, <code>@semiui/theme</code>, <code>@semiui/primitives</code>,
+    and <code>@semiui/presets-aurora</code>.
   </li>
-  <li>Prints the <code>provideZaytoonUI</code> wiring for <code>app.config.ts</code>.</li>
+  <li>Prints the <code>provideSemiUI</code> wiring for <code>app.config.ts</code>.</li>
 </ul>
 
-<h2><code>zaytoon add &lt;component&gt;</code></h2>
-<pre><code>npx zaytoon add button</code></pre>
+<h2><code>semiui add &lt;component&gt;</code></h2>
+<pre><code>npx semiui add button</code></pre>
 <p>Run this once per component you want in your project.</p>
 <ul>
   <li>
@@ -57,9 +57,9 @@
     without editing the file.
   </li>
 </ul>
-<pre><code>npx zaytoon add --all
-npx zaytoon add button --path src/app/ui
-npx zaytoon add --all --path src/app/ui</code></pre>
+<pre><code>npx semiui add --all
+npx semiui add button --path src/app/ui
+npx semiui add --all --path src/app/ui</code></pre>
 
 <h3>Available components</h3>
 <table>
@@ -215,7 +215,7 @@ npx zaytoon add --all --path src/app/ui</code></pre>
 
 <h2>Works offline</h2>
 <p>
-  Component source ships bundled inside the <code>zaytoon</code> npm package itself -- there's no
+  Component source ships bundled inside the <code>semiui</code> npm package itself -- there's no
   registry server involved, so <code>add</code> works without network access beyond the initial
   <code>npm install</code>.
 </p>

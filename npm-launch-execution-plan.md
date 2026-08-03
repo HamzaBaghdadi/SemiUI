@@ -8,9 +8,9 @@ Companion to `angular-ui-library-plan.md` (the strategy doc). That one answers "
 
 Names get squatted fast once a project like this becomes public, so lock these down first:
 
-- [ ] Pick your real package scope (replace `zaytoon` everywhere below). Check availability:
+- [ ] Pick your real package scope (replace `semiui` everywhere below). Check availability:
   ```bash
-  npm view @zaytoon/theme   # should 404 if the scope/name is free
+  npm view @semiui/theme   # should 404 if the scope/name is free
   ```
 - [ ] Create an npm account if you don't have one, then create the npm **organization** matching your scope (npmjs.com → Add Organization). Scoped packages under an org can be published as public for free — you just need `publishConfig.access: "public"` on each package (Phase 3).
 - [ ] Reserve the GitHub org/repo name to match.
@@ -21,15 +21,15 @@ Names get squatted fast once a project like this becomes public, so lock these d
 ## Phase 1 — Workspace bootstrap
 
 ```bash
-npx create-nx-workspace@latest zaytoon \
+npx create-nx-workspace@latest semiui \
   --preset=angular-standalone \
   --style=css \
   --package-manager=pnpm \
   --ci=github
 
-cd zaytoon
+cd semiui
 git branch -M main
-git remote add origin git@github.com:<you>/zaytoon.git
+git remote add origin git@github.com:<you>/semiui.git
 git add -A && git commit -m "chore: initial workspace"
 git push -u origin main
 ```
@@ -46,15 +46,15 @@ Three of your five packages are pure TypeScript (no Angular dependency) or Angul
 
 ```bash
 # Pure TS, framework-agnostic
-npx nx g @nx/js:library tokens --directory=libs/tokens --bundler=none --publishable --importPath=@zaytoon/tokens
+npx nx g @nx/js:library tokens --directory=libs/tokens --bundler=none --publishable --importPath=@semiui/tokens
 
 # Angular libraries (ng-packagr under the hood via Nx)
-npx nx g @nx/angular:library theme      --directory=libs/theme      --publishable --importPath=@zaytoon/theme
-npx nx g @nx/angular:library primitives --directory=libs/primitives --publishable --importPath=@zaytoon/primitives
-npx nx g @nx/angular:library presets/aurora --directory=libs/presets/aurora --publishable --importPath=@zaytoon/presets/aurora
+npx nx g @nx/angular:library theme      --directory=libs/theme      --publishable --importPath=@semiui/theme
+npx nx g @nx/angular:library primitives --directory=libs/primitives --publishable --importPath=@semiui/primitives
+npx nx g @nx/angular:library presets/aurora --directory=libs/presets/aurora --publishable --importPath=@semiui/presets/aurora
 
 # CLI — plain Node package, not Angular
-npx nx g @nx/js:library cli --directory=libs/cli --bundler=esbuild --publishable --importPath=@zaytoon/cli
+npx nx g @nx/js:library cli --directory=libs/cli --bundler=esbuild --publishable --importPath=@semiui/cli
 ```
 
 Drop the theme-engine files from the last message straight into `libs/theme/src/lib/` and `libs/presets/aurora/src/lib/`, wire up the barrel `index.ts` files, and confirm it builds:
@@ -65,11 +65,11 @@ npx nx build presets-aurora
 ```
 
 ### `primitives` needs one secondary entry point per component
-This is what lets users (and your own recipe components) `import { SelectPrimitive } from '@zaytoon/primitives/select'` instead of pulling in every component's behavior at once:
+This is what lets users (and your own recipe components) `import { SelectPrimitive } from '@semiui/primitives/select'` instead of pulling in every component's behavior at once:
 
 ```bash
-npx nx g @nx/angular:library primitives/button --directory=libs/primitives/button --publishable --importPath=@zaytoon/primitives/button
-npx nx g @nx/angular:library primitives/select --directory=libs/primitives/select --publishable --importPath=@zaytoon/primitives/select
+npx nx g @nx/angular:library primitives/button --directory=libs/primitives/button --publishable --importPath=@semiui/primitives/button
+npx nx g @nx/angular:library primitives/select --directory=libs/primitives/select --publishable --importPath=@semiui/primitives/select
 # ...one per component, added as you build each one — don't pre-generate all 15 now
 ```
 
@@ -81,7 +81,7 @@ Each publishable lib's generated `libs/<name>/package.json` needs these fields c
 
 ```jsonc
 {
-  "name": "@zaytoon/theme",
+  "name": "@semiui/theme",
   "version": "0.0.1",
   "publishConfig": { "access": "public" },   // required for a free scoped package
   "peerDependencies": {
@@ -92,7 +92,7 @@ Each publishable lib's generated `libs/<name>/package.json` needs these fields c
 }
 ```
 
-For `@zaytoon/primitives`, also confirm `@angular/aria` and `@angular/cdk` are listed as **peerDependencies**, not regular dependencies — you don't want to force a version of Angular CDK/Aria on consumers that conflicts with the rest of their app.
+For `@semiui/primitives`, also confirm `@angular/aria` and `@angular/cdk` are listed as **peerDependencies**, not regular dependencies — you don't want to force a version of Angular CDK/Aria on consumers that conflicts with the rest of their app.
 
 ---
 
@@ -139,7 +139,7 @@ npx changeset init
 Edit `.changeset/config.json`:
 ```jsonc
 {
-  "changelog": ["@changesets/changelog-github", { "repo": "<you>/zaytoon" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "<you>/semiui" }],
   "access": "public",
   "baseBranch": "main"
 }
@@ -230,8 +230,8 @@ Check on npmjs.com afterward: correct `README` rendering, correct `files`/`expor
 ```jsonc
 // libs/cli/package.json
 {
-  "name": "zaytoon",              // unscoped is fine/better here — this is what people type after npx
-  "bin": { "zaytoon": "./index.js" }
+  "name": "semiui",              // unscoped is fine/better here — this is what people type after npx
+  "bin": { "semiui": "./index.js" }
 }
 ```
 
@@ -253,7 +253,7 @@ Only after Phase 4–5's loop is proven:
 ## Phase 12 — Launch checklist
 
 - [ ] All Phase-1 components published, each with a passing a11y + RTL test.
-- [ ] `npx zaytoon init && npx zaytoon add button` works against a brand-new Angular 22 app, start to finish, on a machine that's never seen this repo.
+- [ ] `npx semiui init && npx semiui add button` works against a brand-new Angular 22 app, start to finish, on a machine that's never seen this repo.
 - [ ] README leads with the differentiator (provider-based theming + copy-paste ownership), not a generic feature list.
 - [ ] GitHub Sponsors / Open Collective live.
 - [ ] Launch post written for the PrimeNG-displaced audience specifically.

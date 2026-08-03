@@ -8,13 +8,13 @@ h1 {
 }
 
 h2 {
-  margin-top: var(--zaytoon-spacing-xl);
-  border-top: 1px solid var(--zaytoon-color-border);
-  padding-top: var(--zaytoon-spacing-lg);
+  margin-top: var(--semiui-spacing-xl);
+  border-top: 1px solid var(--semiui-color-border);
+  padding-top: var(--semiui-spacing-lg);
 }
 
 h3 {
-  margin-top: var(--zaytoon-spacing-lg);
+  margin-top: var(--semiui-spacing-lg);
 }
 
 p,
@@ -26,19 +26,19 @@ li {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--zaytoon-spacing-sm);
-  margin-block: var(--zaytoon-spacing-md);
+  gap: var(--semiui-spacing-sm);
+  margin-block: var(--semiui-spacing-md);
 }
 
 .demo-value {
-  font-size: var(--zaytoon-typography-font-size-sm);
-  color: var(--zaytoon-color-muted-foreground);
+  font-size: var(--semiui-typography-font-size-sm);
+  color: var(--semiui-color-muted-foreground);
 }
 
 pre {
-  background: var(--zaytoon-color-muted);
-  border-radius: var(--zaytoon-radius-md);
-  padding: var(--zaytoon-spacing-md);
+  background: var(--semiui-color-muted);
+  border-radius: var(--semiui-radius-md);
+  padding: var(--semiui-spacing-md);
   overflow-x: auto;
 }
 
@@ -48,37 +48,37 @@ code {
 }
 
 :not(pre) > code {
-  background: var(--zaytoon-color-muted);
-  border-radius: var(--zaytoon-radius-sm);
+  background: var(--semiui-color-muted);
+  border-radius: var(--semiui-radius-sm);
   padding: 0.15em 0.4em;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-block: var(--zaytoon-spacing-md);
+  margin-block: var(--semiui-spacing-md);
 }
 
 th,
 td {
   text-align: left;
-  padding: var(--zaytoon-spacing-sm);
-  border-bottom: 1px solid var(--zaytoon-color-border);
+  padding: var(--semiui-spacing-sm);
+  border-bottom: 1px solid var(--semiui-color-border);
   vertical-align: top;
 }
 
 th {
-  color: var(--zaytoon-color-muted-foreground);
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--semiui-color-muted-foreground);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  font-size: var(--semiui-typography-font-size-sm);
 }
 
 .callout {
-  background: var(--zaytoon-color-muted);
-  border-left: 3px solid var(--zaytoon-color-primary);
-  border-radius: var(--zaytoon-radius-sm);
-  padding: var(--zaytoon-spacing-md);
-  margin-block: var(--zaytoon-spacing-md);
+  background: var(--semiui-color-muted);
+  border-left: 3px solid var(--semiui-color-primary);
+  border-radius: var(--semiui-radius-sm);
+  padding: var(--semiui-spacing-md);
+  margin-block: var(--semiui-spacing-md);
 }
 
 .callout p:last-child {

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ColorModeService } from '@zaytoon/theme';
+import { ColorModeService } from '@semiui/theme';
 
 @Component({
   selector: 'app-color-mode-page',

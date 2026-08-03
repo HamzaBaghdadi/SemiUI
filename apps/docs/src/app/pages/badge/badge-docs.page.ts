@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { IconRef } from '@zaytoon/tokens';
+import { IconRef } from '@semiui/tokens';
 import { BadgeComponent, BadgePosition } from '../../badge/badge.component';
 
 @Component({

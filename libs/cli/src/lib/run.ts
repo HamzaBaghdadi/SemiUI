@@ -1,13 +1,13 @@
 import { AddOptions, runAdd } from './commands/add';
 import { runInit } from './commands/init';
 
-const HELP = `zaytoon -- CLI for the Zaytoon component library
+const HELP = `semiui -- CLI for the SemiUI component library
 
 Usage:
-  zaytoon init                     Set up Zaytoon in the current Angular project
-  zaytoon add <name>                Add a component's source into your project
-  zaytoon add --all                 Add every component in the library
-  zaytoon add <name> --path <dir>   Add into a custom directory for this run (overrides components.json)
+  semiui init                     Set up SemiUI in the current Angular project
+  semiui add <name>                Add a component's source into your project
+  semiui add --all                 Add every component in the library
+  semiui add <name> --path <dir>   Add into a custom directory for this run (overrides components.json)
 `;
 
 function parseAddArgs(args: string[]): { componentName: string | undefined; options: AddOptions } {

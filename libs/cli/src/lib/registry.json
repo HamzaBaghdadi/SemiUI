@@ -9,83 +9,83 @@
     "name": "button",
     "description": "A button with variants, sizes, a loading state, and leading/trailing icon slots.",
     "files": ["button.component.ts", "button.component.html", "button.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "text-input": {
     "name": "text-input",
     "description": "A text input supporting ngModel, reactive forms, and Angular signal forms.",
     "files": ["text-input.component.ts", "text-input.component.html", "text-input.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "password": {
     "name": "password",
     "description": "A password input with a show/hide toggle, built on the same form integrations as text-input.",
     "files": ["password.component.ts", "password.component.html", "password.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "select": {
     "name": "select",
     "description": "A listbox select with search/filter, a clear button, viewport-aware panel placement, and custom templates for the trigger, options, icon, header, and footer.",
     "files": ["select.component.ts", "select.component.html", "select.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "switch": {
     "name": "switch",
     "description": "A toggle switch supporting ngModel, reactive forms, and Signal Forms, with sm/md/lg sizes and optional on/off icons.",
     "files": ["switch.component.ts", "switch.component.html", "switch.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "checkbox": {
     "name": "checkbox",
     "description": "A checkbox supporting ngModel, reactive forms, and Signal Forms, with sm/md/lg sizes and an indeterminate state.",
     "files": ["checkbox.component.ts", "checkbox.component.html", "checkbox.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "radio-group": {
     "name": "radio-group",
     "description": "A radio group supporting ngModel, reactive forms, and Signal Forms, with the same options/optionLabel/optionValue shape as Select.",
     "files": ["radio-group.component.ts", "radio-group.component.html", "radio-group.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "textarea": {
     "name": "textarea",
     "description": "A multi-line text input supporting ngModel, reactive forms, and Signal Forms, with optional auto-resize and a character counter.",
     "files": ["textarea.component.ts", "textarea.component.html", "textarea.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "input-number": {
     "name": "input-number",
     "description": "A numeric input supporting ngModel, reactive forms, and Signal Forms, with min/max/step, increment/decrement buttons, and prefix/suffix text.",
     "files": ["input-number.component.ts", "input-number.component.html", "input-number.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "otp": {
     "name": "otp",
     "description": "A one-time-password input supporting ngModel, reactive forms, and Signal Forms, with auto-advancing digit boxes and paste support.",
     "files": ["otp.component.ts", "otp.component.html", "otp.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "multiselect": {
     "name": "multiselect",
     "description": "A multi-select listbox supporting ngModel, reactive forms, and Signal Forms, with search/filter, chips, select all/clear all, and viewport-aware panel placement.",
     "files": ["multiselect.component.ts", "multiselect.component.html", "multiselect.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "popover": {
     "name": "popover",
     "description": "A popover controlled by reference from anywhere in the template (po.toggle($event)/show($event)/hide()), positioned against whatever triggered it.",
     "files": ["popover.component.ts", "popover.component.html", "popover.component.css"],
-    "npmDependencies": ["@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/tokens"]
   },
   "tooltip": {
     "name": "tooltip",
@@ -96,138 +96,138 @@
       "tooltip-panel.component.html",
       "tooltip-panel.component.css"
     ],
-    "npmDependencies": ["@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/tokens"]
   },
   "divider": {
     "name": "divider",
     "description": "A horizontal or vertical rule, with an optional centered label.",
     "files": ["divider.component.ts", "divider.component.html", "divider.component.css"],
-    "npmDependencies": ["@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/tokens"]
   },
   "skeleton": {
     "name": "skeleton",
     "description": "A shimmering loading placeholder block, with rect/circle/text shapes.",
     "files": ["skeleton.component.ts", "skeleton.component.html", "skeleton.component.css"],
-    "npmDependencies": ["@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/tokens"]
   },
   "avatar": {
     "name": "avatar",
     "description": "An image avatar with initials/icon fallback, sizes, circle/square shape, and a status dot.",
     "files": ["avatar.component.ts", "avatar.component.html", "avatar.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "tag": {
     "name": "tag",
     "description": "A small label/chip with color variants, an optional leading icon, and a removable state.",
     "files": ["tag.component.ts", "tag.component.html", "tag.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "breadcrumb": {
     "name": "breadcrumb",
     "description": "A trail of ancestor pages, using Angular's RouterLink for navigable items.",
     "files": ["breadcrumb.component.ts", "breadcrumb.component.html", "breadcrumb.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "pagination": {
     "name": "pagination",
     "description": "Page-number buttons with prev/next and optional first/last, collapsing to an ellipsis for large page counts.",
     "files": ["pagination.component.ts", "pagination.component.html", "pagination.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "rating": {
     "name": "rating",
     "description": "A star rating supporting ngModel, reactive forms, and Signal Forms -- clicking the currently-selected star clears it.",
     "files": ["rating.component.ts", "rating.component.html", "rating.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "badge": {
     "name": "badge",
     "description": "A small notification indicator (count, \"N+\", or a dot) that overlays projected content, or renders inline in standalone mode.",
     "files": ["badge.component.ts", "badge.component.html", "badge.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
   },
   "accordion": {
     "name": "accordion",
     "description": "A data-driven accordion with a required #content template slot per item, an optional custom #header slot, single- or multiple-open modes, and a pure-CSS expand/collapse animation.",
     "files": ["accordion.component.ts", "accordion.component.html", "accordion.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "tabs": {
     "name": "tabs",
     "description": "A data-driven tab strip with a required #content template slot, an optional custom #label slot, horizontal/vertical orientation, a measured sliding indicator, and roving-tabindex keyboard navigation.",
     "files": ["tabs.component.ts", "tabs.component.html", "tabs.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
   },
   "stepper": {
     "name": "stepper",
     "description": "A step progress indicator with completed/active/upcoming states, linear (no-skip-ahead) mode, horizontal/vertical orientation, and an optional #content template slot for the active step's panel.",
     "files": ["stepper.component.ts", "stepper.component.html", "stepper.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "slider": {
     "name": "slider",
     "description": "A single-thumb range slider with drag/click-to-jump/keyboard support, tick marks, a floating value bubble, horizontal/vertical orientation, and ngModel/reactive forms support.",
     "files": ["slider.component.ts", "slider.component.html", "slider.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "dialog": {
     "name": "dialog",
     "description": "A modal dialog controlled by reference (show()/hide()/toggle()), always portaled to document.body, with focus trap, background scroll lock, and focus restoration on close. Includes a DialogService for opening any component in a dialog imperatively, PrimeNG DynamicDialog-style.",
     "files": ["dialog.component.ts", "dialog.component.html", "dialog.component.css", "dialog.service.ts"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "drawer": {
     "name": "drawer",
     "description": "A panel that slides in from a viewport edge (left/right/top/bottom), controlled by reference (show()/hide()/toggle()) with the same focus trap/scroll lock/portal behavior as Dialog.",
     "files": ["drawer.component.ts", "drawer.component.html", "drawer.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "file-upload": {
     "name": "file-upload",
     "description": "A drag-and-drop / click-to-browse file picker with accept/maxFileSize/maxFiles validation, image thumbnail previews, and ngModel/reactive/Signal Forms support.",
     "files": ["file-upload.component.ts", "file-upload.component.html", "file-upload.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "toast": {
     "name": "toast",
     "description": "A ToastService (injectable anywhere) plus a <z-toast-container> to mount once in your app root -- success()/error()/warning()/info() helpers, auto-dismiss with pause-on-hover, positioned corners.",
     "files": ["toast.service.ts", "toast-container.component.ts", "toast-container.component.html", "toast-container.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "carousel": {
     "name": "carousel",
     "description": "A single-slide-at-a-time carousel with a required #slide template slot, autoplay (paused on hover), looping, arrow keys, and pointer-drag/swipe.",
     "files": ["carousel.component.ts", "carousel.component.html", "carousel.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"]
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
   "date-picker": {
     "name": "date-picker",
     "description": "A calendar date picker with an inline option (no popover, calendar always visible), min/max/custom date disabling, keyboard grid navigation, and ngModel/reactive/Signal Forms support.",
     "files": ["date-picker.component.ts", "date-picker.component.html", "date-picker.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "color-picker": {
     "name": "color-picker",
     "description": "A hex color picker: saturation/value square, hue slider, typeable hex field, preset swatches, an inline option, and ngModel/reactive/Signal Forms support.",
     "files": ["color-picker.component.ts", "color-picker.component.html", "color-picker.component.css", "color.ts"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
     "recipeDependencies": ["error-message"]
   },
   "table": {
     "name": "table",
     "description": "A data-driven table with optional per-column sorting, a global filter box (via <z-text-input>), single/multiple row selection (via <z-checkbox>), a rows-per-page dropdown (via <z-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <z-pagination>.",
     "files": ["table.component.ts", "table.component.html", "table.component.css"],
-    "npmDependencies": ["@zaytoon/primitives", "@zaytoon/tokens", "@zaytoon/theme"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["pagination", "checkbox", "select", "text-input"]
   },
   "chart": {
     "name": "chart",
     "description": "An SVG chart supporting line, bar, area, pie, and donut via a type input -- no canvas, no external charting library. Gridlines/axes and a clickable legend for cartesian types, hover tooltips for all types.",
     "files": ["chart.component.ts", "chart.component.html", "chart.component.css", "chart-math.ts"],
-    "npmDependencies": ["@zaytoon/tokens"]
+    "npmDependencies": ["@semiui/tokens"]
   }
 }

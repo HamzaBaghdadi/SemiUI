@@ -8,11 +8,11 @@ export interface ColorModeConfig {
 }
 
 export const DEFAULT_COLOR_MODE_CONFIG: ColorModeConfig = {
-  storageKey: 'zaytoon-color-mode',
+  storageKey: 'semiui-color-mode',
   darkClassName: 'dark',
 };
 
-export const ZAYTOON_COLOR_MODE_CONFIG = new InjectionToken<ColorModeConfig>('ZAYTOON_COLOR_MODE_CONFIG', {
+export const SEMIUI_COLOR_MODE_CONFIG = new InjectionToken<ColorModeConfig>('SEMIUI_COLOR_MODE_CONFIG', {
   providedIn: 'root',
   factory: () => DEFAULT_COLOR_MODE_CONFIG,
 });

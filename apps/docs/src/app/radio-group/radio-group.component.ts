@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { ButtonSize } from '@zaytoon/tokens';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { ButtonSize } from '@semiui/tokens';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 let nextRadioGroupId = 0;

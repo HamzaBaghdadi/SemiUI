@@ -5,43 +5,43 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--zaytoon-comp-breadcrumb-gap);
-  font-size: var(--zaytoon-comp-breadcrumb-font-size);
-  font-family: var(--zaytoon-typography-font-family);
+  gap: var(--semiui-comp-breadcrumb-gap);
+  font-size: var(--semiui-comp-breadcrumb-font-size);
+  font-family: var(--semiui-typography-font-family);
 }
 
 .z-breadcrumb__item {
   display: inline-flex;
   align-items: center;
-  gap: var(--zaytoon-comp-breadcrumb-gap);
+  gap: var(--semiui-comp-breadcrumb-gap);
 }
 
 .z-breadcrumb__link {
-  color: var(--zaytoon-comp-breadcrumb-foreground);
+  color: var(--semiui-comp-breadcrumb-foreground);
   text-decoration: none;
 }
 
 .z-breadcrumb__link:hover {
-  color: var(--zaytoon-comp-breadcrumb-current-foreground);
+  color: var(--semiui-comp-breadcrumb-current-foreground);
   text-decoration: underline;
 }
 
 .z-breadcrumb__current {
-  color: var(--zaytoon-comp-breadcrumb-current-foreground);
-  font-weight: var(--zaytoon-typography-font-weight-medium);
+  color: var(--semiui-comp-breadcrumb-current-foreground);
+  font-weight: var(--semiui-typography-font-weight-medium);
 }
 
 /* A linked item that routerLinkActive confirms matches the current route -- still a real,
    clickable anchor (unlike .z-breadcrumb__current), just styled to read as "you are here". */
 .z-breadcrumb__link--current {
-  color: var(--zaytoon-comp-breadcrumb-current-foreground);
-  font-weight: var(--zaytoon-typography-font-weight-medium);
+  color: var(--semiui-comp-breadcrumb-current-foreground);
+  font-weight: var(--semiui-typography-font-weight-medium);
 }
 
 .z-breadcrumb__separator {
   display: inline-flex;
   width: 0.75em;
   height: 0.75em;
-  color: var(--zaytoon-comp-breadcrumb-separator-color);
+  color: var(--semiui-comp-breadcrumb-separator-color);
   transform: rotate(-90deg);
 }

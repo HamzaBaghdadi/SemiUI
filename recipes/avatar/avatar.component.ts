@@ -1,6 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 export type AvatarStatus = 'online' | 'away' | 'busy' | 'offline';
@@ -20,7 +20,7 @@ export type AvatarStatus = 'online' | 'away' | 'busy' | 'offline';
   },
 })
 export class AvatarComponent {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   src = input<string>();
   alt = input('');

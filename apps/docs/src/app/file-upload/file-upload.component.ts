@@ -1,7 +1,7 @@
 import { Component, DestroyRef, ElementRef, booleanAttribute, inject, input, signal, viewChild } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 export interface FileUploadRejection {
@@ -34,7 +34,7 @@ function formatBytes(bytes: number): string {
   styleUrl: './file-upload.component.css',
 })
 export class FileUploadComponent extends BaseFormFieldControl<File[]> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   private readonly previewUrls = new Map<File, string>();
 

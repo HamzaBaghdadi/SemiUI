@@ -1,8 +1,8 @@
 import { Component, DestroyRef, ElementRef, afterRenderEffect, booleanAttribute, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
-import { IconRef, ToastVariant } from '@zaytoon/tokens';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
+import { IconRef, ToastVariant } from '@semiui/tokens';
 import { ToastEntry, ToastService } from './toast.service';
 
 export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
@@ -29,7 +29,7 @@ const MAX_VISIBLE_STACK_DEPTH = 3;
 })
 export class ToastContainerComponent {
   private readonly toastService = inject(ToastService);
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   position = input<ToastPosition>('top-right');
   /** Collapses toasts into a peeking deck when more than one is queued; hovering expands them into a normal list, moving the mouse away collapses them back. */

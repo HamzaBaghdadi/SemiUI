@@ -18,14 +18,14 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: var(--zaytoon-comp-badge-size);
-  height: var(--zaytoon-comp-badge-size);
+  min-width: var(--semiui-comp-badge-size);
+  height: var(--semiui-comp-badge-size);
   padding: 0 0.25rem;
-  border: 2px solid var(--zaytoon-comp-badge-ring-color);
-  border-radius: var(--zaytoon-radius-full);
-  font-size: var(--zaytoon-comp-badge-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  font-weight: var(--zaytoon-typography-font-weight-medium);
+  border: 2px solid var(--semiui-comp-badge-ring-color);
+  border-radius: var(--semiui-radius-full);
+  font-size: var(--semiui-comp-badge-font-size);
+  font-family: var(--semiui-typography-font-family);
+  font-weight: var(--semiui-typography-font-weight-medium);
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
@@ -37,9 +37,9 @@
 }
 
 .z-badge--dot {
-  min-width: var(--zaytoon-comp-badge-dot-size);
-  width: var(--zaytoon-comp-badge-dot-size);
-  height: var(--zaytoon-comp-badge-dot-size);
+  min-width: var(--semiui-comp-badge-dot-size);
+  width: var(--semiui-comp-badge-dot-size);
+  height: var(--semiui-comp-badge-dot-size);
   padding: 0;
 }
 
@@ -49,59 +49,59 @@
 }
 
 .z-badge[data-variant='default'] {
-  background: var(--zaytoon-comp-badge-variants-default-background);
-  color: var(--zaytoon-comp-badge-variants-default-foreground);
+  background: var(--semiui-comp-badge-variants-default-background);
+  color: var(--semiui-comp-badge-variants-default-foreground);
 }
 
 .z-badge[data-variant='primary'] {
-  background: var(--zaytoon-comp-badge-variants-primary-background);
-  color: var(--zaytoon-comp-badge-variants-primary-foreground);
+  background: var(--semiui-comp-badge-variants-primary-background);
+  color: var(--semiui-comp-badge-variants-primary-foreground);
 }
 
 .z-badge[data-variant='secondary'] {
-  background: var(--zaytoon-comp-badge-variants-secondary-background);
-  color: var(--zaytoon-comp-badge-variants-secondary-foreground);
+  background: var(--semiui-comp-badge-variants-secondary-background);
+  color: var(--semiui-comp-badge-variants-secondary-foreground);
 }
 
 .z-badge[data-variant='destructive'] {
-  background: var(--zaytoon-comp-badge-variants-destructive-background);
-  color: var(--zaytoon-comp-badge-variants-destructive-foreground);
+  background: var(--semiui-comp-badge-variants-destructive-background);
+  color: var(--semiui-comp-badge-variants-destructive-foreground);
 }
 
 .z-badge[data-variant='danger'] {
-  background: var(--zaytoon-comp-badge-variants-danger-background);
-  color: var(--zaytoon-comp-badge-variants-danger-foreground);
+  background: var(--semiui-comp-badge-variants-danger-background);
+  color: var(--semiui-comp-badge-variants-danger-foreground);
 }
 
 .z-badge[data-variant='success'] {
-  background: var(--zaytoon-comp-badge-variants-success-background);
-  color: var(--zaytoon-comp-badge-variants-success-foreground);
+  background: var(--semiui-comp-badge-variants-success-background);
+  color: var(--semiui-comp-badge-variants-success-foreground);
 }
 
 .z-badge[data-variant='info'] {
-  background: var(--zaytoon-comp-badge-variants-info-background);
-  color: var(--zaytoon-comp-badge-variants-info-foreground);
+  background: var(--semiui-comp-badge-variants-info-background);
+  color: var(--semiui-comp-badge-variants-info-foreground);
 }
 
 .z-badge[data-variant='warn'] {
-  background: var(--zaytoon-comp-badge-variants-warn-background);
-  color: var(--zaytoon-comp-badge-variants-warn-foreground);
+  background: var(--semiui-comp-badge-variants-warn-background);
+  color: var(--semiui-comp-badge-variants-warn-foreground);
 }
 
 .z-badge[data-variant='help'] {
-  background: var(--zaytoon-comp-badge-variants-help-background);
-  color: var(--zaytoon-comp-badge-variants-help-foreground);
+  background: var(--semiui-comp-badge-variants-help-background);
+  color: var(--semiui-comp-badge-variants-help-foreground);
 }
 
 .z-badge[data-variant='contrast'] {
-  background: var(--zaytoon-comp-badge-variants-contrast-background);
-  color: var(--zaytoon-comp-badge-variants-contrast-foreground);
+  background: var(--semiui-comp-badge-variants-contrast-background);
+  color: var(--semiui-comp-badge-variants-contrast-foreground);
 }
 
 .z-badge[data-variant='outline'] {
-  background: var(--zaytoon-comp-badge-variants-outline-background);
-  color: var(--zaytoon-comp-badge-variants-outline-foreground);
-  border-color: var(--zaytoon-comp-badge-variants-outline-border);
+  background: var(--semiui-comp-badge-variants-outline-background);
+  color: var(--semiui-comp-badge-variants-outline-foreground);
+  border-color: var(--semiui-comp-badge-variants-outline-border);
 }
 
 .z-badge[data-position='top-right'] {

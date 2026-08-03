@@ -12,9 +12,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
-import { DialogSize } from '@zaytoon/tokens';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
+import { DialogSize } from '@semiui/tokens';
 
 /**
  * A modal dialog, controlled by reference like Popover: call `dlg.show()` / `dlg.hide()` /
@@ -39,7 +39,7 @@ import { DialogSize } from '@zaytoon/tokens';
   styleUrl: './dialog.component.css',
 })
 export class DialogComponent {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly backdrop = viewChild<ElementRef<HTMLDivElement>>('backdrop');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 

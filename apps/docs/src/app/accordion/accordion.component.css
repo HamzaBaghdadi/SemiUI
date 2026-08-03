@@ -5,13 +5,13 @@
 .z-accordion {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--zaytoon-comp-accordion-border);
-  border-radius: var(--zaytoon-comp-accordion-radius);
+  border: 1px solid var(--semiui-comp-accordion-border);
+  border-radius: var(--semiui-comp-accordion-radius);
   overflow: hidden;
 }
 
 .z-accordion__item {
-  border-bottom: 1px solid var(--zaytoon-comp-accordion-border);
+  border-bottom: 1px solid var(--semiui-comp-accordion-border);
 }
 
 .z-accordion__item:last-child {
@@ -26,27 +26,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
   width: 100%;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-accordion-padding-y) var(--zaytoon-comp-accordion-padding-x);
+  padding: var(--semiui-comp-accordion-padding-y) var(--semiui-comp-accordion-padding-x);
   border: none;
-  background: var(--zaytoon-comp-accordion-header-background);
-  color: var(--zaytoon-comp-accordion-header-foreground);
+  background: var(--semiui-comp-accordion-header-background);
+  color: var(--semiui-comp-accordion-header-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-accordion-font-size);
-  font-weight: var(--zaytoon-comp-accordion-font-weight);
+  font-size: var(--semiui-comp-accordion-font-size);
+  font-weight: var(--semiui-comp-accordion-font-weight);
   text-align: left;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
 .z-accordion__header:hover:not(:disabled) {
-  background: var(--zaytoon-comp-accordion-header-background-hover);
+  background: var(--semiui-comp-accordion-header-background-hover);
 }
 
 .z-accordion__header:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: -2px;
 }
 
@@ -75,8 +75,8 @@
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.2s ease;
-  background: var(--zaytoon-comp-accordion-panel-background);
-  color: var(--zaytoon-comp-accordion-panel-foreground);
+  background: var(--semiui-comp-accordion-panel-background);
+  color: var(--semiui-comp-accordion-panel-foreground);
 }
 
 .z-accordion__item[data-expanded] .z-accordion__panel {
@@ -96,7 +96,7 @@
 }
 
 .z-accordion__panel-content {
-  padding: 0 var(--zaytoon-comp-accordion-padding-x) var(--zaytoon-comp-accordion-padding-y);
+  padding: 0 var(--semiui-comp-accordion-padding-x) var(--semiui-comp-accordion-padding-y);
 }
 
 @media (prefers-reduced-motion: reduce) {

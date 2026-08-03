@@ -1,7 +1,7 @@
 .z-error-message {
   margin: 0.25rem 0 0;
-  font-size: var(--zaytoon-typography-font-size-sm);
-  color: var(--zaytoon-color-destructive);
+  font-size: var(--semiui-typography-font-size-sm);
+  color: var(--semiui-color-destructive);
   /* Always shows in full -- no truncation, no fixed height, wraps as needed. */
   white-space: normal;
   overflow-wrap: break-word;

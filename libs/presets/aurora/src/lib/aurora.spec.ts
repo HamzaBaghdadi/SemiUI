@@ -1,14 +1,14 @@
-import { flattenTokensToCssVars } from '@zaytoon/tokens';
+import { flattenTokensToCssVars } from '@semiui/tokens';
 import { Aurora } from './aurora';
 
 describe('Aurora preset', () => {
   it('produces the expected component CSS custom properties', () => {
     const vars = flattenTokensToCssVars(Aurora.tokens as unknown as Record<string, unknown>);
 
-    expect(vars['--zaytoon-comp-button-padding-x-md']).toBe('1rem');
-    expect(vars['--zaytoon-comp-button-variants-primary-background']).toBe('var(--zaytoon-color-primary)');
-    expect(vars['--zaytoon-comp-button-variants-destructive-background']).toBe('var(--zaytoon-color-destructive)');
-    expect(vars['--zaytoon-color-primary']).toBe('#6366f1');
+    expect(vars['--semiui-comp-button-padding-x-md']).toBe('1rem');
+    expect(vars['--semiui-comp-button-variants-primary-background']).toBe('var(--semiui-color-primary)');
+    expect(vars['--semiui-comp-button-variants-destructive-background']).toBe('var(--semiui-color-destructive)');
+    expect(vars['--semiui-color-primary']).toBe('#6366f1');
   });
 
   it('defines a distinct dark-mode color palette', () => {

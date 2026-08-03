@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { ColorModeService } from '@zaytoon/theme';
+import { ColorModeService } from '@semiui/theme';
 
 @Component({
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
@@ -10,7 +10,7 @@ import { ColorModeService } from '@zaytoon/theme';
 })
 export class App {
   protected readonly colorMode = inject(ColorModeService);
-  protected title = 'zaytoon';
+  protected title = 'semiui';
   protected gettingStarted = [
     { label: 'Installation', path: '/getting-started/installation' },
     { label: 'Quick Start', path: '/getting-started/quick-start' },

@@ -3,7 +3,7 @@
 }
 
 :host([data-shape='circle']) .z-skeleton__block {
-  border-radius: var(--zaytoon-radius-full);
+  border-radius: var(--semiui-radius-full);
 }
 
 .z-skeleton__lines {
@@ -14,8 +14,8 @@
 
 .z-skeleton__block {
   display: block;
-  background: var(--zaytoon-comp-skeleton-background);
-  border-radius: var(--zaytoon-comp-skeleton-radius);
+  background: var(--semiui-comp-skeleton-background);
+  border-radius: var(--semiui-comp-skeleton-radius);
   overflow: hidden;
   position: relative;
 }
@@ -24,7 +24,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, var(--zaytoon-comp-skeleton-shimmer), transparent);
+  background: linear-gradient(90deg, transparent, var(--semiui-comp-skeleton-shimmer), transparent);
   animation: z-skeleton-shimmer 1.5s ease-in-out infinite;
 }
 

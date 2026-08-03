@@ -11,13 +11,13 @@
   gap: 0.5rem;
   width: 100%;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-select-padding-y) var(--zaytoon-comp-select-padding-x);
-  border-radius: var(--zaytoon-comp-select-radius);
-  font-size: var(--zaytoon-comp-select-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
-  border: 1px solid var(--zaytoon-comp-select-border);
+  padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
+  border-radius: var(--semiui-comp-select-radius);
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
+  border: 1px solid var(--semiui-comp-select-border);
   cursor: pointer;
   transition:
     border-color 0.15s ease,
@@ -34,7 +34,7 @@
 }
 
 .z-select__placeholder {
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
 }
 
 .z-select__icon {
@@ -42,7 +42,7 @@
   flex-shrink: 0;
   width: 1em;
   height: 1em;
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
   transition: transform 0.15s ease;
 }
 
@@ -61,14 +61,14 @@
   height: 1em;
   box-sizing: border-box;
   padding: 0.125em;
-  border-radius: var(--zaytoon-radius-full);
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  border-radius: var(--semiui-radius-full);
+  color: var(--semiui-comp-select-placeholder-foreground);
   cursor: pointer;
 }
 
 .z-select__clear:hover {
-  background: var(--zaytoon-comp-select-option-background-hover);
-  color: var(--zaytoon-comp-select-foreground);
+  background: var(--semiui-comp-select-option-background-hover);
+  color: var(--semiui-comp-select-foreground);
 }
 
 @keyframes z-select-spin {
@@ -90,17 +90,17 @@
 }
 
 .z-select__trigger:hover:not(:disabled):not([aria-invalid='true']) {
-  border-color: var(--zaytoon-comp-select-border-hover);
+  border-color: var(--semiui-comp-select-border-hover);
 }
 
 .z-select__trigger:focus-visible {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-select__trigger[aria-invalid='true'] {
-  border-color: var(--zaytoon-comp-select-border-invalid);
+  border-color: var(--semiui-comp-select-border-invalid);
 }
 
 .z-select__trigger:disabled {
@@ -110,8 +110,8 @@
 /* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
    the flat disabled palette -- it reads as "busy", not "unavailable". */
 .z-select__trigger:disabled:not(.z-select__trigger--loading) {
-  background: var(--zaytoon-comp-select-background-disabled);
-  color: var(--zaytoon-comp-select-foreground-disabled);
+  background: var(--semiui-comp-select-background-disabled);
+  color: var(--semiui-comp-select-foreground-disabled);
 }
 
 .z-select__trigger--loading {
@@ -125,10 +125,10 @@
   right: 0;
   z-index: 20;
   overflow: hidden;
-  background: var(--zaytoon-comp-select-panel-background);
-  border: 1px solid var(--zaytoon-comp-select-panel-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  box-shadow: var(--zaytoon-comp-select-panel-shadow);
+  background: var(--semiui-comp-select-panel-background);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
 }
 
@@ -176,12 +176,12 @@
 
 .z-select__header,
 .z-select__footer {
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
 }
 
 .z-select__filter {
-  padding: var(--zaytoon-spacing-sm);
-  border-bottom: 1px solid var(--zaytoon-comp-select-panel-border);
+  padding: var(--semiui-spacing-sm);
+  border-bottom: 1px solid var(--semiui-comp-select-panel-border);
 }
 
 .z-select__filter-input-wrapper {
@@ -193,23 +193,23 @@
 .z-select__filter-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.375rem 1.75rem 0.375rem var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-select-border);
-  border-radius: var(--zaytoon-radius-sm);
-  font-size: var(--zaytoon-comp-select-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
+  padding: 0.375rem 1.75rem 0.375rem var(--semiui-spacing-sm);
+  border: 1px solid var(--semiui-comp-select-border);
+  border-radius: var(--semiui-radius-sm);
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
 }
 
 .z-select__filter-input::placeholder {
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
 }
 
 .z-select__filter-input:focus {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-select__filter-icon {
@@ -217,13 +217,13 @@
   right: 0.5rem;
   width: 0.875em;
   height: 0.875em;
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
   pointer-events: none;
 }
 
 .z-select__empty {
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  color: var(--semiui-comp-select-placeholder-foreground);
   text-align: center;
 }
 
@@ -236,17 +236,17 @@
 }
 
 .z-select__option {
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
-  border-radius: var(--zaytoon-radius-sm);
-  color: var(--zaytoon-comp-select-option-foreground);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }
 
 .z-select__option[data-active] {
-  background: var(--zaytoon-comp-select-option-background-hover);
+  background: var(--semiui-comp-select-option-background-hover);
 }
 
 .z-select__option[aria-selected='true'] {
-  background: var(--zaytoon-comp-select-option-background-selected);
-  color: var(--zaytoon-comp-select-option-foreground-selected);
+  background: var(--semiui-comp-select-option-background-selected);
+  color: var(--semiui-comp-select-option-foreground-selected);
 }

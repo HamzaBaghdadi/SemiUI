@@ -8,8 +8,8 @@ describe('flattenTokensToCssVars', () => {
     });
 
     expect(vars).toEqual({
-      '--zaytoon-color-primary': '#6366f1',
-      '--zaytoon-comp-button-padding-x': '1rem',
+      '--semiui-color-primary': '#6366f1',
+      '--semiui-comp-button-padding-x': '1rem',
     });
   });
 

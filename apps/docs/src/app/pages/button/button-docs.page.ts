@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ButtonSize, ButtonVariant, IconRef } from '@zaytoon/tokens';
+import { ButtonSize, ButtonVariant, IconRef } from '@semiui/tokens';
 import { ButtonComponent } from '../../button/button.component';
 
 @Component({

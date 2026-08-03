@@ -191,9 +191,9 @@ importers:
       '@ng-icons/lucide':
         specifier: ^34.0.0
         version: 34.0.0
-      '@zaytoon/tokens':
-        specifier: ^0.0.1
-        version: 0.0.1
+      '@semiui/tokens':
+        specifier: workspace:^0.0.1
+        version: link:../../tokens
 
   libs/primitives:
     dependencies:
@@ -206,9 +206,9 @@ importers:
       '@ng-icons/core':
         specifier: ^34.0.0
         version: 34.0.0(@angular-devkit/schematics@22.0.9(chokidar@5.0.0))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@schematics/angular@22.0.9(chokidar@5.0.0))(rxjs@7.8.2)
-      '@zaytoon/tokens':
-        specifier: ^0.0.1
-        version: 0.0.1
+      '@semiui/tokens':
+        specifier: workspace:^0.0.1
+        version: link:../tokens
 
   libs/theme:
     dependencies:
@@ -218,9 +218,9 @@ importers:
       '@angular/core':
         specifier: ^22.0.0
         version: 22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)
-      '@zaytoon/tokens':
-        specifier: ^0.0.1
-        version: 0.0.1
+      '@semiui/tokens':
+        specifier: workspace:^0.0.1
+        version: link:../tokens
 
   libs/tokens:
     dependencies:
@@ -3588,9 +3588,6 @@ packages:
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
-
-  '@zaytoon/tokens@0.0.1':
-    resolution: {integrity: sha512-tg16Y+/4KjxRpI+/u7k12x85oQd79kuPKvFCLxti4mVbAoKUb4miov79ytGWDpvVJlhTc+pXkdQi32RUII6Esw==}
 
   '@zkochan/js-yaml@0.0.7':
     resolution: {integrity: sha512-nrUSn7hzt7J6JWgWGz78ZYI8wj+gdIJdk0Ynjpp8l+trkn58Uqsf6RYrYkEK+3X18EX+TNdtJI0WxAtc+L84SQ==}
@@ -12203,10 +12200,6 @@ snapshots:
   '@xtuc/long@4.2.2': {}
 
   '@yarnpkg/lockfile@1.1.0': {}
-
-  '@zaytoon/tokens@0.0.1':
-    dependencies:
-      tslib: 2.8.1
 
   '@zkochan/js-yaml@0.0.7':
     dependencies:

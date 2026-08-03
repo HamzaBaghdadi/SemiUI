@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: var(--zaytoon-comp-dialog-backdrop-color);
+  background: var(--semiui-comp-dialog-backdrop-color);
 }
 
 .z-drawer__backdrop[data-blur] {
@@ -18,9 +18,9 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: var(--zaytoon-comp-dialog-panel-background);
-  border: 1px solid var(--zaytoon-comp-dialog-panel-border);
-  box-shadow: var(--zaytoon-comp-dialog-shadow);
+  background: var(--semiui-comp-dialog-panel-background);
+  border: 1px solid var(--semiui-comp-dialog-panel-border);
+  box-shadow: var(--semiui-comp-dialog-shadow);
   outline: none;
 }
 
@@ -29,22 +29,22 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  max-width: var(--zaytoon-comp-dialog-widths-md);
+  max-width: var(--semiui-comp-dialog-widths-md);
 }
 
 .z-drawer__panel[data-side='left'][data-size='sm'],
 .z-drawer__panel[data-side='right'][data-size='sm'] {
-  max-width: var(--zaytoon-comp-dialog-widths-sm);
+  max-width: var(--semiui-comp-dialog-widths-sm);
 }
 
 .z-drawer__panel[data-side='left'][data-size='lg'],
 .z-drawer__panel[data-side='right'][data-size='lg'] {
-  max-width: var(--zaytoon-comp-dialog-widths-lg);
+  max-width: var(--semiui-comp-dialog-widths-lg);
 }
 
 .z-drawer__panel[data-side='left'][data-size='full'],
 .z-drawer__panel[data-side='right'][data-size='full'] {
-  max-width: var(--zaytoon-comp-dialog-widths-full);
+  max-width: var(--semiui-comp-dialog-widths-full);
 }
 
 .z-drawer__panel[data-side='left'] {
@@ -64,22 +64,22 @@
   left: 0;
   right: 0;
   height: 100%;
-  max-height: var(--zaytoon-comp-dialog-widths-md);
+  max-height: var(--semiui-comp-dialog-widths-md);
 }
 
 .z-drawer__panel[data-side='top'][data-size='sm'],
 .z-drawer__panel[data-side='bottom'][data-size='sm'] {
-  max-height: var(--zaytoon-comp-dialog-widths-sm);
+  max-height: var(--semiui-comp-dialog-widths-sm);
 }
 
 .z-drawer__panel[data-side='top'][data-size='lg'],
 .z-drawer__panel[data-side='bottom'][data-size='lg'] {
-  max-height: var(--zaytoon-comp-dialog-widths-lg);
+  max-height: var(--semiui-comp-dialog-widths-lg);
 }
 
 .z-drawer__panel[data-side='top'][data-size='full'],
 .z-drawer__panel[data-side='bottom'][data-size='full'] {
-  max-height: var(--zaytoon-comp-dialog-widths-full);
+  max-height: var(--semiui-comp-dialog-widths-full);
 }
 
 .z-drawer__panel[data-side='top'] {
@@ -98,9 +98,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--zaytoon-spacing-md);
-  padding: var(--zaytoon-comp-dialog-padding);
-  border-bottom: 1px solid var(--zaytoon-comp-dialog-header-border);
+  gap: var(--semiui-spacing-md);
+  padding: var(--semiui-comp-dialog-padding);
+  border-bottom: 1px solid var(--semiui-comp-dialog-header-border);
   flex-shrink: 0;
 }
 
@@ -111,9 +111,9 @@
 
 .z-drawer__title {
   margin: 0;
-  font-size: var(--zaytoon-comp-dialog-title-font-size);
-  font-weight: var(--zaytoon-comp-dialog-title-font-weight);
-  color: var(--zaytoon-color-foreground);
+  font-size: var(--semiui-comp-dialog-title-font-size);
+  font-weight: var(--semiui-comp-dialog-title-font-weight);
+  color: var(--semiui-color-foreground);
 }
 
 .z-drawer__close {
@@ -124,19 +124,19 @@
   width: 2rem;
   height: 2rem;
   border: none;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-color-muted-foreground);
+  color: var(--semiui-color-muted-foreground);
   cursor: pointer;
 }
 
 .z-drawer__close:hover {
-  background: var(--zaytoon-color-muted);
-  color: var(--zaytoon-color-foreground);
+  background: var(--semiui-color-muted);
+  color: var(--semiui-color-foreground);
 }
 
 .z-drawer__close:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .z-drawer__body {
-  padding: var(--zaytoon-comp-dialog-padding);
+  padding: var(--semiui-comp-dialog-padding);
   overflow-y: auto;
   flex: 1;
 }
@@ -155,9 +155,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--zaytoon-spacing-sm);
-  padding: var(--zaytoon-comp-dialog-padding);
-  border-top: 1px solid var(--zaytoon-comp-dialog-footer-border);
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-comp-dialog-padding);
+  border-top: 1px solid var(--semiui-comp-dialog-footer-border);
   flex-shrink: 0;
 }
 

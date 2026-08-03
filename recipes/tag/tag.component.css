@@ -3,78 +3,78 @@
   align-items: center;
   gap: 0.25rem;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-tag-padding-y) var(--zaytoon-comp-tag-padding-x);
-  border-radius: var(--zaytoon-comp-tag-radius);
-  font-size: var(--zaytoon-comp-tag-font-size);
-  font-family: var(--zaytoon-typography-font-family);
+  padding: var(--semiui-comp-tag-padding-y) var(--semiui-comp-tag-padding-x);
+  border-radius: var(--semiui-comp-tag-radius);
+  font-size: var(--semiui-comp-tag-font-size);
+  font-family: var(--semiui-typography-font-family);
   line-height: 1.4;
   white-space: nowrap;
 }
 
 :host([data-variant='default']) {
-  background: var(--zaytoon-comp-tag-variants-default-background);
-  color: var(--zaytoon-comp-tag-variants-default-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-default-border);
+  background: var(--semiui-comp-tag-variants-default-background);
+  color: var(--semiui-comp-tag-variants-default-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-default-border);
 }
 
 :host([data-variant='primary']) {
-  background: var(--zaytoon-comp-tag-variants-primary-background);
-  color: var(--zaytoon-comp-tag-variants-primary-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-primary-border);
+  background: var(--semiui-comp-tag-variants-primary-background);
+  color: var(--semiui-comp-tag-variants-primary-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-primary-border);
 }
 
 :host([data-variant='secondary']) {
-  background: var(--zaytoon-comp-tag-variants-secondary-background);
-  color: var(--zaytoon-comp-tag-variants-secondary-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-secondary-border);
+  background: var(--semiui-comp-tag-variants-secondary-background);
+  color: var(--semiui-comp-tag-variants-secondary-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-secondary-border);
 }
 
 :host([data-variant='destructive']) {
-  background: var(--zaytoon-comp-tag-variants-destructive-background);
-  color: var(--zaytoon-comp-tag-variants-destructive-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-destructive-border);
+  background: var(--semiui-comp-tag-variants-destructive-background);
+  color: var(--semiui-comp-tag-variants-destructive-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-destructive-border);
 }
 
 :host([data-variant='danger']) {
-  background: var(--zaytoon-comp-tag-variants-danger-background);
-  color: var(--zaytoon-comp-tag-variants-danger-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-danger-border);
+  background: var(--semiui-comp-tag-variants-danger-background);
+  color: var(--semiui-comp-tag-variants-danger-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-danger-border);
 }
 
 :host([data-variant='success']) {
-  background: var(--zaytoon-comp-tag-variants-success-background);
-  color: var(--zaytoon-comp-tag-variants-success-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-success-border);
+  background: var(--semiui-comp-tag-variants-success-background);
+  color: var(--semiui-comp-tag-variants-success-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-success-border);
 }
 
 :host([data-variant='info']) {
-  background: var(--zaytoon-comp-tag-variants-info-background);
-  color: var(--zaytoon-comp-tag-variants-info-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-info-border);
+  background: var(--semiui-comp-tag-variants-info-background);
+  color: var(--semiui-comp-tag-variants-info-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-info-border);
 }
 
 :host([data-variant='warn']) {
-  background: var(--zaytoon-comp-tag-variants-warn-background);
-  color: var(--zaytoon-comp-tag-variants-warn-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-warn-border);
+  background: var(--semiui-comp-tag-variants-warn-background);
+  color: var(--semiui-comp-tag-variants-warn-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-warn-border);
 }
 
 :host([data-variant='help']) {
-  background: var(--zaytoon-comp-tag-variants-help-background);
-  color: var(--zaytoon-comp-tag-variants-help-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-help-border);
+  background: var(--semiui-comp-tag-variants-help-background);
+  color: var(--semiui-comp-tag-variants-help-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-help-border);
 }
 
 :host([data-variant='contrast']) {
-  background: var(--zaytoon-comp-tag-variants-contrast-background);
-  color: var(--zaytoon-comp-tag-variants-contrast-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-contrast-border);
+  background: var(--semiui-comp-tag-variants-contrast-background);
+  color: var(--semiui-comp-tag-variants-contrast-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-contrast-border);
 }
 
 :host([data-variant='outline']) {
-  background: var(--zaytoon-comp-tag-variants-outline-background);
-  color: var(--zaytoon-comp-tag-variants-outline-foreground);
-  border: 1px solid var(--zaytoon-comp-tag-variants-outline-border);
+  background: var(--semiui-comp-tag-variants-outline-background);
+  color: var(--semiui-comp-tag-variants-outline-foreground);
+  border: 1px solid var(--semiui-comp-tag-variants-outline-border);
 }
 
 .z-tag__icon {

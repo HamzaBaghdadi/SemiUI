@@ -3,7 +3,7 @@
   z-index: 200;
   display: block;
   pointer-events: none;
-  inset: var(--zaytoon-spacing-lg);
+  inset: var(--semiui-spacing-lg);
 }
 
 :host([data-position='top-right']) {
@@ -43,7 +43,7 @@
 .z-toast-container {
   display: flex;
   flex-direction: column;
-  gap: var(--zaytoon-comp-toast-gap);
+  gap: var(--semiui-comp-toast-gap);
   pointer-events: none;
 }
 
@@ -69,7 +69,7 @@
   /* Every .z-toast becomes position: absolute below, so nothing is left in normal flow to give
      the flex container a width or height -- both need an explicit fallback, or it collapses to a
      zero-size box (unhoverable, and clicks/mouseenter can't reach it). */
-  width: var(--zaytoon-comp-toast-width);
+  width: var(--semiui-comp-toast-width);
   min-height: 3.5rem;
 }
 
@@ -100,16 +100,16 @@
 .z-toast {
   display: flex;
   align-items: flex-start;
-  gap: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
   box-sizing: border-box;
-  width: var(--zaytoon-comp-toast-width);
+  width: var(--semiui-comp-toast-width);
   /* Not a token -- a fixed safety clamp so a wide `width` token doesn't overflow small viewports. */
   max-width: 100%;
-  padding: var(--zaytoon-comp-toast-padding-y) var(--zaytoon-comp-toast-padding-x);
-  border-radius: var(--zaytoon-comp-toast-radius);
-  box-shadow: var(--zaytoon-comp-toast-shadow);
+  padding: var(--semiui-comp-toast-padding-y) var(--semiui-comp-toast-padding-x);
+  border-radius: var(--semiui-comp-toast-radius);
+  box-shadow: var(--semiui-comp-toast-shadow);
   border: 1px solid;
-  backdrop-filter: var(--zaytoon-comp-toast-blur);
+  backdrop-filter: var(--semiui-comp-toast-blur);
   transition:
     transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.25s ease;
@@ -117,33 +117,33 @@
 }
 
 .z-toast[data-variant='default'] {
-  background: var(--zaytoon-comp-toast-variants-default-background);
-  color: var(--zaytoon-comp-toast-variants-default-foreground);
-  border-color: var(--zaytoon-comp-toast-variants-default-border);
+  background: var(--semiui-comp-toast-variants-default-background);
+  color: var(--semiui-comp-toast-variants-default-foreground);
+  border-color: var(--semiui-comp-toast-variants-default-border);
 }
 
 .z-toast[data-variant='success'] {
-  background: var(--zaytoon-comp-toast-variants-success-background);
-  color: var(--zaytoon-comp-toast-variants-success-foreground);
-  border-color: var(--zaytoon-comp-toast-variants-success-border);
+  background: var(--semiui-comp-toast-variants-success-background);
+  color: var(--semiui-comp-toast-variants-success-foreground);
+  border-color: var(--semiui-comp-toast-variants-success-border);
 }
 
 .z-toast[data-variant='error'] {
-  background: var(--zaytoon-comp-toast-variants-error-background);
-  color: var(--zaytoon-comp-toast-variants-error-foreground);
-  border-color: var(--zaytoon-comp-toast-variants-error-border);
+  background: var(--semiui-comp-toast-variants-error-background);
+  color: var(--semiui-comp-toast-variants-error-foreground);
+  border-color: var(--semiui-comp-toast-variants-error-border);
 }
 
 .z-toast[data-variant='warning'] {
-  background: var(--zaytoon-comp-toast-variants-warning-background);
-  color: var(--zaytoon-comp-toast-variants-warning-foreground);
-  border-color: var(--zaytoon-comp-toast-variants-warning-border);
+  background: var(--semiui-comp-toast-variants-warning-background);
+  color: var(--semiui-comp-toast-variants-warning-foreground);
+  border-color: var(--semiui-comp-toast-variants-warning-border);
 }
 
 .z-toast[data-variant='info'] {
-  background: var(--zaytoon-comp-toast-variants-info-background);
-  color: var(--zaytoon-comp-toast-variants-info-foreground);
-  border-color: var(--zaytoon-comp-toast-variants-info-border);
+  background: var(--semiui-comp-toast-variants-info-background);
+  color: var(--semiui-comp-toast-variants-info-foreground);
+  border-color: var(--semiui-comp-toast-variants-info-border);
 }
 
 .z-toast__icon {
@@ -154,19 +154,19 @@
 }
 
 .z-toast[data-variant='success'] .z-toast__icon {
-  color: var(--zaytoon-comp-toast-variants-success-icon-color);
+  color: var(--semiui-comp-toast-variants-success-icon-color);
 }
 
 .z-toast[data-variant='error'] .z-toast__icon {
-  color: var(--zaytoon-comp-toast-variants-error-icon-color);
+  color: var(--semiui-comp-toast-variants-error-icon-color);
 }
 
 .z-toast[data-variant='warning'] .z-toast__icon {
-  color: var(--zaytoon-comp-toast-variants-warning-icon-color);
+  color: var(--semiui-comp-toast-variants-warning-icon-color);
 }
 
 .z-toast[data-variant='info'] .z-toast__icon {
-  color: var(--zaytoon-comp-toast-variants-info-icon-color);
+  color: var(--semiui-comp-toast-variants-info-icon-color);
 }
 
 .z-toast__content {
@@ -176,13 +176,13 @@
 
 .z-toast__title {
   margin: 0;
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  font-size: var(--zaytoon-typography-font-size-sm);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  font-size: var(--semiui-typography-font-size-sm);
 }
 
 .z-toast__description {
   margin: 0;
-  font-size: var(--zaytoon-typography-font-size-sm);
+  font-size: var(--semiui-typography-font-size-sm);
   opacity: 0.85;
 }
 
@@ -198,7 +198,7 @@
   width: 1.5rem;
   height: 1.5rem;
   border: none;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
   color: inherit;
   opacity: 0.6;

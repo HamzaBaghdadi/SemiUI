@@ -35,7 +35,7 @@ function resolveAll(): RegistryComponent[] {
 
 export function runAdd(cwd: string, componentName: string | undefined, options: AddOptions = {}): void {
   if (!options.all && !componentName) {
-    console.error('Usage: zaytoon add <component> | zaytoon add --all\n\nAvailable components:');
+    console.error('Usage: semiui add <component> | semiui add --all\n\nAvailable components:');
     for (const component of listComponents()) {
       console.error(`  ${component.name} -- ${component.description}`);
     }

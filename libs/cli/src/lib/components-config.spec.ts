@@ -7,7 +7,7 @@ describe('components-config', () => {
   let cwd: string;
 
   beforeEach(() => {
-    cwd = mkdtempSync(join(tmpdir(), 'zaytoon-cli-test-'));
+    cwd = mkdtempSync(join(tmpdir(), 'semiui-cli-test-'));
   });
 
   afterEach(() => {

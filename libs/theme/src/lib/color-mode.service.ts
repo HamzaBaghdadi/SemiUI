@@ -1,16 +1,16 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
-import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
+import { SEMIUI_COLOR_MODE_CONFIG } from './color-mode.config';
 
 /**
  * Controls light/dark mode: persists the choice to localStorage, falls back to the OS preference
  * when nothing is stored, and toggles the configured dark-mode class on `<html>`. Installed
- * automatically by `provideZaytoonUI` -- inject it anywhere to read or change the current mode.
+ * automatically by `provideSemiUI` -- inject it anywhere to read or change the current mode.
  */
 @Injectable({ providedIn: 'root' })
 export class ColorModeService {
   private readonly document = inject(DOCUMENT);
-  private readonly config = inject(ZAYTOON_COLOR_MODE_CONFIG);
+  private readonly config = inject(SEMIUI_COLOR_MODE_CONFIG);
 
   readonly dark = signal<boolean>(this.initialDark());
   readonly mode = computed(() => (this.dark() ? 'dark' : 'light'));

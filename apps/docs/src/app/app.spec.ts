@@ -15,7 +15,7 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.shell__brand')?.textContent).toContain('zaytoon');
+    expect(compiled.querySelector('.shell__brand')?.textContent).toContain('semiui');
   });
 
   it('should list the Button nav entry', async () => {

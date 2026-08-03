@@ -1,22 +1,22 @@
 :host {
   display: inline-flex;
-  --z-avatar-size: var(--zaytoon-comp-avatar-size-md);
-  --z-avatar-font-size: var(--zaytoon-comp-avatar-font-size-md);
+  --z-avatar-size: var(--semiui-comp-avatar-size-md);
+  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-md);
 }
 
 :host([data-size='sm']) {
-  --z-avatar-size: var(--zaytoon-comp-avatar-size-sm);
-  --z-avatar-font-size: var(--zaytoon-comp-avatar-font-size-sm);
+  --z-avatar-size: var(--semiui-comp-avatar-size-sm);
+  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-sm);
 }
 
 :host([data-size='lg']) {
-  --z-avatar-size: var(--zaytoon-comp-avatar-size-lg);
-  --z-avatar-font-size: var(--zaytoon-comp-avatar-font-size-lg);
+  --z-avatar-size: var(--semiui-comp-avatar-size-lg);
+  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-lg);
 }
 
 :host([data-size='xl']) {
-  --z-avatar-size: var(--zaytoon-comp-avatar-size-xl);
-  --z-avatar-font-size: var(--zaytoon-comp-avatar-font-size-xl);
+  --z-avatar-size: var(--semiui-comp-avatar-size-xl);
+  --z-avatar-font-size: var(--semiui-comp-avatar-font-size-xl);
 }
 
 .z-avatar {
@@ -42,13 +42,13 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: var(--zaytoon-radius-full);
-  background: var(--zaytoon-comp-avatar-background);
-  color: var(--zaytoon-comp-avatar-foreground);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-avatar-background);
+  color: var(--semiui-comp-avatar-foreground);
 }
 
 :host([data-shape='square']) .z-avatar__inner {
-  border-radius: var(--zaytoon-comp-avatar-radius);
+  border-radius: var(--semiui-comp-avatar-radius);
 }
 
 .z-avatar__image {
@@ -59,8 +59,8 @@
 
 .z-avatar__initials {
   font-size: var(--z-avatar-font-size);
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  font-family: var(--zaytoon-typography-font-family);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  font-family: var(--semiui-typography-font-family);
   text-transform: uppercase;
 }
 
@@ -78,22 +78,22 @@
   min-width: 0.5rem;
   min-height: 0.5rem;
   box-sizing: border-box;
-  border-radius: var(--zaytoon-radius-full);
-  border: 2px solid var(--zaytoon-color-background);
+  border-radius: var(--semiui-radius-full);
+  border: 2px solid var(--semiui-color-background);
 }
 
 .z-avatar__status[data-status='online'] {
-  background: var(--zaytoon-comp-avatar-status-online);
+  background: var(--semiui-comp-avatar-status-online);
 }
 
 .z-avatar__status[data-status='away'] {
-  background: var(--zaytoon-comp-avatar-status-away);
+  background: var(--semiui-comp-avatar-status-away);
 }
 
 .z-avatar__status[data-status='busy'] {
-  background: var(--zaytoon-comp-avatar-status-busy);
+  background: var(--semiui-comp-avatar-status-busy);
 }
 
 .z-avatar__status[data-status='offline'] {
-  background: var(--zaytoon-comp-avatar-status-offline);
+  background: var(--semiui-comp-avatar-status-offline);
 }

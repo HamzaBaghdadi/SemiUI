@@ -1,5 +1,5 @@
 import { Component, booleanAttribute, computed, ElementRef, input, viewChildren } from '@angular/core';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 /**

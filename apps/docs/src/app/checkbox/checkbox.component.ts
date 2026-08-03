@@ -1,8 +1,8 @@
 import { Component, ElementRef, booleanAttribute, input, viewChild } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { ButtonSize } from '@zaytoon/tokens';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { ButtonSize } from '@semiui/tokens';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 /**
@@ -17,7 +17,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrl: './checkbox.component.css',
 })
 export class CheckboxComponent extends BaseFormFieldControl<boolean> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   label = input('');

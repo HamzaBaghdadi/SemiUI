@@ -5,7 +5,7 @@ import { detectPackageManager, installDependencies } from '../package-manager';
 
 export function runInit(cwd: string): void {
   if (!existsSync(join(cwd, 'angular.json'))) {
-    console.error('No angular.json found here -- run `zaytoon init` from the root of an Angular project.');
+    console.error('No angular.json found here -- run `semiui init` from the root of an Angular project.');
     process.exitCode = 1;
     return;
   }
@@ -18,24 +18,24 @@ export function runInit(cwd: string): void {
   }
 
   const packageManager = detectPackageManager(cwd);
-  const deps = ['@zaytoon/tokens', '@zaytoon/theme', '@zaytoon/primitives', '@zaytoon/presets-aurora'];
+  const deps = ['@semiui/tokens', '@semiui/theme', '@semiui/primitives', '@semiui/presets-aurora'];
   console.log(`Installing ${deps.join(', ')} (${packageManager})...`);
   installDependencies(cwd, packageManager, deps);
 
   console.log(`
 Next: wire up the theme provider in your app config (e.g. src/app/app.config.ts):
 
-  import { provideZaytoonUI } from '@zaytoon/theme';
-  import { Aurora, provideAuroraIcons } from '@zaytoon/presets-aurora';
+  import { provideSemiUI } from '@semiui/theme';
+  import { Aurora, provideAuroraIcons } from '@semiui/presets-aurora';
 
   export const appConfig: ApplicationConfig = {
     providers: [
       // ...your existing providers
-      provideZaytoonUI({ preset: Aurora }),
+      provideSemiUI({ preset: Aurora }),
       provideAuroraIcons(),
     ],
   };
 
-Then run \`zaytoon add button\` to add your first component.
+Then run \`semiui add button\` to add your first component.
 `);
 }

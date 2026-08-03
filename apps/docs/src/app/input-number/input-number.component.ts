@@ -1,8 +1,8 @@
 import { Component, ElementRef, booleanAttribute, computed, input, viewChild } from '@angular/core';
-import { InputDirective } from '@zaytoon/primitives/input';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { InputDirective } from '@semiui/primitives/input';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 /**
@@ -18,7 +18,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrl: './input-number.component.css',
 })
 export class InputNumberComponent extends BaseFormFieldControl<number | null> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   placeholder = input('');

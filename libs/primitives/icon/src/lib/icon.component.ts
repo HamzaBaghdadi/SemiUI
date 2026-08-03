@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import { IconRef } from '@zaytoon/tokens';
+import { IconRef } from '@semiui/tokens';
 
 /** Renders an IconRef: either a name registered with ng-icons, or raw inline SVG markup. */
 @Component({

@@ -11,7 +11,7 @@ import { TextareaComponent } from '../../textarea/textarea.component';
 })
 export class TextareaDocsPage {
   // ngModel
-  protected bio = 'Building Zaytoon, an Angular UI library.';
+  protected bio = 'Building SemiUI, an Angular UI library.';
   protected disabled = signal(false);
 
   // Reactive forms

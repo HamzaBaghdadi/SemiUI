@@ -13,7 +13,7 @@ interface FaqItem extends AccordionItem {
 })
 export class AccordionDocsPage {
   protected faqs: FaqItem[] = [
-    { header: 'What is Zaytoon?', answer: 'An Angular UI library with provider-based theming and copy-paste component ownership.' },
+    { header: 'What is SemiUI?', answer: 'An Angular UI library with provider-based theming and copy-paste component ownership.' },
     { header: 'Is it free?', answer: 'Yes -- the CLI and every component are free and open source.' },
     { header: 'Can I customize the components?', answer: 'Since components are copied into your own project as source, you can edit them however you like.', disabled: false },
   ];

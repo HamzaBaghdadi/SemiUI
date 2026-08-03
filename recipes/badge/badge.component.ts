@@ -1,6 +1,6 @@
 import { Component, booleanAttribute, computed, input } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { IconRef, TagVariant } from '@zaytoon/tokens';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { IconRef, TagVariant } from '@semiui/tokens';
 
 export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 

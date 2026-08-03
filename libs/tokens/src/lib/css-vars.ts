@@ -1,10 +1,10 @@
-export const CSS_VAR_PREFIX = 'zaytoon';
+export const CSS_VAR_PREFIX = 'semiui';
 
 function camelToKebab(segment: string): string {
   return segment.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-/** Recursively flattens a nested token object into `--zaytoon-a-b-c` CSS custom properties. */
+/** Recursively flattens a nested token object into `--semiui-a-b-c` CSS custom properties. */
 export function flattenTokensToCssVars(
   tokens: Record<string, unknown>,
   path: string[] = [],

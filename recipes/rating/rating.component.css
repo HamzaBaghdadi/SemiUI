@@ -1,19 +1,19 @@
 :host {
   display: inline-flex;
-  --z-rating-size: var(--zaytoon-comp-rating-size-md);
+  --z-rating-size: var(--semiui-comp-rating-size-md);
 }
 
 :host([data-size='sm']) {
-  --z-rating-size: var(--zaytoon-comp-rating-size-sm);
+  --z-rating-size: var(--semiui-comp-rating-size-sm);
 }
 
 :host([data-size='lg']) {
-  --z-rating-size: var(--zaytoon-comp-rating-size-lg);
+  --z-rating-size: var(--semiui-comp-rating-size-lg);
 }
 
 .z-rating {
   display: inline-flex;
-  gap: var(--zaytoon-comp-rating-gap);
+  gap: var(--semiui-comp-rating-gap);
 }
 
 .z-rating__star {
@@ -25,7 +25,7 @@
   padding: 0;
   border: none;
   background: none;
-  color: var(--zaytoon-comp-rating-empty-color);
+  color: var(--semiui-comp-rating-empty-color);
   cursor: pointer;
   transition: color 0.1s ease;
 }
@@ -40,8 +40,8 @@
 
 .z-rating__star:focus-visible {
   outline: none;
-  border-radius: var(--zaytoon-radius-sm);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--zaytoon-color-ring) 35%, transparent);
+  border-radius: var(--semiui-radius-sm);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--semiui-color-ring) 35%, transparent);
 }
 
 .z-rating__star z-icon {
@@ -60,7 +60,7 @@
 }
 
 .z-rating__star--filled {
-  color: var(--zaytoon-comp-rating-filled-color);
+  color: var(--semiui-comp-rating-filled-color);
 }
 
 .z-rating__star--filled ::ng-deep svg {

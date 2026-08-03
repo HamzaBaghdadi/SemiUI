@@ -1,6 +1,6 @@
 import { Component, ElementRef, afterRenderEffect, booleanAttribute, computed, input, viewChild } from '@angular/core';
-import { InputDirective } from '@zaytoon/primitives/input';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
+import { InputDirective } from '@semiui/primitives/input';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 /** A multi-line text input: same form support as Text Input, plus optional auto-resize and a character counter. */

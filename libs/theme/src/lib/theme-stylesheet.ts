@@ -1,6 +1,6 @@
-import { ThemePreset, flattenTokensToCssVars } from '@zaytoon/tokens';
+import { ThemePreset, flattenTokensToCssVars } from '@semiui/tokens';
 
-const STYLE_ELEMENT_ID = 'zaytoon-theme';
+const STYLE_ELEMENT_ID = 'semiui-theme';
 
 function toDeclarationBlock(vars: Record<string, string>): string {
   return Object.entries(vars)

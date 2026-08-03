@@ -3,7 +3,7 @@
 
 <h2>1. Initialize</h2>
 <p>From your project root (wherever <code>angular.json</code> lives):</p>
-<pre><code>npx zaytoon init</code></pre>
+<pre><code>npx semiui init</code></pre>
 <p>This does three things:</p>
 <ol>
   <li>
@@ -11,8 +11,8 @@
     components land and which preset you're using.
   </li>
   <li>
-    Installs <code>@zaytoon/tokens</code>, <code>@zaytoon/theme</code>,
-    <code>@zaytoon/primitives</code>, and <code>@zaytoon/presets-aurora</code>.
+    Installs <code>@semiui/tokens</code>, <code>@semiui/theme</code>,
+    <code>@semiui/primitives</code>, and <code>@semiui/presets-aurora</code>.
   </li>
   <li>Prints the provider wiring you need to add yourself (see next step).</li>
 </ol>
@@ -23,19 +23,19 @@
   "prefix": "z"
 &#125;</code></pre>
 <p>
-  <code>componentsDir</code> is where <code>zaytoon add</code> puts new components. Change it
+  <code>componentsDir</code> is where <code>semiui add</code> puts new components. Change it
   before adding anything if you'd rather they land somewhere else.
 </p>
 
 <h2>2. Wire up the provider</h2>
 <p>Add these two calls to <code>app.config.ts</code>:</p>
-<pre><code>import &#123; provideZaytoonUI &#125; from '&#64;zaytoon/theme';
-import &#123; Aurora, provideAuroraIcons &#125; from '&#64;zaytoon/presets-aurora';
+<pre><code>import &#123; provideSemiUI &#125; from '&#64;semiui/theme';
+import &#123; Aurora, provideAuroraIcons &#125; from '&#64;semiui/presets-aurora';
 
 export const appConfig: ApplicationConfig = &#123;
   providers: [
     // ...your existing providers
-    provideZaytoonUI(&#123; preset: Aurora &#125;),
+    provideSemiUI(&#123; preset: Aurora &#125;),
     provideAuroraIcons(),
   ],
 &#125;;</code></pre>
@@ -46,7 +46,7 @@ export const appConfig: ApplicationConfig = &#123;
 </p>
 
 <h2>3. Add a component</h2>
-<pre><code>npx zaytoon add button</code></pre>
+<pre><code>npx semiui add button</code></pre>
 <p>
   This copies <code>button.component.ts</code>, <code>.html</code>, and <code>.css</code> into
   <code>src/app/components/button/</code> and installs anything it needs that you don't already

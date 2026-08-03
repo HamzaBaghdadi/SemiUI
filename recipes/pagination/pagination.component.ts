@@ -1,6 +1,6 @@
 import { Component, booleanAttribute, computed, input, model } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 function range(start: number, end: number): number[] {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
@@ -14,7 +14,7 @@ function range(start: number, end: number): number[] {
   styleUrl: './pagination.component.css',
 })
 export class PaginationComponent {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   /** 1-indexed current page. */
   page = model(1);

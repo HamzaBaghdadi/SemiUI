@@ -10,15 +10,15 @@
   justify-content: space-between;
   gap: 0.5rem;
   width: 100%;
-  min-height: calc(1.25em + 2 * var(--zaytoon-comp-select-padding-y) + 2px);
+  min-height: calc(1.25em + 2 * var(--semiui-comp-select-padding-y) + 2px);
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-select-padding-y) var(--zaytoon-comp-select-padding-x);
-  border-radius: var(--zaytoon-comp-select-radius);
-  font-size: var(--zaytoon-comp-select-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
-  border: 1px solid var(--zaytoon-comp-select-border);
+  padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
+  border-radius: var(--semiui-comp-select-radius);
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
+  border: 1px solid var(--semiui-comp-select-border);
   cursor: pointer;
   transition:
     border-color 0.15s ease,
@@ -37,16 +37,16 @@
      didn't quite match -- otherwise the trigger grows by a couple px the moment a chip appears.
      Chips render via <z-tag> (see multiselect.component.html); keep this in sync with
      tag.component.css if that component's own box model ever changes. */
-  min-height: calc(var(--zaytoon-comp-tag-font-size) * 1.4 + 2 * var(--zaytoon-comp-tag-padding-y) + 2px);
+  min-height: calc(var(--semiui-comp-tag-font-size) * 1.4 + 2 * var(--semiui-comp-tag-padding-y) + 2px);
   text-align: left;
 }
 
 .z-multiselect__placeholder {
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
 }
 
 .z-multiselect__summary {
-  color: var(--zaytoon-comp-select-foreground);
+  color: var(--semiui-comp-select-foreground);
 }
 
 .z-multiselect__icon {
@@ -54,7 +54,7 @@
   flex-shrink: 0;
   width: 1em;
   height: 1em;
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
   transition: transform 0.15s ease;
 }
 
@@ -73,14 +73,14 @@
   height: 1em;
   box-sizing: border-box;
   padding: 0.125em;
-  border-radius: var(--zaytoon-radius-full);
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  border-radius: var(--semiui-radius-full);
+  color: var(--semiui-comp-select-placeholder-foreground);
   cursor: pointer;
 }
 
 .z-multiselect__clear:hover {
-  background: var(--zaytoon-comp-select-option-background-hover);
-  color: var(--zaytoon-comp-select-foreground);
+  background: var(--semiui-comp-select-option-background-hover);
+  color: var(--semiui-comp-select-foreground);
 }
 
 @keyframes z-multiselect-spin {
@@ -102,17 +102,17 @@
 }
 
 .z-multiselect__trigger:hover:not([aria-disabled='true']):not([aria-invalid='true']) {
-  border-color: var(--zaytoon-comp-select-border-hover);
+  border-color: var(--semiui-comp-select-border-hover);
 }
 
 .z-multiselect__trigger:focus-visible {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-multiselect__trigger[aria-invalid='true'] {
-  border-color: var(--zaytoon-comp-select-border-invalid);
+  border-color: var(--semiui-comp-select-border-invalid);
 }
 
 .z-multiselect__trigger[aria-disabled='true'] {
@@ -122,8 +122,8 @@
 /* Loading keeps the trigger's normal colors and just dims via opacity, instead of swapping to
    the flat disabled palette -- it reads as "busy", not "unavailable". */
 .z-multiselect__trigger[aria-disabled='true']:not(.z-multiselect__trigger--loading) {
-  background: var(--zaytoon-comp-select-background-disabled);
-  color: var(--zaytoon-comp-select-foreground-disabled);
+  background: var(--semiui-comp-select-background-disabled);
+  color: var(--semiui-comp-select-foreground-disabled);
 }
 
 .z-multiselect__trigger--loading {
@@ -137,10 +137,10 @@
   right: 0;
   z-index: 20;
   overflow: hidden;
-  background: var(--zaytoon-comp-select-panel-background);
-  border: 1px solid var(--zaytoon-comp-select-panel-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  box-shadow: var(--zaytoon-comp-select-panel-shadow);
+  background: var(--semiui-comp-select-panel-background);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
 }
 
@@ -188,15 +188,15 @@
 
 .z-multiselect__header,
 .z-multiselect__footer {
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
 }
 
 .z-multiselect__filter {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-sm);
-  padding: var(--zaytoon-spacing-sm);
-  border-bottom: 1px solid var(--zaytoon-comp-select-panel-border);
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-spacing-sm);
+  border-bottom: 1px solid var(--semiui-comp-select-panel-border);
 }
 
 .z-multiselect__select-all {
@@ -220,22 +220,22 @@
   width: 1.125rem;
   height: 1.125rem;
   box-sizing: border-box;
-  border: 1px solid var(--zaytoon-comp-checkbox-border);
-  border-radius: var(--zaytoon-comp-checkbox-radius);
-  background: var(--zaytoon-comp-checkbox-background);
-  color: var(--zaytoon-comp-checkbox-foreground-checked);
+  border: 1px solid var(--semiui-comp-checkbox-border);
+  border-radius: var(--semiui-comp-checkbox-radius);
+  background: var(--semiui-comp-checkbox-background);
+  color: var(--semiui-comp-checkbox-foreground-checked);
   transition:
     background 0.15s ease,
     border-color 0.15s ease;
 }
 
 .z-multiselect__select-all-box[data-checked] {
-  background: var(--zaytoon-comp-checkbox-background-checked);
-  border-color: var(--zaytoon-comp-checkbox-border-checked);
+  background: var(--semiui-comp-checkbox-background-checked);
+  border-color: var(--semiui-comp-checkbox-border-checked);
 }
 
 .z-multiselect__select-all[aria-checked='mixed'] .z-multiselect__select-all-box {
-  border-color: var(--zaytoon-comp-checkbox-border-checked);
+  border-color: var(--semiui-comp-checkbox-border-checked);
 }
 
 .z-multiselect__select-all-box z-icon {
@@ -245,12 +245,12 @@
 
 .z-multiselect__select-all:focus-visible .z-multiselect__select-all-box {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-checkbox-focus-ring) 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-checkbox-focus-ring) 35%, transparent);
 }
 
 .z-multiselect__select-all:disabled .z-multiselect__select-all-box {
-  background: var(--zaytoon-comp-checkbox-background-disabled);
-  border-color: var(--zaytoon-comp-checkbox-border-disabled);
+  background: var(--semiui-comp-checkbox-background-disabled);
+  border-color: var(--semiui-comp-checkbox-border-disabled);
 }
 
 .z-multiselect__filter-input-wrapper {
@@ -263,23 +263,23 @@
 .z-multiselect__filter-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.375rem 1.75rem 0.375rem var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-select-border);
-  border-radius: var(--zaytoon-radius-sm);
-  font-size: var(--zaytoon-comp-select-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
+  padding: 0.375rem 1.75rem 0.375rem var(--semiui-spacing-sm);
+  border: 1px solid var(--semiui-comp-select-border);
+  border-radius: var(--semiui-radius-sm);
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
 }
 
 .z-multiselect__filter-input::placeholder {
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
 }
 
 .z-multiselect__filter-input:focus {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-multiselect__filter-icon {
@@ -287,7 +287,7 @@
   right: 0.5rem;
   width: 0.875em;
   height: 0.875em;
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
   pointer-events: none;
 }
 
@@ -302,15 +302,15 @@
 .z-multiselect__option {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-sm);
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
-  border-radius: var(--zaytoon-radius-sm);
-  color: var(--zaytoon-comp-select-option-foreground);
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }
 
 .z-multiselect__option[data-active] {
-  background: var(--zaytoon-comp-select-option-background-hover);
+  background: var(--semiui-comp-select-option-background-hover);
 }
 
 .z-multiselect__checkbox {
@@ -321,15 +321,15 @@
   width: 1.125rem;
   height: 1.125rem;
   box-sizing: border-box;
-  border: 1px solid var(--zaytoon-comp-checkbox-border);
-  border-radius: var(--zaytoon-comp-checkbox-radius);
-  background: var(--zaytoon-comp-checkbox-background);
-  color: var(--zaytoon-comp-checkbox-foreground-checked);
+  border: 1px solid var(--semiui-comp-checkbox-border);
+  border-radius: var(--semiui-comp-checkbox-radius);
+  background: var(--semiui-comp-checkbox-background);
+  color: var(--semiui-comp-checkbox-foreground-checked);
 }
 
 .z-multiselect__checkbox[data-checked] {
-  background: var(--zaytoon-comp-checkbox-background-checked);
-  border-color: var(--zaytoon-comp-checkbox-border-checked);
+  background: var(--semiui-comp-checkbox-background-checked);
+  border-color: var(--semiui-comp-checkbox-border-checked);
 }
 
 .z-multiselect__checkbox z-icon {
@@ -338,7 +338,7 @@
 }
 
 .z-multiselect__empty {
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-md);
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  color: var(--semiui-comp-select-placeholder-foreground);
   text-align: center;
 }

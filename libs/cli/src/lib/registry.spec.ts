@@ -13,7 +13,7 @@ describe('registry', () => {
   it('getComponent returns the component metadata', () => {
     const button = getComponent('button');
     expect(button?.files).toEqual(['button.component.ts', 'button.component.html', 'button.component.css']);
-    expect(button?.npmDependencies).toContain('@zaytoon/primitives');
+    expect(button?.npmDependencies).toContain('@semiui/primitives');
   });
 
   it('reads real recipe file contents for every registered file', () => {

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
+import { SEMIUI_COLOR_MODE_CONFIG } from './color-mode.config';
 import { ColorModeService } from './color-mode.service';
 
 class FakeStorage implements Storage {
@@ -41,7 +41,7 @@ describe('ColorModeService', () => {
   function create(config?: Partial<{ storageKey: string; darkClassName: string }>): ColorModeService {
     TestBed.configureTestingModule({
       providers: config
-        ? [{ provide: ZAYTOON_COLOR_MODE_CONFIG, useValue: { storageKey: 'zaytoon-color-mode', darkClassName: 'dark', ...config } }]
+        ? [{ provide: SEMIUI_COLOR_MODE_CONFIG, useValue: { storageKey: 'semiui-color-mode', darkClassName: 'dark', ...config } }]
         : [],
     });
     return TestBed.inject(ColorModeService);
@@ -56,7 +56,7 @@ describe('ColorModeService', () => {
   });
 
   it('reads the persisted preference over the system default', () => {
-    fakeStorage.setItem('zaytoon-color-mode', 'dark');
+    fakeStorage.setItem('semiui-color-mode', 'dark');
     const service = create();
     TestBed.tick();
 
@@ -73,7 +73,7 @@ describe('ColorModeService', () => {
     expect(service.dark()).toBe(true);
     expect(document.documentElement.classList.contains('dark')).toBe(true);
     expect(document.documentElement.style.colorScheme).toBe('dark');
-    expect(fakeStorage.getItem('zaytoon-color-mode')).toBe('dark');
+    expect(fakeStorage.getItem('semiui-color-mode')).toBe('dark');
   });
 
   it('uses the configured dark class name and storage key', () => {

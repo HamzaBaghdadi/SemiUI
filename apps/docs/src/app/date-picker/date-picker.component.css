@@ -16,39 +16,39 @@
 .z-date-picker__trigger {
   width: 100%;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-select-padding-y) var(--zaytoon-comp-select-padding-x);
+  padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
   padding-right: 2.5rem;
-  border: 1px solid var(--zaytoon-comp-select-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
+  border: 1px solid var(--semiui-comp-select-border);
+  border-radius: var(--semiui-comp-select-radius);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-select-font-size);
+  font-size: var(--semiui-comp-select-font-size);
   cursor: pointer;
 }
 
 .z-date-picker__trigger::placeholder {
-  color: var(--zaytoon-comp-select-placeholder-foreground);
+  color: var(--semiui-comp-select-placeholder-foreground);
 }
 
 .z-date-picker__trigger:hover:not(:disabled) {
-  border-color: var(--zaytoon-comp-select-border-hover);
+  border-color: var(--semiui-comp-select-border-hover);
 }
 
 .z-date-picker__trigger:focus-visible {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-date-picker__trigger[aria-invalid='true'] {
-  border-color: var(--zaytoon-comp-select-border-invalid);
+  border-color: var(--semiui-comp-select-border-invalid);
 }
 
 .z-date-picker__trigger:disabled {
   cursor: not-allowed;
-  background: var(--zaytoon-comp-select-background-disabled);
-  color: var(--zaytoon-comp-select-foreground-disabled);
+  background: var(--semiui-comp-select-background-disabled);
+  color: var(--semiui-comp-select-foreground-disabled);
 }
 
 .z-date-picker__clear,
@@ -63,11 +63,11 @@
   width: 1em;
   height: 1em;
   padding: 0.15em;
-  color: var(--zaytoon-color-muted-foreground);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .z-date-picker__icon {
-  right: var(--zaytoon-comp-select-padding-x);
+  right: var(--semiui-comp-select-padding-x);
   pointer-events: none;
   transition: transform 0.15s ease;
 }
@@ -77,7 +77,7 @@
 }
 
 .z-date-picker__clear {
-  right: calc(var(--zaytoon-comp-select-padding-x) + 1.4em);
+  right: calc(var(--semiui-comp-select-padding-x) + 1.4em);
   cursor: pointer;
 }
 
@@ -86,15 +86,15 @@
   top: calc(100% + 0.25rem);
   left: 0;
   z-index: 20;
-  background: var(--zaytoon-comp-select-panel-background);
-  border: 1px solid var(--zaytoon-comp-select-panel-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  box-shadow: var(--zaytoon-comp-select-panel-shadow);
-  padding: var(--zaytoon-spacing-sm);
+  background: var(--semiui-comp-select-panel-background);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  box-shadow: var(--semiui-comp-select-panel-shadow);
+  padding: var(--semiui-spacing-sm);
   transform-origin: top;
   /* Matches the day grid's natural width (7 cells) so switching to the month view -- a narrower
      3-column grid -- doesn't shrink the whole panel out from under it. */
-  min-width: calc(var(--zaytoon-comp-date-picker-day-size) * 7);
+  min-width: calc(var(--semiui-comp-date-picker-day-size) * 7);
 }
 
 .z-date-picker__panel[data-placement='top'] {
@@ -106,19 +106,19 @@
 .z-date-picker__inline-panel {
   position: relative;
   display: inline-block;
-  padding: var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-select-panel-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  background: var(--zaytoon-comp-select-panel-background);
-  min-width: calc(var(--zaytoon-comp-date-picker-day-size) * 7);
+  padding: var(--semiui-spacing-sm);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  background: var(--semiui-comp-select-panel-background);
+  min-width: calc(var(--semiui-comp-date-picker-day-size) * 7);
 }
 
 .z-date-picker__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--zaytoon-spacing-sm);
-  margin-bottom: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
+  margin-bottom: var(--semiui-spacing-sm);
 }
 
 .z-date-picker__nav {
@@ -128,14 +128,14 @@
   width: 1.75rem;
   height: 1.75rem;
   border: none;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-color-foreground);
+  color: var(--semiui-color-foreground);
   cursor: pointer;
 }
 
 .z-date-picker__nav:hover {
-  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+  background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
 .z-date-picker__nav-icon {
@@ -154,33 +154,33 @@
 .z-date-picker__header-buttons {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-xs);
+  gap: var(--semiui-spacing-xs);
 }
 
 .z-date-picker__unit-button {
   border: none;
   background: transparent;
-  padding: 0.125rem var(--zaytoon-spacing-xs);
-  border-radius: var(--zaytoon-radius-sm);
+  padding: 0.125rem var(--semiui-spacing-xs);
+  border-radius: var(--semiui-radius-sm);
   font: inherit;
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  color: var(--zaytoon-comp-date-picker-month-label-foreground);
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-comp-date-picker-month-label-foreground);
+  font-size: var(--semiui-comp-date-picker-font-size);
   cursor: pointer;
 }
 
 .z-date-picker__unit-button:hover {
-  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+  background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
 .z-date-picker__unit-button[aria-expanded='true'] {
-  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+  background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
 .z-date-picker__years-panel {
   position: absolute;
   top: 0;
-  left: calc(100% + var(--zaytoon-spacing-sm));
+  left: calc(100% + var(--semiui-spacing-sm));
   z-index: 21;
   display: flex;
   flex-direction: column;
@@ -188,11 +188,11 @@
   width: 6rem;
   max-height: 16rem;
   overflow-y: auto;
-  padding: var(--zaytoon-spacing-xs);
-  background: var(--zaytoon-comp-select-panel-background);
-  border: 1px solid var(--zaytoon-comp-select-panel-border);
-  border-radius: var(--zaytoon-comp-select-radius);
-  box-shadow: var(--zaytoon-comp-select-panel-shadow);
+  padding: var(--semiui-spacing-xs);
+  background: var(--semiui-comp-select-panel-background);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  box-shadow: var(--semiui-comp-select-panel-shadow);
 }
 
 .z-date-picker__years-panel .z-date-picker__unit {
@@ -204,91 +204,91 @@
 .z-date-picker__unit-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--zaytoon-spacing-xs);
+  gap: var(--semiui-spacing-xs);
 }
 
 .z-date-picker__unit {
   box-sizing: border-box;
-  padding: var(--zaytoon-spacing-sm) var(--zaytoon-spacing-xs);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-xs);
   border: 1px solid transparent;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-comp-date-picker-day-foreground);
+  color: var(--semiui-comp-date-picker-day-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+  font-size: var(--semiui-comp-date-picker-font-size);
   cursor: pointer;
 }
 
 .z-date-picker__unit:hover {
-  background: var(--zaytoon-comp-date-picker-day-background-hover);
+  background: var(--semiui-comp-date-picker-day-background-hover);
 }
 
 .z-date-picker__unit[data-selected] {
-  background: var(--zaytoon-comp-date-picker-day-background-selected);
-  color: var(--zaytoon-comp-date-picker-day-foreground-selected);
+  background: var(--semiui-comp-date-picker-day-background-selected);
+  color: var(--semiui-comp-date-picker-day-foreground-selected);
 }
 
 .z-date-picker__unit:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
 .z-date-picker__custom-header {
-  margin-bottom: var(--zaytoon-spacing-sm);
+  margin-bottom: var(--semiui-spacing-sm);
 }
 
 .z-date-picker__time {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--zaytoon-spacing-xs);
-  margin-top: var(--zaytoon-spacing-sm);
-  padding-top: var(--zaytoon-spacing-sm);
-  border-top: 1px solid var(--zaytoon-comp-select-panel-border);
+  gap: var(--semiui-spacing-xs);
+  margin-top: var(--semiui-spacing-sm);
+  padding-top: var(--semiui-spacing-sm);
+  border-top: 1px solid var(--semiui-comp-select-panel-border);
 }
 
 .z-date-picker__time-input {
   box-sizing: border-box;
   width: 3rem;
   padding: 0.25rem;
-  border: 1px solid var(--zaytoon-comp-select-border);
-  border-radius: var(--zaytoon-radius-sm);
-  background: var(--zaytoon-comp-select-background);
-  color: var(--zaytoon-comp-select-foreground);
+  border: 1px solid var(--semiui-comp-select-border);
+  border-radius: var(--semiui-radius-sm);
+  background: var(--semiui-comp-select-background);
+  color: var(--semiui-comp-select-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+  font-size: var(--semiui-comp-date-picker-font-size);
   text-align: center;
 }
 
 .z-date-picker__time-input:focus-visible {
   outline: none;
-  border-color: var(--zaytoon-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-select-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-select-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .z-date-picker__time-sep {
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  color: var(--zaytoon-comp-date-picker-month-label-foreground);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-comp-date-picker-month-label-foreground);
 }
 
 .z-date-picker__period {
   box-sizing: border-box;
-  padding: 0.25rem var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-select-border);
-  border-radius: var(--zaytoon-radius-sm);
+  padding: 0.25rem var(--semiui-spacing-sm);
+  border: 1px solid var(--semiui-comp-select-border);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-comp-date-picker-day-foreground);
+  color: var(--semiui-comp-date-picker-day-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+  font-size: var(--semiui-comp-date-picker-font-size);
   cursor: pointer;
 }
 
 .z-date-picker__period:hover {
-  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+  background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
 .z-date-picker__period:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
@@ -296,45 +296,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--zaytoon-spacing-sm);
-  margin-top: var(--zaytoon-spacing-sm);
-  padding-top: var(--zaytoon-spacing-sm);
-  border-top: 1px solid var(--zaytoon-comp-select-panel-border);
+  gap: var(--semiui-spacing-sm);
+  margin-top: var(--semiui-spacing-sm);
+  padding-top: var(--semiui-spacing-sm);
+  border-top: 1px solid var(--semiui-comp-select-panel-border);
 }
 
 .z-date-picker__today {
   border: none;
   background: transparent;
-  padding: 0.25rem var(--zaytoon-spacing-sm);
-  border-radius: var(--zaytoon-radius-sm);
+  padding: 0.25rem var(--semiui-spacing-sm);
+  border-radius: var(--semiui-radius-sm);
   font: inherit;
-  font-size: var(--zaytoon-comp-date-picker-font-size);
-  color: var(--zaytoon-color-primary);
+  font-size: var(--semiui-comp-date-picker-font-size);
+  color: var(--semiui-color-primary);
   cursor: pointer;
 }
 
 .z-date-picker__today:hover {
-  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+  background: var(--semiui-comp-date-picker-nav-background-hover);
 }
 
 .z-date-picker__today:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 
 .z-date-picker__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-bottom: var(--zaytoon-spacing-xs);
+  margin-bottom: var(--semiui-spacing-xs);
 }
 
 .z-date-picker__weekday {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--zaytoon-comp-date-picker-day-size);
+  width: var(--semiui-comp-date-picker-day-size);
   font-size: 0.75rem;
-  color: var(--zaytoon-comp-date-picker-weekday-foreground);
+  color: var(--semiui-comp-date-picker-weekday-foreground);
 }
 
 .z-date-picker__grid {
@@ -342,7 +342,7 @@
   grid-template-columns: repeat(7, 1fr);
   /* Always reserves 6 rows (the max a month can span) so the panel doesn't grow/shrink -- and
      visibly jump -- when navigating to a month whose grid needs fewer rows than the last one. */
-  grid-template-rows: repeat(6, var(--zaytoon-comp-date-picker-day-size));
+  grid-template-rows: repeat(6, var(--semiui-comp-date-picker-day-size));
 }
 
 .z-date-picker__day {
@@ -350,45 +350,45 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: var(--zaytoon-comp-date-picker-day-size);
-  height: var(--zaytoon-comp-date-picker-day-size);
+  width: var(--semiui-comp-date-picker-day-size);
+  height: var(--semiui-comp-date-picker-day-size);
   border: 1px solid transparent;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-comp-date-picker-day-foreground);
+  color: var(--semiui-comp-date-picker-day-foreground);
   font: inherit;
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+  font-size: var(--semiui-comp-date-picker-font-size);
   cursor: pointer;
 }
 
 .z-date-picker__day[data-outside-month] {
-  color: var(--zaytoon-comp-date-picker-day-foreground-outside-month);
+  color: var(--semiui-comp-date-picker-day-foreground-outside-month);
 }
 
 .z-date-picker__day:hover:not(:disabled) {
-  background: var(--zaytoon-comp-date-picker-day-background-hover);
+  background: var(--semiui-comp-date-picker-day-background-hover);
 }
 
 .z-date-picker__day[data-today] {
-  border-color: var(--zaytoon-comp-date-picker-day-border-today);
+  border-color: var(--semiui-comp-date-picker-day-border-today);
 }
 
 .z-date-picker__day[data-selected] {
-  background: var(--zaytoon-comp-date-picker-day-background-selected);
-  color: var(--zaytoon-comp-date-picker-day-foreground-selected);
+  background: var(--semiui-comp-date-picker-day-background-selected);
+  color: var(--semiui-comp-date-picker-day-foreground-selected);
 }
 
 /* :hover:not(:disabled) above has higher specificity than [data-selected] alone, so without this
    rule hovering a selected day replaced its selected color with the plain hover background --
    the selection highlight effectively vanished the moment you moved the mouse over it. */
 .z-date-picker__day[data-selected]:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--zaytoon-comp-date-picker-day-background-selected) 85%, black);
+  background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 85%, black);
 }
 
 /* The days strictly between a range's two endpoints -- a connecting tint, square (not pill-shaped)
    so it visually joins its neighbors into one continuous band. */
 .z-date-picker__day[data-in-range] {
-  background: color-mix(in srgb, var(--zaytoon-comp-date-picker-day-background-selected) 16%, transparent);
+  background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 16%, transparent);
   border-radius: 0;
 }
 
@@ -406,7 +406,7 @@
 }
 
 .z-date-picker__day:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
 }
 

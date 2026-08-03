@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface BreadcrumbItem {
   label: string;
@@ -17,7 +17,7 @@ export interface BreadcrumbItem {
   styleUrl: './breadcrumb.component.css',
 })
 export class BreadcrumbComponent {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   items = input<readonly BreadcrumbItem[]>([]);
 }

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { ButtonVariant, ButtonSize, IconRef } from '@zaytoon/tokens';
-import { ColorModeService } from '@zaytoon/theme';
+import { ButtonVariant, ButtonSize, IconRef } from '@semiui/tokens';
+import { ColorModeService } from '@semiui/theme';
 import { ButtonComponent } from './button/button.component';
 
 @Component({

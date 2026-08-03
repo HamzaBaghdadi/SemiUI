@@ -13,9 +13,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { TagComponent } from '../tag/tag.component';
 
@@ -45,7 +45,7 @@ let nextMultiselectId = 0;
   },
 })
 export class MultiselectComponent<TOption = unknown> extends BaseFormFieldControl<unknown[]> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerButton = viewChild<ElementRef<HTMLDivElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');

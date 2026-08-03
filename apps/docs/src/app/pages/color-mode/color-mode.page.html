@@ -1,6 +1,6 @@
 <h1>Color Mode</h1>
 <p>
-  Light/dark mode is installed automatically by <code>provideZaytoonUI()</code> -- there's
+  Light/dark mode is installed automatically by <code>provideSemiUI()</code> -- there's
   nothing extra to set up. <code>ColorModeService</code> is what runs it: a small,
   <code>providedIn: 'root'</code> service that persists the choice, falls back to the OS
   preference when nothing's stored, and toggles a class on <code>&lt;html&gt;</code>.
@@ -51,7 +51,7 @@
 </table>
 
 <pre><code>import &#123; Component, inject &#125; from '&#64;angular/core';
-import &#123; ColorModeService &#125; from '&#64;zaytoon/theme';
+import &#123; ColorModeService &#125; from '&#64;semiui/theme';
 
 &#64;Component(&#123;
   selector: 'app-header',
@@ -82,9 +82,9 @@ export class Header &#123;
 <h2>Configuring the storage key and class name</h2>
 <p>
   By default the class is <code>dark</code> and the storage key is
-  <code>zaytoon-color-mode</code>. Override either through <code>provideZaytoonUI</code>:
+  <code>semiui-color-mode</code>. Override either through <code>provideSemiUI</code>:
 </p>
-<pre><code>provideZaytoonUI(&#123;
+<pre><code>provideSemiUI(&#123;
   preset: Aurora,
   colorMode: &#123;
     storageKey: 'my-app-theme',

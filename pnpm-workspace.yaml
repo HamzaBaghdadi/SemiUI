@@ -38,4 +38,4 @@ minimumReleaseAgeExclude:
   - '@nx/eslint-plugin@23.1.1'
   - '@nx/jest@23.1.1'
   - '@nx/playwright@23.1.1'
-  - '@zaytoon/tokens@0.0.1'
+  - '@semiui/tokens@0.0.1'

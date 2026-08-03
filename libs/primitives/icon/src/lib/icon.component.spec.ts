@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgIcon } from '@ng-icons/core';
-import { IconRef } from '@zaytoon/tokens';
+import { IconRef } from '@semiui/tokens';
 import { ZIconComponent } from './icon.component';
 
 describe('ZIconComponent', () => {

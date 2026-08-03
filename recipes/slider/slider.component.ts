@@ -1,5 +1,5 @@
 import { Component, ElementRef, booleanAttribute, computed, input, signal, viewChild } from '@angular/core';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 export type SliderOrientation = 'horizontal' | 'vertical';

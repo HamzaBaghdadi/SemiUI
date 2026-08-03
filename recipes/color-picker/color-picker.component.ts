@@ -12,7 +12,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { Hsv, hexToRgb, hsvToRgb, rgbToHex, rgbToHsv } from './color';
 

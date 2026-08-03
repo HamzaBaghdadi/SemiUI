@@ -1,8 +1,8 @@
 import { Component, booleanAttribute, computed, input, output } from '@angular/core';
-import { ButtonDirective } from '@zaytoon/primitives/button';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { ButtonSize, ButtonVariant, IconRef } from '@zaytoon/tokens';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ButtonDirective } from '@semiui/primitives/button';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { ButtonSize, ButtonVariant, IconRef } from '@semiui/tokens';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 @Component({
   selector: 'z-button',
@@ -18,7 +18,7 @@ import { injectZaytoonIcons } from '@zaytoon/theme';
   },
 })
 export class ButtonComponent {
-  private icons = injectZaytoonIcons();
+  private icons = injectSemiUIIcons();
 
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('md');

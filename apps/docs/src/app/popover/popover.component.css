@@ -7,14 +7,14 @@
   z-index: 50;
   max-width: 20rem;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-popover-padding-y) var(--zaytoon-comp-popover-padding-x);
-  background: var(--zaytoon-comp-popover-background);
-  color: var(--zaytoon-comp-popover-foreground);
-  border: 1px solid var(--zaytoon-comp-popover-border);
-  border-radius: var(--zaytoon-comp-popover-radius);
-  box-shadow: var(--zaytoon-comp-popover-shadow);
-  font-size: var(--zaytoon-typography-font-size-md);
-  font-family: var(--zaytoon-typography-font-family);
+  padding: var(--semiui-comp-popover-padding-y) var(--semiui-comp-popover-padding-x);
+  background: var(--semiui-comp-popover-background);
+  color: var(--semiui-comp-popover-foreground);
+  border: 1px solid var(--semiui-comp-popover-border);
+  border-radius: var(--semiui-comp-popover-radius);
+  box-shadow: var(--semiui-comp-popover-shadow);
+  font-size: var(--semiui-typography-font-size-md);
+  font-family: var(--semiui-typography-font-family);
 }
 
 .z-popover[data-arrow]::after {
@@ -22,8 +22,8 @@
   position: absolute;
   width: 0.5rem;
   height: 0.5rem;
-  background: var(--zaytoon-comp-popover-background);
-  border: 1px solid var(--zaytoon-comp-popover-border);
+  background: var(--semiui-comp-popover-background);
+  border: 1px solid var(--semiui-comp-popover-border);
 }
 
 .z-popover[data-arrow][data-placement='bottom']::after {

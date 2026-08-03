@@ -1,10 +1,10 @@
 import { EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ButtonSize, ButtonVariant, ColorTokens, DialogSize, ThemePreset, ToastVariant, ToastVariantTokens } from '@zaytoon/tokens';
+import { ButtonSize, ButtonVariant, ColorTokens, DialogSize, ThemePreset, ToastVariant, ToastVariantTokens } from '@semiui/tokens';
 import { ColorModeService } from './color-mode.service';
-import { ZAYTOON_COLOR_MODE_CONFIG } from './color-mode.config';
-import { ZAYTOON_ICONS } from './icon-tokens.token';
-import { provideZaytoonUI } from './provide-zaytoon-ui';
+import { SEMIUI_COLOR_MODE_CONFIG } from './color-mode.config';
+import { SEMIUI_ICONS } from './icon-tokens.token';
+import { provideSemiUI } from './provide-semiui';
 
 const VARIANTS: ButtonVariant[] = [
   'primary',
@@ -427,7 +427,7 @@ class FakeStorage implements Storage {
   }
 }
 
-describe('provideZaytoonUI', () => {
+describe('provideSemiUI', () => {
   let fakeStorage: FakeStorage;
 
   beforeEach(() => {
@@ -437,55 +437,55 @@ describe('provideZaytoonUI', () => {
 
   afterEach(() => {
     TestBed.resetTestingModule();
-    document.getElementById('zaytoon-theme')?.remove();
+    document.getElementById('semiui-theme')?.remove();
     document.documentElement.classList.remove('dark', 'dark-mode');
   });
 
   it('injects a stylesheet with the preset tokens as CSS custom properties on :root', () => {
     const preset = createTestPreset();
-    TestBed.configureTestingModule({ providers: [provideZaytoonUI({ preset })] });
+    TestBed.configureTestingModule({ providers: [provideSemiUI({ preset })] });
     TestBed.inject(EnvironmentInjector);
 
-    const styleText = document.getElementById('zaytoon-theme')?.textContent ?? '';
-    expect(styleText).toContain('--zaytoon-color-primary: #123456;');
-    expect(styleText).toContain('--zaytoon-comp-button-variants-primary-background: #123456;');
-    expect(styleText).toContain('--zaytoon-comp-button-padding-x-md: 1rem;');
+    const styleText = document.getElementById('semiui-theme')?.textContent ?? '';
+    expect(styleText).toContain('--semiui-color-primary: #123456;');
+    expect(styleText).toContain('--semiui-comp-button-variants-primary-background: #123456;');
+    expect(styleText).toContain('--semiui-comp-button-padding-x-md: 1rem;');
   });
 
   it('scopes the dark palette under the configured dark class name', () => {
     const preset = createTestPreset();
     TestBed.configureTestingModule({
-      providers: [provideZaytoonUI({ preset, colorMode: { darkClassName: 'dark-mode' } })],
+      providers: [provideSemiUI({ preset, colorMode: { darkClassName: 'dark-mode' } })],
     });
     TestBed.inject(EnvironmentInjector);
 
-    const styleText = document.getElementById('zaytoon-theme')?.textContent ?? '';
+    const styleText = document.getElementById('semiui-theme')?.textContent ?? '';
     expect(styleText).toContain('.dark-mode {');
   });
 
-  it('registers the preset icons under ZAYTOON_ICONS', () => {
+  it('registers the preset icons under SEMIUI_ICONS', () => {
     const preset = createTestPreset();
-    TestBed.configureTestingModule({ providers: [provideZaytoonUI({ preset })] });
+    TestBed.configureTestingModule({ providers: [provideSemiUI({ preset })] });
 
-    expect(TestBed.inject(ZAYTOON_ICONS)).toEqual(preset.icons);
+    expect(TestBed.inject(SEMIUI_ICONS)).toEqual(preset.icons);
   });
 
-  it('applies colorMode overrides to ZAYTOON_COLOR_MODE_CONFIG', () => {
+  it('applies colorMode overrides to SEMIUI_COLOR_MODE_CONFIG', () => {
     const preset = createTestPreset();
     TestBed.configureTestingModule({
-      providers: [provideZaytoonUI({ preset, colorMode: { storageKey: 'my-app-theme', darkClassName: 'dark-mode' } })],
+      providers: [provideSemiUI({ preset, colorMode: { storageKey: 'my-app-theme', darkClassName: 'dark-mode' } })],
     });
 
-    expect(TestBed.inject(ZAYTOON_COLOR_MODE_CONFIG)).toEqual({
+    expect(TestBed.inject(SEMIUI_COLOR_MODE_CONFIG)).toEqual({
       storageKey: 'my-app-theme',
       darkClassName: 'dark-mode',
     });
   });
 
   it('eagerly constructs ColorModeService so the dark class applies on bootstrap', () => {
-    fakeStorage.setItem('zaytoon-color-mode', 'dark');
+    fakeStorage.setItem('semiui-color-mode', 'dark');
     const preset = createTestPreset();
-    TestBed.configureTestingModule({ providers: [provideZaytoonUI({ preset })] });
+    TestBed.configureTestingModule({ providers: [provideSemiUI({ preset })] });
     TestBed.inject(EnvironmentInjector);
     TestBed.tick();
 

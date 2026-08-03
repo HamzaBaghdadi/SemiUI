@@ -3,9 +3,9 @@
   align-items: stretch;
   width: 100%;
   box-sizing: border-box;
-  border-radius: var(--zaytoon-comp-input-radius);
-  border: 1px solid var(--zaytoon-comp-input-border);
-  background: var(--zaytoon-comp-input-background);
+  border-radius: var(--semiui-comp-input-radius);
+  border: 1px solid var(--semiui-comp-input-border);
+  background: var(--semiui-comp-input-background);
   /* Clips the stepper buttons' hover background to the field's own rounded corners, instead of
      it bleeding past them as a visible square edge. */
   overflow: hidden;
@@ -15,62 +15,62 @@
 }
 
 .z-input-number:hover:not(:has(.z-input-number__input:disabled)):not(:has(.z-input-number__input[aria-invalid='true'])) {
-  border-color: var(--zaytoon-comp-input-border-hover);
+  border-color: var(--semiui-comp-input-border-hover);
 }
 
 .z-input-number:has(.z-input-number__input:focus-visible) {
-  border-color: var(--zaytoon-comp-input-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zaytoon-comp-input-focus-ring) 35%, transparent);
+  border-color: var(--semiui-comp-input-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-input-focus-ring) 35%, transparent);
 }
 
 .z-input-number:has(.z-input-number__input[aria-invalid='true']) {
-  border-color: var(--zaytoon-comp-input-border-invalid);
+  border-color: var(--semiui-comp-input-border-invalid);
 }
 
 .z-input-number:has(.z-input-number__input:disabled) {
-  background: var(--zaytoon-comp-input-background-disabled);
+  background: var(--semiui-comp-input-background-disabled);
 }
 
 .z-input-number__affix {
   display: inline-flex;
   align-items: center;
-  padding: 0 0 0 var(--zaytoon-comp-input-padding-x);
-  font-size: var(--zaytoon-comp-input-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  color: var(--zaytoon-comp-input-placeholder-foreground);
+  padding: 0 0 0 var(--semiui-comp-input-padding-x);
+  font-size: var(--semiui-comp-input-font-size);
+  font-family: var(--semiui-typography-font-family);
+  color: var(--semiui-comp-input-placeholder-foreground);
 }
 
 .z-input-number__affix + .z-input-number__input {
-  padding-left: var(--zaytoon-spacing-xs);
+  padding-left: var(--semiui-spacing-xs);
 }
 
 .z-input-number__input {
   flex: 1;
   min-width: 0;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-input-padding-y) var(--zaytoon-comp-input-padding-x);
+  padding: var(--semiui-comp-input-padding-y) var(--semiui-comp-input-padding-x);
   border: none;
   outline: none;
   background: transparent;
-  font-size: var(--zaytoon-comp-input-font-size);
-  font-family: var(--zaytoon-typography-font-family);
-  color: var(--zaytoon-comp-input-foreground);
+  font-size: var(--semiui-comp-input-font-size);
+  font-family: var(--semiui-typography-font-family);
+  color: var(--semiui-comp-input-foreground);
   text-align: left;
 }
 
 .z-input-number[data-buttons='horizontal'] .z-input-number__input {
   text-align: center;
-  padding-left: var(--zaytoon-spacing-xs);
-  padding-right: var(--zaytoon-spacing-xs);
+  padding-left: var(--semiui-spacing-xs);
+  padding-right: var(--semiui-spacing-xs);
 }
 
 .z-input-number__input::placeholder {
-  color: var(--zaytoon-comp-input-placeholder-foreground);
+  color: var(--semiui-comp-input-placeholder-foreground);
 }
 
 .z-input-number__input:disabled {
   cursor: not-allowed;
-  color: var(--zaytoon-comp-input-foreground-disabled);
+  color: var(--semiui-comp-input-foreground-disabled);
 }
 
 /* Vertical layout: stacked chevrons on the trailing edge, in their own muted-tinted rail so they
@@ -79,8 +79,8 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  border-left: 1px solid var(--zaytoon-comp-input-border);
-  background: color-mix(in srgb, var(--zaytoon-color-muted) 45%, transparent);
+  border-left: 1px solid var(--semiui-comp-input-border);
+  background: color-mix(in srgb, var(--semiui-color-muted) 45%, transparent);
 }
 
 .z-input-number__button {
@@ -92,7 +92,7 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--zaytoon-comp-input-placeholder-foreground);
+  color: var(--semiui-comp-input-placeholder-foreground);
   cursor: pointer;
   transition:
     background-color 0.1s ease,
@@ -100,16 +100,16 @@
 }
 
 .z-input-number__button:first-child {
-  border-bottom: 1px solid var(--zaytoon-comp-input-border);
+  border-bottom: 1px solid var(--semiui-comp-input-border);
 }
 
 .z-input-number__button:hover:not(:disabled) {
-  background: var(--zaytoon-color-muted);
-  color: var(--zaytoon-color-foreground);
+  background: var(--semiui-color-muted);
+  color: var(--semiui-color-foreground);
 }
 
 .z-input-number__button:active:not(:disabled) {
-  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
+  background: color-mix(in srgb, var(--semiui-color-muted) 80%, black);
 }
 
 .z-input-number__button:disabled {
@@ -135,26 +135,26 @@
   justify-content: center;
   width: 2.25rem;
   border: none;
-  background: color-mix(in srgb, var(--zaytoon-color-muted) 45%, transparent);
-  color: var(--zaytoon-comp-input-foreground);
+  background: color-mix(in srgb, var(--semiui-color-muted) 45%, transparent);
+  color: var(--semiui-comp-input-foreground);
   cursor: pointer;
   transition: background-color 0.1s ease;
 }
 
 .z-input-number__step--decrement {
-  border-right: 1px solid var(--zaytoon-comp-input-border);
+  border-right: 1px solid var(--semiui-comp-input-border);
 }
 
 .z-input-number__step--increment {
-  border-left: 1px solid var(--zaytoon-comp-input-border);
+  border-left: 1px solid var(--semiui-comp-input-border);
 }
 
 .z-input-number__step:hover:not(:disabled) {
-  background: var(--zaytoon-color-muted);
+  background: var(--semiui-color-muted);
 }
 
 .z-input-number__step:active:not(:disabled) {
-  background: color-mix(in srgb, var(--zaytoon-color-muted) 80%, black);
+  background: color-mix(in srgb, var(--semiui-color-muted) 80%, black);
 }
 
 .z-input-number__step:disabled {

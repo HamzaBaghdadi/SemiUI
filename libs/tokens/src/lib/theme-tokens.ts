@@ -22,7 +22,7 @@ export interface ButtonVariantTokens {
 /**
  * The palette category is the only part of the token contract that's expected to differ between
  * light and dark mode. Everything else (spacing, radius, component tokens) stays mode-agnostic --
- * component tokens should reference these via `var(--zaytoon-color-*)` rather than literal colors,
+ * component tokens should reference these via `var(--semiui-color-*)` rather than literal colors,
  * so they adapt automatically when the color palette swaps.
  */
 export interface ColorTokens {

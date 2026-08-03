@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import { ThemePreset } from '@zaytoon/tokens';
+import { ThemePreset } from '@semiui/tokens';
 
-export const ZAYTOON_THEME_PRESET = new InjectionToken<ThemePreset>('ZAYTOON_THEME_PRESET');
+export const SEMIUI_THEME_PRESET = new InjectionToken<ThemePreset>('SEMIUI_THEME_PRESET');

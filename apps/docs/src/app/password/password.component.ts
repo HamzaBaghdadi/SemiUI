@@ -1,10 +1,10 @@
 import { Component, ElementRef, computed, input, signal, viewChild } from '@angular/core';
-import { InputDirective } from '@zaytoon/primitives/input';
-import { ButtonDirective } from '@zaytoon/primitives/button';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { IconRef } from '@zaytoon/tokens';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { InputDirective } from '@semiui/primitives/input';
+import { ButtonDirective } from '@semiui/primitives/button';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { IconRef } from '@semiui/tokens';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrl: './password.component.css',
 })
 export class PasswordComponent extends BaseFormFieldControl<string> {
-  private readonly icons = injectZaytoonIcons();
+  private readonly icons = injectSemiUIIcons();
   private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   placeholder = input('');

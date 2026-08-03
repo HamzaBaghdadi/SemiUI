@@ -1,6 +1,6 @@
 import { Component, ElementRef, input, viewChild } from '@angular/core';
-import { InputDirective } from '@zaytoon/primitives/input';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
+import { InputDirective } from '@semiui/primitives/input';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 export type TextInputType = 'text' | 'email' | 'tel' | 'url' | 'number' | 'search';

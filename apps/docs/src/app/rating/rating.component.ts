@@ -1,8 +1,8 @@
 import { Component, booleanAttribute, computed, input, signal } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { BaseFormFieldControl } from '@zaytoon/primitives/form-field';
-import { ButtonSize } from '@zaytoon/tokens';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { BaseFormFieldControl } from '@semiui/primitives/form-field';
+import { ButtonSize } from '@semiui/tokens';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 /**
@@ -29,7 +29,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   },
 })
 export class RatingComponent extends BaseFormFieldControl<number | null> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   maxStars = input(5);
   size = input<ButtonSize>('md');

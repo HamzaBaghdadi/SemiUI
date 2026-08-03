@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
-  "allowedNonPeerDependencies": ["@ng-icons/core", "@zaytoon/tokens"]
+  "allowedNonPeerDependencies": ["@ng-icons/core", "@semiui/tokens"]
 }

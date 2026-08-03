@@ -1,5 +1,5 @@
 {
-  "name": "@zaytoon/primitives",
+  "name": "@semiui/primitives",
   "version": "0.0.1",
   "publishConfig": { "access": "public" },
   "peerDependencies": {
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@ng-icons/core": "^34.0.0",
-    "@zaytoon/tokens": "^0.0.1"
+    "@semiui/tokens": "workspace:^0.0.1"
   },
   "sideEffects": false
 }

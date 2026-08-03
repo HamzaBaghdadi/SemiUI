@@ -8,22 +8,22 @@
 }
 
 .z-carousel:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
-  border-radius: var(--zaytoon-comp-carousel-radius);
+  border-radius: var(--semiui-comp-carousel-radius);
 }
 
 .z-carousel__body {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
 }
 
 .z-carousel__viewport {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  border-radius: var(--zaytoon-comp-carousel-radius);
+  border-radius: var(--semiui-comp-carousel-radius);
   touch-action: pan-y;
 }
 
@@ -48,17 +48,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--zaytoon-comp-carousel-arrow-size);
-  height: var(--zaytoon-comp-carousel-arrow-size);
+  width: var(--semiui-comp-carousel-arrow-size);
+  height: var(--semiui-comp-carousel-arrow-size);
   border: none;
-  border-radius: var(--zaytoon-radius-full);
-  background: var(--zaytoon-comp-carousel-arrow-background);
-  color: var(--zaytoon-comp-carousel-arrow-color);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-carousel-arrow-background);
+  color: var(--semiui-comp-carousel-arrow-color);
   cursor: pointer;
 }
 
 .z-carousel__arrow:hover:not(:disabled) {
-  background: var(--zaytoon-comp-carousel-arrow-background-hover);
+  background: var(--semiui-comp-carousel-arrow-background-hover);
 }
 
 .z-carousel__arrow:disabled {
@@ -67,16 +67,16 @@
 }
 
 .z-carousel__arrow:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 
 .z-carousel__arrow--prev {
-  left: var(--zaytoon-spacing-sm);
+  left: var(--semiui-spacing-sm);
 }
 
 .z-carousel__arrow--next {
-  right: var(--zaytoon-spacing-sm);
+  right: var(--semiui-spacing-sm);
 }
 
 /* Outside arrows flank the viewport as normal flex siblings instead of floating on top of the
@@ -99,28 +99,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--zaytoon-comp-carousel-dot-gap);
-  margin-top: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-comp-carousel-dot-gap);
+  margin-top: var(--semiui-spacing-sm);
 }
 
 .z-carousel__dot {
-  width: var(--zaytoon-comp-carousel-dot-size);
-  height: var(--zaytoon-comp-carousel-dot-size);
+  width: var(--semiui-comp-carousel-dot-size);
+  height: var(--semiui-comp-carousel-dot-size);
   padding: 0;
   border: none;
-  border-radius: var(--zaytoon-radius-full);
-  background: var(--zaytoon-comp-carousel-dot-color);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-carousel-dot-color);
   cursor: pointer;
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .z-carousel__dot[aria-selected='true'] {
-  background: var(--zaytoon-comp-carousel-dot-color-active);
+  background: var(--semiui-comp-carousel-dot-color-active);
   transform: scale(1.2);
 }
 
 .z-carousel__dot:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 

@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef, signal } from '@angular/core';
-import { ToastVariant } from '@zaytoon/tokens';
+import { ToastVariant } from '@semiui/tokens';
 
 /** Context handed to a custom `template`: the toast entry itself, and a bound dismiss callback. */
 export interface ToastTemplateContext {

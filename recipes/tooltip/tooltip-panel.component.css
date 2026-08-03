@@ -7,12 +7,12 @@
   z-index: 60;
   max-width: 16rem;
   box-sizing: border-box;
-  padding: var(--zaytoon-comp-tooltip-padding-y) var(--zaytoon-comp-tooltip-padding-x);
-  background: var(--zaytoon-comp-tooltip-background);
-  color: var(--zaytoon-comp-tooltip-foreground);
-  border-radius: var(--zaytoon-comp-tooltip-radius);
-  font-size: var(--zaytoon-comp-tooltip-font-size);
-  font-family: var(--zaytoon-typography-font-family);
+  padding: var(--semiui-comp-tooltip-padding-y) var(--semiui-comp-tooltip-padding-x);
+  background: var(--semiui-comp-tooltip-background);
+  color: var(--semiui-comp-tooltip-foreground);
+  border-radius: var(--semiui-comp-tooltip-radius);
+  font-size: var(--semiui-comp-tooltip-font-size);
+  font-family: var(--semiui-typography-font-family);
   line-height: 1.3;
   pointer-events: none;
 }
@@ -22,7 +22,7 @@
   position: absolute;
   width: 0.4rem;
   height: 0.4rem;
-  background: var(--zaytoon-comp-tooltip-background);
+  background: var(--semiui-comp-tooltip-background);
   transform: rotate(45deg);
 }
 

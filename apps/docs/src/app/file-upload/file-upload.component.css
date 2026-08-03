@@ -11,24 +11,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--zaytoon-spacing-xs);
+  gap: var(--semiui-spacing-xs);
   box-sizing: border-box;
-  padding: var(--zaytoon-spacing-xl) var(--zaytoon-spacing-lg);
-  border: 2px dashed var(--zaytoon-comp-file-upload-border);
-  border-radius: var(--zaytoon-comp-file-upload-radius);
-  background: var(--zaytoon-comp-file-upload-background);
+  padding: var(--semiui-spacing-xl) var(--semiui-spacing-lg);
+  border: 2px dashed var(--semiui-comp-file-upload-border);
+  border-radius: var(--semiui-comp-file-upload-radius);
+  background: var(--semiui-comp-file-upload-background);
   cursor: pointer;
   text-align: center;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .z-file-upload__dropzone[data-drag-over] {
-  border-color: var(--zaytoon-comp-file-upload-border-drag-over);
-  background: var(--zaytoon-comp-file-upload-background-drag-over);
+  border-color: var(--semiui-comp-file-upload-border-drag-over);
+  background: var(--semiui-comp-file-upload-background-drag-over);
 }
 
 .z-file-upload__dropzone:focus-visible {
-  outline: 2px solid var(--zaytoon-color-ring);
+  outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;
 }
 
@@ -40,34 +40,34 @@
 .z-file-upload__icon {
   width: 2rem;
   height: 2rem;
-  color: var(--zaytoon-comp-file-upload-icon-color);
+  color: var(--semiui-comp-file-upload-icon-color);
 }
 
 .z-file-upload__hint {
   margin: 0;
-  color: var(--zaytoon-comp-file-upload-hint-color);
-  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--semiui-comp-file-upload-hint-color);
+  font-size: var(--semiui-typography-font-size-sm);
 }
 
 .z-file-upload__accept {
   margin: 0;
-  color: var(--zaytoon-comp-file-upload-accept-color);
+  color: var(--semiui-comp-file-upload-accept-color);
   font-size: 0.75rem;
 }
 
 .z-file-upload__rejections {
-  margin: var(--zaytoon-spacing-sm) 0 0;
+  margin: var(--semiui-spacing-sm) 0 0;
   padding: 0;
   list-style: none;
-  color: var(--zaytoon-comp-file-upload-rejection-color);
-  font-size: var(--zaytoon-typography-font-size-sm);
+  color: var(--semiui-comp-file-upload-rejection-color);
+  font-size: var(--semiui-typography-font-size-sm);
 }
 
 .z-file-upload__list {
   display: flex;
   flex-direction: column;
-  gap: var(--zaytoon-spacing-xs);
-  margin: var(--zaytoon-spacing-sm) 0 0;
+  gap: var(--semiui-spacing-xs);
+  margin: var(--semiui-spacing-sm) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -75,19 +75,19 @@
 .z-file-upload__item {
   display: flex;
   align-items: center;
-  gap: var(--zaytoon-spacing-sm);
+  gap: var(--semiui-spacing-sm);
   box-sizing: border-box;
-  padding: var(--zaytoon-spacing-xs) var(--zaytoon-spacing-sm);
-  border: 1px solid var(--zaytoon-comp-file-upload-item-border);
-  border-radius: var(--zaytoon-comp-file-upload-item-radius);
-  background: var(--zaytoon-comp-file-upload-item-background);
+  padding: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
+  border: 1px solid var(--semiui-comp-file-upload-item-border);
+  border-radius: var(--semiui-comp-file-upload-item-radius);
+  background: var(--semiui-comp-file-upload-item-background);
 }
 
 .z-file-upload__thumb {
   flex-shrink: 0;
-  width: var(--zaytoon-comp-file-upload-thumb-size);
-  height: var(--zaytoon-comp-file-upload-thumb-size);
-  border-radius: var(--zaytoon-radius-sm);
+  width: var(--semiui-comp-file-upload-thumb-size);
+  height: var(--semiui-comp-file-upload-thumb-size);
+  border-radius: var(--semiui-radius-sm);
   object-fit: cover;
 }
 
@@ -95,8 +95,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--zaytoon-color-muted);
-  color: var(--zaytoon-comp-file-upload-icon-color);
+  background: var(--semiui-color-muted);
+  color: var(--semiui-comp-file-upload-icon-color);
 }
 
 .z-file-upload__thumb--icon z-icon {
@@ -115,13 +115,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: var(--zaytoon-typography-font-size-sm);
-  color: var(--zaytoon-color-foreground);
+  font-size: var(--semiui-typography-font-size-sm);
+  color: var(--semiui-color-foreground);
 }
 
 .z-file-upload__item-size {
   font-size: 0.75rem;
-  color: var(--zaytoon-color-muted-foreground);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .z-file-upload__remove {
@@ -132,15 +132,15 @@
   width: 1.75rem;
   height: 1.75rem;
   border: none;
-  border-radius: var(--zaytoon-radius-sm);
+  border-radius: var(--semiui-radius-sm);
   background: transparent;
-  color: var(--zaytoon-color-muted-foreground);
+  color: var(--semiui-color-muted-foreground);
   cursor: pointer;
 }
 
 .z-file-upload__remove:hover {
-  background: var(--zaytoon-color-muted);
-  color: var(--zaytoon-color-foreground);
+  background: var(--semiui-color-muted);
+  color: var(--semiui-color-foreground);
 }
 
 .z-file-upload__remove z-icon {

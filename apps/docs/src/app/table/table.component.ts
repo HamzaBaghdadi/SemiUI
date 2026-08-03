@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, booleanAttribute, computed, contentChild, input, model, output, signal } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { SelectComponent } from '../select/select.component';
@@ -42,7 +42,7 @@ export interface TableCellContext<T> {
   styleUrl: './table.component.css',
 })
 export class TableComponent<T = Record<string, unknown>> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   columns = input<readonly TableColumn<T>[]>([]);
   data = input<readonly T[]>([]);

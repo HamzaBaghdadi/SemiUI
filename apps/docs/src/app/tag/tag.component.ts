@@ -1,7 +1,7 @@
 import { Component, booleanAttribute, input, output } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { IconRef, TagVariant } from '@zaytoon/tokens';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { IconRef, TagVariant } from '@semiui/tokens';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 /** A small label/chip. Emits `removed` when its remove button is clicked, if `removable`. */
 @Component({
@@ -14,7 +14,7 @@ import { injectZaytoonIcons } from '@zaytoon/theme';
   },
 })
 export class TagComponent {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   variant = input<TagVariant>('default');
   /** Optional leading icon. */

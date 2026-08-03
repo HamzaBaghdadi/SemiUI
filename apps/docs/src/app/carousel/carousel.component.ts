@@ -12,8 +12,8 @@ import {
   model,
   signal,
 } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 /**
  * A single-slide-at-a-time carousel: pass `items` and render each slide through the required
@@ -27,7 +27,7 @@ import { injectZaytoonIcons } from '@zaytoon/theme';
   styleUrl: './carousel.component.css',
 })
 export class CarouselComponent<TItem = unknown> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
 
   items = input<readonly TItem[]>([]);
   /** The visible slide's index. Two-way bindable. */

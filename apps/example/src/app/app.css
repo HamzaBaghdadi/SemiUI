@@ -1,19 +1,19 @@
 :host {
   display: block;
-  padding: var(--zaytoon-spacing-lg);
-  color: var(--zaytoon-color-foreground);
-  font-family: var(--zaytoon-typography-font-family);
+  padding: var(--semiui-spacing-lg);
+  color: var(--semiui-color-foreground);
+  font-family: var(--semiui-typography-font-family);
 }
 
 section {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--zaytoon-spacing-sm);
-  margin-block-end: var(--zaytoon-spacing-lg);
+  gap: var(--semiui-spacing-sm);
+  margin-block-end: var(--semiui-spacing-lg);
 }
 
 h1,
 h2 {
-  color: var(--zaytoon-color-foreground);
+  color: var(--semiui-color-foreground);
 }

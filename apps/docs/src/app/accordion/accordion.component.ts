@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, afterRenderEffect, booleanAttribute, contentChild, input, signal } from '@angular/core';
-import { ZIconComponent } from '@zaytoon/primitives/icon';
-import { injectZaytoonIcons } from '@zaytoon/theme';
+import { ZIconComponent } from '@semiui/primitives/icon';
+import { injectSemiUIIcons } from '@semiui/theme';
 
 export interface AccordionItem {
   header: string;
@@ -24,7 +24,7 @@ let nextAccordionId = 0;
   styleUrl: './accordion.component.css',
 })
 export class AccordionComponent<TItem extends AccordionItem = AccordionItem> {
-  protected readonly icons = injectZaytoonIcons();
+  protected readonly icons = injectSemiUIIcons();
   protected readonly accordionId = `z-accordion-${nextAccordionId++}`;
 
   items = input<readonly TItem[]>([]);

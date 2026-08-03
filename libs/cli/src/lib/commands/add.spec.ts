@@ -15,7 +15,7 @@ describe('runAdd', () => {
   let errorSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    cwd = mkdtempSync(join(tmpdir(), 'zaytoon-cli-test-'));
+    cwd = mkdtempSync(join(tmpdir(), 'semiui-cli-test-'));
     jest.mocked(installDependencies).mockClear();
     logSpy = jest.spyOn(console, 'log').mockImplementation(() => undefined);
     errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
@@ -45,7 +45,7 @@ describe('runAdd', () => {
     expect(installDependencies).toHaveBeenCalledWith(
       cwd,
       'npm',
-      expect.arrayContaining(['@zaytoon/primitives', '@zaytoon/tokens', '@zaytoon/theme']),
+      expect.arrayContaining(['@semiui/primitives', '@semiui/tokens', '@semiui/theme']),
     );
   });
 

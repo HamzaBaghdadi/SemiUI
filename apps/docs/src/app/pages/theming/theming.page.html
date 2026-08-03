@@ -1,35 +1,35 @@
 <h1>Theming</h1>
 <p>
-  Every visual value in Zaytoon -- colors, spacing, radii, per-component padding -- is a CSS
+  Every visual value in SemiUI -- colors, spacing, radii, per-component padding -- is a CSS
   custom property. There's no build step, no Sass variables, no runtime style recalculation:
-  <code>provideZaytoonUI()</code> writes one <code>&lt;style&gt;</code> tag, and components read
+  <code>provideSemiUI()</code> writes one <code>&lt;style&gt;</code> tag, and components read
   from it with plain <code>var(...)</code>.
 </p>
 
 <h2>How it works</h2>
 <p>
   A <em>preset</em> is a plain object: a name, a token tree, a dark-mode color override, and
-  default icons. <code>provideZaytoonUI(&#123; preset &#125;)</code> flattens the token tree into
-  CSS custom properties named <code>--zaytoon-&lt;path&gt;</code> and injects them as a
+  default icons. <code>provideSemiUI(&#123; preset &#125;)</code> flattens the token tree into
+  CSS custom properties named <code>--semiui-&lt;path&gt;</code> and injects them as a
   stylesheet:
 </p>
 <pre><code>:root &#123;
-  --zaytoon-color-primary: #6366f1;
-  --zaytoon-color-background: #ffffff;
-  --zaytoon-spacing-md: 0.75rem;
-  --zaytoon-comp-button-padding-x-md: 1rem;
-  --zaytoon-comp-button-variants-primary-background: var(--zaytoon-color-primary);
+  --semiui-color-primary: #6366f1;
+  --semiui-color-background: #ffffff;
+  --semiui-spacing-md: 0.75rem;
+  --semiui-comp-button-padding-x-md: 1rem;
+  --semiui-comp-button-variants-primary-background: var(--semiui-color-primary);
   /* ...one property per leaf value in the token tree */
 &#125;
 
 .dark &#123;
-  --zaytoon-color-primary: #818cf8;
-  --zaytoon-color-background: #0b1220;
+  --semiui-color-primary: #818cf8;
+  --semiui-color-background: #0b1220;
   /* only `color` differs between light and dark -- see below */
 &#125;</code></pre>
 <p>
   Nested object keys join with <code>-</code>, and camelCase keys become kebab-case --
-  <code>comp.button.paddingX.md</code> becomes <code>--zaytoon-comp-button-padding-x-md</code>.
+  <code>comp.button.paddingX.md</code> becomes <code>--semiui-comp-button-padding-x-md</code>.
 </p>
 
 <h2>The token tree</h2>
@@ -87,13 +87,13 @@
 <p>
   Aurora's component tokens don't hardcode colors -- they reference the palette:
   <code>comp.button.variants.primary.background</code> is the literal string
-  <code>'var(--zaytoon-color-primary)'</code>, not a hex code. Change the palette and every
+  <code>'var(--semiui-color-primary)'</code>, not a hex code. Change the palette and every
   component that references it updates automatically, in both modes, with zero duplication.
   Hover and active states go a step further and skip tokens entirely, using
   <code>color-mix()</code> against the base color right in the component's CSS:
 </p>
 <pre><code>.z-button[data-variant='primary']:hover &#123;
-  background: color-mix(in srgb, var(--zaytoon-comp-button-variants-primary-background) 85%, black);
+  background: color-mix(in srgb, var(--semiui-comp-button-variants-primary-background) 85%, black);
 &#125;</code></pre>
 <p>
   If you build your own preset, following the same pattern (reference <code>color.*</code> from
@@ -105,7 +105,7 @@
   A preset is just a <code>ThemePreset</code> object -- there's no registration step or build
   plugin, you can define one anywhere:
 </p>
-<pre><code>import &#123; ThemePreset &#125; from '&#64;zaytoon/tokens';
+<pre><code>import &#123; ThemePreset &#125; from '&#64;semiui/tokens';
 
 export const MyPreset: ThemePreset = &#123;
   name: 'my-preset',
@@ -126,10 +126,10 @@ export const MyPreset: ThemePreset = &#123;
   &#125;,
 &#125;;</code></pre>
 <p>Then use it instead of Aurora:</p>
-<pre><code>provideZaytoonUI(&#123; preset: MyPreset &#125;)</code></pre>
+<pre><code>provideSemiUI(&#123; preset: MyPreset &#125;)</code></pre>
 <p>
   The easiest starting point is copying
-  <a href="https://github.com/HamzaBaghdadi/zaytoon/blob/main/libs/presets/aurora/src/lib/aurora.ts" target="_blank" rel="noreferrer">Aurora's source</a>
+  <a href="https://github.com/HamzaBaghdadi/semiui/blob/main/libs/presets/aurora/src/lib/aurora.ts" target="_blank" rel="noreferrer">Aurora's source</a>
   and changing values.
 </p>
 
