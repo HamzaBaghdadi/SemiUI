@@ -31,6 +31,26 @@
 &lt;z-button variant="danger"&gt;danger&lt;/z-button&gt;
 &lt;z-button variant="contrast"&gt;contrast&lt;/z-button&gt;</code></pre>
 
+<h2>Outlined and text</h2>
+<p>
+  <code>outlined</code> and <code>text</code> (the old dedicated <code>"outline"</code>/<code>"ghost"</code>
+  variants) are now modifiers that combine with <em>any</em> <code>variant</code> -- transparent
+  background either way, <code>outlined</code> keeps a border in the variant's color,
+  <code>text</code> has none.
+</p>
+<div class="demo-row">
+  @for (severity of allSeverities; track severity) {
+    <z-button [variant]="severity" [outlined]="true">{{ severity }}</z-button>
+  }
+</div>
+<div class="demo-row">
+  @for (severity of allSeverities; track severity) {
+    <z-button [variant]="severity" [text]="true">{{ severity }}</z-button>
+  }
+</div>
+<pre><code>&lt;z-button variant="success" [outlined]="true"&gt;success&lt;/z-button&gt;
+&lt;z-button variant="danger" [text]="true"&gt;danger&lt;/z-button&gt;</code></pre>
+
 <h2>Sizes</h2>
 <div class="demo-row">
   @for (size of sizes; track size) {

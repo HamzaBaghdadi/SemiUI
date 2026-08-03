@@ -13,7 +13,7 @@ export class App {
   protected readonly colorMode = inject(ColorModeService);
   protected title = 'example';
   protected clickCount = 0;
-  protected variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'link'];
+  protected variants: ButtonVariant[] = ['primary', 'secondary', 'destructive', 'link'];
   protected sizes: ButtonSize[] = ['sm', 'md', 'lg'];
   protected loading = signal(false);
   protected saveIcon: IconRef = { type: 'ng-icon', name: 'lucideSave' };

@@ -32,10 +32,12 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem;
-  /* Pinned to the exact same font-size/line-height/padding budget as .z-multiselect__chip below
-     (not an em-relative guess against line-height: normal, which is font-metric-dependent and
-     didn't quite match) -- otherwise the trigger grows by a couple px the moment a chip appears. */
-  min-height: calc(var(--zaytoon-typography-font-size-sm) * 1.2 + 0.25rem);
+  /* Pinned to z-tag's actual box model (font-size * line-height + 2*padding-y + 2*1px border) --
+     not an em-relative guess against line-height: normal, which is font-metric-dependent and
+     didn't quite match -- otherwise the trigger grows by a couple px the moment a chip appears.
+     Chips render via <z-tag> (see multiselect.component.html); keep this in sync with
+     tag.component.css if that component's own box model ever changes. */
+  min-height: calc(var(--zaytoon-comp-tag-font-size) * 1.4 + 2 * var(--zaytoon-comp-tag-padding-y) + 2px);
   text-align: left;
 }
 

@@ -9,8 +9,6 @@ import { provideZaytoonUI } from './provide-zaytoon-ui';
 const VARIANTS: ButtonVariant[] = [
   'primary',
   'secondary',
-  'outline',
-  'ghost',
   'destructive',
   'danger',
   'success',

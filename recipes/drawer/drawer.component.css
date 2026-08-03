@@ -96,7 +96,7 @@
 
 .z-drawer__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--zaytoon-spacing-md);
   padding: var(--zaytoon-comp-dialog-padding);

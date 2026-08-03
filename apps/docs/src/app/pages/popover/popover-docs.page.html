@@ -26,7 +26,7 @@
 <h2>show() / hide() from separate triggers</h2>
 <div class="demo-row">
   <z-button variant="secondary" (click)="po2.show($event)">Show</z-button>
-  <z-button variant="outline" (click)="po2.hide()">Hide</z-button>
+  <z-button [outlined]="true" (click)="po2.hide()">Hide</z-button>
   <z-popover #po2 placement="right">
     <strong>Rich content works too</strong>
     <p>Any projected content is fine -- text, forms, other components.</p>

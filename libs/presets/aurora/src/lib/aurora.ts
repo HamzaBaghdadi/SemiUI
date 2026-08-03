@@ -70,16 +70,6 @@ export const Aurora: ThemePreset = {
             foreground: 'var(--zaytoon-color-foreground)',
             border: 'var(--zaytoon-color-muted)',
           },
-          outline: {
-            background: 'transparent',
-            foreground: 'var(--zaytoon-color-foreground)',
-            border: 'var(--zaytoon-color-border)',
-          },
-          ghost: {
-            background: 'transparent',
-            foreground: 'var(--zaytoon-color-foreground)',
-            border: 'transparent',
-          },
           destructive: {
             background: 'var(--zaytoon-color-destructive)',
             foreground: 'var(--zaytoon-color-destructive-foreground)',

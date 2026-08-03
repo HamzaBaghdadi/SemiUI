@@ -13,7 +13,7 @@ interface ConfirmDeleteData {
   template: `
     <p>Delete "{{ data.itemName }}"? This can't be undone.</p>
     <div class="demo-row" style="justify-content: flex-end; margin-top: 1rem;">
-      <z-button variant="outline" (click)="dialogRef.close(false)">Cancel</z-button>
+      <z-button [outlined]="true" (click)="dialogRef.close(false)">Cancel</z-button>
       <z-button variant="danger" (click)="dialogRef.close(true)">Delete</z-button>
     </div>
   `,
