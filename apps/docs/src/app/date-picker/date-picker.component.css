@@ -92,6 +92,9 @@
   box-shadow: var(--zaytoon-comp-select-panel-shadow);
   padding: var(--zaytoon-spacing-sm);
   transform-origin: top;
+  /* Matches the day grid's natural width (7 cells) so switching to the month view -- a narrower
+     3-column grid -- doesn't shrink the whole panel out from under it. */
+  min-width: calc(var(--zaytoon-comp-date-picker-day-size) * 7);
 }
 
 .z-date-picker__panel[data-placement='top'] {
@@ -101,11 +104,13 @@
 }
 
 .z-date-picker__inline-panel {
+  position: relative;
   display: inline-block;
   padding: var(--zaytoon-spacing-sm);
   border: 1px solid var(--zaytoon-comp-select-panel-border);
   border-radius: var(--zaytoon-comp-select-radius);
   background: var(--zaytoon-comp-select-panel-background);
+  min-width: calc(var(--zaytoon-comp-date-picker-day-size) * 7);
 }
 
 .z-date-picker__header {
@@ -146,13 +151,13 @@
   transform: rotate(-90deg);
 }
 
-.z-date-picker__month-label {
-  font-weight: var(--zaytoon-typography-font-weight-medium);
-  color: var(--zaytoon-comp-date-picker-month-label-foreground);
-  font-size: var(--zaytoon-comp-date-picker-font-size);
+.z-date-picker__header-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--zaytoon-spacing-xs);
 }
 
-.z-date-picker__month-label--button {
+.z-date-picker__unit-button {
   border: none;
   background: transparent;
   padding: 0.125rem var(--zaytoon-spacing-xs);
@@ -160,11 +165,40 @@
   font: inherit;
   font-weight: var(--zaytoon-typography-font-weight-medium);
   color: var(--zaytoon-comp-date-picker-month-label-foreground);
+  font-size: var(--zaytoon-comp-date-picker-font-size);
   cursor: pointer;
 }
 
-.z-date-picker__month-label--button:hover {
+.z-date-picker__unit-button:hover {
   background: var(--zaytoon-comp-date-picker-nav-background-hover);
+}
+
+.z-date-picker__unit-button[aria-expanded='true'] {
+  background: var(--zaytoon-comp-date-picker-nav-background-hover);
+}
+
+.z-date-picker__years-panel {
+  position: absolute;
+  top: 0;
+  left: calc(100% + var(--zaytoon-spacing-sm));
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 6rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--zaytoon-spacing-xs);
+  background: var(--zaytoon-comp-select-panel-background);
+  border: 1px solid var(--zaytoon-comp-select-panel-border);
+  border-radius: var(--zaytoon-comp-select-radius);
+  box-shadow: var(--zaytoon-comp-select-panel-shadow);
+}
+
+.z-date-picker__years-panel .z-date-picker__unit {
+  flex-shrink: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .z-date-picker__unit-grid {

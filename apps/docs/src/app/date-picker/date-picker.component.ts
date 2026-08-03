@@ -82,6 +82,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');
+  private readonly yearsPanel = viewChild<ElementRef<HTMLDivElement>>('yearsPanel');
 
   placeholder = input('Pick a date');
   errorMessage = input('');
@@ -117,25 +118,26 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly viewYear = signal(new Date().getFullYear());
   protected readonly viewMonth = signal(new Date().getMonth());
   protected readonly focusedDate = signal<Date>(new Date());
-  /** Which level of the header's drill-down navigation is showing -- days grid, a 12-month grid to jump within the year, or a 12-year grid to jump to a different year. */
-  protected readonly navView = signal<'days' | 'months' | 'years'>('days');
-  /** The first year shown in the years grid -- a 12-year block, recomputed whenever viewYear lands outside the current block. */
-  protected readonly yearRangeStart = signal(Math.floor(new Date().getFullYear() / 12) * 12);
+  /** Which level of the header's drill-down navigation is showing in the main panel -- the days grid, or a 12-month grid to jump within the year. Year picking is a separate side panel (yearsPanelOpen), not a level here. */
+  protected readonly navView = signal<'days' | 'months'>('days');
+  /** A scrollable year list shown as its own panel beside the main one, toggled by the header's year button -- not swapped in place, so the main panel never resizes when jumping years. */
+  protected readonly yearsPanelOpen = signal(false);
   /** Internal 24-hour representation, regardless of `timeFormat` (which only affects display). */
   protected readonly viewHour = signal(new Date().getHours());
   protected readonly viewMinute = signal(new Date().getMinutes());
 
   protected readonly calendarDays = computed<CalendarDay[]>(() => this.buildCalendarDays(this.viewYear(), this.viewMonth()));
-  protected readonly monthLabel = computed(() =>
-    new Date(this.viewYear(), this.viewMonth(), 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }),
+  /** Month name only -- the header shows month and year as two separate buttons, not one combined label. */
+  protected readonly monthOnlyLabel = computed(() =>
+    new Date(this.viewYear(), this.viewMonth(), 1).toLocaleDateString(undefined, { month: 'long' }),
   );
   protected readonly monthNames = computed(() =>
     Array.from({ length: 12 }, (_, i) => new Date(2000, i, 1).toLocaleDateString(undefined, { month: 'short' })),
   );
-  protected readonly yearRangeItems = computed(() => Array.from({ length: 12 }, (_, i) => this.yearRangeStart() + i));
-  protected readonly yearRangeLabel = computed(() => {
-    const items = this.yearRangeItems();
-    return `${items[0]} - ${items[items.length - 1]}`;
+  /** A wide, continuously-scrollable range (current year ±100) rather than a paginated 12-year grid. */
+  protected readonly yearsListItems = computed(() => {
+    const current = new Date().getFullYear();
+    return Array.from({ length: 201 }, (_, i) => current - 100 + i);
   });
   /** 12 -> "12", 13 -> "1", 0 (unused internally, hours are 0-23) -- the hour shown in the 12h controls. */
   protected readonly hour12 = computed(() => {
@@ -193,6 +195,16 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     button?.focus();
   });
 
+  /** Scrolls the current year into the middle of the years side panel's viewport whenever it opens. */
+  private readonly scrollYearsPanelToCurrent = afterRenderEffect(() => {
+    if (!this.yearsPanelOpen()) {
+      return;
+    }
+    const panelEl = this.yearsPanel()?.nativeElement;
+    const button = panelEl?.querySelector<HTMLButtonElement>(`[data-year="${this.viewYear()}"]`);
+    button?.scrollIntoView({ block: 'center' });
+  });
+
   protected override emptyValue(): Date | null {
     return null;
   }
@@ -215,6 +227,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected openPanel(): void {
     this.resetViewToRelevantMonth();
     this.navView.set('days');
+    this.yearsPanelOpen.set(false);
     this.open.set(true);
     this.updatePlacement();
   }
@@ -401,44 +414,33 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     }
   }
 
-  /** Header's "<" button: steps by month in the days view, by year in the months view, by a 12-year block in the years view. */
+  /** Header's "<" button: steps by month in the days view, by year in the months view. */
   protected navPrevious(): void {
-    switch (this.navView()) {
-      case 'days':
-        this.previousMonth();
-        break;
-      case 'months':
-        this.viewYear.update((year) => year - 1);
-        break;
-      case 'years':
-        this.yearRangeStart.update((start) => start - 12);
-        break;
+    if (this.navView() === 'days') {
+      this.previousMonth();
+    } else {
+      this.viewYear.update((year) => year - 1);
     }
   }
 
   /** Header's ">" button -- see navPrevious. */
   protected navNext(): void {
-    switch (this.navView()) {
-      case 'days':
-        this.nextMonth();
-        break;
-      case 'months':
-        this.viewYear.update((year) => year + 1);
-        break;
-      case 'years':
-        this.yearRangeStart.update((start) => start + 12);
-        break;
+    if (this.navView() === 'days') {
+      this.nextMonth();
+    } else {
+      this.viewYear.update((year) => year + 1);
     }
   }
 
-  /** Clicking the month/year label drills down: days -> months -> years. */
-  protected drillDown(): void {
-    if (this.navView() === 'days') {
-      this.navView.set('months');
-    } else if (this.navView() === 'months') {
-      this.yearRangeStart.set(Math.floor(this.viewYear() / 12) * 12);
-      this.navView.set('years');
-    }
+  /** The header's month button: opens the 12-month grid in the main panel (same width, no resize). */
+  protected openMonthsView(): void {
+    this.navView.set('months');
+    this.yearsPanelOpen.set(false);
+  }
+
+  /** The header's year button: opens the scrollable year list as its own side panel, leaving the main panel's content (and width) untouched. */
+  protected toggleYearsPanel(): void {
+    this.yearsPanelOpen.update((open) => !open);
   }
 
   protected selectMonth(month: number): void {
@@ -448,7 +450,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
 
   protected selectYear(year: number): void {
     this.viewYear.set(year);
-    this.navView.set('months');
+    this.yearsPanelOpen.set(false);
   }
 
   protected goToToday(): void {
