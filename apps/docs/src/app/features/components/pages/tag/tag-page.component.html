@@ -1,0 +1,63 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Tag"
+    description="A small label/chip with color variants, an optional leading icon, and a removable state."
+    slug="tag"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Variants</h2>
+    <app-component-demo>
+      <s-tag variant="default">Default</s-tag>
+      <s-tag variant="primary">Primary</s-tag>
+      <s-tag variant="secondary">Secondary</s-tag>
+      <s-tag variant="destructive">Destructive</s-tag>
+      <s-tag variant="outline">Outline</s-tag>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Severity</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The same shared semantic color vocabulary as
+      <a routerLink="/components/button" class="text-primary hover:underline">Button</a> and
+      <a routerLink="/components/badge" class="text-primary hover:underline">Badge</a>.
+    </p>
+    <app-component-demo>
+      <s-tag variant="success">Success</s-tag>
+      <s-tag variant="info">Info</s-tag>
+      <s-tag variant="warn">Warn</s-tag>
+      <s-tag variant="help">Help</s-tag>
+      <s-tag variant="danger">Danger</s-tag>
+      <s-tag variant="contrast">Contrast</s-tag>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="severityCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">With an icon</h2>
+    <app-component-demo>
+      <s-tag variant="primary" [icon]="{ type: 'ng-icon', name: 'lucideCheck' }"
+        >Verified</s-tag
+      >
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="iconCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Removable</h2>
+    <app-component-demo>
+      @for (skill of skills(); track skill) {
+        <s-tag variant="secondary" [removable]="true" (removed)="remove(skill)"
+          >{{ skill }}</s-tag
+        >
+      }
+      @if (skills().length === 0) {
+        <span class="text-sm text-muted-foreground">All tags removed.</span>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="removableCode"></app-code-block>
+  </div>
+</div>

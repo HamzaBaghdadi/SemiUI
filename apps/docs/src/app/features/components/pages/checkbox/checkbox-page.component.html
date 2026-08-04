@@ -1,0 +1,79 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Checkbox"
+    description="A checkbox supporting ngModel, reactive forms, and Signal Forms. Built on a real native input, so keyboard interaction and assistive tech semantics come for free."
+    slug="checkbox"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-checkbox [(ngModel)]="subscribed" label="Subscribe to updates" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ subscribed }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-checkbox
+        formControlName="terms"
+        label="I agree to the terms"
+        errorMessage="You must agree to continue."
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-checkbox [formField]="profileForm.marketing" label="Marketing emails" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">
+      Model value: {{ profileModel().marketing }}
+    </p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      <s-checkbox [(ngModel)]="subscribed" size="sm" label="Small" />
+      <s-checkbox [(ngModel)]="subscribed" size="md" label="Medium" />
+      <s-checkbox [(ngModel)]="subscribed" size="lg" label="Large" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Indeterminate</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Purely presentational -- shows a dash instead of a checkmark without
+      changing the bound value.
+    </p>
+    <app-component-demo>
+      <s-checkbox
+        [(ngModel)]="subscribed"
+        [indeterminate]="indeterminate()"
+        label="Select all"
+      />
+      <s-button variant="secondary" (pressed)="indeterminate.set(!indeterminate())"
+        >Toggle indeterminate</s-button
+      >
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="indeterminateCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-checkbox [(ngModel)]="subscribed" [disabled]="disabled()" label="Disabled" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()"
+        >Toggle disabled</s-button
+      >
+    </app-component-demo>
+  </div>
+</div>

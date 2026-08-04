@@ -19,6 +19,7 @@
       "@semiui/tokens": ["./libs/tokens/src/index.ts"],
       "@semiui/theme": ["./libs/theme/src/index.ts"],
       "@semiui/primitives": ["./libs/primitives/src/index.ts"],
+      "@semiui/presets-semi": ["./libs/presets/semi/src/index.ts"],
       "@semiui/presets-aurora": ["./libs/presets/aurora/src/index.ts"],
       "@semiui/primitives/button": ["./libs/primitives/button/src/index.ts"],
       "@semiui/primitives/icon": ["./libs/primitives/icon/src/index.ts"],

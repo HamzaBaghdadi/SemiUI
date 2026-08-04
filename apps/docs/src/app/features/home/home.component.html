@@ -1,0 +1,239 @@
+<div class="flex flex-col bg-background">
+  <div
+    class="grid grid-cols-2 items-center gap-10 w-full px-6 py-24 max-w-295 m-auto"
+  >
+    <div class="flex flex-col gap-6">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >A preset-driven component library for Angular</span
+      >
+      <h1 class="text-5xl font-extrabold">
+        Own the code. <span class="text-primary">Swap the theme.</span>
+      </h1>
+      <span class="text-muted-foreground text-lg"
+        >SemiUI components are copied straight into your project — not installed
+        as a black-box dependency. Every visual decision comes from a preset
+        object you choose or write yourself, so the same button can be blue
+        today and something else entirely tomorrow, with no rewrite.</span
+      >
+      <div class="flex gap-4">
+        <s-tag
+          class="rounded-full! w-fit text-xs! text-muted-foreground! py-1! px-3! font-semibold"
+          variant="outline"
+          >Apache-2.0 licensed</s-tag
+        >
+        <s-tag
+          class="rounded-full! w-fit text-xs! text-muted-foreground! py-1! px-3! font-semibold"
+          variant="outline"
+          >Copy-in, not npm-locked</s-tag
+        >
+        <s-tag
+          class="rounded-full! w-fit text-xs! text-muted-foreground! py-1! px-3! font-semibold"
+          variant="outline"
+          >Preset engine</s-tag
+        >
+      </div>
+      <div class="flex items-center gap-4">
+        <s-button size="lg" (pressed)="navigateToInstallation()"
+          >Get Started</s-button
+        >
+        <s-button size="lg" outlined (pressed)="navigateToComponents()"
+          >Browse Components</s-button
+        >
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 p-4 rounded-lg w-full border border-border">
+      <span class="text-muted-foreground uppercase font-semibold"
+        >Signal Forms</span
+      >
+      <div class="flex flex-col gap-1">
+        <label for="email">Email</label>
+        <s-text-input
+          [formField]="loginForm.email"
+          errorMessage="Email is required."
+          id="email"
+          placeholder="Email"
+        ></s-text-input>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="password">Password</label>
+        <s-password
+          [formField]="loginForm.password"
+          errorMessage="Password is required."
+          placeholder="Password"
+        ></s-password>
+      </div>
+      <div class="flex items-center justify-between">
+        <s-checkbox label="Remember me"></s-checkbox>
+        <s-button variant="link">Forgot Password?</s-button>
+      </div>
+      <s-button class="[&_.s-button]:w-full!">Sign In</s-button>
+    </div>
+  </div>
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-4 w-full px-6 py-24 max-w-295 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >How it works</span
+      >
+      <h2 class="text-3xl font-extrabold">Three commands, and it's yours</h2>
+      <div class="grid grid-cols-3 gap-6 mt-8">
+        <div
+          class="flex flex-col gap-4 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-8 rounded-full"
+            >1</span
+          >
+          <span class="font-bold">Initialize a preset</span>
+          <span class="text-muted-foreground text-sm max-w-2xs"
+            >Pick the default Semi preset or point at your own token file.
+          </span>
+          <div class="text-xs bg-muted px-[0.6rem] py-[0.4rem] rounded-sm">
+            npx semi-ui init
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-4 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-8 rounded-full"
+            >2</span
+          >
+          <span class="font-bold">Add a component</span>
+          <span class="text-muted-foreground text-sm max-w-2xs"
+            >Its source files land directly inside your Angular app.
+          </span>
+          <div class="text-xs bg-muted px-[0.6rem] py-[0.4rem] rounded-sm">
+            npx semi-ui add button
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-4 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-8 rounded-full"
+            >3</span
+          >
+          <span class="font-bold">Edit it like your own code</span>
+          <span class="text-muted-foreground text-sm max-w-2xs"
+            >Because it is — Apache-2.0, no upstream lock-in, no wrapper.
+          </span>
+          <div class="text-xs bg-muted px-[0.6rem] py-[0.4rem] rounded-sm">
+            src/app/ui/button/*
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-4 w-full px-6 py-24 max-w-295 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Why SemiUI</span
+      >
+      <h2 class="text-3xl font-extrabold">
+        Built to be changed, not just used
+      </h2>
+      <div class="grid grid-cols-4 gap-6 mt-8">
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideFeather"></ng-icon>
+          </span>
+          <span class="font-bold">Presets, not hard-coding</span>
+          <span class="text-muted-foreground text-sm"
+            >Colors, spacing, radius and per-component overrides live in one
+            plain object. Ship the default or author your own.
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideCode"></ng-icon>
+          </span>
+          <span class="font-bold">Copied, not imported</span>
+          <span class="text-muted-foreground text-sm"
+            >Every component's source lands in your repo. Read it, break it,
+            rewrite it — it's a normal file now.
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideSheet"></ng-icon>
+          </span>
+          <span class="font-bold">Style-system agnostic</span>
+          <span class="text-muted-foreground text-sm"
+            >No Tailwind dependency is assumed. Set up plain CSS, Tailwind, or
+            anything else — and bridge tokens over if you want.
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideMoon"></ng-icon>
+          </span>
+          <span class="font-bold">Dark mode from the same preset </span>
+          <span class="text-muted-foreground text-sm"
+            >Every preset ships a paired dark palette. One class toggle remaps
+            the whole app.
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideStar"></ng-icon>
+          </span>
+          <span class="font-bold">Icons are just a mapping</span>
+          <span class="text-muted-foreground text-sm"
+            >Each preset declares which icon renders where. Swap Lucide for your
+            own set by editing one object.
+          </span>
+        </div>
+        <div
+          class="flex flex-col gap-2 p-6 rounded-lg w-full border border-border"
+        >
+          <span
+            class="flex items-center justify-center font-bold bg-primary/12 text-primary size-9.5 rounded-md"
+          >
+            <ng-icon name="lucideLayers"></ng-icon>
+          </span>
+          <span class="font-bold">Apache-2.0 </span>
+          <span class="text-muted-foreground text-sm"
+            >Use it, modify it, ship it inside proprietary work — permissively
+            licensed, on purpose.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div
+      class="flex flex-col items-center gap-4 w-full px-6 py-24 max-w-295 m-auto"
+    >
+      <h2 class="text-3xl font-extrabold">See it before you install it</h2>
+      <span class="text-muted-foreground"
+        >Open the Button entry and inspect every variant, size and state.
+      </span>
+      <s-button class="mt-4" size="lg" (pressed)="navigateToComponents()"
+        >Open the component explorer</s-button
+      >
+    </div>
+  </section>
+</div>
