@@ -18,7 +18,7 @@ export function runInit(cwd: string): void {
   }
 
   const packageManager = detectPackageManager(cwd);
-  const deps = ['@semiui/tokens', '@semiui/theme', '@semiui/primitives', '@semiui/presets-aurora'];
+  const deps = ['@semiui/tokens', '@semiui/theme', '@semiui/primitives', '@semiui/presets-semi'];
   console.log(`Installing ${deps.join(', ')} (${packageManager})...`);
   installDependencies(cwd, packageManager, deps);
 

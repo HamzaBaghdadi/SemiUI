@@ -4,6 +4,7 @@ packages:
   - libs/theme
   - libs/primitives
   - libs/presets/aurora
+  - libs/presets/semi
   - libs/cli
 allowBuilds:
   '@parcel/watcher': true

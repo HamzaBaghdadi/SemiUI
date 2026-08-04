@@ -1,0 +1,53 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Text Input"
+    description="A text field that works the same whether you use ngModel, reactive forms, or Signal Forms."
+    slug="text-input"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-text-input
+        [(ngModel)]="name"
+        [disabled]="nameDisabled()"
+        placeholder="Your name"
+      />
+      <s-button variant="secondary" (pressed)="toggleNameDisabled()"
+        >Toggle disabled</s-button
+      >
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ name }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-text-input
+        formControlName="email"
+        type="email"
+        placeholder="you&#64;example.com"
+        errorMessage="Enter a valid email address"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Bind with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[formField]</code>
+      from <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&#64;angular/forms/signals</code>
+      -- no ControlValueAccessor involved.
+    </p>
+    <app-component-demo>
+      <s-text-input [formField]="profileForm.username" placeholder="Username" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">
+      Model value: {{ profileModel().username }}
+    </p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+</div>

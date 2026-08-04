@@ -1,0 +1,329 @@
+<div class="flex flex-col bg-background">
+  <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-295 m-auto">
+    <span
+      class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+      >Setup</span
+    >
+    <h2 class="text-3xl font-extrabold">Installation</h2>
+    <span class="mt-2 text-muted-foreground max-w-xl"
+      >SemiUI is copied into your project through a CLI, not installed as a
+      compiled dependency. No Tailwind setup is assumed — bring whatever styling
+      approach your app already uses.
+    </span>
+  </div>
+
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex gap-4 p-6 rounded-lg w-full border border-border">
+          <ng-icon class="text-success! shrink-0" name="lucideCheck"></ng-icon>
+          <div class="flex flex-col">
+            <span class="font-bold">Angular 22+</span>
+            <span class="text-muted-foreground text-xs leading-7 mt-2"
+              >Standalone components &amp; the new control-flow syntax
+            </span>
+          </div>
+        </div>
+        <!-- <div class="flex gap-4 p-6 rounded-lg w-full border border-border">
+          <ng-icon class="text-success! shrink-0" name="lucideCheck"></ng-icon>
+          <div class="flex flex-col">
+            <span class="font-bold">Node 18 LTS+</span>
+            <span class="text-muted-foreground text-xs leading-7 mt-2"
+              >Required by both the Angular CLI and the SemiUI CLI
+            </span>
+          </div>
+        </div> -->
+        <div class="flex gap-4 p-6 rounded-lg w-full border border-border">
+          <ng-icon class="text-success! shrink-0" name="lucideCheck"></ng-icon>
+          <div class="flex flex-col">
+            <span class="font-bold">Any styling setup</span>
+            <span class="text-muted-foreground text-xs leading-7 mt-2"
+              >Plain CSS works out of the box. Tailwind is optional and never
+              required
+            </span>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 rounded-lg w-full border border-border">
+          <ng-icon class="text-success! shrink-0" name="lucideCheck"></ng-icon>
+          <div class="flex flex-col">
+            <span class="font-bold">@ng-icons/core</span>
+            <span class="text-muted-foreground text-xs leading-7 mt-2"
+              >Only needed once you add a component whose preset references an
+              icon
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Step by step</span
+      >
+      <h2 class="text-3xl font-extrabold">From npx to a working component</h2>
+
+      <div class="flex flex-col mt-8">
+        <!-- Step 1 -->
+        <div class="grid grid-cols-[52px_1fr] gap-4 pb-10 relative">
+          <div
+            class="absolute left-[25px] top-13 bottom-0 w-px bg-border"
+          ></div>
+          <span
+            class="flex items-center justify-center font-extrabold bg-primary/12 text-primary size-13 rounded-full text-lg "
+            >1</span
+          >
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-bold">Initialize SemiUI</h3>
+            <span class="text-muted-foreground text-sm max-w-xl"
+              >Scaffolds <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.json</code>
+              and installs the theme engine, primitives and the Aurora preset
+              package. Run it from the root of an Angular project — a
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">angular.json</code>
+              must already exist there.
+            </span>
+            <div
+              class="bg-slate-900 text-white rounded-lg overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between px-4 py-2 border-b border-background/10"
+              >
+                <span
+                  class="flex items-center gap-2 text-xs text-white/60"
+                >
+                  <ng-icon name="lucideTerminal"></ng-icon>
+                  Terminal
+                </span>
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+                  (click)="copy('init')"
+                >
+                  <ng-icon
+                    [name]="isCopied('init') ? 'lucideClipboardCheck' : 'lucideCopy'"
+                  ></ng-icon>
+                  {{ isCopied('init') ? 'Copied' : 'Copy' }}
+                </button>
+              </div>
+              <pre
+                class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+              ><code>npx @semiui/cli init
+
+<span class="text-white/50"># Created components.json</span>
+<span class="text-white/50"># Installing @semiui/tokens, @semiui/theme, @semiui/primitives, @semiui/presets-aurora...</span>
+<span class="text-white/50"># Installing @semiui/cli as a dev dependency...</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="grid grid-cols-[52px_1fr] gap-4 pb-10 relative">
+          <div
+            class="absolute left-[25px] top-13 bottom-0 w-px bg-border"
+          ></div>
+          <span
+            class="flex items-center justify-center font-extrabold bg-primary/12 text-primary size-13 rounded-full text-lg "
+            >2</span
+          >
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-bold">Wire up the theme provider</h3>
+            <span class="text-muted-foreground text-sm max-w-xl"
+              >Every copied component reads its colors, spacing and radius
+              from the active preset. Add the provider once and it applies to
+              every component you add afterward.
+            </span>
+            <div
+              class="bg-slate-900 text-white rounded-lg overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between px-4 py-2 border-b border-white/10"
+              >
+                <span class="text-xs text-white/60"
+                  >src/app/app.config.ts</span
+                >
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+                  (click)="copy('config')"
+                >
+                  <ng-icon
+                    [name]="isCopied('config') ? 'lucideClipboardCheck' : 'lucideCopy'"
+                  ></ng-icon>
+                  {{ isCopied('config') ? 'Copied' : 'Copy' }}
+                </button>
+              </div>
+              <pre
+                class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+              ><code><span class="text-white/50">import</span> {{ '{' }} provideSemiUI {{ '}' }} <span class="text-white/50">from</span> '@semiui/theme';
+<span class="text-white/50">import</span> {{ '{' }} Aurora, provideAuroraIcons {{ '}' }} <span class="text-white/50">from</span> '@semiui/presets-aurora';
+
+<span class="text-white/50">export const</span> appConfig: ApplicationConfig = {{ '{' }}
+  providers: [
+    <span class="text-white/40">// ...your existing providers</span>
+    provideSemiUI({{ '{' }} preset: Aurora {{ '}' }}),
+    provideAuroraIcons(),
+  ],
+{{ '}' }};</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="grid grid-cols-[52px_1fr] gap-4 pb-10 relative">
+          <div
+            class="absolute left-[25px] top-13 bottom-0 w-px bg-border"
+          ></div>
+          <span
+            class="flex items-center justify-center font-extrabold bg-primary/12 text-primary size-13 rounded-full text-lg "
+            >3</span
+          >
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-bold">Add your first component</h3>
+            <span class="text-muted-foreground text-sm max-w-xl"
+              >This copies the component's real source — not a compiled
+              bundle — into
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+                >src/app/components</code
+              >
+              by default. It's yours from the moment it lands: edit it, break
+              it, delete parts you don't need.
+            </span>
+            <div
+              class="bg-slate-900 text-white rounded-lg overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between px-4 py-2 border-b border-white/10"
+              >
+                <span
+                  class="flex items-center gap-2 text-xs text-white/60"
+                >
+                  <ng-icon name="lucideTerminal"></ng-icon>
+                  Terminal
+                </span>
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+                  (click)="copy('add')"
+                >
+                  <ng-icon
+                    [name]="isCopied('add') ? 'lucideClipboardCheck' : 'lucideCopy'"
+                  ></ng-icon>
+                  {{ isCopied('add') ? 'Copied' : 'Copy' }}
+                </button>
+              </div>
+              <pre
+                class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+              ><code>npx semiui add button
+
+<span class="text-white/50"># Added src/app/components/button/button.component.ts</span>
+<span class="text-white/50"># Added src/app/components/button/button.component.html</span>
+<span class="text-white/50"># Added src/app/components/button/button.component.css</span>
+<span class="text-white/50">#</span>
+<span class="text-white/50"># Done. ButtonComponent is now yours to edit.</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="grid grid-cols-[52px_1fr] gap-4 pb-10 relative">
+          <div
+            class="absolute left-[25px] top-13 bottom-0 w-px bg-border"
+          ></div>
+          <span
+            class="flex items-center justify-center font-extrabold bg-primary/12 text-primary size-13 rounded-full text-lg "
+            >4</span
+          >
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-bold">Use the component</h3>
+            <span class="text-muted-foreground text-sm max-w-xl"
+              >Import it with a relative path, like any other file in your
+              project — because that's exactly what it is now.
+            </span>
+            <div
+              class="bg-slate-900 text-white rounded-lg overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between px-4 py-2 border-b border-white/10"
+              >
+                <span class="text-xs text-white/60"
+                  >booking-card.component.ts</span
+                >
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+                  (click)="copy('usage')"
+                >
+                  <ng-icon
+                    [name]="isCopied('usage') ? 'lucideClipboardCheck' : 'lucideCopy'"
+                  ></ng-icon>
+                  {{ isCopied('usage') ? 'Copied' : 'Copy' }}
+                </button>
+              </div>
+              <pre
+                class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+              ><code><span class="text-white/50">import</span> {{ '{' }} ButtonComponent {{ '}' }} <span class="text-white/50">from</span> '../components/button/button.component';
+
+<span class="text-white/50">@Component</span>({{ '{' }}
+  selector: 'app-booking-card',
+  imports: [ButtonComponent],
+  template: `&lt;s-button variant="primary" (pressed)="confirm()"&gt;Confirm&lt;/s-button&gt;`,
+{{ '}' }})
+<span class="text-white/50">export class</span> BookingCardComponent {{ '{' }}
+  confirm() {{ '{' }}{{ '}' }}
+{{ '}' }}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="grid grid-cols-[52px_1fr] gap-4">
+          <span
+            class="flex items-center justify-center font-extrabold bg-primary/12 text-primary size-13 rounded-full text-lg"
+            >5</span
+          >
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-bold">Verify the setup</h3>
+            <span class="text-muted-foreground text-sm max-w-xl"
+              >Run the app and confirm each of these before moving on:
+            </span>
+            <div
+              class="flex flex-col gap-3 p-6 rounded-lg w-full border border-border"
+            >
+              <s-checkbox
+                [value]="true"
+                label="Buttons render with the Aurora preset's colors, not browser defaults"
+              ></s-checkbox>
+              <s-checkbox
+                [value]="true"
+                label="No Tailwind build step is required for the preview to work"
+              ></s-checkbox>
+              <s-checkbox
+                label="The copied files show up in your own repo, editable and lintable"
+              ></s-checkbox>
+              <s-checkbox
+                label="Focus rings are visible when tabbing to a button"
+              ></s-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border">
+    <div
+      class="flex flex-col items-center gap-4 w-full px-6 py-24 max-w-295 m-auto text-center"
+    >
+      <h2 class="text-3xl font-extrabold">That's the whole workflow</h2>
+      <span class="text-muted-foreground max-w-lg"
+        >init once, add as many components as you need, and every one of them
+        is a plain file in your own repo from the moment it lands.
+      </span>
+      <s-button class="mt-4" size="lg" (click)="goHome()"
+        >Back to overview</s-button
+      >
+    </div>
+  </section>
+</div>

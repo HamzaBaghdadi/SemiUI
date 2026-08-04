@@ -1,0 +1,116 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Button"
+    description="A behavior-driven button: variants, sizes, a loading state, and leading/trailing icons."
+    slug="button"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Variants</h2>
+    <app-component-demo>
+      @for (variant of variants; track variant) {
+        <s-button [variant]="variant">{{ variant }}</s-button>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Severity</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      A shared semantic color vocabulary across Button,
+      <a routerLink="/components/tag" class="text-primary hover:underline">Tag</a>, and
+      <a routerLink="/components/badge" class="text-primary hover:underline">Badge</a>.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">danger</code> is a plain alias of
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">destructive</code> above -- both work.
+    </p>
+    <app-component-demo>
+      @for (severity of severities; track severity) {
+        <s-button [variant]="severity">{{ severity }}</s-button>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="severityCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Outlined and text</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">outlined</code> and
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text</code> (the old dedicated
+      "outline"/"ghost" variants) are modifiers that combine with <em>any</em>
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant</code> -- transparent
+      background either way; <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">outlined</code>
+      keeps a border in the variant's color, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text</code>
+      has none.
+    </p>
+    <app-component-demo>
+      @for (severity of allSeverities; track severity) {
+        <s-button [variant]="severity" [outlined]="true">{{ severity }}</s-button>
+      }
+    </app-component-demo>
+    <app-component-demo>
+      @for (severity of allSeverities; track severity) {
+        <s-button [variant]="severity" [text]="true">{{ severity }}</s-button>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="outlinedTextCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      @for (size of sizes; track size) {
+        <s-button [size]="size">Size {{ size }}</s-button>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Icon-only</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">icon</code> hides the label and shows
+      just <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">iconLeading</code>, sized to a
+      perfect square at whatever <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">size</code> is set.
+      Always pair it with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">aria-label</code>
+      since there's no visible text.
+    </p>
+    <app-component-demo>
+      <s-button icon size="sm" [iconLeading]="saveIcon" aria-label="Save" />
+      <s-button icon [iconLeading]="saveIcon" aria-label="Save" />
+      <s-button icon size="lg" [iconLeading]="saveIcon" aria-label="Save" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="iconOnlyCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Icons</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Pass an <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">IconRef</code> -- either an
+      ng-icon name or raw SVG markup -- to
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">iconLeading</code> or
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">iconTrailing</code>.
+    </p>
+    <app-component-demo>
+      <s-button [iconLeading]="saveIcon">Save</s-button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="iconCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Loading state</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">loading</code> disables the button
+      and swaps in the active preset's default loading icon. Override it per preset, or per
+      instance the same way as any other icon input.
+    </p>
+    <app-component-demo>
+      <s-button [loading]="loading()" (pressed)="toggleLoading()">Submit</s-button>
+      <s-button variant="secondary" (pressed)="toggleLoading()"
+        >Toggle loading (demo only)</s-button
+      >
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
+  </div>
+</div>

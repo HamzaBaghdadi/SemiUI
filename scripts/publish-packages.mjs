@@ -22,6 +22,7 @@ const PACKAGES = [
   { project: 'theme', dir: 'libs/theme', dist: 'dist/libs/theme' },
   { project: 'primitives', dir: 'libs/primitives', dist: 'dist/libs/primitives' },
   { project: 'presets-aurora', dir: 'libs/presets/aurora', dist: 'dist/libs/presets/aurora' },
+  { project: 'presets-semi', dir: 'libs/presets/semi', dist: 'dist/libs/presets/semi' },
   { project: 'cli', dir: 'libs/cli', dist: 'dist/libs/cli' },
 ];
 

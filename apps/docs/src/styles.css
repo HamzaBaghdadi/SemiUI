@@ -1,6 +1,322 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-  margin: 0;
-  background: var(--semiui-color-background);
-  color: var(--semiui-color-foreground);
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/font/Poppins/Poppins-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  /* Typography */
+  --font-sans: 'Poppins';
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+
+  /* Radius */
+  --radius-none: 0;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* Primary blue */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-blue-950: #172554;
+
+  /* Neutral slate */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  /* Semantic palettes */
+  --color-green-50: #f0fdf4;
+  --color-green-100: #dcfce7;
+  --color-green-200: #bbf7d0;
+  --color-green-400: #4ade80;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a;
+  --color-green-700: #15803d;
+  --color-green-800: #166534;
+
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+
+  --color-cyan-50: #ecfeff;
+  --color-cyan-100: #cffafe;
+  --color-cyan-200: #a5f3fc;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+  --color-cyan-700: #0e7490;
+  --color-cyan-800: #155e75;
+
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+
+  /* Light semantic theme */
+  --color-background: var(--color-white, #ffffff);
+  --color-foreground: var(--color-slate-900);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-slate-900);
+  --color-popover: #ffffff;
+  --color-popover-foreground: var(--color-slate-900);
+
+  --color-primary: var(--color-blue-500);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-slate-100);
+  --color-secondary-foreground: var(--color-slate-900);
+  --color-accent: var(--color-blue-50);
+  --color-accent-foreground: var(--color-blue-700);
+
+  --color-muted: var(--color-slate-100);
+  --color-muted-foreground: var(--color-slate-500);
+  --color-border: var(--color-slate-200);
+  --color-input: var(--color-slate-200);
+  --color-ring: var(--color-blue-500);
+
+  --color-success: var(--color-green-600);
+  --color-success-foreground: #ffffff;
+  --color-warning: var(--color-amber-600);
+  --color-warning-foreground: #ffffff;
+  --color-destructive: var(--color-red-600);
+  --color-destructive-foreground: #ffffff;
+  --color-info: var(--color-blue-600);
+  --color-info-foreground: #ffffff;
+  --color-help: var(--color-violet-600);
+  --color-help-foreground: #ffffff;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-sm:
+    0 1px 3px 0 rgb(15 23 42 / 0.07), 0 1px 2px -1px rgb(15 23 42 / 0.05);
+  --shadow-md:
+    0 8px 24px -8px rgb(15 23 42 / 0.12), 0 2px 6px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg:
+    0 16px 32px -12px rgb(15 23 42 / 0.14), 0 6px 12px -6px rgb(15 23 42 / 0.08);
+  --shadow-xl:
+    0 24px 48px -12px rgb(15 23 42 / 0.2),
+    0 12px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-inner: inset 0 1px 2px 0 rgb(15 23 42 / 0.05);
+}
+
+.dark {
+  --color-background: var(--color-slate-950);
+  --color-foreground: var(--color-slate-200);
+  --color-card: #0b1220;
+  --color-card-foreground: var(--color-slate-200);
+  --color-popover: #0b1220;
+  --color-popover-foreground: var(--color-slate-200);
+
+  --color-primary: var(--color-blue-400);
+  --color-primary-foreground: var(--color-slate-950);
+  --color-secondary: var(--color-slate-800);
+  --color-secondary-foreground: var(--color-slate-100);
+  --color-accent: color-mix(in srgb, var(--color-blue-500) 12%, transparent);
+  --color-accent-foreground: var(--color-blue-300);
+
+  --color-muted: var(--color-slate-800);
+  --color-muted-foreground: var(--color-slate-400);
+  --color-border: var(--color-slate-800);
+  --color-input: var(--color-slate-700);
+  --color-ring: var(--color-blue-400);
+
+  --color-success: var(--color-green-400);
+  --color-success-foreground: var(--color-slate-950);
+  --color-warning: var(--color-amber-400);
+  --color-warning-foreground: var(--color-slate-950);
+  --color-destructive: var(--color-red-400);
+  --color-destructive-foreground: var(--color-slate-950);
+  --color-info: var(--color-blue-400);
+  --color-info-foreground: var(--color-slate-950);
+  --color-help: var(--color-violet-500);
+  --color-help-foreground: #ffffff;
+}
+
+* {
+  font-family: var(--font-sans);
+}
+
+html{
+  scroll-behavior: smooth;
 }

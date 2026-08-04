@@ -1,0 +1,20 @@
+<div class="bg-slate-900 text-white rounded-lg overflow-hidden">
+  <div
+    class="flex items-center justify-between px-4 py-2 border-b border-white/10"
+  >
+    <span class="text-xs text-white/60">{{ filename() }}</span>
+    <button
+      type="button"
+      class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+      (click)="copy()"
+    >
+      <ng-icon
+        [name]="copied() ? 'lucideClipboardCheck' : 'lucideCopy'"
+      ></ng-icon>
+      {{ copied() ? 'Copied' : 'Copy' }}
+    </button>
+  </div>
+  <pre
+    class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+  ><code>{{ code() }}</code></pre>
+</div>
