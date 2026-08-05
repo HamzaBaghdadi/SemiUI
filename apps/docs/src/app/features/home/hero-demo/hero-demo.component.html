@@ -1,0 +1,85 @@
+<div
+  class="s-hero-demo relative flex flex-col gap-4 p-4 rounded-lg w-full border border-border min-h-76"
+  [style.--glow-x.%]="glowX()"
+  [style.--glow-y.%]="glowY()"
+  [style.--glow-opacity]="glowOpacity()"
+>
+  <span class="text-muted-foreground uppercase font-semibold">{{ sceneLabel() }}</span>
+  @switch (activeScene()) {
+    @case ('login') {
+      <div class="flex flex-col gap-4" animate.enter="s-hero-demo__scene-enter" animate.leave="s-hero-demo__scene-leave">
+        <div class="flex flex-col gap-1">
+          <label for="email">Email</label>
+          <s-text-input
+            [formField]="loginForm.email"
+            errorMessage="Email is required."
+            id="email"
+            placeholder="Email"
+          ></s-text-input>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="password">Password</label>
+          <s-password
+            [formField]="loginForm.password"
+            errorMessage="Password is required."
+            placeholder="Password"
+          ></s-password>
+        </div>
+        <div class="flex items-center justify-between">
+          <s-checkbox label="Remember me"></s-checkbox>
+          <s-button variant="link">Forgot Password?</s-button>
+        </div>
+        <s-button class="[&_.s-button]:w-full!" [class.s-hero-demo__pressed]="signInPressed()"
+          >Sign In</s-button
+        >
+      </div>
+    }
+    @case ('booking') {
+      <div class="flex flex-col gap-4" animate.enter="s-hero-demo__scene-enter" animate.leave="s-hero-demo__scene-leave">
+        <div class="flex flex-col gap-1">
+          <label for="plan">Plan</label>
+          <s-select
+            #planSelect
+            id="plan"
+            [options]="plans"
+            optionLabel="label"
+            optionValue="value"
+            [value]="planValue()"
+            [filterable]="false"
+            placeholder="Choose a plan"
+          ></s-select>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="date">Date</label>
+          <s-date-picker #dateField id="date" [value]="bookingDate()" placeholder="Pick a date"></s-date-picker>
+        </div>
+      </div>
+    }
+    @case ('settings') {
+      <div class="flex flex-col gap-4" animate.enter="s-hero-demo__scene-enter" animate.leave="s-hero-demo__scene-leave">
+        <s-switch label="Email notifications" [value]="notifications()"></s-switch>
+        <div class="flex flex-col gap-2">
+          <label for="volume">Volume</label>
+          <s-slider id="volume" [value]="volume()" [valueFormatter]="percentFormatter"></s-slider>
+        </div>
+        <s-stepper [items]="stepItems" [activeIndex]="stepIndex()"></s-stepper>
+      </div>
+    }
+    @case ('feedback') {
+      <div class="flex flex-col gap-4" animate.enter="s-hero-demo__scene-enter" animate.leave="s-hero-demo__scene-leave">
+        <div class="flex items-center gap-3">
+          <s-avatar name="Ada Lovelace" status="online"></s-avatar>
+          <div class="flex flex-col">
+            <span class="font-semibold">Ada Lovelace</span>
+            <span class="text-sm text-muted-foreground">How was your experience?</span>
+          </div>
+        </div>
+        <s-rating #ratingStars [value]="ratingValue()"></s-rating>
+        <div class="flex flex-col gap-1">
+          <label for="otp">Verification code</label>
+          <s-otp id="otp" [value]="otpValue()"></s-otp>
+        </div>
+      </div>
+    }
+  }
+</div>

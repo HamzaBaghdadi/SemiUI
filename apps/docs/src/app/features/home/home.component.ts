@@ -1,5 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { email, form, FormField, required } from '@angular/forms/signals';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -11,24 +10,14 @@ import {
   lucideStar,
 } from '@ng-icons/lucide';
 import { ButtonComponent } from '../../components/button/button.component';
-import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
-import { PasswordComponent } from '../../components/password/password.component';
 import { TagComponent } from '../../components/tag/tag.component';
-import { TextInputComponent } from '../../components/text-input/text-input.component';
+import { HeroDemoComponent } from './hero-demo/hero-demo.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [
-    ButtonComponent,
-    TagComponent,
-    TextInputComponent,
-    PasswordComponent,
-    CheckboxComponent,
-    FormField,
-    NgIcon,
-  ],
+  imports: [ButtonComponent, TagComponent, HeroDemoComponent, NgIcon],
   providers: [
     provideIcons({
       lucideCode,
@@ -41,18 +30,6 @@ import { TextInputComponent } from '../../components/text-input/text-input.compo
   ],
 })
 export class HomeComponent {
-  loginModel = signal({
-    email: '',
-    password: '',
-  });
-
-  loginForm = form(this.loginModel, (schema) => {
-    required(schema.email);
-    email(schema.email);
-
-    required(schema.password);
-  });
-
   protected readonly router = inject(Router);
 
   navigateToInstallation() {

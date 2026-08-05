@@ -1,0 +1,74 @@
+/* A thin ring around the card whose light follows the cursor -- built from a radial-gradient
+   masked down to just the 1px border ring (the standard "spotlight border" technique: two
+   background layers, one clipped to the padding-box and one to the border-box, XORed together so
+   only the ring between them survives). --glow-opacity is driven from TS by proximity to the
+   card's box (0 once the cursor is more than ~140px away, ramping up to 1 right at its edge) --
+   not just a hover toggle, so the glow also reacts while the cursor is near but still outside the
+   card, and --glow-x/--glow-y are allowed to sit outside the 0-100% range in that case, which
+   naturally leans the visible ring toward whichever side the cursor is nearest. */
+.s-hero-demo {
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-opacity: 0;
+}
+
+.s-hero-demo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(220px circle at var(--glow-x) var(--glow-y), var(--color-primary) 0%, transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--glow-opacity);
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+@keyframes s-hero-demo-scene-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.s-hero-demo__scene-enter {
+  animation: s-hero-demo-scene-enter 0.3s ease-out;
+}
+
+@keyframes s-hero-demo-scene-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Absolutely positioned during its leave animation only -- so the incoming scene's enter animation
+   isn't shoved downward by the outgoing one still occupying flex layout space for its last 0.15s. */
+.s-hero-demo__scene-leave {
+  position: absolute;
+  inset: 0;
+  animation: s-hero-demo-scene-leave 0.15s ease-in;
+}
+
+/* Toggled briefly by the auto-play script right before the (decorative, unwired) Sign In button's
+   moment in the demo -- there's no real click to drive a genuine :active state from, so this fakes
+   the same press feedback a real click would give. */
+s-button.s-hero-demo__pressed {
+  display: inline-block;
+  transform: scale(0.96);
+  transition: transform 0.1s ease;
+}

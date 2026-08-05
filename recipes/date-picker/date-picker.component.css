@@ -16,7 +16,8 @@
 .s-date-picker__trigger {
   width: 100%;
   box-sizing: border-box;
-  padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
+  padding: var(--semiui-comp-select-padding-y)
+    var(--semiui-comp-select-padding-x);
   padding-right: 2.5rem;
   border: 1px solid var(--semiui-comp-select-border);
   border-radius: var(--semiui-comp-select-radius);
@@ -38,7 +39,8 @@
 .s-date-picker__trigger:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .s-date-picker__trigger[aria-invalid='true'] {
@@ -181,21 +183,40 @@
   position: absolute;
   top: 0;
   left: calc(100% + var(--semiui-spacing-sm));
-  z-index: 21;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   gap: 2px;
   width: 6rem;
   max-height: 16rem;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: var(--semiui-spacing-xs);
   background: var(--semiui-comp-select-panel-background);
   border: 1px solid var(--semiui-comp-select-panel-border);
   border-radius: var(--semiui-comp-select-radius);
   box-shadow: var(--semiui-comp-select-panel-shadow);
+  &:hover {
+    overflow-y: auto;
+  }
 }
 
 .s-date-picker__years-panel .s-date-picker__unit {
+  flex-shrink: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* yearsInline's swapped-in equivalent of years-panel -- same scrollable list, just filling the
+   main panel's width instead of floating beside it at a fixed 6rem. */
+.s-date-picker__years-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.s-date-picker__years-inline .s-date-picker__unit {
   flex-shrink: 0;
   width: 100%;
   text-align: center;
@@ -219,7 +240,7 @@
   cursor: pointer;
 }
 
-.s-date-picker__unit:hover {
+.s-date-picker__unit:hover:not(:disabled) {
   background: var(--semiui-comp-date-picker-day-background-hover);
 }
 
@@ -228,9 +249,25 @@
   color: var(--semiui-comp-date-picker-day-foreground-selected);
 }
 
+/* :hover:not(:disabled) above has higher specificity than [data-selected] alone, so without this
+   rule hovering the selected month/year replaced its selected color with the plain hover
+   background -- same fix as the day grid's selected-hover rule. */
+.s-date-picker__unit[data-selected]:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--semiui-comp-date-picker-day-background-selected) 85%,
+    black
+  );
+}
+
 .s-date-picker__unit:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 1px;
+}
+
+.s-date-picker__unit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .s-date-picker__custom-header {
@@ -242,9 +279,11 @@
   align-items: center;
   justify-content: center;
   gap: var(--semiui-spacing-xs);
-  margin-top: var(--semiui-spacing-sm);
-  padding-top: var(--semiui-spacing-sm);
-  border-top: 1px solid var(--semiui-comp-select-panel-border);
+  &:not(.time-only) {
+    margin-top: var(--semiui-spacing-sm);
+    padding-top: var(--semiui-spacing-sm);
+    border-top: 1px solid var(--semiui-comp-select-panel-border);
+  }
 }
 
 .s-date-picker__time-input {
@@ -263,7 +302,8 @@
 .s-date-picker__time-input:focus-visible {
   outline: none;
   border-color: var(--semiui-comp-select-border-focus);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--semiui-comp-select-focus-ring) 35%, transparent);
 }
 
 .s-date-picker__time-sep {
@@ -382,20 +422,29 @@
    rule hovering a selected day replaced its selected color with the plain hover background --
    the selection highlight effectively vanished the moment you moved the mouse over it. */
 .s-date-picker__day[data-selected]:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 85%, black);
+  background: color-mix(
+    in srgb,
+    var(--semiui-comp-date-picker-day-background-selected) 85%,
+    black
+  );
 }
 
 /* The days strictly between a range's two endpoints -- a connecting tint, square (not pill-shaped)
    so it visually joins its neighbors into one continuous band. */
 .s-date-picker__day[data-in-range] {
-  background: color-mix(in srgb, var(--semiui-comp-date-picker-day-background-selected) 16%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--semiui-comp-date-picker-day-background-selected) 16%,
+    transparent
+  );
   border-radius: 0;
 }
 
 /* Only once the range actually has both endpoints (data-range-complete on the grid) do the start/end
    cells become half-pills that connect into the in-range band -- a start with no end yet (still
    picking the second date) is just a normal, fully-rounded selected day. */
-.s-date-picker__grid[data-range-complete] .s-date-picker__day[data-range-start] {
+.s-date-picker__grid[data-range-complete]
+  .s-date-picker__day[data-range-start] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }

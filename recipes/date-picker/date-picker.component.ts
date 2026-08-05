@@ -26,6 +26,8 @@ export interface CalendarDay {
 }
 
 const PANEL_SPACE_ESTIMATE_PX = 340;
+/** Not a token -- matches the common small-viewport cutoff (Tailwind's `sm`) used as a default elsewhere in the ecosystem; there's no design-system breakpoint to reuse here. */
+const MOBILE_BREAKPOINT_PX = 640;
 
 function sameDay(a: Date, b: Date): boolean {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -55,6 +57,11 @@ function dateKey(date: Date): string {
 function defaultParseDate(text: string): Date | null {
   const parsed = new Date(text);
   return isNaN(parsed.getTime()) ? null : parsed;
+}
+
+/** Identity for the unset `isDateDisabled` input -- a stable reference so isMonthDisabled/isYearDisabled can skip their expensive per-day fallback loop when the caller never supplied one. */
+function noDateDisabled(): boolean {
+  return false;
 }
 
 export type DatePickerTimeFormat = '12h' | '24h';
@@ -96,6 +103,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');
+  private readonly yearsPanel = viewChild<ElementRef<HTMLDivElement>>('yearsPanel');
 
   placeholder = input('Pick a date');
   errorMessage = input('');
@@ -105,7 +113,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   minDate = input<Date>();
   maxDate = input<Date>();
   /** Additional per-date disable predicate, checked alongside min/max. */
-  isDateDisabled = input<(date: Date) => boolean>(() => false);
+  isDateDisabled = input<(date: Date) => boolean>(noDateDisabled);
   /** Formats the trigger's displayed text. Defaults to a locale date (or date+time / time-only string, depending on showTime/timeOnly) if omitted. */
   dateFormat = input<(date: Date) => string>();
   /** Shows a "Today" button in the panel footer that jumps to and selects the current date. */
@@ -125,6 +133,10 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   multipleValue = model<Date[]>([]);
   /** Bound when `selectionMode="range"`. Two-way bindable; `end` is null while a range is still in progress. */
   rangeValue = model<DateRange | null>(null);
+  /** Below MOBILE_BREAKPOINT_PX, renders the year list inline in the main panel (swapped in like the month grid) instead of as a floating side panel -- a side panel that can spill outside a narrow viewport is unusable there. Defaults `true` since a floating side panel is rarely what you want on a phone; set `false` to keep the floating panel at every width. No effect at all if `inlineYears` is already forcing inline everywhere. */
+  inlineYearsOnMobile = input(true, { transform: booleanAttribute });
+  /** Forces the year list inline in the main panel (like the month grid) on every viewport, never as a floating side panel. Takes priority over `inlineYearsOnMobile`. */
+  inlineYears = input(false, { transform: booleanAttribute });
 
   /** Rendered above the calendar, inside the panel. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
@@ -137,10 +149,14 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly viewYear = signal(new Date().getFullYear());
   protected readonly viewMonth = signal(new Date().getMonth());
   protected readonly focusedDate = signal<Date>(new Date());
-  /** Which level of the header's drill-down navigation is showing in the main panel -- the days grid, or a 12-month grid to jump within the year. Year picking is a separate side panel (yearsPanelOpen), not a level here. */
-  protected readonly navView = signal<'days' | 'months'>('days');
-  /** A scrollable year list shown as its own panel beside the main one, toggled by the header's year button -- not swapped in place, so the main panel never resizes when jumping years. */
+  /** Which level of the header's drill-down navigation is showing in the main panel -- the days grid, a 12-month grid to jump within the year, or (only when `yearsInline()`) the year list swapped in the same way. Year picking is normally its own side panel (yearsPanelOpen) instead of a level here. */
+  protected readonly navView = signal<'days' | 'months' | 'years'>('days');
+  /** A scrollable year list shown as its own panel beside the main one, toggled by the header's year button -- not swapped in place, so the main panel never resizes when jumping years. Stays false whenever `yearsInline()` is in effect; that mode drives the years grid through `navView` instead. */
   protected readonly yearsPanelOpen = signal(false);
+  /** Tracks the viewport for `inlineYearsOnMobile`; updated on resize. */
+  protected readonly isMobileViewport = signal(window.innerWidth <= MOBILE_BREAKPOINT_PX);
+  /** Whether the year list should render inline in the main panel instead of as a floating side panel -- forced on by `inlineYears`, or by `inlineYearsOnMobile` (the default) while the viewport is narrow. */
+  protected readonly yearsInline = computed(() => this.inlineYears() || (this.inlineYearsOnMobile() && this.isMobileViewport()));
   /** Internal 24-hour representation, regardless of `timeFormat` (which only affects display). */
   protected readonly viewHour = signal(new Date().getHours());
   protected readonly viewMinute = signal(new Date().getMinutes());
@@ -262,6 +278,53 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     button?.focus();
   });
 
+  /** Which year the years panel should open centered on: a picked date's year, else today's (if
+   * pickable), else whichever enabled year sits closest to today -- never just the list's first
+   * entry, which would strand the user 100 years back if, say, minDate rules out everything before
+   * today. */
+  protected readonly targetYear = computed(() => {
+    const picked = this.pickedDates();
+    if (picked.length > 0) {
+      return picked[picked.length - 1].getFullYear();
+    }
+    return this.nearestEnabledYear(new Date().getFullYear()) ?? this.viewYear();
+  });
+
+  /** Expanding search outward from `year` (this year, then ±1, ±2, ...) for the closest year with at least one enabled day, bounded to the same ±100 range as yearsListItems. */
+  private nearestEnabledYear(year: number): number | null {
+    if (!this.isYearDisabled(year)) {
+      return year;
+    }
+    for (let offset = 1; offset <= 100; offset++) {
+      if (!this.isYearDisabled(year + offset)) {
+        return year + offset;
+      }
+      if (!this.isYearDisabled(year - offset)) {
+        return year - offset;
+      }
+    }
+    return null;
+  }
+
+  /** Centers the years panel on targetYear() each time it opens, without animating -- a picker
+   * that opens 60 years scrolled away from the selected year with no indication where to look is
+   * worse than just jumping there instantly. Sets `scrollTop` directly rather than calling
+   * `scrollIntoView` -- that walks up every scrollable ancestor (including the page itself) to
+   * bring the target fully into view, so it was yanking the whole page's scroll position to center
+   * the button, not just scrolling within the panel's own `overflow-y: auto` box. */
+  private readonly scrollYearsPanelToTarget = afterRenderEffect(() => {
+    if (!this.yearsPanelOpen() && this.navView() !== 'years') {
+      return;
+    }
+    const year = this.targetYear();
+    const panelEl = this.yearsPanel()?.nativeElement;
+    const button = panelEl?.querySelector<HTMLButtonElement>(`[data-year="${year}"]`);
+    if (!panelEl || !button) {
+      return;
+    }
+    panelEl.scrollTop = button.offsetTop - panelEl.clientHeight / 2 + button.offsetHeight / 2;
+  });
+
   protected override emptyValue(): Date | null {
     return null;
   }
@@ -344,6 +407,49 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     return this.isDateDisabled()(date);
   }
 
+  /** Whether every day in `month` (0-11) of `year` is disabled -- min/max rule out the month outright when it falls entirely outside the range; otherwise, only bother walking its days if a custom `isDateDisabled` was actually supplied. */
+  protected isMonthDisabled(year: number, month: number): boolean {
+    const min = this.minDate();
+    const max = this.maxDate();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    if (min && new Date(year, month, daysInMonth) < startOfDay(min)) {
+      return true;
+    }
+    if (max && new Date(year, month, 1) > startOfDay(max)) {
+      return true;
+    }
+    if (this.isDateDisabled() === noDateDisabled) {
+      return false;
+    }
+    for (let d = 1; d <= daysInMonth; d++) {
+      if (!this.isDayDisabled(new Date(year, month, d))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /** Whether every month in `year` is disabled -- same min/max fast path as isMonthDisabled, falling back to checking all 12 months only when a custom `isDateDisabled` is supplied. */
+  protected isYearDisabled(year: number): boolean {
+    const min = this.minDate();
+    const max = this.maxDate();
+    if (min && new Date(year, 11, 31) < startOfDay(min)) {
+      return true;
+    }
+    if (max && new Date(year, 0, 1) > startOfDay(max)) {
+      return true;
+    }
+    if (this.isDateDisabled() === noDateDisabled) {
+      return false;
+    }
+    for (let month = 0; month < 12; month++) {
+      if (!this.isMonthDisabled(year, month)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /** Whether `date` is one of the picked days -- for single, the value; for multiple, any of them; for range, either endpoint. */
   protected isSelected(date: Date): boolean {
     switch (this.selectionMode()) {
@@ -358,6 +464,42 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
         return value !== null && sameDay(date, value);
       }
     }
+  }
+
+  /** Every currently-picked date, across whichever selection mode is active -- the shared basis for isMonthSelected/isYearSelected below. */
+  private pickedDates(): Date[] {
+    switch (this.selectionMode()) {
+      case 'multiple':
+        return this.multipleValue();
+      case 'range': {
+        const range = this.rangeValue();
+        if (!range) {
+          return [];
+        }
+        return range.end ? [range.start, range.end] : [range.start];
+      }
+      default: {
+        const value = this.value();
+        return value ? [value] : [];
+      }
+    }
+  }
+
+  /**
+   * Whether `month` (0-11) of `year` holds one of the actually-picked dates -- deliberately NOT
+   * whether it's just the currently-browsed month. Using `viewMonth()` for this used to mean that
+   * navigating (via the header's prev/next arrows) into a fully-disabled month -- which the days
+   * grid already lets you browse into, even though nothing there is clickable -- highlighted that
+   * month as "selected" in the months grid too, showing the contradictory combination of selected
+   * and disabled on a month nothing was ever picked in.
+   */
+  protected isMonthSelected(year: number, month: number): boolean {
+    return this.pickedDates().some((d) => d.getFullYear() === year && d.getMonth() === month);
+  }
+
+  /** Same rationale as isMonthSelected -- reflects an actual picked date's year, not the browsed one. */
+  protected isYearSelected(year: number): boolean {
+    return this.pickedDates().some((d) => d.getFullYear() === year);
   }
 
   protected isRangeStart(date: Date): boolean {
@@ -568,19 +710,33 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     this.yearsPanelOpen.set(false);
   }
 
-  /** The header's year button: opens the scrollable year list as its own side panel, leaving the main panel's content (and width) untouched. */
+  /** The header's year button: normally opens the scrollable year list as its own side panel, leaving the main panel's content (and width) untouched -- but under `yearsInline()`, swaps the year list into the main panel instead, the same way `openMonthsView` does for months. */
   protected toggleYearsPanel(): void {
+    if (this.yearsInline()) {
+      this.navView.update((view) => (view === 'years' ? 'days' : 'years'));
+      return;
+    }
     this.yearsPanelOpen.update((open) => !open);
   }
 
   protected selectMonth(month: number): void {
+    if (this.isMonthDisabled(this.viewYear(), month)) {
+      return;
+    }
     this.viewMonth.set(month);
     this.navView.set('days');
   }
 
   protected selectYear(year: number): void {
+    if (this.isYearDisabled(year)) {
+      return;
+    }
     this.viewYear.set(year);
-    this.yearsPanelOpen.set(false);
+    if (this.yearsInline()) {
+      this.navView.set('days');
+    } else {
+      this.yearsPanelOpen.set(false);
+    }
   }
 
   protected goToToday(): void {
@@ -688,6 +844,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
 
   @HostListener('window:resize')
   protected onWindowResize(): void {
+    this.isMobileViewport.set(window.innerWidth <= MOBILE_BREAKPOINT_PX);
     if (this.open()) {
       this.updatePlacement();
     }

@@ -23,7 +23,6 @@
 
 .s-breadcrumb__link:hover {
   color: var(--semiui-comp-breadcrumb-current-foreground);
-  text-decoration: underline;
 }
 
 .s-breadcrumb__current {

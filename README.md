@@ -73,4 +73,4 @@ See [`npm-launch-execution-plan.md`](npm-launch-execution-plan.md) for the full 
 
 ## License
 
-MIT
+[Apache License 2.0](LICENSE)
