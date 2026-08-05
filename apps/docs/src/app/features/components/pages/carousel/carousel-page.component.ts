@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CarouselComponent } from '../../../../components/carousel/carousel.component';
 import { CodeBlockComponent } from '../../shared/code-block/code-block.component';
 import { ComponentDemoComponent } from '../../shared/component-demo/component-demo.component';
@@ -12,7 +11,7 @@ interface Slide {
 
 @Component({
   selector: 'app-carousel-page',
-  imports: [CarouselComponent, RouterLink, ComponentPageHeaderComponent, ComponentDemoComponent, CodeBlockComponent],
+  imports: [CarouselComponent, ComponentPageHeaderComponent, ComponentDemoComponent, CodeBlockComponent],
   templateUrl: './carousel-page.component.html',
   styleUrl: './carousel-page.component.css',
 })

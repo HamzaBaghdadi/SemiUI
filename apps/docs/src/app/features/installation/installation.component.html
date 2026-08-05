@@ -78,8 +78,9 @@
           <div class="flex flex-col gap-3">
             <h3 class="text-xl font-bold">Initialize SemiUI</h3>
             <span class="text-muted-foreground text-sm max-w-xl"
-              >Scaffolds <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.json</code>
-              and installs the theme engine, primitives and the Aurora preset
+              >Scaffolds <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.json</code>,
+              asks which preset to start from (Semi by default, or Aurora),
+              and installs the theme engine, primitives, and the chosen preset
               package. Run it from the root of an Angular project — a
               <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">angular.json</code>
               must already exist there.
@@ -111,8 +112,12 @@
                 class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
               ><code>npx @semiui/cli init
 
+<span class="text-white/50">? Which preset would you like to start from?</span>
+<span class="text-white/50">  1) Semi (default)</span>
+<span class="text-white/50">  2) Aurora</span>
+
 <span class="text-white/50"># Created components.json</span>
-<span class="text-white/50"># Installing @semiui/tokens, @semiui/theme, @semiui/primitives, @semiui/presets-aurora...</span>
+<span class="text-white/50"># Installing @semiui/tokens, @semiui/theme, @semiui/primitives, @semiui/presets-semi...</span>
 <span class="text-white/50"># Installing @semiui/cli as a dev dependency...</span></code></pre>
             </div>
           </div>
@@ -157,13 +162,13 @@
               <pre
                 class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
               ><code><span class="text-white/50">import</span> {{ '{' }} provideSemiUI {{ '}' }} <span class="text-white/50">from</span> '@semiui/theme';
-<span class="text-white/50">import</span> {{ '{' }} Aurora, provideAuroraIcons {{ '}' }} <span class="text-white/50">from</span> '@semiui/presets-aurora';
+<span class="text-white/50">import</span> {{ '{' }} Semi, provideSemiIcons {{ '}' }} <span class="text-white/50">from</span> '@semiui/presets-semi';
 
 <span class="text-white/50">export const</span> appConfig: ApplicationConfig = {{ '{' }}
   providers: [
     <span class="text-white/40">// ...your existing providers</span>
-    provideSemiUI({{ '{' }} preset: Aurora {{ '}' }}),
-    provideAuroraIcons(),
+    provideSemiUI({{ '{' }} preset: Semi {{ '}' }}),
+    provideSemiIcons(),
   ],
 {{ '}' }};</code></pre>
             </div>
@@ -293,7 +298,7 @@
             >
               <s-checkbox
                 [value]="true"
-                label="Buttons render with the Aurora preset's colors, not browser defaults"
+                label="Buttons render with the Semi preset's colors, not browser defaults"
               ></s-checkbox>
               <s-checkbox
                 [value]="true"
