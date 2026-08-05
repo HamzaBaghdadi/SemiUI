@@ -66,7 +66,10 @@
   color: var(--semiui-comp-stepper-circle-foreground);
   font-size: var(--semiui-comp-stepper-font-size);
   font-weight: 600;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .s-stepper__circle s-icon {
@@ -90,7 +93,11 @@
   flex: 1;
   height: 1px;
   background: var(--semiui-comp-stepper-connector-color);
-  margin: 0 var(--semiui-spacing-xs);
+  margin-block: 0;
+  margin-inline-start: calc(
+    var(--semiui-comp-stepper-gap) + var(--semiui-spacing-xs)
+  );
+  margin-inline-end: var(--semiui-spacing-xs);
   transition: background-color 0.15s ease;
 }
 
@@ -98,7 +105,11 @@
   width: 1px;
   height: 1.5rem;
   flex: none;
-  margin: var(--semiui-spacing-xs) 0;
+  margin-inline: 0;
+  margin-block-start: calc(
+    var(--semiui-comp-stepper-gap) + var(--semiui-spacing-xs)
+  );
+  margin-block-end: var(--semiui-spacing-xs);
 }
 
 .s-stepper__step[data-state='completed'] .s-stepper__connector {

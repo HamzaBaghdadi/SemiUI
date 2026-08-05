@@ -100,4 +100,13 @@ protected profileForm = form(this.profileModel);
 
   protected readonly multipleRangeCode = `<s-date-picker selectionMode="multiple" [(multipleValue)]="multipleDates" />
 <s-date-picker selectionMode="range" [(rangeValue)]="dateRange" />`;
+
+  protected readonly inlineYearsCode = `<!-- Always inline, on any viewport -->
+<s-date-picker [inlineYears]="true" />
+
+<!-- Inline below the ~640px mobile breakpoint, floating side panel above it -- this is the default -->
+<s-date-picker />
+
+<!-- Opt back into a floating side panel even on mobile -->
+<s-date-picker [inlineYearsOnMobile]="false" />`;
 }

@@ -42,33 +42,7 @@
         >
       </div>
     </div>
-    <div class="flex flex-col gap-4 p-4 rounded-lg w-full border border-border">
-      <span class="text-muted-foreground uppercase font-semibold"
-        >Signal Forms</span
-      >
-      <div class="flex flex-col gap-1">
-        <label for="email">Email</label>
-        <s-text-input
-          [formField]="loginForm.email"
-          errorMessage="Email is required."
-          id="email"
-          placeholder="Email"
-        ></s-text-input>
-      </div>
-      <div class="flex flex-col gap-1">
-        <label for="password">Password</label>
-        <s-password
-          [formField]="loginForm.password"
-          errorMessage="Password is required."
-          placeholder="Password"
-        ></s-password>
-      </div>
-      <div class="flex items-center justify-between">
-        <s-checkbox label="Remember me"></s-checkbox>
-        <s-button variant="link">Forgot Password?</s-button>
-      </div>
-      <s-button class="[&_.s-button]:w-full!">Sign In</s-button>
-    </div>
+    <app-hero-demo />
   </div>
   <section class="border-t border-border">
     <div class="flex flex-col gap-4 w-full px-6 py-24 max-w-295 m-auto">

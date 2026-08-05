@@ -11,15 +11,17 @@
     <app-component-demo>
       <s-date-picker [(ngModel)]="birthday" placeholder="Pick your birthday" />
     </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ birthday | date }}</p>
+    <p class="text-sm text-muted-foreground">
+      Model value: {{ birthday | date }}
+    </p>
     <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
   </div>
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Inline</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      No input, no popover -- the calendar renders directly, e.g. for a dedicated "pick a date"
-      page or a sidebar widget.
+      No input, no popover -- the calendar renders directly, e.g. for a
+      dedicated "pick a date" page or a sidebar widget.
     </p>
     <app-component-demo [block]="true">
       <s-date-picker [(ngModel)]="inlineDate" [inline]="true" />
@@ -30,7 +32,8 @@
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">min/max and disabled dates</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      This one only allows the last 7 days up to today, and disables weekends within that range.
+      This one only allows the last 7 days up to today, and disables weekends
+      within that range.
     </p>
     <app-component-demo>
       <s-date-picker
@@ -53,7 +56,10 @@
         placeholder="Pick an appointment date"
       />
     </app-component-demo>
-    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+    <app-code-block
+      filename="Usage"
+      [code]="reactiveFormsCode"
+    ></app-code-block>
   </div>
 
   <div class="flex flex-col gap-3">
@@ -61,7 +67,9 @@
     <app-component-demo>
       <s-date-picker [formField]="profileForm.birthday" />
     </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().birthday | date }}</p>
+    <p class="text-sm text-muted-foreground">
+      Model value: {{ profileModel().birthday | date }}
+    </p>
     <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
   </div>
 
@@ -74,15 +82,23 @@
   </div>
 
   <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Month/year navigation, Today button, header template</h2>
+    <h2 class="text-xl font-bold">
+      Month/year navigation, Today button, header template
+    </h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      Click the month/year label to drill down into a 12-month grid, then a year list, for
-      jumping further than one click at a time.
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showTodayButton</code> adds a footer
-      button that jumps to and selects today.
+      Click the month/year label to drill down into a 12-month grid, then a year
+      list, for jumping further than one click at a time.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >showTodayButton</code
+      >
+      adds a footer button that jumps to and selects today.
     </p>
     <app-component-demo>
-      <s-date-picker [ngModel]="null" [showTodayButton]="true" placeholder="Click the month label">
+      <s-date-picker
+        [ngModel]="null"
+        [showTodayButton]="true"
+        placeholder="Click the month label"
+      >
         <ng-template #header><strong>Pick a date</strong></ng-template>
       </s-date-picker>
     </app-component-demo>
@@ -90,15 +106,52 @@
   </div>
 
   <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Inline year picker</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      By default, the year list opens as its own floating side panel next to the
+      calendar so picking a year never resizes it.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">inlineYears</code>
+      swaps it into the main panel instead, the same way the month grid does --
+      useful when there's no room for a side panel to float into.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >inlineYearsOnMobile</code
+      >
+      does the same, but only below a ~640px viewport (resize the window to see
+      it switch); it defaults to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">true</code>,
+      since a floating side panel is rarely usable on a phone -- pass
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[inlineYearsOnMobile]="false"</code>
+      to keep the floating side panel at every width.
+    </p>
+    <app-component-demo>
+      <s-date-picker
+        [ngModel]="null"
+        [inlineYears]="true"
+        placeholder="Click the year label"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="inlineYearsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Time picker (12h/24h)</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showTime</code> adds hour/minute
-      controls below the calendar -- the picked day and time combine into one
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showTime</code>
+      adds hour/minute controls below the calendar -- the picked day and time
+      combine into one
       <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Date</code>.
     </p>
     <app-component-demo>
-      <s-date-picker [ngModel]="null" [showTime]="true" placeholder="Pick a date and time" />
-      <s-date-picker [ngModel]="null" [showTime]="true" timeFormat="12h" placeholder="12h format" />
+      <s-date-picker
+        [ngModel]="null"
+        [showTime]="true"
+        placeholder="Pick a date and time"
+      />
+      <s-date-picker
+        [ngModel]="null"
+        [showTime]="true"
+        timeFormat="12h"
+        placeholder="12h format"
+      />
     </app-component-demo>
     <app-code-block filename="Usage" [code]="timeCode"></app-code-block>
   </div>
@@ -106,26 +159,50 @@
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Time-only and manual text entry</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">timeOnly</code> hides the calendar
-      entirely. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">manualInput</code> lets
-      you type directly into the field instead of only opening the panel by click.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">timeOnly</code>
+      hides the calendar entirely.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">manualInput</code>
+      lets you type directly into the field instead of only opening the panel by
+      click.
     </p>
     <app-component-demo>
-      <s-date-picker [ngModel]="null" [timeOnly]="true" placeholder="Pick a time" />
-      <s-date-picker [ngModel]="null" [manualInput]="true" placeholder="Type a date, e.g. 12/25/2026" />
+      <s-date-picker
+        [ngModel]="null"
+        [timeOnly]="true"
+        placeholder="Pick a time"
+      />
+      <s-date-picker
+        [ngModel]="null"
+        [manualInput]="true"
+        placeholder="Type a date, e.g. 12/25/2026"
+      />
     </app-component-demo>
-    <app-code-block filename="Usage" [code]="timeOnlyManualCode"></app-code-block>
+    <app-code-block
+      filename="Usage"
+      [code]="timeOnlyManualCode"
+    ></app-code-block>
   </div>
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Multiple dates and range selection</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode="multiple"</code>
-      binds through <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[(multipleValue)]</code>
-      instead of <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">value</code>.
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode="range"</code> binds
-      through <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[(rangeValue)]</code>. Neither
-      is routed through ngModel/reactive forms/Signal Forms the way the default single mode is.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >selectionMode="multiple"</code
+      >
+      binds through
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >[(multipleValue)]</code
+      >
+      instead of
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">value</code>.
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >selectionMode="range"</code
+      >
+      binds through
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm"
+        >[(rangeValue)]</code
+      >. Neither is routed through ngModel/reactive forms/Signal Forms the way
+      the default single mode is.
     </p>
     <app-component-demo>
       <s-date-picker
@@ -133,23 +210,38 @@
         [(multipleValue)]="multipleDates"
         placeholder="Pick several dates"
       />
-      <s-date-picker selectionMode="range" [(rangeValue)]="dateRange" placeholder="Pick a date range" />
+      <s-date-picker
+        selectionMode="range"
+        [(rangeValue)]="dateRange"
+        placeholder="Pick a date range"
+      />
     </app-component-demo>
     <p class="text-sm text-muted-foreground">
       Multiple: {{ multipleDates.length }} date(s) selected
     </p>
     <p class="text-sm text-muted-foreground">
       Range:
-      {{ dateRange ? (dateRange.start | date) + ' - ' + (dateRange.end ? (dateRange.end | date) : '...') : 'none' }}
+      {{
+        dateRange
+          ? (dateRange.start | date) +
+            ' - ' +
+            (dateRange.end ? (dateRange.end | date) : '...')
+          : 'none'
+      }}
     </p>
-    <app-code-block filename="Usage" [code]="multipleRangeCode"></app-code-block>
+    <app-code-block
+      filename="Usage"
+      [code]="multipleRangeCode"
+    ></app-code-block>
   </div>
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Disabled</h2>
     <app-component-demo>
       <s-date-picker [ngModel]="null" [disabled]="disabled()" />
-      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+      <s-button variant="secondary" (pressed)="toggleDisabled()"
+        >Toggle disabled</s-button
+      >
     </app-component-demo>
   </div>
 </div>
