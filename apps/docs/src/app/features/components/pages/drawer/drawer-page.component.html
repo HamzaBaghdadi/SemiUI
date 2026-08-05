@@ -1,0 +1,94 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Drawer"
+    description="A panel that slides in from a viewport edge, controlled by reference like Dialog. Same behavior under the hood -- portals to document.body, traps focus, locks background scroll, restores focus on close."
+    slug="drawer"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Controlled the same way as
+    <a routerLink="/components/dialog" class="text-primary hover:underline">Dialog</a> -- the
+    difference is purely presentational.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage (right side)</h2>
+    <app-component-demo>
+      <s-button (click)="dr.show()">Open drawer</s-button>
+      <s-drawer #dr title="Edit profile">
+        <p>Drawer content goes here -- forms, lists, anything.</p>
+        <ng-template #footer>
+          <s-button [outlined]="true" (click)="dr.hide()">Cancel</s-button>
+          <s-button (click)="dr.hide()">Save</s-button>
+        </ng-template>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sides</h2>
+    <app-component-demo>
+      <s-button (click)="leftDrawer.show()">Left</s-button>
+      <s-button (click)="topDrawer.show()">Top</s-button>
+      <s-button (click)="bottomDrawer.show()">Bottom</s-button>
+      <s-drawer #leftDrawer title="Left drawer" side="left">
+        <p>Slides in from the left.</p>
+      </s-drawer>
+      <s-drawer #topDrawer title="Top drawer" side="top">
+        <p>Slides in from the top.</p>
+      </s-drawer>
+      <s-drawer #bottomDrawer title="Bottom drawer" side="bottom">
+        <p>Slides in from the bottom.</p>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sidesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      <s-button (click)="smDrawer.show()">Small</s-button>
+      <s-button (click)="lgDrawer.show()">Large</s-button>
+      <s-drawer #smDrawer title="Small drawer" size="sm">
+        <p>A narrower panel.</p>
+      </s-drawer>
+      <s-drawer #lgDrawer title="Large drawer" size="lg">
+        <p>More room for content.</p>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Headless template</h2>
+    <app-component-demo>
+      <s-button (click)="headlessDrawer.show()">Open</s-button>
+      <s-drawer #headlessDrawer>
+        <ng-template #headless>
+          <div class="p-6 text-center">
+            <p class="mb-4">Fully custom content, no default chrome at all.</p>
+            <s-button (click)="headlessDrawer.hide()">Close</s-button>
+          </div>
+        </ng-template>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="headlessCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Blur backdrop &amp; hidden backdrop</h2>
+    <app-component-demo>
+      <s-button (click)="blurDrawer.show()">Blurred backdrop</s-button>
+      <s-button (click)="noBackdropDrawer.show()">No backdrop</s-button>
+      <s-drawer #blurDrawer title="Blurred backdrop" [blurBackdrop]="true">
+        <p>The page behind this drawer is dimmed and blurred.</p>
+      </s-drawer>
+      <s-drawer #noBackdropDrawer title="No backdrop" [showBackdrop]="false">
+        <p>No dimming layer behind this drawer -- the drawer still traps focus.</p>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="backdropCode"></app-code-block>
+  </div>
+</div>

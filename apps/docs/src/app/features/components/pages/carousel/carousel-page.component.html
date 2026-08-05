@@ -1,0 +1,124 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Carousel"
+    description="A single-slide-at-a-time carousel: pass items and render each slide through the required #slide template slot. Arrow keys, drag/swipe, arrow buttons, and dot indicators all move the same activeIndex."
+    slug="carousel"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-64 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Autoplay</h2>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [autoplay]="true" [autoplayInterval]="2000" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-48 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="autoplayCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">No loop, no dots</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The arrows disable at the first/last slide instead of wrapping around.
+    </p>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [loop]="false" [showDots]="false" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-40 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="noLoopCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Multiple slides per view</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">itemsPerView</code> shows more than
+      one slide at a time -- next/previous still move the visible window by a single slide.
+    </p>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [itemsPerView]="2" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-40 flex items-center justify-center text-white text-xl font-semibold mx-1"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="itemsPerViewCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Arrows outside the container</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">arrowsOutside</code> renders the
+      arrow buttons as flex siblings flanking the viewport instead of floating on top of the
+      slides.
+    </p>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [arrowsOutside]="true" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-40 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="arrowsOutsideCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h2 class="text-xl font-bold">Options</h2>
+    <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">activeIndex</code> -- two-way
+        bindable, default <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">0</code>.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">loop</code> -- default
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">true</code>.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">autoplay</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">autoplayInterval</code>
+        -- default off, 4000ms.
+      </li>
+      <li>Focus the carousel and use the arrow keys, or drag/swipe on touch devices.</li>
+    </ul>
+  </div>
+</div>

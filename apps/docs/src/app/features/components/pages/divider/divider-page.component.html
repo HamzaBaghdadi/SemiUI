@@ -1,0 +1,46 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Divider"
+    description="A horizontal or vertical rule. Any projected content renders as a centered label with the line continuing on both sides; with no content, it's just a plain line."
+    slug="divider"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Plain</h2>
+    <app-component-demo [block]="true">
+      <div class="flex flex-col gap-3">
+        <p class="text-sm">Some content above.</p>
+        <s-divider />
+        <p class="text-sm">Some content below.</p>
+      </div>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="plainCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">With a label</h2>
+    <app-component-demo [block]="true">
+      <s-divider>OR</s-divider>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="labelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Vertical</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Vertical dividers stretch to fill the height of a flex row -- give the row a fixed or
+      content-driven height.
+    </p>
+    <app-component-demo>
+      <div class="flex items-center gap-4 h-8">
+        <span class="text-sm">Item one</span>
+        <s-divider orientation="vertical" />
+        <span class="text-sm">Item two</span>
+        <s-divider orientation="vertical" />
+        <span class="text-sm">Item three</span>
+      </div>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
+  </div>
+</div>

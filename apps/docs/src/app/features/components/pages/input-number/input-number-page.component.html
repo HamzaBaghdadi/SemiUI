@@ -1,0 +1,75 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Input Number"
+    description="A numeric input with increment/decrement buttons, min/max/step clamping, and prefix/suffix text. The bound value is number | null -- null for an empty field, never NaN."
+    slug="input-number"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-input-number [(ngModel)]="quantity" [min]="0" [max]="10" placeholder="Quantity" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ quantity }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">min</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">max</code>
+      clamp the value itself, which would make a redundant
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Validators.min</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">max</code>
+      unreachable -- so this demo pairs <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
+      with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Validators.required</code> instead. Clear
+      the field and blur to see it.
+    </p>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-input-number formControlName="age" placeholder="Age" errorMessage="Age is required." />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-input-number [formField]="profileForm.price" [step]="0.01" prefix="$" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().price }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Prefix / suffix</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Rendered as separate elements flanking the field, not embedded in the value -- keeps parsing
+      simple.
+    </p>
+    <app-component-demo>
+      <s-input-number [(ngModel)]="quantity" prefix="$" suffix=".00" [showButtons]="false" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="prefixSuffixCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Button layout</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">buttons</code> switches between
+      stacked chevrons on the trailing edge (default) and a full-height [-] / [+] stepper flanking
+      the field.
+    </p>
+    <app-component-demo>
+      <s-input-number [(ngModel)]="quantity" [min]="0" [max]="10" buttons="horizontal" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="buttonLayoutCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-input-number [(ngModel)]="quantity" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

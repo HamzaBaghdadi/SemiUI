@@ -1,0 +1,56 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="OTP"
+    description="A one-time-password input: individual digit boxes with auto-advancing focus, Backspace/arrow-key navigation, and paste support. The bound value is the concatenated string."
+    slug="otp"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-otp [(ngModel)]="code" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ code }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-otp formControlName="code" errorMessage="Enter the full 6-digit code." />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-otp [formField]="profileForm.code" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().code }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Length, type, and mask</h2>
+    <app-component-demo>
+      <s-otp [length]="4" />
+    </app-component-demo>
+    <app-component-demo>
+      <s-otp [length]="6" type="alphanumeric" />
+    </app-component-demo>
+    <app-component-demo>
+      <s-otp [length]="6" [mask]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-otp [(ngModel)]="code" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

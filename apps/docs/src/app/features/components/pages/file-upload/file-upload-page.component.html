@@ -1,0 +1,64 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Feedback"
+    name="File Upload"
+    description="A drag-and-drop / click-to-browse file picker. Selecting or dropping files validates them against accept/maxFileSize/maxFiles and adds the accepted ones to the bound value, showing rejected files with their reason."
+    slug="file-upload"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Only handles selection, validation, and preview -- actually uploading the files is up to you,
+    since that's inherently app-specific.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo [block]="true">
+      <s-file-upload [(ngModel)]="files" [multiple]="true" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">{{ files.length }} file(s) selected</p>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Image previews</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Image files get a thumbnail preview automatically; other file types show a generic file icon.
+    </p>
+    <app-component-demo [block]="true">
+      <s-file-upload [(ngModel)]="imageFiles" accept="image/*" [multiple]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="imagePreviewCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Validation</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">maxFileSize</code> (bytes) and
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">maxFiles</code> reject files past
+      the limit, shown with their reason below the dropzone.
+    </p>
+    <app-component-demo [block]="true">
+      <s-file-upload [ngModel]="[]" [maxFiles]="2" [maxFileSize]="1048576" accept=".pdf,.doc,.docx" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="validationCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Single file</h2>
+    <app-component-demo [block]="true">
+      <s-file-upload [ngModel]="[]" [multiple]="false" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="singleFileCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo [block]="true">
+      <s-file-upload [ngModel]="[]" [disabled]="disabled()" />
+    </app-component-demo>
+    <app-component-demo>
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

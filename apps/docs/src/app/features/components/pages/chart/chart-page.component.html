@@ -1,0 +1,120 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Chart"
+    description="An SVG chart supporting line, bar, area, pie, and donut via a single type input -- no canvas, no external charting library, so it themes like any other component."
+    slug="chart"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Line</h2>
+    <app-component-demo [block]="true">
+      <s-chart
+        type="line"
+        [labels]="months"
+        [series]="revenueSeries"
+        [valueFormatter]="currencyFormatter"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="lineCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Multiple series (line)</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Click a legend entry to toggle that series' visibility.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart
+        type="line"
+        [labels]="months"
+        [series]="multiSeries"
+        [valueFormatter]="currencyFormatter"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="multiSeriesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Bar</h2>
+    <app-component-demo [block]="true">
+      <s-chart
+        type="bar"
+        [labels]="months"
+        [series]="multiSeries"
+        [valueFormatter]="currencyFormatter"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="barCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Area</h2>
+    <app-component-demo [block]="true">
+      <s-chart
+        type="area"
+        [labels]="months"
+        [series]="revenueSeries"
+        [valueFormatter]="currencyFormatter"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="areaCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Pie</h2>
+    <app-component-demo [block]="true">
+      <s-chart type="pie" [labels]="browserLabels" [series]="browserSeries" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="pieCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Donut</h2>
+    <app-component-demo [block]="true">
+      <s-chart type="donut" [labels]="browserLabels" [series]="browserSeries" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="donutCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">No grid, no legend</h2>
+    <app-component-demo [block]="true">
+      <s-chart
+        type="bar"
+        [labels]="months"
+        [series]="revenueSeries"
+        [showGrid]="false"
+        [showLegend]="false"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="noChromeCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h2 class="text-xl font-bold">Options</h2>
+    <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">type</code> --
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"line"</code> (default) /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"bar"</code> /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"area"</code> /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"pie"</code> /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"donut"</code>.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">series</code> -- array of
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&#123; name, values, color? &#125;</code>.
+        Pie/donut use only <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">series[0]</code>.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">valueFormatter</code> -- formats
+        axis labels and tooltip values.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">colors</code> -- palette array,
+        cycles by index when a series/slice has no explicit color.
+      </li>
+    </ul>
+  </div>
+</div>

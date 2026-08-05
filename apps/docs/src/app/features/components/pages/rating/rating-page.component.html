@@ -1,0 +1,69 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Rating"
+    description="A star rating: whole stars only, maxStars of them (default 5). Clicking the currently-selected star clears it back to no rating."
+    slug="rating"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-rating [(ngModel)]="stars" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ stars }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Validators.min</code> treats a
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">null</code> value as "empty, skip
+      validation" rather than "too low", so it'd never fire here -- same reason
+      <a routerLink="/components/input-number" class="text-primary hover:underline">Input Number</a>'s
+      validation demo uses <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Validators.required</code>
+      instead.
+    </p>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-rating formControlName="stars" errorMessage="Please rate at least 1 star." />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-rating [formField]="profileForm.stars" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().stars }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Max stars and sizes</h2>
+    <app-component-demo>
+      <s-rating [(ngModel)]="stars" [maxStars]="10" size="sm" />
+    </app-component-demo>
+    <app-component-demo>
+      <s-rating [(ngModel)]="stars" size="lg" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Readonly (e.g. displaying an average)</h2>
+    <app-component-demo>
+      <s-rating [ngModel]="4" [readOnly]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="readOnlyCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-rating [(ngModel)]="stars" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

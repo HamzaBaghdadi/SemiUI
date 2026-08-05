@@ -1,0 +1,77 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Popover"
+    description="A popover controlled by reference from anywhere in the template. Any element's own click handler calls po.toggle($event) / show($event) / hide(), positioned with position: fixed so it renders correctly regardless of DOM nesting."
+    slug="popover"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo>
+      <s-button (click)="po.toggle($event)">Click to show popover</s-button>
+      <s-popover #po>
+        <span>Popover opened!</span>
+      </s-popover>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">show() / hide() from separate triggers</h2>
+    <app-component-demo>
+      <s-button variant="secondary" (click)="po2.show($event)">Show</s-button>
+      <s-button [outlined]="true" (click)="po2.hide()">Hide</s-button>
+      <s-popover #po2 placement="right">
+        <strong>Rich content works too</strong>
+        <p>Any projected content is fine -- text, forms, other components.</p>
+      </s-popover>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="separateTriggersCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Placement</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">placement</code> accepts
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">top</code> /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bottom</code> (default) /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">left</code> /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">right</code>, and flips top/bottom
+      automatically when there isn't room.
+    </p>
+    <app-component-demo>
+      <s-button (click)="poTop.toggle($event)">Top</s-button>
+      <s-popover #poTop placement="top"><span>I'm above the button.</span></s-popover>
+      <s-button (click)="poLeft.toggle($event)">Left</s-button>
+      <s-popover #poLeft placement="left"><span>I'm to the left.</span></s-popover>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">No arrow, no outside-click close</h2>
+    <app-component-demo>
+      <s-button (click)="poNoArrow.toggle($event)">No arrow, no outside-click close</s-button>
+      <s-popover #poNoArrow [showArrow]="false" [closeOnOutsideClick]="false">
+        <span>Only Escape or the trigger itself closes me.</span>
+      </s-popover>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Append to body</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Without <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo</code>, a popover
+      trapped inside an <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">overflow: hidden</code>
+      container can get clipped even though it's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">position: fixed</code>.
+      Setting <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code> escapes it.
+    </p>
+    <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-20 flex items-center gap-4" style="transform: translate(0);">
+      <s-button (click)="poClipped.toggle($event)">Clipped (no appendTo)</s-button>
+      <s-popover #poClipped><span>You probably can't see me.</span></s-popover>
+      <s-button (click)="poAppended.toggle($event)">appendTo body</s-button>
+      <s-popover #poAppended appendTo="body"><span>I escape the clipping container.</span></s-popover>
+    </div>
+    <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Tooltip"
+    description="An [sTooltip] directive that shows a small floating label on hover/focus of any element -- no extra markup needed."
+    slug="tooltip"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Positioned with the same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">position: fixed</code>
+    + viewport-flip technique as
+    <a routerLink="/components/popover" class="text-primary hover:underline">Popover</a>.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo>
+      <button
+        type="button"
+        class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted"
+        [sTooltip]="'Saves your changes'"
+      >
+        Hover or focus me
+      </button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Placement</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">tooltipPlacement</code> accepts
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">top</code> (default) /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bottom</code> /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">left</code> /
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">right</code>, and flips top/bottom
+      automatically when there isn't room.
+    </p>
+    <app-component-demo>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Above'" tooltipPlacement="top">Top</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Below'" tooltipPlacement="bottom">Bottom</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'To the left'" tooltipPlacement="left">Left</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'To the right'" tooltipPlacement="right">Right</button>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Delay</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">tooltipDelay</code> is the time in
+      milliseconds before it appears (default <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">300</code>).
+    </p>
+    <app-component-demo>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Appears instantly'" [tooltipDelay]="0">No delay</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Appears after a full second'" [tooltipDelay]="1000">1s delay</button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="delayCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Works on any element</h2>
+    <app-component-demo>
+      <span
+        [sTooltip]="'Plain text can have one too'"
+        class="underline decoration-dotted cursor-help text-sm"
+        >Hover this text</span
+      >
+    </app-component-demo>
+  </div>
+</div>

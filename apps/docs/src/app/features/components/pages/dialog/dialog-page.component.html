@@ -1,0 +1,140 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Dialog"
+    description="A modal dialog, controlled by reference: call dlg.show() / dlg.hide() / dlg.toggle() from anywhere. Always portals to document.body, traps focus while open, locks background scroll, and restores focus on close."
+    slug="dialog"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Controlled the same way as
+    <a routerLink="/components/popover" class="text-primary hover:underline">Popover</a>.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo>
+      <s-button (click)="dlg.show()">Open dialog</s-button>
+      <s-dialog #dlg title="Confirm action">
+        <p>Are you sure you want to continue? This can't be undone.</p>
+        <ng-template #footer>
+          <s-button [outlined]="true" (click)="dlg.hide()">Cancel</s-button>
+          <s-button (click)="dlg.hide()">Confirm</s-button>
+        </ng-template>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      <s-button (click)="smDialog.show()">Small</s-button>
+      <s-button (click)="lgDialog.show()">Large</s-button>
+      <s-button (click)="fullDialog.show()">Full</s-button>
+      <s-dialog #smDialog title="Small dialog" size="sm">
+        <p>A compact dialog for short messages.</p>
+      </s-dialog>
+      <s-dialog #lgDialog title="Large dialog" size="lg">
+        <p>More room for forms or detailed content.</p>
+      </s-dialog>
+      <s-dialog #fullDialog title="Full-width dialog" size="full">
+        <p>Takes up nearly the entire viewport.</p>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">No close button, no outside-click close</h2>
+    <app-component-demo>
+      <s-button (click)="strictDialog.show()">Open (must use button)</s-button>
+      <s-dialog
+        #strictDialog
+        title="Action required"
+        [closable]="false"
+        [closeOnOutsideClick]="false"
+        [closeOnEscape]="false"
+      >
+        <p>This dialog can only be dismissed via the button below.</p>
+        <ng-template #footer>
+          <s-button (click)="strictDialog.hide()">Got it</s-button>
+        </ng-template>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="strictCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Custom header template</h2>
+    <app-component-demo>
+      <s-button (click)="customHeaderDialog.show()">Open</s-button>
+      <s-dialog #customHeaderDialog>
+        <ng-template #header>
+          <strong>⚠ Custom header content</strong>
+        </ng-template>
+        <p>The header slot replaces the plain title text -- the close button still renders alongside it.</p>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="customHeaderCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Headless template</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#headless</code> replaces the entire
+      header/body/footer chrome with raw projected content -- the dialog still portals, traps
+      focus, and animates, just with none of the default layout.
+    </p>
+    <app-component-demo>
+      <s-button (click)="headlessDialog.show()">Open</s-button>
+      <s-dialog #headlessDialog>
+        <ng-template #headless>
+          <div class="p-6 text-center">
+            <p class="mb-4">Fully custom content, no default chrome at all.</p>
+            <s-button (click)="headlessDialog.hide()">Close</s-button>
+          </div>
+        </ng-template>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="headlessCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Blur backdrop &amp; hidden backdrop</h2>
+    <app-component-demo>
+      <s-button (click)="blurDialog.show()">Blurred backdrop</s-button>
+      <s-button (click)="noBackdropDialog.show()">No backdrop</s-button>
+      <s-dialog #blurDialog title="Blurred backdrop" [blurBackdrop]="true">
+        <p>The page behind this dialog is dimmed and blurred.</p>
+      </s-dialog>
+      <s-dialog #noBackdropDialog title="No backdrop" [showBackdrop]="false">
+        <p>
+          No dimming layer behind this dialog -- everything else stays interactive-looking, though
+          the dialog still traps focus.
+        </p>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="backdropCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">DialogService -- open any component imperatively</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      For dialogs that don't have a fixed place in a template, inject
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">DialogService</code> and call
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">open(Component, config)</code>. The
+      opened component gets the full Dialog chrome automatically. Inside it, inject
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">DialogRef</code> to close itself and
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">DIALOG_DATA</code> to read what was
+      passed as <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">config.data</code>.
+    </p>
+    <app-component-demo>
+      <s-button (click)="openServiceDialog()">Open via DialogService</s-button>
+      @if (serviceResult(); as result) {
+        <span class="text-sm text-muted-foreground">{{ result }}</span>
+      }
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="serviceCode"></app-code-block>
+  </div>
+</div>

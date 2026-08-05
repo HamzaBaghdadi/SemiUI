@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Breadcrumb"
+    description="A trail of ancestor pages, using Angular's RouterLink for navigable items. An item without a link renders as plain, non-navigable text."
+    slug="breadcrumb"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      "Components" below links to this exact page -- notice it's styled as the current page even
+      though it's the <em>second</em> item, not the last, because
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">routerLinkActive</code> confirms
+      it's genuinely the active route rather than assuming array position.
+    </p>
+    <app-component-demo>
+      <s-breadcrumb [items]="items" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="usageCode"></app-code-block>
+  </div>
+</div>

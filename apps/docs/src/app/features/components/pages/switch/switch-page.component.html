@@ -1,0 +1,77 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Switch"
+    description="A toggle switch supporting ngModel, reactive forms, and Signal Forms. The thumb's travel distance is computed in CSS from the track and thumb size tokens, so it's never off-center."
+    slug="switch"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-switch [(ngModel)]="notifications" label="Email notifications" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ notifications }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Uncheck it to see the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
+      -- same input as
+      <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a>.
+    </p>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-switch
+        formControlName="terms"
+        label="I agree to the terms"
+        errorMessage="You must agree to continue."
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-switch [formField]="profileForm.marketing" label="Marketing emails" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().marketing }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      <s-switch [(ngModel)]="notifications" size="sm" label="Small" />
+      <s-switch [(ngModel)]="notifications" size="md" label="Medium" />
+      <s-switch [(ngModel)]="notifications" size="lg" label="Large" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Icons</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">onIcon</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">offIcon</code>
+      render inside the thumb -- both optional, omit either (or both) for a plain thumb.
+    </p>
+    <app-component-demo>
+      <s-switch
+        [(ngModel)]="notifications"
+        [onIcon]="{ type: 'ng-icon', name: 'lucideCheck' }"
+        [offIcon]="{ type: 'ng-icon', name: 'lucideX' }"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="iconsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-switch [(ngModel)]="notifications" [disabled]="disabled()" label="Disabled" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

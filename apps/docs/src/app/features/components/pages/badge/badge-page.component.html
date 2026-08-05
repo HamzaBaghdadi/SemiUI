@@ -1,0 +1,129 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Badge"
+    description="A small notification indicator -- not only a number: a plain dot, arbitrary text, an icon, or a count. By default it overlays whatever is projected into it; set standalone to render inline instead."
+    slug="badge"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Text and icon content</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Not limited to a number -- <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">label</code>
+      shows arbitrary text, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">icon</code>
+      renders an icon instead. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">icon</code>
+      takes priority over <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">label</code>,
+      which takes priority over <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">count</code>.
+    </p>
+    <app-component-demo>
+      <s-badge label="NEW" variant="info" [standalone]="true" />
+      <s-badge label="Beta" variant="help" [standalone]="true" />
+      <s-badge [icon]="starIcon" variant="warn" [standalone]="true" ariaLabel="Featured" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="textIconCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Overlaying an icon</h2>
+    <app-component-demo>
+      <s-badge [count]="count()">
+        <button
+          type="button"
+          aria-label="Notifications"
+          class="size-10 rounded-full border border-border flex items-center justify-center text-lg"
+        >
+          🔔
+        </button>
+      </s-badge>
+      <s-button variant="secondary" (pressed)="increment()">Add notification</s-button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="overlayCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Max count ("N+")</h2>
+    <app-component-demo>
+      <s-badge [count]="150" [max]="99">
+        <span class="size-10 rounded-full bg-muted block"></span>
+      </s-badge>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="maxCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Dot</h2>
+    <app-component-demo>
+      <s-badge [dot]="true" variant="destructive">
+        <span class="size-10 rounded-full bg-muted block"></span>
+      </s-badge>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="dotCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Position and variants</h2>
+    <app-component-demo>
+      @for (position of positions; track position) {
+        <s-badge [count]="1" [position]="position" variant="primary">
+          <span class="size-10 rounded-md bg-muted block"></span>
+        </s-badge>
+      }
+    </app-component-demo>
+    <app-component-demo>
+      <s-badge [count]="1" variant="default"
+        ><span class="size-10 rounded-full bg-muted block"></span
+      ></s-badge>
+      <s-badge [count]="1" variant="secondary"
+        ><span class="size-10 rounded-full bg-muted block"></span
+      ></s-badge>
+      <s-badge [count]="1" variant="outline"
+        ><span class="size-10 rounded-full bg-muted block"></span
+      ></s-badge>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="positionCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Severity</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The same shared semantic color vocabulary as
+      <a routerLink="/components/button" class="text-primary hover:underline">Button</a> and
+      <a routerLink="/components/tag" class="text-primary hover:underline">Tag</a>.
+    </p>
+    <app-component-demo>
+      <s-badge [count]="1" variant="success" [standalone]="true" />
+      <s-badge [count]="1" variant="info" [standalone]="true" />
+      <s-badge [count]="1" variant="warn" [standalone]="true" />
+      <s-badge [count]="1" variant="help" [standalone]="true" />
+      <s-badge [count]="1" variant="danger" [standalone]="true" />
+      <s-badge [count]="1" variant="contrast" [standalone]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="severityCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Standalone (inline, no overlay)</h2>
+    <app-component-demo>
+      <span>Inbox</span>
+      <s-badge [count]="5" [standalone]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="standaloneCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Zero count</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Hidden by default when <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">count</code>
+      is exactly <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">0</code>; set
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showZero</code> to keep it visible.
+    </p>
+    <app-component-demo>
+      <s-badge [count]="0">
+        <span class="size-10 rounded-full bg-muted block"></span>
+      </s-badge>
+      <s-badge [count]="0" [showZero]="true">
+        <span class="size-10 rounded-full bg-muted block"></span>
+      </s-badge>
+    </app-component-demo>
+  </div>
+</div>

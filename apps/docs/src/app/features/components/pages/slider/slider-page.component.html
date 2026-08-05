@@ -1,0 +1,85 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Slider"
+    description="A single-thumb range slider. Drag the thumb, click anywhere on the track to jump to it, or use the keyboard. Supports ngModel and reactive forms."
+    slug="slider"
+  ></app-component-page-header>
+
+  <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+    <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">min</code> and
+    <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">max</code> are natural names for
+    this component's own range, but they collide with Angular Signal Forms' reserved
+    <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">FormUiControl</code> contract
+    member names -- the same tradeoff
+    <a routerLink="/components/input-number" class="text-primary hover:underline">Input Number</a>
+    already makes -- so Slider isn't demonstrated with
+    <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">[formField]</code> here, though
+    ngModel and reactive forms work fully.
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-slider [(ngModel)]="volume" [min]="0" [max]="100" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ volume }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-slider
+        formControlName="budget"
+        [min]="0"
+        [max]="1000"
+        [step]="50"
+        errorMessage="Please set a budget."
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Ticks and custom value formatting</h2>
+    <app-component-demo>
+      <s-slider
+        [ngModel]="60"
+        [min]="0"
+        [max]="100"
+        [step]="10"
+        [showTicks]="true"
+        [valueFormatter]="currencyFormatter"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="ticksCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Vertical orientation</h2>
+    <app-component-demo>
+      <s-slider [ngModel]="30" orientation="vertical" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-slider [ngModel]="50" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h2 class="text-xl font-bold">Keyboard</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">←</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↓</code>
+      decrease by one step, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">→</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↑</code>
+      increase by one step, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Page Down</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Page Up</code>
+      move by ten steps, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Home</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">End</code>
+      jump to min/max.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Color Picker"
+    description="A hex color picker: a saturation/value square, a hue slider, a typeable hex field, and preset swatches. The bound value is a #rrggbb hex string (no alpha channel)."
+    slug="color-picker"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage (ngModel)</h2>
+    <app-component-demo>
+      <s-color-picker [(ngModel)]="brandColor" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ brandColor }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Inline</h2>
+    <app-component-demo [block]="true">
+      <s-color-picker [(ngModel)]="inlineColor" [inline]="true" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="inlineCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Custom presets</h2>
+    <app-component-demo>
+      <s-color-picker [ngModel]="null" [presets]="limitedPresets" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="presetsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-color-picker formControlName="accent" errorMessage="Please pick an accent color." />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-color-picker [formField]="profileForm.themeColor" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().themeColor }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-color-picker [ngModel]="'#3b82f6'" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Swatch-only trigger</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Hide the presets section and the hex text next to the swatch, e.g. for a compact
+      swatch-only trigger.
+    </p>
+    <app-component-demo>
+      <s-color-picker [ngModel]="'#22c55e'" [showPresets]="false" [showValueText]="false" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="swatchOnlyCode"></app-code-block>
+  </div>
+</div>
