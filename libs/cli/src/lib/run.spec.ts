@@ -16,7 +16,17 @@ describe('run', () => {
 
   it('dispatches `init` to runInit', () => {
     run(['init'], cwd);
-    expect(runInit).toHaveBeenCalledWith(cwd);
+    expect(runInit).toHaveBeenCalledWith(cwd, {});
+  });
+
+  it('dispatches `init --preset aurora` with the preset option', () => {
+    run(['init', '--preset', 'aurora'], cwd);
+    expect(runInit).toHaveBeenCalledWith(cwd, { preset: 'aurora' });
+  });
+
+  it('ignores an invalid --preset value', () => {
+    run(['init', '--preset', 'bogus'], cwd);
+    expect(runInit).toHaveBeenCalledWith(cwd, {});
   });
 
   it('dispatches `add <name>` to runAdd with the component name', () => {

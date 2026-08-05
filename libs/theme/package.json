@@ -1,13 +1,13 @@
 {
   "name": "@semiui/theme",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publishConfig": { "access": "public" },
   "peerDependencies": {
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0"
   },
   "dependencies": {
-    "@semiui/tokens": "workspace:^0.0.1"
+    "@semiui/tokens": "workspace:^0.1.0"
   },
   "sideEffects": false
 }

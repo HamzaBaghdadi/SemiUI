@@ -8,7 +8,7 @@ export interface ComponentsConfig {
 }
 
 export const DEFAULT_CONFIG: ComponentsConfig = {
-  preset: 'aurora',
+  preset: 'semi',
   componentsDir: 'src/app/components',
   prefix: 's',
 };

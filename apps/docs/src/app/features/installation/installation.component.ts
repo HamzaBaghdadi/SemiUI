@@ -13,13 +13,13 @@ import { CheckboxComponent } from '../../components/checkbox/checkbox.component'
 const SNIPPETS = {
   init: 'npx @semiui/cli init',
   config: `import { provideSemiUI } from '@semiui/theme';
-import { Aurora, provideAuroraIcons } from '@semiui/presets-aurora';
+import { Semi, provideSemiIcons } from '@semiui/presets-semi';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     // ...your existing providers
-    provideSemiUI({ preset: Aurora }),
-    provideAuroraIcons(),
+    provideSemiUI({ preset: Semi }),
+    provideSemiIcons(),
   ],
 };`,
   add: 'npx semiui add button',

@@ -1,14 +1,29 @@
 import { AddOptions, runAdd } from './commands/add';
-import { runInit } from './commands/init';
+import { InitOptions, PresetName, runInit } from './commands/init';
 
 const HELP = `semiui -- CLI for the SemiUI component library
 
 Usage:
   semiui init                     Set up SemiUI in the current Angular project
+  semiui init --preset <name>      Skip the interactive prompt ("semi" or "aurora")
   semiui add <name>                Add a component's source into your project
   semiui add --all                 Add every component in the library
   semiui add <name> --path <dir>   Add into a custom directory for this run (overrides components.json)
 `;
+
+function parseInitArgs(args: string[]): InitOptions {
+  const options: InitOptions = {};
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === '--preset' || arg === '-p') {
+      const value = args[++i];
+      if (value === 'semi' || value === 'aurora') {
+        options.preset = value as PresetName;
+      }
+    }
+  }
+  return options;
+}
 
 function parseAddArgs(args: string[]): { componentName: string | undefined; options: AddOptions } {
   let componentName: string | undefined;
@@ -26,12 +41,12 @@ function parseAddArgs(args: string[]): { componentName: string | undefined; opti
   return { componentName, options };
 }
 
-export function run(argv: string[], cwd: string = process.cwd()): void {
+export async function run(argv: string[], cwd: string = process.cwd()): Promise<void> {
   const [command, ...rest] = argv;
 
   switch (command) {
     case 'init':
-      runInit(cwd);
+      await runInit(cwd, parseInitArgs(rest));
       break;
     case 'add': {
       const { componentName, options } = parseAddArgs(rest);
