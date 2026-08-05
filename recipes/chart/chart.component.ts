@@ -86,7 +86,7 @@ export class ChartComponent {
     return niceMax(all.length > 0 ? Math.max(...all, 0) : 1);
   });
 
-  protected readonly ticks = computed(() => buildTicks(this.maxValue(), TICK_COUNT).reverse());
+  protected readonly ticks = computed(() => buildTicks(this.maxValue(), TICK_COUNT));
 
   protected readonly gridLines = computed(() => {
     const area = this.plotArea();

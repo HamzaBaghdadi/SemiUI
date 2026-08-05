@@ -49,4 +49,10 @@ export class TopbarComponent {
     { label: 'Installation', link: '/installation' },
     { label: 'Presets & Theming', link: '/theming' },
   ]);
+
+  protected readonly rotateDeg = signal(0);
+
+  rotateLogo() {
+    this.rotateDeg.update((val) => val - 180);
+  }
 }

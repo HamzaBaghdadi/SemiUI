@@ -8,7 +8,7 @@ import { ToastEntry, ToastService } from './toast.service';
 export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
 
 /** How many toasts deep behind the front one still get a visible (offset, dimmed) sliver when `stacked` and collapsed. */
-const MAX_VISIBLE_STACK_DEPTH = 3;
+const MAX_VISIBLE_STACK_DEPTH = 4;
 
 /**
  * Renders the queue from `ToastService`. Mount exactly one of these, typically in the app root
@@ -95,6 +95,20 @@ export class ToastContainerComponent {
         if (toast.duration > 0 && !this.timers.has(toast.id)) {
           this.scheduleDismiss(toast);
         }
+      }
+    });
+    /** Collapsed stacks only ever peek `maxVisibleStackDepth` cards deep -- toasts beyond that were
+     * previously left in the queue just invisible (opacity 0), quietly piling up timers and DOM
+     * nodes forever. Trim the oldest ones off instead, so the queue itself never grows past what's
+     * visible. */
+    effect(() => {
+      const list = this.toasts();
+      const excess = list.length - (MAX_VISIBLE_STACK_DEPTH + 1);
+      if (excess <= 0) {
+        return;
+      }
+      for (const toast of list.slice(0, excess)) {
+        this.dismiss(toast.id);
       }
     });
     inject(DestroyRef).onDestroy(() => {

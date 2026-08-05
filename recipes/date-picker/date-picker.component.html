@@ -1,4 +1,24 @@
 <ng-template #calendarContent>
+  <!-- Shared by both the floating side panel and the inline (yearsInline) rendering below -- same
+       buttons either way, just a different container around them. -->
+  <ng-template #yearsList>
+    @for (year of yearsListItems(); track year) {
+      <button
+        type="button"
+        class="s-date-picker__unit"
+        role="option"
+        [attr.data-year]="year"
+        [attr.data-selected]="isYearSelected(year) ? '' : null"
+        [attr.aria-selected]="isYearSelected(year)"
+        [attr.aria-disabled]="isYearDisabled(year) ? 'true' : null"
+        [disabled]="isYearDisabled(year)"
+        (click)="selectYear(year)"
+      >
+        {{ year }}
+      </button>
+    }
+  </ng-template>
+
   @if (headerTemplate(); as tpl) {
     <div class="s-date-picker__custom-header"><ng-container [ngTemplateOutlet]="tpl" /></div>
   }
@@ -12,48 +32,47 @@
         @if (navView() === 'days') {
           <button type="button" class="s-date-picker__unit-button" (click)="openMonthsView()">{{ monthOnlyLabel() }}</button>
         }
-        <button
-          type="button"
-          class="s-date-picker__unit-button"
-          [attr.aria-expanded]="yearsPanelOpen()"
-          (click)="toggleYearsPanel()"
-        >
-          {{ viewYear() }}
-        </button>
+        @if (navView() !== 'years') {
+          <button
+            type="button"
+            class="s-date-picker__unit-button"
+            [attr.aria-expanded]="yearsPanelOpen()"
+            (click)="toggleYearsPanel()"
+          >
+            {{ viewYear() }}
+          </button>
+        }
       </span>
       <button type="button" class="s-date-picker__nav" aria-label="Next" (click)="navNext()">
         <s-icon [ref]="icons.chevronDown" class="s-date-picker__nav-icon s-date-picker__nav-icon--next" />
       </button>
     </div>
 
-    @if (yearsPanelOpen()) {
+    @if (yearsPanelOpen() && !yearsInline()) {
       <!-- Its own side panel next to the main one (not swapped in place) so picking a year never
            resizes or replaces the day/month grid underneath it. -->
-      <div class="s-date-picker__years-panel" role="listbox" aria-label="Year">
-        @for (year of yearsListItems(); track year) {
-          <button
-            type="button"
-            class="s-date-picker__unit"
-            role="option"
-            [attr.data-year]="year"
-            [attr.data-selected]="year === viewYear() ? '' : null"
-            [attr.aria-selected]="year === viewYear()"
-            (click)="selectYear(year)"
-          >
-            {{ year }}
-          </button>
-        }
+      <div #yearsPanel class="s-date-picker__years-panel" role="listbox" aria-label="Year">
+        <ng-container [ngTemplateOutlet]="yearsList" />
       </div>
     }
 
     @switch (navView()) {
+      @case ('years') {
+        <!-- Only reachable when yearsInline() is true -- swapped into the main panel exactly like
+             the months grid, instead of floating beside it. -->
+        <div #yearsPanel class="s-date-picker__years-inline" role="listbox" aria-label="Year">
+          <ng-container [ngTemplateOutlet]="yearsList" />
+        </div>
+      }
       @case ('months') {
         <div class="s-date-picker__unit-grid">
           @for (name of monthNames(); track $index) {
             <button
               type="button"
               class="s-date-picker__unit"
-              [attr.data-selected]="$index === viewMonth() ? '' : null"
+              [attr.data-selected]="isMonthSelected(viewYear(), $index) ? '' : null"
+              [attr.aria-disabled]="isMonthDisabled(viewYear(), $index) ? 'true' : null"
+              [disabled]="isMonthDisabled(viewYear(), $index)"
               (click)="selectMonth($index)"
             >
               {{ name }}
@@ -105,7 +124,7 @@
   }
 
   @if ((showTime() || timeOnly()) && (timeOnly() || navView() === 'days')) {
-    <div class="s-date-picker__time">
+    <div class="s-date-picker__time" [class.time-only]="timeOnly()">
       @if (timeFormat() === '12h') {
         <input
           type="number"
