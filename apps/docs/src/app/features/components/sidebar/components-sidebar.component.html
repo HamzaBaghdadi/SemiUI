@@ -25,15 +25,9 @@
         <a
           [routerLink]="['/components', item.slug]"
           routerLinkActive="bg-primary/10! text-primary!"
-          class="flex items-center justify-between gap-2 px-2 py-1.5 rounded-md text-sm text-foreground hover:bg-muted"
+          class="flex items-center px-2 py-1.5 rounded-md text-sm text-foreground hover:bg-muted"
         >
-          <span>{{ item.name }}</span>
-          @if (item.status === 'soon') {
-            <span
-              class="text-[0.625rem] uppercase font-bold text-muted-foreground border border-border rounded-full px-1.5 py-0.5 leading-none"
-              >Soon</span
-            >
-          }
+          {{ item.name }}
         </a>
       }
     </div>

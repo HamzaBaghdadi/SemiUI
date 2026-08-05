@@ -1,0 +1,175 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Multiselect"
+    description="A multi-select listbox: checkbox-style rows and chips in the trigger. Search/filter and clear are on by default, and the panel is viewport-aware and animated."
+    slug="multiselect"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">options</code> /
+    <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> /
+    <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionValue</code> shape as
+    <a routerLink="/components/select" class="text-primary hover:underline">Select</a>. When
+    <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showSelectAll</code> is on (the
+    default), a master checkbox selects or clears every currently-filtered option.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Primitive options</h2>
+    <app-component-demo>
+      <s-multiselect [options]="fruits" [(ngModel)]="selectedFruits" placeholder="Pick fruits" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ selectedFruits | json }}</p>
+    <app-code-block filename="Usage" [code]="primitiveCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Option objects</h2>
+    <app-component-demo>
+      <s-multiselect
+        [options]="skills"
+        optionLabel="name"
+        optionValue="code"
+        [(ngModel)]="selectedSkillCodes"
+        placeholder="Select skills"
+      />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ selectedSkillCodes | json }}</p>
+    <app-code-block filename="Usage" [code]="objectsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-multiselect
+        [options]="skills"
+        optionLabel="name"
+        optionValue="code"
+        formControlName="skills"
+        errorMessage="Pick at least one skill."
+        placeholder="Select skills"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-multiselect
+        [options]="skills"
+        optionLabel="name"
+        optionValue="code"
+        [formField]="profileForm.skills"
+      />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().skills | json }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Custom templates</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Same five named template slots as Select: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#selected</code>
+      here is the full array of selected options, not a single one.
+    </p>
+    <app-component-demo>
+      <s-multiselect
+        [options]="skills"
+        optionLabel="name"
+        optionValue="code"
+        [(ngModel)]="templatedSkillCodes"
+        placeholder="Select skills"
+      >
+        <ng-template #selected let-options>
+          @for (option of options; track $index) {
+            <strong>{{ $any(option).code }}</strong>
+          } @empty {
+            <span>Pick skills&hellip;</span>
+          }
+        </ng-template>
+        <ng-template #option let-option let-selected="selected">
+          {{ selected ? '✓' : '' }} {{ $any(option).name }} ({{ $any(option).code }})
+        </ng-template>
+        <ng-template #header>
+          <strong>Available Skills</strong>
+        </ng-template>
+      </s-multiselect>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="customTemplatesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Removable chips</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Chips render via
+      <a routerLink="/components/tag" class="text-primary hover:underline">Tag</a> with
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">removable</code> on by default --
+      clicking the "x" removes just that selection without opening the panel.
+    </p>
+    <app-component-demo>
+      <s-multiselect
+        [options]="fruits"
+        [(ngModel)]="pinnedFruits"
+        [removableChips]="false"
+        placeholder="Pick fruits"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="removableChipsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">closeOnSelect and maxChipsDisplay</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      By default the panel stays open across selections and the trigger shows individual chips
+      until <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">maxChipsDisplay</code> is
+      exceeded.
+    </p>
+    <app-component-demo>
+      <s-multiselect
+        [options]="fruits"
+        [(ngModel)]="selectedFruits"
+        [closeOnSelect]="true"
+        [maxChipsDisplay]="2"
+        placeholder="Pick fruits"
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="closeOnSelectCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Loading</h2>
+    <app-component-demo>
+      <s-multiselect [options]="fruits" [loading]="loading()" placeholder="Pick fruits" />
+      <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-multiselect
+        [options]="fruits"
+        [(ngModel)]="selectedFruits"
+        [disabled]="disabled()"
+        placeholder="Pick fruits"
+      />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Append to body</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Same as Select: escapes an ancestor's clipping or stacking context while staying
+      pixel-positioned against the trigger.
+    </p>
+    <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-24 flex items-start gap-4">
+      <s-multiselect [options]="fruits" placeholder="Clipped without appendTo" class="w-48" />
+      <s-multiselect [options]="fruits" appendTo="body" placeholder="appendTo body" class="w-48" />
+    </div>
+    <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+  </div>
+</div>

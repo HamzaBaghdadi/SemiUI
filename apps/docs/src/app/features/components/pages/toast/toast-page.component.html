@@ -1,0 +1,117 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Toast"
+    description="A ToastService injectable from anywhere in your app, plus an <s-toast-container> you mount once (typically in your app root) to render whatever's queued."
+    slug="toast"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Setup</h2>
+    <app-code-block filename="app.ts" [code]="setupCode"></app-code-block>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The container below is mounted directly on this page (rather than the app root) just for
+      this demo -- <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">ToastService</code> is
+      a root-provided singleton either way, so this works identically to mounting it once at the
+      top of your app.
+    </p>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Variants</h2>
+    <app-component-demo>
+      <s-button variant="secondary" (pressed)="showDefault()">Default</s-button>
+      <s-button variant="success" (pressed)="showSuccess()">Success</s-button>
+      <s-button variant="danger" (pressed)="showError()">Error</s-button>
+      <s-button variant="warn" (pressed)="showWarning()">Warning</s-button>
+      <s-button variant="info" (pressed)="showInfo()">Info</s-button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sticky (no auto-dismiss) and clear all</h2>
+    <app-component-demo>
+      <s-button variant="secondary" (pressed)="showSticky()">Sticky toast</s-button>
+      <s-button variant="secondary" (pressed)="clearAll()">Clear all</s-button>
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Hover a toast to pause its auto-dismiss timer -- it restarts on mouse leave.
+    </p>
+    <app-code-block filename="Usage" [code]="stickyCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Icon and custom template</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showIcon: false</code> suppresses
+      the variant icon for a single toast. For full control,
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">template</code> replaces the
+      icon/title/description/close-button chrome entirely.
+    </p>
+    <app-component-demo>
+      <s-button variant="secondary" (pressed)="showNoIcon()">No icon</s-button>
+      <s-button variant="secondary" (pressed)="showCustomTemplate()">Custom template</s-button>
+    </app-component-demo>
+    <ng-template #customToast let-toast let-dismiss="dismiss">
+      <div class="flex items-center gap-3 w-full">
+        <strong>🎉 Fully custom content</strong>
+        <button type="button" class="ml-auto" (click)="dismiss()">Close</button>
+      </div>
+    </ng-template>
+    <app-code-block filename="Usage" [code]="templateCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Stacked (peek deck)</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">stacked</code> collapses queued
+      toasts into a peeking deck instead of a growing list -- hovering the group expands them.
+    </p>
+    <app-component-demo>
+      <s-checkbox label="Stacked" [(value)]="stacked" />
+      <s-button variant="secondary" (pressed)="showStack()">Show 3 toasts</s-button>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="stackedCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Position</h2>
+    <app-component-demo>
+      <s-button variant="secondary" (pressed)="setPosition('top-left')">Top left</s-button>
+      <s-button variant="secondary" (pressed)="setPosition('top-center')">Top center</s-button>
+      <s-button variant="secondary" (pressed)="setPosition('top-right')">Top right</s-button>
+      <s-button variant="secondary" (pressed)="setPosition('bottom-left')">Bottom left</s-button>
+      <s-button variant="secondary" (pressed)="setPosition('bottom-center')">Bottom center</s-button>
+      <s-button variant="secondary" (pressed)="setPosition('bottom-right')">Bottom right</s-button>
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">
+      Current position: {{ position() }} -- trigger a toast above to see it.
+    </p>
+    <app-code-block filename="Usage" [code]="positionCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h2 class="text-xl font-bold">Reference</h2>
+    <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">duration</code> -- ms, default
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">5000</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">0</code> = sticky.
+      </li>
+      <li>
+        Width, blur, and per-severity colors are all theme tokens
+        (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">comp.toast.*</code>) -- see
+        <a routerLink="/theming" class="text-primary hover:underline">Theming</a>.
+      </li>
+      <li>
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">show(options)</code> /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">success</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">error</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">warning</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">info</code>
+        / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">dismiss(id)</code> /
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">clear()</code>.
+      </li>
+    </ul>
+  </div>
+
+  <s-toast-container [position]="position()" [stacked]="stacked()" />
+</div>

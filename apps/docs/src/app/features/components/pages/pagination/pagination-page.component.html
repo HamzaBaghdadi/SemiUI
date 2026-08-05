@@ -1,0 +1,39 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Pagination"
+    description="Page-number buttons with prev/next (and optional first/last), collapsing to an ellipsis for large page counts."
+    slug="pagination"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Basic usage</h2>
+    <app-component-demo>
+      <s-pagination [(page)]="page" [pageCount]="5" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Current page: {{ page() }}</p>
+    <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Large page counts (ellipsis)</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Collapses to an ellipsis once the page count exceeds what fits --
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">siblingCount</code> controls how many
+      page numbers show on each side of the current page.
+    </p>
+    <app-component-demo>
+      <s-pagination [(page)]="bigPage" [pageCount]="50" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Current page: {{ bigPage() }}</p>
+    <app-code-block filename="Usage" [code]="ellipsisCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">No first/last buttons</h2>
+    <app-component-demo>
+      <s-pagination [(page)]="page" [pageCount]="5" [showFirstLast]="false" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="noFirstLastCode"></app-code-block>
+  </div>
+</div>

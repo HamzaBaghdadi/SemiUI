@@ -1,0 +1,68 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Textarea"
+    description="A multi-line text input with the same form support as Text Input, plus optional auto-resize and a character counter."
+    slug="textarea"
+  ></app-component-page-header>
+
+  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+    Same form support as
+    <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a>.
+  </p>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">ngModel</h2>
+    <app-component-demo>
+      <s-textarea [(ngModel)]="bio" placeholder="Tell us about yourself" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ bio }}</p>
+    <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Reactive forms + validation + maxLength</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">maxLength</code> shows a character
+      counter and caps native input at that length.
+    </p>
+    <app-component-demo [formGroup]="reactiveForm">
+      <s-textarea
+        formControlName="feedback"
+        placeholder="Your feedback"
+        [maxLength]="280"
+        errorMessage="Feedback is required (max 280 characters)."
+      />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Signal Forms</h2>
+    <app-component-demo>
+      <s-textarea [formField]="profileForm.notes" placeholder="Notes" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().notes }}</p>
+    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Auto-resize</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Grows to fit its content instead of scrolling internally -- keeps working even when the
+      value is set programmatically, not just while typing.
+    </p>
+    <app-component-demo>
+      <s-textarea [(ngModel)]="bio" [autoResize]="true" [rows]="2" placeholder="Grows as you type..." />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="autoResizeCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Disabled</h2>
+    <app-component-demo>
+      <s-textarea [(ngModel)]="bio" [disabled]="disabled()" />
+      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+    </app-component-demo>
+  </div>
+</div>

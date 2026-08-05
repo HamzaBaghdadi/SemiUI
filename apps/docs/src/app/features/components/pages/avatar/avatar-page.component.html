@@ -1,0 +1,50 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Avatar"
+    description="Shows an image, falling back to initials derived from name, falling back to a generic person icon if neither is available. Falls back automatically on image load failure too."
+    slug="avatar"
+  ></app-component-page-header>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Image, initials, and icon fallback</h2>
+    <app-component-demo>
+      <s-avatar src="https://i.pravatar.cc/100?img=12" name="Ada Lovelace" />
+      <s-avatar name="Grace Hopper" />
+      <s-avatar />
+      <s-avatar src="https://broken-url.example/nope.jpg" name="Broken Image" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="fallbackCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Sizes</h2>
+    <app-component-demo>
+      <s-avatar name="Ada Lovelace" size="sm" />
+      <s-avatar name="Ada Lovelace" size="md" />
+      <s-avatar name="Ada Lovelace" size="lg" />
+      <s-avatar name="Ada Lovelace" size="xl" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Shape</h2>
+    <app-component-demo>
+      <s-avatar name="Ada Lovelace" shape="circle" />
+      <s-avatar name="Ada Lovelace" shape="square" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="shapeCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Status</h2>
+    <app-component-demo>
+      <s-avatar name="Ada Lovelace" status="online" />
+      <s-avatar name="Grace Hopper" status="away" />
+      <s-avatar name="Katherine Johnson" status="busy" />
+      <s-avatar name="Margaret Hamilton" status="offline" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="statusCode"></app-code-block>
+  </div>
+</div>
