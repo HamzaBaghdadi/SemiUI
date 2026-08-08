@@ -66,6 +66,20 @@ describe('runInit', () => {
     );
   });
 
+  it('installs the Samsung preset package when --preset samsung is passed', async () => {
+    writeFileSync(join(cwd, 'angular.json'), '{}', 'utf8');
+
+    await runInit(cwd, { preset: 'samsung' });
+
+    const config = JSON.parse(readFileSync(join(cwd, 'components.json'), 'utf8'));
+    expect(config.preset).toBe('samsung');
+    expect(installDependencies).toHaveBeenCalledWith(
+      cwd,
+      'npm',
+      expect.arrayContaining(['@semiui/tokens', '@semiui/theme', '@semiui/primitives', '@semiui/presets-samsung']),
+    );
+  });
+
   it('does not overwrite an existing components.json', async () => {
     writeFileSync(join(cwd, 'angular.json'), '{}', 'utf8');
     writeFileSync(join(cwd, 'components.json'), JSON.stringify({ preset: 'custom' }), 'utf8');

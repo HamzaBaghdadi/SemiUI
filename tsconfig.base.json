@@ -21,6 +21,11 @@
       "@semiui/primitives": ["./libs/primitives/src/index.ts"],
       "@semiui/presets-semi": ["./libs/presets/semi/src/index.ts"],
       "@semiui/presets-aurora": ["./libs/presets/aurora/src/index.ts"],
+      "@semiui/presets-material": ["./libs/presets/material/src/index.ts"],
+      "@semiui/presets-carbon": ["./libs/presets/carbon/src/index.ts"],
+      "@semiui/presets-fluent": ["./libs/presets/fluent/src/index.ts"],
+      "@semiui/presets-cupertino": ["./libs/presets/cupertino/src/index.ts"],
+      "@semiui/presets-samsung": ["./libs/presets/samsung/src/index.ts"],
       "@semiui/primitives/button": ["./libs/primitives/button/src/index.ts"],
       "@semiui/primitives/icon": ["./libs/primitives/icon/src/index.ts"],
       "@semiui/primitives/form-field": [

@@ -72,10 +72,20 @@
   transform: rotate(-90deg);
 }
 
+/* "Prev"/"next" point at whichever physical side actually holds the previous/next page once the
+   whole strip mirrors under RTL (page order reads the other way), not at a fixed compass side. */
+.s-pagination__icon--prev:dir(rtl) {
+  transform: rotate(-90deg);
+}
+
+.s-pagination__icon--next:dir(rtl) {
+  transform: rotate(90deg);
+}
+
 .s-pagination__icon-pair {
   display: inline-flex;
 }
 
 .s-pagination__icon-pair .s-pagination__icon:last-child {
-  margin-left: -0.4em;
+  margin-inline-start: -0.4em;
 }

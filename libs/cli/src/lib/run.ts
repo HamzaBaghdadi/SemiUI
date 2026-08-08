@@ -1,11 +1,13 @@
 import { AddOptions, runAdd } from './commands/add';
-import { InitOptions, PresetName, runInit } from './commands/init';
+import { InitOptions, isPresetName, runInit } from './commands/init';
+
+const PRESET_NAMES = 'semi, aurora, material, carbon, fluent, cupertino, or samsung';
 
 const HELP = `semiui -- CLI for the SemiUI component library
 
 Usage:
   semiui init                     Set up SemiUI in the current Angular project
-  semiui init --preset <name>      Skip the interactive prompt ("semi" or "aurora")
+  semiui init --preset <name>      Skip the interactive prompt (${PRESET_NAMES})
   semiui add <name>                Add a component's source into your project
   semiui add --all                 Add every component in the library
   semiui add <name> --path <dir>   Add into a custom directory for this run (overrides components.json)
@@ -17,8 +19,8 @@ function parseInitArgs(args: string[]): InitOptions {
     const arg = args[i];
     if (arg === '--preset' || arg === '-p') {
       const value = args[++i];
-      if (value === 'semi' || value === 'aurora') {
-        options.preset = value as PresetName;
+      if (isPresetName(value)) {
+        options.preset = value;
       }
     }
   }

@@ -14,7 +14,10 @@
     (blur)="handleBlur()"
   ></textarea>
   @if (maxLength(); as max) {
-    <span class="s-textarea__count">{{ characterCount() }}/{{ max }}</span>
+    <span class="s-textarea__count"
+      ><span>{{ characterCount() }}</span
+      ><span>/</span><span>{{ max }}</span></span
+    >
   }
 </div>
 @if (effectiveInvalid()) {

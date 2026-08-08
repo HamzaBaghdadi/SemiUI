@@ -44,3 +44,10 @@
   color: var(--semiui-comp-breadcrumb-separator-color);
   transform: rotate(-90deg);
 }
+
+/* Rotated the other way under RTL so it still points from the current crumb toward the next one --
+   the trail itself already reorders for free via flexbox, but the chevron's own rotation is a
+   fixed transform that doesn't know about direction on its own. */
+.s-breadcrumb__separator:dir(rtl) {
+  transform: rotate(90deg);
+}

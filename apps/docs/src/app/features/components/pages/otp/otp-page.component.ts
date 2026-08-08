@@ -7,10 +7,6 @@ import { CodeBlockComponent } from '../../shared/code-block/code-block.component
 import { ComponentDemoComponent } from '../../shared/component-demo/component-demo.component';
 import { ComponentPageHeaderComponent } from '../../shared/component-page-header/component-page-header.component';
 
-function exactLength(length: number) {
-  return (control: { value: string }) => (control.value?.length === length ? null : { length: true });
-}
-
 @Component({
   selector: 'app-otp-page',
   imports: [
@@ -32,8 +28,10 @@ export class OtpPageComponent {
   protected disabled = signal(false);
 
   // Reactive forms
+  // s-otp only ever writes back "" or a genuinely complete code (never a partial one), so
+  // Validators.required alone is enough to mean "the code is complete".
   protected reactiveForm = new FormGroup({
-    code: new FormControl('', { nonNullable: true, validators: [Validators.required, exactLength(6)] }),
+    code: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   // Signal Forms
@@ -47,7 +45,7 @@ export class OtpPageComponent {
   protected readonly ngModelCode = `<s-otp [(ngModel)]="code" />`;
 
   protected readonly reactiveFormsCode = `protected reactiveForm = new FormGroup({
-  code: new FormControl('', { nonNullable: true, validators: [Validators.required, exactLength(6)] }),
+  code: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
 });
 
 <div [formGroup]="reactiveForm">

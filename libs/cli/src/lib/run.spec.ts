@@ -2,7 +2,13 @@ import { runAdd } from './commands/add';
 import { runInit } from './commands/init';
 import { run } from './run';
 
-jest.mock('./commands/init');
+// Partial mock -- only runInit is a spy. A full jest.mock() here would also auto-mock
+// isPresetName (used directly by run.ts's own flag parsing) into a stub that always returns
+// undefined, silently breaking --preset for every value including ones that should work.
+jest.mock('./commands/init', () => ({
+  ...jest.requireActual('./commands/init'),
+  runInit: jest.fn(),
+}));
 jest.mock('./commands/add');
 
 describe('run', () => {
@@ -28,6 +34,14 @@ describe('run', () => {
     run(['init', '--preset', 'bogus'], cwd);
     expect(runInit).toHaveBeenCalledWith(cwd, {});
   });
+
+  it.each(['material', 'carbon', 'fluent', 'cupertino', 'samsung'] as const)(
+    'dispatches `init --preset %s` with the preset option',
+    (preset) => {
+      run(['init', '--preset', preset], cwd);
+      expect(runInit).toHaveBeenCalledWith(cwd, { preset });
+    },
+  );
 
   it('dispatches `add <name>` to runAdd with the component name', () => {
     run(['add', 'button'], cwd);

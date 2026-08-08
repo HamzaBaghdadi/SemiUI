@@ -514,35 +514,35 @@ export const Semi: ThemePreset = {
             background:
               'color-mix(in srgb, var(--semiui-color-background) 88%, transparent)',
             foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-border)',
+            border: 'transparent',
             iconColor: 'var(--semiui-color-muted-foreground)',
           },
           success: {
             background:
               'color-mix(in srgb, #22c55e 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
             foreground: 'var(--semiui-color-foreground)',
-            border: '#22c55e',
+            border: 'transparent',
             iconColor: '#22c55e',
           },
           error: {
             background:
               'color-mix(in srgb, var(--semiui-color-destructive) 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
             foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-destructive)',
+            border: 'transparent',
             iconColor: 'var(--semiui-color-destructive)',
           },
           warning: {
             background:
               'color-mix(in srgb, #f59e0b 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
             foreground: 'var(--semiui-color-foreground)',
-            border: '#f59e0b',
+            border: 'transparent',
             iconColor: '#f59e0b',
           },
           info: {
             background:
               'color-mix(in srgb, #3b82f6 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
             foreground: 'var(--semiui-color-foreground)',
-            border: '#3b82f6',
+            border: 'transparent',
             iconColor: '#3b82f6',
           },
         },

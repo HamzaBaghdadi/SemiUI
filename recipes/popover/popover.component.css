@@ -26,9 +26,14 @@
   border: 1px solid var(--semiui-comp-popover-border);
 }
 
+/* left/top read --s-popover-arrow-offset -- a px value the component computes from the anchor's
+   actual position (see PopoverComponent.computePosition) -- rather than a fixed 50%, so the arrow
+   still points at the anchor when `align` isn't 'center' or viewport-edge clamping has shifted
+   the panel off-center from it. The 50% fallback only matters for the first paint, before that
+   value's been computed. */
 .s-popover[data-arrow][data-placement='bottom']::after {
   top: -0.3rem;
-  left: 50%;
+  left: var(--s-popover-arrow-offset, 50%);
   margin-left: -0.25rem;
   border-right: none;
   border-bottom: none;
@@ -37,7 +42,7 @@
 
 .s-popover[data-arrow][data-placement='top']::after {
   bottom: -0.3rem;
-  left: 50%;
+  left: var(--s-popover-arrow-offset, 50%);
   margin-left: -0.25rem;
   border-left: none;
   border-top: none;
@@ -46,7 +51,7 @@
 
 .s-popover[data-arrow][data-placement='left']::after {
   right: -0.3rem;
-  top: 50%;
+  top: var(--s-popover-arrow-offset, 50%);
   margin-top: -0.25rem;
   border-bottom: none;
   border-left: none;
@@ -55,7 +60,7 @@
 
 .s-popover[data-arrow][data-placement='right']::after {
   left: -0.3rem;
-  top: 50%;
+  top: var(--s-popover-arrow-offset, 50%);
   margin-top: -0.25rem;
   border-top: none;
   border-right: none;

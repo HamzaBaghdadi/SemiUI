@@ -16,7 +16,7 @@
       @for (tick of tickPercents(); track $index) {
         <span
           class="s-slider__tick"
-          [style.left.%]="orientation() === 'horizontal' ? tick : null"
+          [style.insetInlineStart.%]="orientation() === 'horizontal' ? tick : null"
           [style.bottom.%]="orientation() === 'vertical' ? tick : null"
         ></span>
       }
@@ -30,7 +30,7 @@
       [attr.aria-valuenow]="clampedValue()"
       [attr.aria-orientation]="orientation()"
       [attr.aria-disabled]="effectiveDisabled() ? 'true' : null"
-      [style.left.%]="orientation() === 'horizontal' ? percent() : null"
+      [style.insetInlineStart.%]="orientation() === 'horizontal' ? percent() : null"
       [style.bottom.%]="orientation() === 'vertical' ? percent() : null"
       (keydown)="onKeydown($event)"
       (focus)="onFocus()"

@@ -29,10 +29,25 @@
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Sides</h2>
+    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">left</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >right</code
+      >
+      pin to that literal physical edge regardless of page direction.
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">start</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >end</code
+      >
+      are the mirroring equivalents, flipping edge under
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>.
+    </div>
     <app-component-demo>
       <s-button (click)="leftDrawer.show()">Left</s-button>
       <s-button (click)="topDrawer.show()">Top</s-button>
       <s-button (click)="bottomDrawer.show()">Bottom</s-button>
+      <s-button variant="secondary" [outlined]="true" (click)="startDrawer.show()">Start</s-button>
+      <s-button variant="secondary" [outlined]="true" (click)="endDrawer.show()">End</s-button>
       <s-drawer #leftDrawer title="Left drawer" side="left">
         <p>Slides in from the left.</p>
       </s-drawer>
@@ -41,6 +56,12 @@
       </s-drawer>
       <s-drawer #bottomDrawer title="Bottom drawer" side="bottom">
         <p>Slides in from the bottom.</p>
+      </s-drawer>
+      <s-drawer #startDrawer title="Start drawer" side="start">
+        <p>Slides in from the reading-start edge.</p>
+      </s-drawer>
+      <s-drawer #endDrawer title="End drawer" side="end">
+        <p>Slides in from the reading-end edge.</p>
       </s-drawer>
     </app-component-demo>
     <app-code-block filename="Usage" [code]="sidesCode"></app-code-block>

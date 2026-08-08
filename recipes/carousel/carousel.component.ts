@@ -2,6 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   DestroyRef,
+  ElementRef,
   TemplateRef,
   booleanAttribute,
   computed,
@@ -28,6 +29,7 @@ import { injectSemiUIIcons } from '@semiui/theme';
 })
 export class CarouselComponent<TItem = unknown> {
   protected readonly icons = injectSemiUIIcons();
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   items = input<readonly TItem[]>([]);
   /** The visible slide's index. Two-way bindable. */
@@ -62,10 +64,19 @@ export class CarouselComponent<TItem = unknown> {
   protected readonly dotPositions = computed(() => Array.from({ length: this.maxIndex() + 1 }, (_, i) => i));
 
   protected readonly trackTransform = computed(() => {
-    const offset = (this.activeIndex() * -100) / this.itemsPerView();
+    // Flex already mirrors the slides themselves under RTL (slide 0 renders at the physical
+    // right, not the left), so revealing a higher index means shifting the track the *other*
+    // physical way -- this sign flip is what keeps that consistent with the drag math below,
+    // which reads raw (unflipped) pointer movement.
+    const sign = this.isRtl() ? 1 : -1;
+    const offset = (sign * this.activeIndex() * 100) / this.itemsPerView();
     const dragOffset = this.isDragging() ? this.dragDeltaX() : 0;
     return `translateX(calc(${offset}% + ${dragOffset}px))`;
   });
+
+  private isRtl(): boolean {
+    return this.elementRef.nativeElement.matches(':dir(rtl)');
+  }
 
   constructor() {
     effect(() => {
@@ -110,6 +121,24 @@ export class CarouselComponent<TItem = unknown> {
     this.activeIndex.set(index);
   }
 
+  /** ArrowLeft/ArrowRight follow the physical direction their name implies, so which slide that
+   * means (previous or next) flips under RTL along with everything else above. */
+  protected onArrowLeft(): void {
+    if (this.isRtl()) {
+      this.next();
+    } else {
+      this.previous();
+    }
+  }
+
+  protected onArrowRight(): void {
+    if (this.isRtl()) {
+      this.previous();
+    } else {
+      this.next();
+    }
+  }
+
   protected onMouseEnter(): void {
     this.isPaused.set(true);
   }
@@ -139,10 +168,22 @@ export class CarouselComponent<TItem = unknown> {
     this.isDragging.set(false);
     const delta = this.dragDeltaX();
     const threshold = 50;
+    // Raw drag delta stays physical (a left drag always visually moves the track left, same as
+    // any scroll gesture), but which slide that now previews flips under RTL along with
+    // trackTransform's sign above -- dragging left reveals the *previous* slide there, not next.
+    const isRtl = this.isRtl();
     if (delta > threshold) {
-      this.previous();
+      if (isRtl) {
+        this.next();
+      } else {
+        this.previous();
+      }
     } else if (delta < -threshold) {
-      this.next();
+      if (isRtl) {
+        this.previous();
+      } else {
+        this.next();
+      }
     }
     this.dragDeltaX.set(0);
   }

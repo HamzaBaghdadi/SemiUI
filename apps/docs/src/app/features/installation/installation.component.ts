@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideCheck,
@@ -41,7 +41,7 @@ type SnippetId = keyof typeof SNIPPETS;
   selector: 'app-installation',
   templateUrl: './installation.component.html',
   styleUrls: ['./installation.component.css'],
-  imports: [NgIcon, ButtonComponent, CheckboxComponent],
+  imports: [NgIcon, ButtonComponent, CheckboxComponent, RouterLink],
   providers: [
     provideIcons({ lucideCheck, lucideCopy, lucideClipboardCheck, lucideTerminal }),
   ],

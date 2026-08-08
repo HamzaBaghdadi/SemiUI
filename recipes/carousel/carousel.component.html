@@ -5,8 +5,8 @@
   aria-roledescription="carousel"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
-  (keydown.arrowleft)="previous()"
-  (keydown.arrowright)="next()"
+  (keydown.arrowleft)="onArrowLeft()"
+  (keydown.arrowright)="onArrowRight()"
 >
   <div class="s-carousel__body">
     @if (showArrows() && arrowsOutside() && items().length > 1) {

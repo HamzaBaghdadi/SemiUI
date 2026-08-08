@@ -36,7 +36,7 @@
 :host([data-orientation='vertical'])::before,
 :host([data-orientation='vertical'])::after {
   border-top: none;
-  border-left: 1px solid var(--semiui-color-border);
+  border-inline-start: 1px solid var(--semiui-color-border);
 }
 
 :host([data-orientation='vertical']) .s-divider__label:not(:empty) {

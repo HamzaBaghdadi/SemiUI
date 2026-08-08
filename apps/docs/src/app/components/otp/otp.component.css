@@ -1,6 +1,11 @@
 .s-otp {
   display: flex;
   gap: var(--semiui-spacing-sm);
+  /* Deliberately not mirrored: a code's digit order is a fixed left-to-right sequence regardless
+     of page direction (same reason phone/card numbers stay LTR inside RTL text), and ArrowLeft/
+     ArrowRight in otp.component.ts are hardcoded to index -1/+1 -- letting the boxes flip under
+     dir="rtl" would point the arrow keys at the visually wrong neighbor. */
+  direction: ltr;
 }
 
 .s-otp__box {

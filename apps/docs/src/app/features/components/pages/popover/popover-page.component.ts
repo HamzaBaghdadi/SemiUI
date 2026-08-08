@@ -29,4 +29,6 @@ export class PopoverPageComponent {
 <s-popover #po placement="right">...</s-popover>`;
 
   protected readonly appendToCode = `<s-popover #po appendTo="body">...</s-popover>`;
+
+  protected readonly alignCode = `<s-popover #po align="start">...</s-popover>  <!-- "start" | "center" (default) | "end" -->`;
 }

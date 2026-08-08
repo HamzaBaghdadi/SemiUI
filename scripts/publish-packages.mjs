@@ -21,8 +21,13 @@ const PACKAGES = [
   { project: 'tokens', dir: 'libs/tokens', dist: 'dist/libs/tokens' },
   { project: 'theme', dir: 'libs/theme', dist: 'dist/libs/theme' },
   { project: 'primitives', dir: 'libs/primitives', dist: 'dist/libs/primitives' },
-  { project: 'presets-aurora', dir: 'libs/presets/aurora', dist: 'dist/libs/presets/aurora' },
   { project: 'presets-semi', dir: 'libs/presets/semi', dist: 'dist/libs/presets/semi' },
+  { project: 'presets-aurora', dir: 'libs/presets/aurora', dist: 'dist/libs/presets/aurora' },
+  { project: 'presets-carbon', dir: 'libs/presets/carbon', dist: 'dist/libs/presets/carbon' },
+  { project: 'presets-cupertino', dir: 'libs/presets/cupertino', dist: 'dist/libs/presets/cupertino' },
+  { project: 'presets-fluent', dir: 'libs/presets/fluent', dist: 'dist/libs/presets/fluent' },
+  { project: 'presets-material', dir: 'libs/presets/material', dist: 'dist/libs/presets/material' },
+  { project: 'presets-samsung', dir: 'libs/presets/samsung', dist: 'dist/libs/presets/samsung' },
   { project: 'cli', dir: 'libs/cli', dist: 'dist/libs/cli' },
 ];
 

@@ -38,7 +38,7 @@
      Chips render via <s-tag> (see multiselect.component.html); keep this in sync with
      tag.component.css if that component's own box model ever changes. */
   min-height: calc(var(--semiui-comp-tag-font-size) * 1.4 + 2 * var(--semiui-comp-tag-padding-y) + 2px);
-  text-align: left;
+  text-align: start;
 }
 
 .s-multiselect__placeholder {
@@ -150,6 +150,7 @@
   transform-origin: bottom;
 }
 
+/* Deliberately physical -- see the equivalent rule in select.component.css. */
 .s-multiselect__panel[data-appended] {
   position: fixed;
   right: auto;
@@ -263,7 +264,9 @@
 .s-multiselect__filter-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0.375rem 1.75rem 0.375rem var(--semiui-spacing-sm);
+  padding-block: 0.375rem;
+  padding-inline-start: var(--semiui-spacing-sm);
+  padding-inline-end: 1.75rem;
   border: 1px solid var(--semiui-comp-select-border);
   border-radius: var(--semiui-radius-sm);
   font-size: var(--semiui-comp-select-font-size);
@@ -284,7 +287,7 @@
 
 .s-multiselect__filter-icon {
   position: absolute;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
   width: 0.875em;
   height: 0.875em;
   color: var(--semiui-comp-select-placeholder-foreground);

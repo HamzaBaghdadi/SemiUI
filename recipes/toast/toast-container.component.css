@@ -6,6 +6,12 @@
   inset: var(--semiui-spacing-lg);
 }
 
+/* top-right/top-left/bottom-right/bottom-left pin to that literal physical corner regardless of
+   direction -- for a viewport-anchored overlay like a toast stack, "always the same screen
+   corner" is at least as common a need as "follows reading direction," so this library doesn't
+   pick one as the only option. top-start/top-end/bottom-start/bottom-end below are the
+   mirroring equivalents: same corner, but inset-inline-* so they flip under dir="rtl". Pick
+   whichever matches what you want; both are first-class, not one a fallback for the other. */
 :host([data-position='top-right']) {
   bottom: auto;
   left: auto;
@@ -24,6 +30,26 @@
 :host([data-position='bottom-left']) {
   top: auto;
   right: auto;
+}
+
+:host([data-position='top-end']) {
+  bottom: auto;
+  inset-inline-start: auto;
+}
+
+:host([data-position='top-start']) {
+  bottom: auto;
+  inset-inline-end: auto;
+}
+
+:host([data-position='bottom-end']) {
+  top: auto;
+  inset-inline-start: auto;
+}
+
+:host([data-position='bottom-start']) {
+  top: auto;
+  inset-inline-end: auto;
 }
 
 :host([data-position='top-center']) {
@@ -270,6 +296,25 @@
   animation-name: s-toast-enter-left;
 }
 
+/* -start/-end positions mirror under dir="rtl" (see the position rules above), so which physical
+   side they slide in from mirrors too. -left/-right above don't get a :dir(rtl) override --
+   those stay pinned to their literal corner, so the slide direction stays fixed with it. */
+:host([data-position$='end']) .s-toast--enter {
+  animation-name: s-toast-enter-right;
+}
+
+:host([data-position$='end']):dir(rtl) .s-toast--enter {
+  animation-name: s-toast-enter-left;
+}
+
+:host([data-position$='start']) .s-toast--enter {
+  animation-name: s-toast-enter-left;
+}
+
+:host([data-position$='start']):dir(rtl) .s-toast--enter {
+  animation-name: s-toast-enter-right;
+}
+
 :host([data-position='top-center']) .s-toast--enter {
   animation-name: s-toast-enter-top;
 }
@@ -341,6 +386,22 @@
 
 :host([data-position$='left']) .s-toast--leave {
   animation-name: s-toast-leave-left;
+}
+
+:host([data-position$='end']) .s-toast--leave {
+  animation-name: s-toast-leave-right;
+}
+
+:host([data-position$='end']):dir(rtl) .s-toast--leave {
+  animation-name: s-toast-leave-left;
+}
+
+:host([data-position$='start']) .s-toast--leave {
+  animation-name: s-toast-leave-left;
+}
+
+:host([data-position$='start']):dir(rtl) .s-toast--leave {
+  animation-name: s-toast-leave-right;
 }
 
 :host([data-position='top-center']) .s-toast--leave {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, booleanAttribute, computed, input, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, booleanAttribute, computed, inject, input, signal, viewChild } from '@angular/core';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
@@ -24,6 +24,7 @@ export type SliderOrientation = 'horizontal' | 'vertical';
   },
 })
 export class SliderComponent extends BaseFormFieldControl<number | null> {
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly track = viewChild<ElementRef<HTMLDivElement>>('track');
 
   min = input(0);
@@ -96,7 +97,18 @@ export class SliderComponent extends BaseFormFieldControl<number | null> {
     }
     const rect = trackEl.getBoundingClientRect();
     const vertical = this.orientation() === 'vertical';
-    let fraction = vertical ? 1 - (event.clientY - rect.top) / rect.height : (event.clientX - rect.left) / rect.width;
+    let fraction: number;
+    if (vertical) {
+      fraction = 1 - (event.clientY - rect.top) / rect.height;
+    } else {
+      fraction = (event.clientX - rect.left) / rect.width;
+      // The thumb/fill now render from inset-inline-start (0% sits at the physical right edge
+      // under RTL, matching native <input type="range">), so a click's physical-left-relative
+      // fraction has to invert to land on the same value that position now represents.
+      if (trackEl.matches(':dir(rtl)')) {
+        fraction = 1 - fraction;
+      }
+    }
     fraction = Math.min(1, Math.max(0, fraction));
     const raw = this.min() + fraction * (this.max() - this.min());
     this.value.set(this.clamp(raw));
@@ -109,13 +121,21 @@ export class SliderComponent extends BaseFormFieldControl<number | null> {
     const step = this.step();
     const bigStep = step * 10;
     const current = this.clampedValue();
+    // Only Left/Right flip -- they move the thumb toward whichever value now sits at that
+    // physical side under RTL (min moves to the right, matching native <input type="range">).
+    // Up/Down stay fixed: "up" always means "more", independent of horizontal text direction.
+    const isRtl = this.orientation() === 'horizontal' && this.elementRef.nativeElement.matches(':dir(rtl)');
     let next: number | null = null;
     switch (event.key) {
       case 'ArrowRight':
+        next = isRtl ? current - step : current + step;
+        break;
+      case 'ArrowLeft':
+        next = isRtl ? current + step : current - step;
+        break;
       case 'ArrowUp':
         next = current + step;
         break;
-      case 'ArrowLeft':
       case 'ArrowDown':
         next = current - step;
         break;

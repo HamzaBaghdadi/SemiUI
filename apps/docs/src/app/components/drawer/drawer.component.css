@@ -25,7 +25,9 @@
 }
 
 .s-drawer__panel[data-side='left'],
-.s-drawer__panel[data-side='right'] {
+.s-drawer__panel[data-side='right'],
+.s-drawer__panel[data-side='start'],
+.s-drawer__panel[data-side='end'] {
   top: 0;
   bottom: 0;
   width: 100%;
@@ -33,17 +35,23 @@
 }
 
 .s-drawer__panel[data-side='left'][data-size='sm'],
-.s-drawer__panel[data-side='right'][data-size='sm'] {
+.s-drawer__panel[data-side='right'][data-size='sm'],
+.s-drawer__panel[data-side='start'][data-size='sm'],
+.s-drawer__panel[data-side='end'][data-size='sm'] {
   max-width: var(--semiui-comp-dialog-widths-sm);
 }
 
 .s-drawer__panel[data-side='left'][data-size='lg'],
-.s-drawer__panel[data-side='right'][data-size='lg'] {
+.s-drawer__panel[data-side='right'][data-size='lg'],
+.s-drawer__panel[data-side='start'][data-size='lg'],
+.s-drawer__panel[data-side='end'][data-size='lg'] {
   max-width: var(--semiui-comp-dialog-widths-lg);
 }
 
 .s-drawer__panel[data-side='left'][data-size='full'],
-.s-drawer__panel[data-side='right'][data-size='full'] {
+.s-drawer__panel[data-side='right'][data-size='full'],
+.s-drawer__panel[data-side='start'][data-size='full'],
+.s-drawer__panel[data-side='end'][data-size='full'] {
   max-width: var(--semiui-comp-dialog-widths-full);
 }
 
@@ -57,6 +65,20 @@
   right: 0;
   border-left-width: 1px;
   border-right-width: 0;
+}
+
+/* 'start'/'end' -- unlike 'left'/'right' above -- are meant to flip which physical edge they pin
+   to under RTL, so these use logical properties instead of a literal side. */
+.s-drawer__panel[data-side='start'] {
+  inset-inline-start: 0;
+  border-inline-end-width: 1px;
+  border-inline-start-width: 0;
+}
+
+.s-drawer__panel[data-side='end'] {
+  inset-inline-end: 0;
+  border-inline-start-width: 1px;
+  border-inline-end-width: 0;
 }
 
 .s-drawer__panel[data-side='top'],
@@ -239,6 +261,25 @@
   animation: s-drawer-slide-in-bottom 0.2s ease-out;
 }
 
+/* 'start' pins to the physical left in LTR (same as 'left') but the physical right in RTL, and
+   vice versa for 'end' -- so unlike the fixed sides above, which side's keyframe applies here
+   depends on direction too. */
+.s-drawer__panel[data-side='start'].s-drawer__panel--enter {
+  animation: s-drawer-slide-in-left 0.2s ease-out;
+}
+
+.s-drawer__panel[data-side='start']:dir(rtl).s-drawer__panel--enter {
+  animation-name: s-drawer-slide-in-right;
+}
+
+.s-drawer__panel[data-side='end'].s-drawer__panel--enter {
+  animation: s-drawer-slide-in-right 0.2s ease-out;
+}
+
+.s-drawer__panel[data-side='end']:dir(rtl).s-drawer__panel--enter {
+  animation-name: s-drawer-slide-in-left;
+}
+
 .s-drawer__panel[data-side='left'].s-drawer__panel--leave {
   animation: s-drawer-slide-in-left 0.18s ease-in reverse forwards;
 }
@@ -253,4 +294,20 @@
 
 .s-drawer__panel[data-side='bottom'].s-drawer__panel--leave {
   animation: s-drawer-slide-in-bottom 0.18s ease-in reverse forwards;
+}
+
+.s-drawer__panel[data-side='start'].s-drawer__panel--leave {
+  animation: s-drawer-slide-in-left 0.18s ease-in reverse forwards;
+}
+
+.s-drawer__panel[data-side='start']:dir(rtl).s-drawer__panel--leave {
+  animation-name: s-drawer-slide-in-right;
+}
+
+.s-drawer__panel[data-side='end'].s-drawer__panel--leave {
+  animation: s-drawer-slide-in-right 0.18s ease-in reverse forwards;
+}
+
+.s-drawer__panel[data-side='end']:dir(rtl).s-drawer__panel--leave {
+  animation-name: s-drawer-slide-in-left;
 }

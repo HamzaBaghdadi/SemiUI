@@ -30,7 +30,7 @@ export class DrawerPageComponent {
   </ng-template>
 </s-drawer>`;
 
-  protected readonly sidesCode = `<s-drawer #dr side="left">...</s-drawer>  <!-- "left" | "right" (default) | "top" | "bottom" -->`;
+  protected readonly sidesCode = `<s-drawer #dr side="left">...</s-drawer>  <!-- "left" | "right" (default) | "top" | "bottom" | "start" | "end" -->`;
 
   protected readonly sizesCode = `<s-drawer #dr size="sm">...</s-drawer>  <!-- "sm" | "md" (default) | "lg" | "full" -->`;
 

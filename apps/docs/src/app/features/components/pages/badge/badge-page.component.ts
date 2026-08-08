@@ -25,7 +25,16 @@ import { ComponentPageHeaderComponent } from '../../shared/component-page-header
 })
 export class BadgePageComponent {
   protected count = signal(3);
-  protected positions: BadgePosition[] = ['top-right', 'top-left', 'bottom-right', 'bottom-left'];
+  protected positions: BadgePosition[] = [
+    'top-right',
+    'top-left',
+    'bottom-right',
+    'bottom-left',
+    'top-start',
+    'top-end',
+    'bottom-start',
+    'bottom-end',
+  ];
   protected starIcon: IconRef = { type: 'ng-icon', name: 'lucideStar' };
 
   protected readonly textIconCode = `<s-badge label="NEW" variant="info" [standalone]="true" />
@@ -39,7 +48,9 @@ export class BadgePageComponent {
 
   protected readonly dotCode = `<s-badge [dot]="true" variant="destructive">...</s-badge>`;
 
-  protected readonly positionCode = `<s-badge [count]="1" position="bottom-left" variant="secondary">...</s-badge>`;
+  protected readonly positionCode = `<s-badge [count]="1" position="bottom-left" variant="secondary">...</s-badge>
+<!-- "top-right" | "top-left" | "bottom-right" | "bottom-left" (physical, pinned)
+     | "top-start" | "top-end" | "bottom-start" | "bottom-end" (mirror under RTL) -->`;
 
   protected readonly severityCode = `<s-badge [count]="1" variant="success" [standalone]="true" />`;
 

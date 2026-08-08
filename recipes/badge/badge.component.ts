@@ -2,7 +2,19 @@ import { Component, booleanAttribute, computed, input } from '@angular/core';
 import { SIconComponent } from '@semiui/primitives/icon';
 import { IconRef, TagVariant } from '@semiui/tokens';
 
-export type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+/** 'top-right'/'top-left'/'bottom-right'/'bottom-left' pin to that literal physical corner of the
+ * wrapped content regardless of direction. 'top-start'/'top-end'/'bottom-start'/'bottom-end' are
+ * the mirroring equivalents -- start/end follow reading direction, flipping which physical corner
+ * they land in under RTL. Neither is a fallback for the other; pick whichever this badge should do. */
+export type BadgePosition =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end';
 
 /**
  * A small notification indicator. Its own content is one of, in priority order: `dot` (nothing,

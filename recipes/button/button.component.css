@@ -123,12 +123,19 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-primary-border) 70%, black);
 }
 
+/* Secondary's background/border tokens are a muted neutral wash in every preset -- some even
+   reuse the page background itself -- meant to look understated as a *solid fill*, not to double
+   as legible text/border color. Every other variant's --s-button-accent below just points at its
+   own (vivid, already-legible) background, but doing that here made outlined/text secondary
+   buttons render as near-invisible pale-on-page text. --semiui-color-muted-foreground is the
+   token every preset actually designs to pair with "muted" as readable ink, so this variant
+   points there instead of following the same background-reuse pattern as the others. */
 :host([data-variant='secondary']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-secondary-background);
   color: var(--semiui-comp-button-variants-secondary-foreground);
   border-color: var(--semiui-comp-button-variants-secondary-border);
-  --s-button-accent: var(--semiui-comp-button-variants-secondary-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-secondary-border);
+  --s-button-accent: var(--semiui-color-muted-foreground);
+  --s-button-accent-border: var(--semiui-color-muted-foreground);
 }
 :host([data-variant='secondary']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-background) 85%, black);
@@ -256,8 +263,7 @@
   background: var(--semiui-comp-button-variants-link-background);
   color: var(--semiui-comp-button-variants-link-foreground);
   border-color: var(--semiui-comp-button-variants-link-border);
-  padding-left: 0;
-  padding-right: 0;
+  padding-inline: 0;
   text-underline-offset: 3px;
 }
 :host([data-variant='link']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
@@ -267,7 +273,16 @@
 /* outlined/text modifiers -- combine with any variant above (e.g. data-variant="success"
    data-outlined), reading whichever --s-button-accent(-border) that variant block set. Placed
    after every variant block so they win the source-order tiebreak (same specificity: one host
-   attribute selector + one descendant). */
+   attribute selector + one descendant) -- but that tiebreak only applies at rest. On :hover/:active
+   the *variant's own* hover/active rule (e.g. :host([data-variant='secondary']) .s-button:hover)
+   has strictly higher specificity (it has an extra :hover/:active pseudo-class these base rules
+   don't), so it wins outright and its border-color leaks through -- the raw solid-variant border
+   token, not the accent this modifier is supposed to use. Harmless-looking for vivid variants
+   (a vivid border darkened by color-mix still reads as "a border"), but for secondary specifically
+   that raw token is the same pale wash the accent override above exists to avoid, so the border
+   visually vanished on hover/active. Every hover/active rule below now sets border-color itself,
+   so it has equal specificity to the variant's rule and wins via the same source-order tiebreak
+   instead of leaking through. */
 :host([data-outlined]) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: transparent;
   color: var(--s-button-accent);
@@ -275,9 +290,11 @@
 }
 :host([data-outlined]) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--s-button-accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--s-button-accent-border, var(--s-button-accent)) 85%, black);
 }
 :host([data-outlined]) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--s-button-accent) 20%, transparent);
+  border-color: color-mix(in srgb, var(--s-button-accent-border, var(--s-button-accent)) 70%, black);
 }
 
 :host([data-text]) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
@@ -287,7 +304,9 @@
 }
 :host([data-text]) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--s-button-accent) 12%, transparent);
+  border-color: transparent;
 }
 :host([data-text]) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--s-button-accent) 20%, transparent);
+  border-color: transparent;
 }

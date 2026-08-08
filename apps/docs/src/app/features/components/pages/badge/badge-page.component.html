@@ -62,6 +62,19 @@
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Position and variants</h2>
+    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-right</code>,
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-left</code>,
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-right</code>, and
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-left</code> pin to that
+      literal corner regardless of page direction.
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-start</code>,
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-end</code>,
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-start</code>, and
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-end</code> are the
+      mirroring equivalents -- they follow reading direction and flip corner under
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>.
+    </div>
     <app-component-demo>
       @for (position of positions; track position) {
         <s-badge [count]="1" [position]="position" variant="primary">

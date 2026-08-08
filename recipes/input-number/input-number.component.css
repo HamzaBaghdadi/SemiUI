@@ -34,14 +34,14 @@
 .s-input-number__affix {
   display: inline-flex;
   align-items: center;
-  padding: 0 0 0 var(--semiui-comp-input-padding-x);
+  padding-inline-start: var(--semiui-comp-input-padding-x);
   font-size: var(--semiui-comp-input-font-size);
   font-family: var(--semiui-typography-font-family);
   color: var(--semiui-comp-input-placeholder-foreground);
 }
 
 .s-input-number__affix + .s-input-number__input {
-  padding-left: var(--semiui-spacing-xs);
+  padding-inline-start: var(--semiui-spacing-xs);
 }
 
 .s-input-number__input {
@@ -55,13 +55,12 @@
   font-size: var(--semiui-comp-input-font-size);
   font-family: var(--semiui-typography-font-family);
   color: var(--semiui-comp-input-foreground);
-  text-align: left;
+  text-align: start;
 }
 
 .s-input-number[data-buttons='horizontal'] .s-input-number__input {
   text-align: center;
-  padding-left: var(--semiui-spacing-xs);
-  padding-right: var(--semiui-spacing-xs);
+  padding-inline: var(--semiui-spacing-xs);
 }
 
 .s-input-number__input::placeholder {
@@ -79,7 +78,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  border-left: 1px solid var(--semiui-comp-input-border);
+  border-inline-start: 1px solid var(--semiui-comp-input-border);
   background: color-mix(in srgb, var(--semiui-color-muted) 45%, transparent);
 }
 
@@ -142,11 +141,11 @@
 }
 
 .s-input-number__step--decrement {
-  border-right: 1px solid var(--semiui-comp-input-border);
+  border-inline-end: 1px solid var(--semiui-comp-input-border);
 }
 
 .s-input-number__step--increment {
-  border-left: 1px solid var(--semiui-comp-input-border);
+  border-inline-start: 1px solid var(--semiui-comp-input-border);
 }
 
 .s-input-number__step:hover:not(:disabled) {
