@@ -36,11 +36,26 @@
       <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">right</code>, and flips top/bottom
       automatically when there isn't room.
     </p>
+    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">left</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >right</code
+      >
+      pin to that literal physical side regardless of page direction.
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">start</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >end</code
+      >
+      are the mirroring equivalents, flipping side under
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>.
+    </div>
     <app-component-demo>
       <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Above'" tooltipPlacement="top">Top</button>
       <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'Below'" tooltipPlacement="bottom">Bottom</button>
       <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'To the left'" tooltipPlacement="left">Left</button>
       <button type="button" class="px-3 py-1.5 rounded-md border border-border text-sm hover:bg-muted" [sTooltip]="'To the right'" tooltipPlacement="right">Right</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-dashed border-border text-sm hover:bg-muted" [sTooltip]="'Reading-start side'" tooltipPlacement="start">Start</button>
+      <button type="button" class="px-3 py-1.5 rounded-md border border-dashed border-border text-sm hover:bg-muted" [sTooltip]="'Reading-end side'" tooltipPlacement="end">End</button>
     </app-component-demo>
   </div>
 

@@ -37,6 +37,21 @@
   }
 }
 
+@keyframes s-skeleton-shimmer-rtl {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Purely cosmetic, but sweeping the other way under RTL keeps it reading with the surrounding
+   content's flow instead of visibly running against it. */
+.s-skeleton__block--animated:dir(rtl)::after {
+  animation-name: s-skeleton-shimmer-rtl;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .s-skeleton__block--animated::after {
     animation: none;

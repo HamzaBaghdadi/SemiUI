@@ -12,6 +12,45 @@
     </span>
   </div>
 
+  <!-- Built-in presets -->
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Catalog</span
+      >
+      <h2 class="text-2xl font-extrabold">Built-in presets</h2>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >Seven ready-made presets ship with the CLI. Pick one during
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui init</code>, or skip the
+        interactive prompt with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--preset &lt;name&gt;</code> --
+        the command below is the exact one for each. Try the theme picker in the top bar to see
+        every one of them live on this page.
+      </span>
+
+      <div class="flex flex-col gap-3 mt-4">
+        @for (preset of presets; track preset.key) {
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-lg border border-border">
+            <div class="flex flex-col gap-1 sm:flex-1">
+              <span class="font-bold">{{ preset.label }}</span>
+              <span class="text-muted-foreground text-xs">{{ preset.description }}</span>
+            </div>
+            <button
+              type="button"
+              class="flex items-center gap-2 px-3 py-2 rounded-md bg-slate-900 text-white text-xs font-mono shrink-0 cursor-pointer hover:bg-slate-800"
+              (click)="copyPresetCommand(preset.key)"
+            >
+              <ng-icon
+                [name]="isCopied('preset:' + preset.key) ? 'lucideClipboardCheck' : 'lucideCopy'"
+              ></ng-icon>
+              {{ isCopied('preset:' + preset.key) ? 'Copied' : initCommand(preset.key) }}
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Shape -->
   <section class="border-t border-border">
     <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">

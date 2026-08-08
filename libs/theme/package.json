@@ -1,6 +1,6 @@
 {
   "name": "@semiui/theme",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "license": "Apache-2.0",
   "publishConfig": { "access": "public" },
   "peerDependencies": {
@@ -8,7 +8,7 @@
     "@angular/core": "^22.0.0"
   },
   "dependencies": {
-    "@semiui/tokens": "workspace:^0.2.0"
+    "@semiui/tokens": "workspace:^0.5.0"
   },
   "sideEffects": false
 }

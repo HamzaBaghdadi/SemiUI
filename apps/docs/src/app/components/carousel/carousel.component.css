@@ -72,11 +72,11 @@
 }
 
 .s-carousel__arrow--prev {
-  left: var(--semiui-spacing-sm);
+  inset-inline-start: var(--semiui-spacing-sm);
 }
 
 .s-carousel__arrow--next {
-  right: var(--semiui-spacing-sm);
+  inset-inline-end: var(--semiui-spacing-sm);
 }
 
 /* Outside arrows flank the viewport as normal flex siblings instead of floating on top of the
@@ -93,6 +93,14 @@
 
 .s-carousel__arrow-icon--next {
   transform: rotate(-90deg);
+}
+
+.s-carousel__arrow-icon--prev:dir(rtl) {
+  transform: rotate(-90deg);
+}
+
+.s-carousel__arrow-icon--next:dir(rtl) {
+  transform: rotate(90deg);
 }
 
 .s-carousel__dots {

@@ -14,17 +14,17 @@ npx @semiui/cli init
 npx semiui add button
 ```
 
-`init` installs the theming engine (`@semiui/tokens`, `@semiui/theme`, `@semiui/primitives`, `@semiui/presets-aurora`) and prints the two lines you add to `app.config.ts`:
+`init` installs the theming engine (`@semiui/tokens`, `@semiui/theme`, `@semiui/primitives`, `@semiui/presets-semi`) and prints the two lines you add to `app.config.ts`:
 
 ```ts
 import { provideSemiUI } from '@semiui/theme';
-import { Aurora, provideAuroraIcons } from '@semiui/presets-aurora';
+import { Semi, provideSemiIcons } from '@semiui/presets-semi';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     // ...your existing providers
-    provideSemiUI({ preset: Aurora }),
-    provideAuroraIcons(),
+    provideSemiUI({ preset: Semi }),
+    provideSemiIcons(),
   ],
 };
 ```
@@ -40,7 +40,7 @@ Light/dark mode comes free — inject `ColorModeService` from `@semiui/theme` an
 | [`@semiui/tokens`](libs/tokens) | Framework-agnostic design token contract + the `flattenTokensToCssVars` utility. No Angular dependency. |
 | [`@semiui/theme`](libs/theme) | `provideSemiUI()`, `ColorModeService`, and the CSS-stylesheet injection that makes light/dark mode work. |
 | [`@semiui/primitives`](libs/primitives) | Unstyled behavior: `ButtonDirective`, `InputDirective`, `SIconComponent`, `BaseFormFieldControl` (the shared `ControlValueAccessor` + Angular Signal Forms plumbing every form component builds on). |
-| [`@semiui/presets-aurora`](libs/presets/aurora) | The default preset: a full light + dark color palette and component tokens. |
+| [`@semiui/presets-semi`](libs/presets/semi) | The default preset: a full light + dark color palette and component tokens. |
 | [`@semiui/cli`](libs/cli) | The CLI, installs as the `semiui` command (`init` / `add`). |
 
 Recipes — the actual styled components (`Button`, `TextInput`, `Password`) — live in [`recipes/`](recipes) and are deliberately **not** published to npm; the CLI copies them into consumer projects instead.
@@ -48,7 +48,7 @@ Recipes — the actual styled components (`Button`, `TextInput`, `Password`) —
 ## Repo layout
 
 ```
-libs/            Publishable packages (tokens, theme, primitives, presets/aurora, cli)
+libs/            Publishable packages (tokens, theme, primitives, presets/semi, cli)
 recipes/         Component source the CLI copies into consumer projects
 apps/example/    Local proving ground -- every recipe change gets exercised here first
 apps/docs/       Docs site (plain Angular, no SSR)

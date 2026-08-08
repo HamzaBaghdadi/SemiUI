@@ -4,19 +4,28 @@ import { createInterface } from 'node:readline';
 import { DEFAULT_CONFIG, configExists, readConfig, writeConfig } from '../components-config';
 import { detectPackageManager, installDependencies } from '../package-manager';
 
-export type PresetName = 'semi' | 'aurora';
+export type PresetName = 'semi' | 'aurora' | 'material' | 'carbon' | 'fluent' | 'cupertino' | 'samsung';
 
 const PRESETS: Record<PresetName, { packageName: string; exportName: string; iconsFn: string }> = {
   semi: { packageName: '@semiui/presets-semi', exportName: 'Semi', iconsFn: 'provideSemiIcons' },
   aurora: { packageName: '@semiui/presets-aurora', exportName: 'Aurora', iconsFn: 'provideAuroraIcons' },
+  material: { packageName: '@semiui/presets-material', exportName: 'Material', iconsFn: 'provideMaterialIcons' },
+  carbon: { packageName: '@semiui/presets-carbon', exportName: 'Carbon', iconsFn: 'provideCarbonIcons' },
+  fluent: { packageName: '@semiui/presets-fluent', exportName: 'Fluent', iconsFn: 'provideFluentIcons' },
+  cupertino: { packageName: '@semiui/presets-cupertino', exportName: 'Cupertino', iconsFn: 'provideCupertinoIcons' },
+  samsung: { packageName: '@semiui/presets-samsung', exportName: 'Samsung', iconsFn: 'provideSamsungIcons' },
 };
+
+/** Order shown in the interactive prompt below -- also doubles as the number-to-name lookup for
+ * the answer, so the two can never drift out of sync with each other. */
+const PRESET_PROMPT_ORDER: readonly PresetName[] = ['semi', 'aurora', 'material', 'carbon', 'fluent', 'cupertino', 'samsung'];
 
 export interface InitOptions {
   preset?: PresetName;
 }
 
-function isPresetName(value: string | undefined): value is PresetName {
-  return value === 'semi' || value === 'aurora';
+export function isPresetName(value: string | undefined): value is PresetName {
+  return !!value && value in PRESETS;
 }
 
 /** Prompts on a real TTY; defaults to "semi" for non-interactive runs (CI, piped input, tests). */
@@ -27,14 +36,20 @@ async function promptForPreset(): Promise<PresetName> {
 
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   console.log('\nWhich preset would you like to start from?');
-  console.log('  1) Semi (default)');
-  console.log('  2) Aurora');
+  PRESET_PROMPT_ORDER.forEach((name, i) => {
+    const label = `${PRESETS[name].exportName}${name === 'semi' ? ' (default)' : ''}`;
+    console.log(`  ${i + 1}) ${label}`);
+  });
 
   const answer = await new Promise<string>((resolve) => rl.question('> ', resolve));
   rl.close();
 
   const trimmed = answer.trim().toLowerCase();
-  return trimmed === '2' || trimmed === 'aurora' ? 'aurora' : 'semi';
+  const byNumber = PRESET_PROMPT_ORDER[Number(trimmed) - 1];
+  if (byNumber) {
+    return byNumber;
+  }
+  return isPresetName(trimmed) ? trimmed : 'semi';
 }
 
 export async function runInit(cwd: string, options: InitOptions = {}): Promise<void> {

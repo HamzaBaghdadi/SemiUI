@@ -36,7 +36,7 @@
   font: inherit;
   font-size: var(--semiui-comp-accordion-font-size);
   font-weight: var(--semiui-comp-accordion-font-weight);
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: background-color 0.15s ease;
 }

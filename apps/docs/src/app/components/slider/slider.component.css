@@ -41,7 +41,7 @@
 
 .s-slider__fill {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   bottom: 0;
   height: 100%;
   border-radius: inherit;
@@ -63,6 +63,14 @@
   transform: translate(-50%, -50%);
 }
 
+/* The tick's inset-inline-start resolves to the physical `right` under RTL, so the anchor edge
+   this transform is meant to recenter on flips too -- shifting -50% (left) would double up with
+   that flip instead of canceling it. Scoped to horizontal only: vertical mode's `left: 50%` below
+   is a plain physical centering value, not direction-sensitive. */
+:host(:not([data-orientation='vertical'])) .s-slider__tick:dir(rtl) {
+  transform: translate(50%, -50%);
+}
+
 :host([data-orientation='vertical']) .s-slider__tick {
   top: auto;
   left: 50%;
@@ -72,7 +80,7 @@
 .s-slider__thumb {
   position: absolute;
   top: 50%;
-  left: 0%;
+  inset-inline-start: 0%;
   box-sizing: border-box;
   width: var(--semiui-comp-slider-thumb-size);
   height: var(--semiui-comp-slider-thumb-size);
@@ -84,11 +92,23 @@
   box-shadow: var(--semiui-comp-select-panel-shadow);
 }
 
+/* Same fix as the tick above, for the same reason: inset-inline-start resolves to physical
+   `right` under RTL, so the recentering shift needs to flip from -50% to +50% to match. */
+:host(:not([data-orientation='vertical'])) .s-slider__thumb:dir(rtl) {
+  transform: translate(50%, -50%);
+}
+
 :host([data-orientation='vertical']) .s-slider__thumb {
   top: auto;
   left: 50%;
   bottom: 0%;
   transform: translate(-50%, 50%);
+}
+
+:host([data-orientation='vertical']) .s-slider__thumb:dir(rtl) {
+  right: 50%;
+  left: 0;
+  transform: translate(50%, 50%);
 }
 
 .s-slider__thumb:active {

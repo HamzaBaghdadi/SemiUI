@@ -3,7 +3,7 @@
 >
   <div class="flex items-center px-6 gap-4 w-full m-auto max-w-295">
     <div
-      class="min-w-0 flex items-center gap-4 cursor-pointer"
+      class="min-w-0 flex items-center gap-2 cursor-pointer"
       routerLink="/"
       (click)="rotateLogo()"
     >
@@ -14,7 +14,7 @@
         [style.transform]="'rotate(' + rotateDeg() + 'deg)'"
       />
       <h1 class="text-2xl font-bold">SemiUI</h1>
-      <s-tag class="font-bold" variant="primary">v0.2.0</s-tag>
+      <s-tag class="font-bold ms-2" variant="primary">v0.5.0</s-tag>
     </div>
 
     <div class="flex items-center gap-6 justify-end flex-1">
@@ -28,22 +28,68 @@
           >
         }
       </div>
-      <s-button
-        (click)="this.colorModeService.toggle()"
-        icon
-        [iconLeading]="{
-          type: 'ng-icon',
-          name: this.colorModeService.dark() ? 'lucideSun' : 'lucideMoon',
-        }"
-        [sTooltip]="
-          this.colorModeService.dark()
-            ? 'Switch to light mode'
-            : 'Switch to dark mode'
-        "
-        variant="contrast"
-        text
-        size="lg"
-      ></s-button>
+      <div class="flex items-center gap-2">
+        <s-button
+          (click)="openGithub()"
+          icon
+          [iconLeading]="githubIcon"
+          sTooltip="GitHub"
+          variant="contrast"
+          text
+          size="lg"
+        ></s-button>
+        <s-button
+          (click)="themePopover.toggle($event)"
+          icon
+          [iconLeading]="{ type: 'ng-icon', name: 'lucidePalette' }"
+          sTooltip="Customize theme"
+          variant="contrast"
+          text
+          size="lg"
+        ></s-button>
+        <s-popover #themePopover placement="bottom" [showArrow]="false">
+          <div class="flex flex-col gap-4 w-56">
+            <div class="flex flex-col gap-1">
+              <span class="text-sm font-medium text-muted-foreground"
+                >Preset</span
+              >
+              <s-select
+                [options]="presetOptions"
+                optionLabel="label"
+                [value]="selectedPresetOption()"
+                [clearable]="false"
+                [filterable]="false"
+                placeholder="Preset"
+                (valueChange)="onPresetChange($event)"
+              ></s-select>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-muted-foreground">RTL</span>
+              <s-switch
+                [value]="rtlService.rtl()"
+                size="sm"
+                (valueChange)="rtlService.toggleRtl()"
+              ></s-switch>
+            </div>
+          </div>
+        </s-popover>
+        <s-button
+          (click)="this.colorModeService.toggle()"
+          icon
+          [iconLeading]="{
+            type: 'ng-icon',
+            name: this.colorModeService.dark() ? 'lucideSun' : 'lucideMoon',
+          }"
+          [sTooltip]="
+            this.colorModeService.dark()
+              ? 'Switch to light mode'
+              : 'Switch to dark mode'
+          "
+          variant="contrast"
+          text
+          size="lg"
+        ></s-button>
+      </div>
     </div>
   </div>
 </header>

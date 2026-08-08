@@ -1,7 +1,7 @@
 import { ComponentRef, Directive, ElementRef, HostListener, OnDestroy, ViewContainerRef, inject, input } from '@angular/core';
 import { TooltipPanelComponent } from './tooltip-panel.component';
 
-export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end';
 
 const GAP_PX = 8;
 const VIEWPORT_MARGIN_PX = 8;
@@ -23,6 +23,8 @@ export class TooltipDirective implements OnDestroy {
 
   /** The tooltip text. Omit or pass an empty string to disable the tooltip entirely. */
   sTooltip = input('');
+  /** 'start'/'end' follow reading direction (flip under RTL); 'left'/'right' pin to that literal
+   * physical side regardless of direction. */
   tooltipPlacement = input<TooltipPlacement>('top');
   /** Delay, in ms, before the tooltip appears after hover/focus starts. */
   tooltipDelay = input(300);
@@ -59,7 +61,7 @@ export class TooltipDirective implements OnDestroy {
     }
     this.panelRef = this.viewContainerRef.createComponent(TooltipPanelComponent);
     this.panelRef.setInput('text', this.sTooltip());
-    this.panelRef.setInput('placement', this.tooltipPlacement());
+    this.panelRef.setInput('placement', this.resolvePlacement());
     // Forces synchronous rendering so the panel's real size is measurable immediately -- both
     // detectChanges() calls happen before the browser gets a chance to paint, so there's no
     // visible flash at the wrong (0,0) position in between.
@@ -94,7 +96,7 @@ export class TooltipDirective implements OnDestroy {
     const anchorRect = this.elementRef.nativeElement.getBoundingClientRect();
     const panelRect = panelEl.getBoundingClientRect();
 
-    let placement = this.tooltipPlacement();
+    let placement = this.resolvePlacement();
     if (placement === 'top' && anchorRect.top - GAP_PX - panelRect.height < 0) {
       placement = 'bottom';
     } else if (placement === 'bottom' && anchorRect.bottom + GAP_PX + panelRect.height > window.innerHeight) {
@@ -129,6 +131,20 @@ export class TooltipDirective implements OnDestroy {
     panelRef.setInput('top', top);
     panelRef.setInput('left', left);
     panelRef.changeDetectorRef.detectChanges();
+  }
+
+  /** 'start'/'end' resolve to whichever physical side that means for the anchor's current
+   * direction; everything else passes through untouched. */
+  private resolvePlacement(): 'top' | 'bottom' | 'left' | 'right' {
+    const placement = this.tooltipPlacement();
+    if (placement !== 'start' && placement !== 'end') {
+      return placement;
+    }
+    const isRtl = this.elementRef.nativeElement.matches(':dir(rtl)');
+    if (placement === 'start') {
+      return isRtl ? 'right' : 'left';
+    }
+    return isRtl ? 'left' : 'right';
   }
 
   private clearShowTimeout(): void {

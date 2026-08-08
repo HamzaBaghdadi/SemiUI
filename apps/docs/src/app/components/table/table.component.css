@@ -56,7 +56,7 @@
 .s-table__th {
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
-  text-align: left;
+  text-align: start;
   font-weight: var(--semiui-typography-font-weight-medium);
   color: var(--semiui-comp-table-header-foreground);
   border-bottom: 1px solid var(--semiui-comp-table-border);
@@ -245,7 +245,7 @@
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-md);
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .s-table__rows-per-page {

@@ -12,7 +12,7 @@
 :host([data-orientation='vertical']) .s-tabs__list {
   flex-direction: column;
   border-bottom: none;
-  border-right: 1px solid var(--semiui-comp-tabs-border);
+  border-inline-end: 1px solid var(--semiui-comp-tabs-border);
   align-items: stretch;
 }
 
@@ -59,6 +59,11 @@
 
 .s-tabs__indicator {
   position: absolute;
+  /* Deliberately physical, not inset-inline-start: tabs.component.ts measures the active tab's
+     offsetLeft (a physical, already-mirrored-by-layout pixel value under RTL) and slides this bar
+     to it via translateX from this same left:0 anchor. Both sides of that math are physical
+     end-to-end and already cancel out correctly under RTL -- switching this one side to a logical
+     property would anchor it to the opposite edge and break the offset. */
   left: 0;
   top: 0;
   bottom: -1px;
@@ -75,8 +80,11 @@
 
 :host([data-orientation='vertical']) .s-tabs__indicator {
   width: var(--semiui-comp-tabs-indicator-thickness) !important;
-  right: -1px;
-  left: auto;
+  /* Vertical mode has no horizontal transform (positionIndicator only animates translateY here),
+     so unlike the base rule above, this edge is safe as a logical property -- it just has to
+     track whichever side the content panel actually ends up on when the grid mirrors under RTL. */
+  inset-inline-end: -1px;
+  inset-inline-start: auto;
 }
 
 .s-tabs__panel {

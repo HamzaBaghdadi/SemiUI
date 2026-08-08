@@ -162,6 +162,23 @@
   animation: s-stepper-panel-enter 0.2s ease-out;
 }
 
+@keyframes s-stepper-panel-enter-rtl {
+  from {
+    opacity: 0;
+    transform: translateX(-0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Steps visually flow right-to-left under RTL (flexbox mirrors the row for free), so "forward"
+   is now the physical left -- the panel should still slide in from the direction of travel. */
+.s-stepper__panel--enter:dir(rtl) {
+  animation-name: s-stepper-panel-enter-rtl;
+}
+
 @keyframes s-stepper-check-enter {
   from {
     opacity: 0;

@@ -79,9 +79,13 @@
             <h3 class="text-xl font-bold">Initialize SemiUI</h3>
             <span class="text-muted-foreground text-sm max-w-xl"
               >Scaffolds <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.json</code>,
-              asks which preset to start from (Semi by default, or Aurora),
+              asks which preset to start from (Semi by default, or any of the
+              other six -- see the full
+              <a routerLink="/theming" class="text-primary hover:underline">preset catalog</a>),
               and installs the theme engine, primitives, and the chosen preset
-              package. Run it from the root of an Angular project — a
+              package. Skip the prompt entirely with
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--preset &lt;name&gt;</code>.
+              Run it from the root of an Angular project — a
               <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">angular.json</code>
               must already exist there.
             </span>
@@ -115,6 +119,11 @@
 <span class="text-white/50">? Which preset would you like to start from?</span>
 <span class="text-white/50">  1) Semi (default)</span>
 <span class="text-white/50">  2) Aurora</span>
+<span class="text-white/50">  3) Material</span>
+<span class="text-white/50">  4) Carbon</span>
+<span class="text-white/50">  5) Fluent</span>
+<span class="text-white/50">  6) Cupertino</span>
+<span class="text-white/50">  7) Samsung</span>
 
 <span class="text-white/50"># Created components.json</span>
 <span class="text-white/50"># Installing @semiui/tokens, @semiui/theme, @semiui/primitives, @semiui/presets-semi...</span>

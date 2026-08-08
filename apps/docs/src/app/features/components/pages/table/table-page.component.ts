@@ -58,7 +58,7 @@ export class TablePageComponent {
     { field: 'name', header: 'Name', sortable: true },
     { field: 'email', header: 'Email', sortable: true },
     { field: 'role', header: 'Role', sortable: true },
-    { field: 'age', header: 'Age', sortable: true, align: 'right', width: '5rem' },
+    { field: 'age', header: 'Age', sortable: true, align: 'end', width: '5rem' },
   ];
 
   protected statusColumns: TableColumn<Person>[] = [

@@ -105,6 +105,16 @@ type SnippetId = keyof typeof SNIPPETS;
 export class ThemingComponent {
   private readonly router = inject(Router);
 
+  protected readonly presets = [
+    { key: 'semi', label: 'Semi', description: 'The default -- a clean, neutral baseline preset with a blue accent. Not modeled on any particular product.' },
+    { key: 'aurora', label: 'Aurora', description: 'A vibrant indigo original, also not modeled on any real product -- a bolder alternative starting point to Semi.' },
+    { key: 'material', label: 'Material', description: "Google's Material 3 baseline -- the real spec values (#6750a4 primary, MDC elevation shadows) and pill-shaped buttons." },
+    { key: 'carbon', label: 'Carbon', description: "IBM's Carbon Design System -- the documented palette (#0f62fe blue, #161616 text), almost no radius, almost no shadow." },
+    { key: 'fluent', label: 'Fluent', description: "Microsoft's Fluent 2 -- the Windows/Office blue (#0078d4) and Fluent's documented ambient+key shadow pairs." },
+    { key: 'cupertino', label: 'Cupertino', description: "iOS's system colors (#007aff, OLED black in dark mode), continuous corners, and capsule-shaped buttons." },
+    { key: 'samsung', label: 'Samsung', description: "Samsung's One UI -- the documented #0381fe system blue, big 'focus block' rounded corners, true-black dark mode." },
+  ];
+
   protected readonly colorTokens = [
     { key: 'background', label: 'Background' },
     { key: 'foreground', label: 'Foreground' },
@@ -156,6 +166,21 @@ export class ThemingComponent {
   protected async copy(id: SnippetId | string): Promise<void> {
     const text = id in SNIPPETS ? SNIPPETS[id as SnippetId] : `var(--semiui-color-${id})`;
     await navigator.clipboard.writeText(text);
+    this.copiedId.set(id);
+    setTimeout(() => {
+      if (this.copiedId() === id) {
+        this.copiedId.set(null);
+      }
+    }, 1500);
+  }
+
+  protected initCommand(presetKey: string): string {
+    return `npx @semiui/cli init --preset ${presetKey}`;
+  }
+
+  protected async copyPresetCommand(presetKey: string): Promise<void> {
+    const id = `preset:${presetKey}`;
+    await navigator.clipboard.writeText(this.initCommand(presetKey));
     this.copiedId.set(id);
     setTimeout(() => {
       if (this.copiedId() === id) {

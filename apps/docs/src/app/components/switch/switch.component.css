@@ -1,5 +1,6 @@
 :host {
   display: inline-flex;
+  flex-direction: column;
 }
 
 .s-switch {
@@ -83,12 +84,20 @@
 }
 
 .s-switch__track[aria-checked='true'] .s-switch__thumb {
-  transform: translateX(
-    calc(
-      var(--s-switch-track-width) - var(--s-switch-thumb-size) - (var(--semiui-comp-switch-track-padding) * 2) -
-        (var(--semiui-comp-switch-track-border-width) * 2)
-    )
+  --s-switch-thumb-travel: calc(
+    var(--s-switch-track-width) - var(--s-switch-thumb-size) - (var(--semiui-comp-switch-track-padding) * 2) -
+      (var(--semiui-comp-switch-track-border-width) * 2)
   );
+  transform: translateX(var(--s-switch-thumb-travel));
+}
+
+/* The thumb sits at its track-relative rest position via flexbox, which already mirrors
+   correctly under dir="rtl" (row-direction start flips to the physical right). But translateX()
+   itself is physical-px, so the checked-state travel distance -- computed once above -- has to be
+   re-applied in the opposite direction here, or RTL would push the thumb further into the track
+   instead of out to the opposite edge. */
+.s-switch__track[aria-checked='true'] .s-switch__thumb:dir(rtl) {
+  transform: translateX(calc(-1 * var(--s-switch-thumb-travel)));
 }
 
 .s-switch__label {

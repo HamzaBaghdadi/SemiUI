@@ -77,6 +77,21 @@
 
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Position</h2>
+    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-right</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >top-left</code
+      >/<code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-right</code
+      >/<code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-left</code> pin to
+      that literal screen corner regardless of page direction --
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">top-start</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >top-end</code
+      >/<code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-start</code
+      >/<code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">bottom-end</code> are the
+      mirroring equivalents, flipping corner under
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>.
+    </div>
     <app-component-demo>
       <s-button variant="secondary" (pressed)="setPosition('top-left')">Top left</s-button>
       <s-button variant="secondary" (pressed)="setPosition('top-center')">Top center</s-button>
@@ -84,6 +99,10 @@
       <s-button variant="secondary" (pressed)="setPosition('bottom-left')">Bottom left</s-button>
       <s-button variant="secondary" (pressed)="setPosition('bottom-center')">Bottom center</s-button>
       <s-button variant="secondary" (pressed)="setPosition('bottom-right')">Bottom right</s-button>
+      <s-button variant="secondary" [outlined]="true" (pressed)="setPosition('top-start')">Top start</s-button>
+      <s-button variant="secondary" [outlined]="true" (pressed)="setPosition('top-end')">Top end</s-button>
+      <s-button variant="secondary" [outlined]="true" (pressed)="setPosition('bottom-start')">Bottom start</s-button>
+      <s-button variant="secondary" [outlined]="true" (pressed)="setPosition('bottom-end')">Bottom end</s-button>
     </app-component-demo>
     <p class="text-sm text-muted-foreground">
       Current position: {{ position() }} -- trigger a toast above to see it.

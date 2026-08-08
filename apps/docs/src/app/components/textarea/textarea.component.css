@@ -49,8 +49,9 @@
 }
 
 .s-textarea__count {
+  display: flex;
   position: absolute;
-  right: var(--semiui-comp-input-padding-x);
+  inset-inline-end: var(--semiui-comp-input-padding-x);
   bottom: 0.5rem;
   font-size: var(--semiui-typography-font-size-sm);
   color: var(--semiui-comp-input-placeholder-foreground);

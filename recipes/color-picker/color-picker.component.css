@@ -65,7 +65,7 @@
 .s-color-picker__panel {
   position: absolute;
   top: calc(100% + 0.25rem);
-  left: 0;
+  inset-inline-start: 0;
   z-index: 20;
   width: var(--semiui-comp-color-picker-sv-area-size);
   padding: var(--semiui-spacing-sm);
@@ -96,6 +96,11 @@
   background: var(--semiui-comp-select-panel-background);
 }
 
+/* The sv-area/hue-track below (gradient direction, thumb math, pointer math in the .ts) are
+   deliberately left physical/unmirrored under RTL -- like Chart, a color gradient represents a
+   continuous value space, not reading-direction content, and every reference implementation
+   (native OS pickers, Photoshop, browser <input type="color">) keeps it LTR regardless of page
+   direction. */
 .s-color-picker__sv-area {
   position: relative;
   width: 100%;

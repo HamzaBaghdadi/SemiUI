@@ -69,6 +69,9 @@
   height: 55%;
 }
 
+/* Physical, not inset-inline-end -- unlike Badge/Toast's position props, this corner isn't
+   configurable (there's no `position` input to offer a start/end alternative for), so it follows
+   the same "physical stays physical" default as everywhere else in this library. */
 .s-avatar__status {
   position: absolute;
   right: 0;

@@ -12,7 +12,11 @@ export interface TableColumn<T = unknown> {
   header: string;
   sortable?: boolean;
   width?: string;
-  align?: 'left' | 'center' | 'right';
+  /** 'start'/'end' follow reading direction (flip under RTL) -- prefer them over 'left'/'right',
+   * which pin to that literal physical side regardless of direction and are only here for the
+   * rare column that genuinely wants that (both pass straight through to CSS `text-align`, so
+   * either works with no other change needed). */
+  align?: 'left' | 'center' | 'right' | 'start' | 'end';
   /** Custom comparator for sorting this column; falls back to a generic `<`/`>` comparison of the field's value. */
   sortFn?: (a: T, b: T) => number;
 }

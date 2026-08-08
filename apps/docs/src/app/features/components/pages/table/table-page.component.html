@@ -11,8 +11,23 @@
     <p class="text-sm text-muted-foreground max-w-xl">
       There's no table-wide "enable sorting" switch -- each column decides for itself via
       <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">sortable</code>. Click a sortable
-      header to cycle asc / desc / unsorted.
+      header to cycle asc / desc / unsorted. The "Age" column also sets
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">align</code>.
     </p>
+    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+      A column's <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">align</code> accepts
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'left'</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >'right'</code
+      >, which pin to that literal physical side regardless of page direction, or
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'start'</code>/<code
+        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+        >'end'</code
+      >
+      (used below), the mirroring equivalents that flip side under
+      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>. Both pass
+      straight through to CSS <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">text-align</code>.
+    </div>
     <app-component-demo [block]="true">
       <s-table [columns]="basicColumns" [data]="people" />
     </app-component-demo>

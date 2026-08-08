@@ -104,6 +104,11 @@
   border-color: var(--semiui-comp-badge-variants-outline-border);
 }
 
+/* top-right/top-left/bottom-right/bottom-left pin to that literal physical corner of the wrapped
+   content regardless of direction. top-start/top-end/bottom-start/bottom-end below are the
+   mirroring equivalents -- inset-inline-* so the badge stays anchored to the reading-relative
+   corner instead, flipping under dir="rtl". Pick whichever this badge should do; neither is a
+   fallback for the other. */
 .s-badge[data-position='top-right'] {
   top: 0;
   right: 0;
@@ -126,6 +131,45 @@
   bottom: 0;
   left: 0;
   transform: translate(-35%, 35%);
+}
+
+/* The outward nudge is still expressed in physical px (transform doesn't mirror on its own), so
+   each :dir(rtl) pair below flips its sign to keep pushing the badge away from the wrapped
+   content instead of into it. */
+.s-badge[data-position='top-end'] {
+  top: 0;
+  inset-inline-end: 0;
+  transform: translate(35%, -35%);
+}
+.s-badge[data-position='top-end']:dir(rtl) {
+  transform: translate(-35%, -35%);
+}
+
+.s-badge[data-position='top-start'] {
+  top: 0;
+  inset-inline-start: 0;
+  transform: translate(-35%, -35%);
+}
+.s-badge[data-position='top-start']:dir(rtl) {
+  transform: translate(35%, -35%);
+}
+
+.s-badge[data-position='bottom-end'] {
+  bottom: 0;
+  inset-inline-end: 0;
+  transform: translate(35%, 35%);
+}
+.s-badge[data-position='bottom-end']:dir(rtl) {
+  transform: translate(-35%, 35%);
+}
+
+.s-badge[data-position='bottom-start'] {
+  bottom: 0;
+  inset-inline-start: 0;
+  transform: translate(-35%, 35%);
+}
+.s-badge[data-position='bottom-start']:dir(rtl) {
+  transform: translate(35%, 35%);
 }
 
 :host([data-standalone]) .s-badge[data-position] {

@@ -15,7 +15,7 @@ import { SIconComponent } from '@semiui/primitives/icon';
 import { injectSemiUIIcons } from '@semiui/theme';
 import { DialogSize } from '@semiui/tokens';
 
-export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
+export type DrawerSide = 'left' | 'right' | 'top' | 'bottom' | 'start' | 'end';
 
 /**
  * A panel that slides in from a viewport edge, controlled by reference like Dialog: call
@@ -36,6 +36,8 @@ export class DrawerComponent {
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
   title = input('');
+  /** 'start'/'end' follow reading direction (flip under RTL); 'left'/'right' pin to that literal
+   * physical edge regardless of direction. */
   side = input<DrawerSide>('right');
   /** Controls the panel's width (left/right drawers) or height (top/bottom drawers). */
   size = input<DialogSize>('md');

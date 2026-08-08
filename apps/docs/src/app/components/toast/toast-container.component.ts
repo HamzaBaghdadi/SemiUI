@@ -5,7 +5,21 @@ import { injectSemiUIIcons } from '@semiui/theme';
 import { IconRef, ToastVariant } from '@semiui/tokens';
 import { ToastEntry, ToastService } from './toast.service';
 
-export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+/** 'top-right'/'top-left'/'bottom-right'/'bottom-left' pin to that literal screen corner
+ * regardless of direction. 'top-start'/'top-end'/'bottom-start'/'bottom-end' are the mirroring
+ * equivalents -- start/end follow reading direction, flipping which physical corner they land in
+ * under RTL. Neither is a fallback for the other; pick whichever this toast stack should do. */
+export type ToastPosition =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'top-center'
+  | 'bottom-center';
 
 /** How many toasts deep behind the front one still get a visible (offset, dimmed) sliver when `stacked` and collapsed. */
 const MAX_VISIBLE_STACK_DEPTH = 4;
