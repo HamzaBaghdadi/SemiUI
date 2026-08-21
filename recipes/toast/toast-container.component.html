@@ -21,7 +21,10 @@
         animate.leave="s-toast--leave"
       >
         @if (toast.template; as tpl) {
-          <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: toast, dismiss: dismissFn(toast.id) }" />
+          <ng-container
+            [ngTemplateOutlet]="tpl"
+            [ngTemplateOutletContext]="{ $implicit: toast, dismiss: dismissFn(toast.id), remainingMs: remainingMs(toast) }"
+          />
         } @else {
           @if (toast.showIcon && variantIcon(toast.variant); as icon) {
             <s-icon class="s-toast__icon" [ref]="icon" />

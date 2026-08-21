@@ -1,0 +1,62 @@
+<div class="s-timeline" role="list">
+  @for (item of items(); track $index; let i = $index; let last = $last) {
+    @if (orientation() === 'vertical' && align() === 'right') {
+      <ng-container [ngTemplateOutlet]="contentBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, showDate: true }" />
+      <ng-container [ngTemplateOutlet]="axisBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, last: last }" />
+    } @else if (isAlternate()) {
+      @if (contentOnRight(i)) {
+        <div class="s-timeline__opposite">
+          @if (item.date) {
+            <span class="s-timeline__date">{{ item.date }}</span>
+          }
+        </div>
+        <ng-container [ngTemplateOutlet]="axisBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, last: last }" />
+        <ng-container [ngTemplateOutlet]="contentBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, showDate: false }" />
+      } @else {
+        <ng-container [ngTemplateOutlet]="contentBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, showDate: false }" />
+        <ng-container [ngTemplateOutlet]="axisBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, last: last }" />
+        <div class="s-timeline__opposite">
+          @if (item.date) {
+            <span class="s-timeline__date">{{ item.date }}</span>
+          }
+        </div>
+      }
+    } @else {
+      <ng-container [ngTemplateOutlet]="axisBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, last: last }" />
+      <ng-container [ngTemplateOutlet]="contentBlock" [ngTemplateOutletContext]="{ $implicit: item, index: i, showDate: true }" />
+    }
+  }
+</div>
+
+<ng-template #axisBlock let-item let-i="index" let-last="last">
+  <div class="s-timeline__axis">
+    <span class="s-timeline__marker" [style.--s-timeline-marker-bg]="markerColorVar(item)">
+      @if (markerTemplate(); as tpl) {
+        <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+      } @else if (item.icon) {
+        <s-icon [ref]="item.icon" />
+      }
+    </span>
+    @if (!last) {
+      <span class="s-timeline__connector"></span>
+    }
+  </div>
+</ng-template>
+
+<ng-template #contentBlock let-item let-i="index" let-showDate="showDate">
+  <div class="s-timeline__content">
+    @if (contentTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
+    } @else {
+      @if (showDate && item.date) {
+        <span class="s-timeline__date">{{ item.date }}</span>
+      }
+      @if (item.title) {
+        <span class="s-timeline__title">{{ item.title }}</span>
+      }
+      @if (item.content) {
+        <p class="s-timeline__body">{{ item.content }}</p>
+      }
+    }
+  </div>
+</ng-template>

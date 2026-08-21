@@ -1,0 +1,32 @@
+<div class="s-knob" [style.width.px]="size()" [style.height.px]="size()">
+  <svg class="s-knob__svg" [attr.viewBox]="'0 0 ' + viewSize + ' ' + viewSize">
+    <circle
+      class="s-knob__track"
+      [attr.cx]="viewSize / 2"
+      [attr.cy]="viewSize / 2"
+      [attr.r]="radius()"
+      [attr.stroke-width]="strokeWidth()"
+      fill="none"
+    />
+    <circle
+      class="s-knob__value"
+      [attr.cx]="viewSize / 2"
+      [attr.cy]="viewSize / 2"
+      [attr.r]="radius()"
+      [attr.stroke-width]="strokeWidth()"
+      [attr.stroke]="resolvedColor()"
+      [attr.stroke-dasharray]="circumference()"
+      [attr.stroke-dashoffset]="dashOffset()"
+      [attr.transform]="'rotate(-90 ' + viewSize / 2 + ' ' + viewSize / 2 + ')'"
+      fill="none"
+    />
+  </svg>
+  @if (showValue()) {
+    <div class="s-knob__center">
+      <span class="s-knob__value-text">{{ displayValue() }}</span>
+      @if (label()) {
+        <span class="s-knob__label">{{ label() }}</span>
+      }
+    </div>
+  }
+</div>

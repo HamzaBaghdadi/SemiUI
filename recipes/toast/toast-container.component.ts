@@ -65,6 +65,16 @@ export class ToastContainerComponent {
    */
   protected readonly reservedHeightPx = signal<number | null>(null);
   private readonly timers = new Map<number, ReturnType<typeof setTimeout>>();
+  /** Wall-clock time each toast's timer is due to fire, keyed by id -- the basis for `remainingMs`. */
+  private readonly endsAt = new Map<number, number>();
+  /** Snapshot of `remainingMs` taken at the moment a toast is paused (hover) -- since resuming
+   * restarts from the full duration rather than the remaining time (see class doc), this is what
+   * `remainingMs` reports while paused, instead of a countdown that's lying about a timer that
+   * isn't actually running. */
+  private readonly pausedRemainingMs = new Map<number, number>();
+  /** Ticked on an interval, purely so templates reading `remainingMs()` recompute -- see the
+   * ticking effect in the constructor. */
+  protected readonly now = signal(Date.now());
 
   protected readonly maxVisibleStackDepth = MAX_VISIBLE_STACK_DEPTH;
 
@@ -103,6 +113,21 @@ export class ToastContainerComponent {
     return () => this.dismiss(id);
   }
 
+  /** Milliseconds left before this toast auto-dismisses -- `null` for sticky toasts (`duration`
+   * <= 0), which never count down. Passed into custom toast templates via the `#customToast`
+   * context (see toast-container.component.html) for e.g. a countdown ring or "closes in Ns" label. */
+  protected remainingMs(toast: ToastEntry): number | null {
+    if (toast.duration <= 0) {
+      return null;
+    }
+    const paused = this.pausedRemainingMs.get(toast.id);
+    if (paused !== undefined) {
+      return paused;
+    }
+    const endsAt = this.endsAt.get(toast.id);
+    return endsAt === undefined ? toast.duration : Math.max(0, endsAt - this.now());
+  }
+
   constructor() {
     effect(() => {
       for (const toast of this.toasts()) {
@@ -124,6 +149,23 @@ export class ToastContainerComponent {
       for (const toast of list.slice(0, excess)) {
         this.dismiss(toast.id);
       }
+    });
+    effect(() => {
+      if (this.toasts().length === 0) {
+        this.expanded.set(false);
+      }
+    });
+    /** Keeps `now` (and so `remainingMs()`) moving while at least one toast has a real countdown
+     * running. Re-reading `toasts()` (rather than just running once) means this restarts whenever
+     * the queue changes -- cheap, since the interval only exists while it's actually needed, and
+     * correctness doesn't depend on the tick staying perfectly phase-aligned across queue changes. */
+    effect((onCleanup) => {
+      const hasCountdown = this.toasts().some((toast) => toast.duration > 0);
+      if (!hasCountdown) {
+        return;
+      }
+      const handle = setInterval(() => this.now.set(Date.now()), 250);
+      onCleanup(() => clearInterval(handle));
     });
     inject(DestroyRef).onDestroy(() => {
       for (const timer of this.timers.values()) {
@@ -149,10 +191,17 @@ export class ToastContainerComponent {
 
   protected dismiss(id: number): void {
     this.clearTimer(id);
+    this.endsAt.delete(id);
+    this.pausedRemainingMs.delete(id);
     this.toastService.dismiss(id);
   }
 
   protected pause(id: number): void {
+    const endsAt = this.endsAt.get(id);
+    if (endsAt !== undefined) {
+      this.pausedRemainingMs.set(id, Math.max(0, endsAt - this.now()));
+      this.endsAt.delete(id);
+    }
     this.clearTimer(id);
   }
 
@@ -163,6 +212,8 @@ export class ToastContainerComponent {
   }
 
   private scheduleDismiss(toast: ToastEntry): void {
+    this.pausedRemainingMs.delete(toast.id);
+    this.endsAt.set(toast.id, Date.now() + toast.duration);
     this.timers.set(
       toast.id,
       setTimeout(() => this.dismiss(toast.id), toast.duration),

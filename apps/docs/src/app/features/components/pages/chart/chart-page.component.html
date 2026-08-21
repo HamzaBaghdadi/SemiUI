@@ -2,10 +2,13 @@
   <app-component-page-header
     category="Data display"
     name="Chart"
-    description="An SVG chart supporting line, bar, area, pie, and donut via a single type input -- no canvas, no external charting library, so it themes like any other component."
+    description="An SVG chart supporting line, bar, area, scatter, radar, pie, and donut via a single type input -- no canvas, no external charting library, so it themes like any other component."
     slug="chart"
   ></app-component-page-header>
 
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Line</h2>
     <app-component-demo [block]="true">
@@ -78,6 +81,73 @@
   </div>
 
   <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Scatter</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Points only, no connecting line -- otherwise the same axis/gridline/tooltip system as line and bar.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart type="scatter" [labels]="months" [series]="scatterSeries" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="scatterCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Radar</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      One spoke per label, arranged evenly around a circle -- each series renders as a closed polygon.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart type="radar" [labels]="radarLabels" [series]="radarSeries" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="radarCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Stacked bar</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">stacked</code> piles each label's series on
+      top of each other instead of side-by-side.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart type="bar" [stacked]="true" [labels]="months" [series]="stackedBarSeries" [valueFormatter]="currencyFormatter" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="stackedBarCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Stacked area</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      Each series layers on top of the running sum of the ones before it, instead of every series
+      sharing the same zero baseline.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart type="area" [stacked]="true" [labels]="months" [series]="stackedBarSeries" [valueFormatter]="currencyFormatter" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="stackedAreaCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Negative values</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The value domain extends below zero automatically -- the baseline moves up to sit at zero
+      instead of always pinning to the bottom edge, so negative bars/points render downward from it
+      rather than clipping off the chart.
+    </p>
+    <app-component-demo [block]="true">
+      <s-chart type="bar" [labels]="months" [series]="netIncomeSeries" [valueFormatter]="currencyFormatter" />
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="negativeCode"></app-code-block>
+  </div>
+
+  <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+    Every cartesian and radar chart mirrors automatically under
+    <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code> (toggle it from the
+    topbar's "Customize theme" popover) -- the whole plot flips via a single CSS transform on the
+    SVG, with axis labels counter-mirrored so they stay readable. Pie/donut are unaffected, since a
+    circle has no inherent direction.
+  </div>
+
+  <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">No grid, no legend</h2>
     <app-component-demo [block]="true">
       <s-chart
@@ -117,4 +187,19 @@
       </li>
     </ul>
   </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

@@ -1,5 +1,5 @@
 <header
-  class="sticky top-0 flex items-center h-16 bg-background/80 backdrop-blur-md z-1 border-b border-border"
+  class="sticky top-0 flex items-center h-16 bg-background/80 backdrop-blur-md z-2 border-b border-border"
 >
   <div class="flex items-center px-6 gap-4 w-full m-auto max-w-295">
     <div
@@ -14,7 +14,7 @@
         [style.transform]="'rotate(' + rotateDeg() + 'deg)'"
       />
       <h1 class="text-2xl font-bold">SemiUI</h1>
-      <s-tag class="font-bold ms-2" variant="primary">v0.5.0</s-tag>
+      <s-tag class="font-bold ms-2" variant="primary">v0.9.0</s-tag>
     </div>
 
     <div class="flex items-center gap-6 justify-end flex-1">
@@ -41,7 +41,7 @@
         <s-button
           (click)="themePopover.toggle($event)"
           icon
-          [iconLeading]="{ type: 'ng-icon', name: 'lucidePalette' }"
+          [iconLeading]="customizeIcon"
           sTooltip="Customize theme"
           variant="contrast"
           text

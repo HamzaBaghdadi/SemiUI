@@ -1,0 +1,167 @@
+/* Shared by both OrganizationChartComponent and OrganizationChartNodeComponent (same source
+   directory, compiled separately per component -- Angular's normal per-component style scoping
+   still applies to each). Base :host rules are qualified by each component's own host class, not
+   left bare -- a bare `:host` rule here would apply to *both* components, same reasoning as
+   Context Menu's shared stylesheet. */
+
+:host(.s-organization-chart) {
+  display: block;
+}
+
+.s-organization-chart__scroll {
+  overflow-x: auto;
+  padding: var(--semiui-spacing-md);
+}
+
+:host(.s-organization-chart-node) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.s-organization-chart-node__box {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--semiui-spacing-sm);
+  box-sizing: border-box;
+  min-width: var(--semiui-comp-organization-chart-node-min-width);
+  padding: var(--semiui-spacing-md) var(--semiui-spacing-lg);
+  background: var(--semiui-comp-popover-background);
+  border: 1px solid var(--semiui-comp-popover-border);
+  border-radius: var(--semiui-comp-popover-radius);
+  box-shadow: var(--semiui-comp-popover-shadow);
+  color: var(--semiui-color-foreground);
+  font-size: var(--semiui-typography-font-size-sm);
+  text-align: center;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.s-organization-chart-node__box[role='button'] {
+  cursor: pointer;
+}
+
+.s-organization-chart-node__box[role='button']:focus-visible {
+  outline: 2px solid var(--semiui-color-ring);
+  outline-offset: 2px;
+}
+
+.s-organization-chart-node__box[data-selected] {
+  background: var(--semiui-comp-organization-chart-node-background-selected);
+  border-color: var(--semiui-comp-organization-chart-node-border-selected);
+}
+
+.s-organization-chart-node__label {
+  white-space: nowrap;
+}
+
+.s-organization-chart-node__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--semiui-comp-organization-chart-toggle-size);
+  height: var(--semiui-comp-organization-chart-toggle-size);
+  border: none;
+  background: none;
+  padding: 0;
+  border-radius: var(--semiui-radius-full);
+  cursor: pointer;
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-organization-chart-node__toggle:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-organization-chart-node__toggle-icon {
+  width: 0.85em;
+  height: 0.85em;
+  transition: transform 0.15s ease;
+}
+
+.s-organization-chart-node__toggle-icon--collapsed {
+  transform: rotate(-90deg);
+}
+
+/* --- Connector lines -----------------------------------------------------------------------
+   Classic CSS ul/li-tree technique, adapted to these custom elements: every non-root node draws
+   half the horizontal bar to its siblings via ::before/::after plus its own vertical drop, and
+   the children container draws the single vertical drop down from the parent. Written entirely in
+   inline-* logical properties (never left/right or border-left/-right) so the whole thing mirrors
+   correctly under RTL with no :dir() overrides needed -- :first-of-type/:last-of-type still refer
+   to DOM order, which inline-start/-end then project onto the correct visual side per direction. */
+
+.s-organization-chart-node__children {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-top: var(--semiui-comp-organization-chart-gap);
+}
+
+.s-organization-chart-node__children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: 50%;
+  width: 0;
+  height: var(--semiui-comp-organization-chart-gap);
+  border-inline-start: 1px solid var(--semiui-color-border);
+}
+
+.s-organization-chart-node:not([data-root]) {
+  padding-top: var(--semiui-comp-organization-chart-gap);
+  padding-inline: var(--semiui-spacing-sm);
+}
+
+.s-organization-chart-node:not([data-root])::before,
+.s-organization-chart-node:not([data-root])::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: var(--semiui-comp-organization-chart-gap);
+  border-block-start: 1px solid var(--semiui-color-border);
+}
+
+.s-organization-chart-node:not([data-root])::before {
+  inset-inline-end: 50%;
+}
+
+.s-organization-chart-node:not([data-root])::after {
+  inset-inline-start: 50%;
+  border-inline-start: 1px solid var(--semiui-color-border);
+}
+
+.s-organization-chart-node:not([data-root]):only-of-type {
+  padding-top: 0;
+}
+
+.s-organization-chart-node:not([data-root]):only-of-type::before,
+.s-organization-chart-node:not([data-root]):only-of-type::after {
+  display: none;
+}
+
+/* The first child has no sibling before it -- suppress its incoming half of the horizontal bar
+   (its own vertical drop lives on ::after, untouched). */
+.s-organization-chart-node:not([data-root]):first-of-type::before {
+  border-block-start-color: transparent;
+}
+
+/* The last child has no sibling after it: suppress ::after entirely (both its horizontal segment
+   and its border-inline-start vertical drop), then re-grow that same vertical drop on ::before's
+   trailing edge instead -- border-inline-end sits at the same horizontal center, since ::before is
+   the left(-ish)/leading 50%-width half. */
+.s-organization-chart-node:not([data-root]):last-of-type::after {
+  border-block-start-color: transparent;
+  border-inline-start-color: transparent;
+}
+
+.s-organization-chart-node:not([data-root]):last-of-type::before {
+  border-inline-end: 1px solid var(--semiui-color-border);
+}

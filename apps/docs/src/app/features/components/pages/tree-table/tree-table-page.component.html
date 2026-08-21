@@ -1,0 +1,68 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Tree Table"
+    description="A hierarchical data table: pass columns and nodes, each wrapping row data plus optional children. The first column gets a depth indent and expand/collapse toggle."
+    slug="tree-table"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-tree-table [columns]="columns" [nodes]="nodes" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Selection</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode="multiple"</code> adds a
+            checkbox column. Selecting a parent doesn't cascade to its children -- selection tracks exactly
+            the nodes picked.
+          </p>
+          <app-component-demo [block]="true">
+            <s-tree-table [columns]="columns" [nodes]="nodes" selectionMode="multiple" [(selection)]="selection" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Selected: {{ selection().length }} node(s)</p>
+          <app-code-block filename="Usage" [code]="selectionCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom cell rendering</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#cell</code> template slot renders
+            every cell -- context is <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">{{ '{' }} $implicit: value, node, column, level {{ '}' }}</code>,
+            so it typically switches on <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">column.field</code>.
+          </p>
+          <app-component-demo [block]="true">
+            <s-tree-table [columns]="columns" [nodes]="nodes">
+              <ng-template #cell let-value let-node="node" let-column="column">
+                @if (column.field === 'name') {
+                  <span class="inline-flex items-center gap-1.5">
+                    <s-icon [ref]="node.data.type === 'folder' ? folderIcon : fileIcon" style="width: 1rem; height: 1rem;" />
+                    {{ value }}
+                  </span>
+                } @else {
+                  {{ value }}
+                }
+              </ng-template>
+            </s-tree-table>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="cellTemplateCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

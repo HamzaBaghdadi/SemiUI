@@ -1,0 +1,89 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Float Label"
+    description="A floating label wrapper for any SemiUI field, merging PrimeNG's separate FloatLabel and IftaLabel into one component via variant. Rests over the field's text area until focused or filled, then floats."
+    slug="float-label"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+          Pure CSS, no JS state tracking. Give the wrapped field
+          <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">placeholder=" "</code> (a single
+          space) if it has no natural placeholder of its own -- native-input fields need a
+          placeholder attribute present for the filled-state detection to work at all.
+        </p>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Over (default)</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">Clears the border entirely once floated -- classic Material.</p>
+          <app-component-demo>
+            <s-float-label label="Email address" class="w-64">
+              <s-text-input [(ngModel)]="overValue" placeholder=" "></s-text-input>
+            </s-float-label>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="overCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">On</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">Floats to sit right on the border line.</p>
+          <app-component-demo>
+            <s-float-label label="Username" variant="on" class="w-64">
+              <s-text-input [(ngModel)]="onValue" placeholder=" "></s-text-input>
+            </s-float-label>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="onCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">In (Ifta Label)</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Stays inside the field's own box the whole time, just rising and shrinking -- PrimeNG's IftaLabel.
+          </p>
+          <app-component-demo>
+            <s-float-label label="Full name" variant="in" class="w-64">
+              <s-text-input [(ngModel)]="inValue" placeholder=" "></s-text-input>
+            </s-float-label>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="inCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Any field</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Works with button-triggered fields like
+            <a routerLink="/components/select" class="text-primary hover:underline">Select</a> too
+            (detected via the absence of its own placeholder element, not
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">:placeholder-shown</code>), and
+            multi-line fields like
+            <a routerLink="/components/textarea" class="text-primary hover:underline">Textarea</a>.
+          </p>
+          <app-component-demo>
+            <s-float-label label="Choose a country" class="w-64">
+              <s-select [options]="countries" [(ngModel)]="selectValue"></s-select>
+            </s-float-label>
+            <s-float-label label="Bio" variant="in" class="w-64">
+              <s-textarea [(ngModel)]="textareaValue" placeholder=" " [rows]="3"></s-textarea>
+            </s-float-label>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="anyFieldCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

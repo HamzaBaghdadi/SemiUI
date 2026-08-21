@@ -29,6 +29,7 @@
       spellcheck="false"
       maxlength="7"
       [value]="hexInputDisplay()"
+      [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
       (input)="onHexInputChange('#' + $any($event.target).value)"
       (blur)="onHexInputCommit()"
       (keydown.enter)="onHexInputCommit()"

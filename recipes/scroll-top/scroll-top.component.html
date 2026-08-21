@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="s-scroll-top__button"
+  [attr.aria-label]="ariaLabel()"
+  [attr.tabindex]="visible() ? 0 : -1"
+  (click)="scrollToTop()"
+>
+  @if (icon(); as ref) {
+    <s-icon class="s-scroll-top__icon" [ref]="ref" />
+  } @else {
+    <s-icon class="s-scroll-top__icon s-scroll-top__icon--default" [ref]="icons.chevronDown" />
+  }
+</button>

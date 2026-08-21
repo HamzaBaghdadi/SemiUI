@@ -1,0 +1,83 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--semiui-spacing-sm);
+  width: 100%;
+  --s-progress-bar-color: var(--semiui-comp-button-variants-primary-background);
+}
+
+.s-progress-bar__track {
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-color-muted);
+}
+
+:host([data-size='sm']) .s-progress-bar__track {
+  height: var(--semiui-comp-progress-bar-track-height-sm);
+}
+
+:host([data-size='md']) .s-progress-bar__track {
+  height: var(--semiui-comp-progress-bar-track-height-md);
+}
+
+:host([data-size='lg']) .s-progress-bar__track {
+  height: var(--semiui-comp-progress-bar-track-height-lg);
+}
+
+.s-progress-bar__fill {
+  height: 100%;
+  border-radius: var(--semiui-radius-full);
+  background: var(--s-progress-bar-color);
+  transition: width 0.25s ease;
+}
+
+@keyframes s-progress-bar-indeterminate {
+  0% {
+    transform: translateX(-100%) scaleX(0.4);
+  }
+  50% {
+    transform: translateX(20%) scaleX(0.6);
+  }
+  100% {
+    transform: translateX(250%) scaleX(0.4);
+  }
+}
+
+.s-progress-bar__fill--indeterminate {
+  width: 40% !important;
+  transform-origin: 0% 50%;
+  animation: s-progress-bar-indeterminate 1.3s ease-in-out infinite;
+}
+
+.s-progress-bar__label {
+  flex-shrink: 0;
+  font-size: var(--semiui-comp-progress-bar-label-font-size);
+  color: var(--semiui-color-muted-foreground);
+  white-space: nowrap;
+}
+
+:host([data-color='primary']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-primary-background);
+}
+:host([data-color='secondary']) {
+  --s-progress-bar-color: var(--semiui-color-muted-foreground);
+}
+:host([data-color='success']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-success-background);
+}
+:host([data-color='info']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-info-background);
+}
+:host([data-color='warn']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-warn-background);
+}
+:host([data-color='help']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-help-background);
+}
+:host([data-color='danger']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-danger-background);
+}
+:host([data-color='contrast']) {
+  --s-progress-bar-color: var(--semiui-comp-button-variants-contrast-background);
+}

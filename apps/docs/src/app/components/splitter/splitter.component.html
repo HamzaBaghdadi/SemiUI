@@ -1,0 +1,15 @@
+@for (panel of panels(); track panel; let i = $index; let last = $last) {
+  <div class="s-splitter__panel" [style.flex-grow]="panelSize(i)">
+    <ng-container [ngTemplateOutlet]="panel.templateRef" />
+  </div>
+  @if (!last) {
+    <div
+      class="s-splitter__gutter"
+      role="separator"
+      [attr.aria-orientation]="orientation()"
+      tabindex="0"
+      (pointerdown)="startDrag($event, i)"
+      (keydown)="onGutterKeydown($event, i)"
+    ></div>
+  }
+}

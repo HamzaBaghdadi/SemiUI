@@ -1,6 +1,6 @@
 {
   "name": "@semiui/presets-aurora",
-  "version": "0.5.0",
+  "version": "0.9.0",
   "license": "Apache-2.0",
   "publishConfig": { "access": "public" },
   "peerDependencies": {
@@ -9,7 +9,7 @@
   "dependencies": {
     "@ng-icons/core": "^34.0.0",
     "@ng-icons/lucide": "^34.0.0",
-    "@semiui/tokens": "workspace:^0.5.0"
+    "@semiui/tokens": "workspace:^0.9.0"
   },
   "sideEffects": false
 }

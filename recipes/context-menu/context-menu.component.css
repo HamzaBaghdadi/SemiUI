@@ -1,0 +1,90 @@
+/* Shared by both ContextMenuComponent and ContextMenuPanelComponent (same source file, compiled
+   separately per component -- Angular's normal per-component style scoping still applies to each).
+   Base :host rules are qualified by each component's own host class, not left bare -- a bare
+   `display: contents` would apply to *both* components from this shared source, and
+   ContextMenuPanelComponent needs a real box to be absolutely positioned against (display:contents
+   elements generate no box, so `position` has no effect on them). */
+
+:host(.s-context-menu) {
+  display: contents;
+}
+
+.s-context-menu__overlay {
+  position: fixed;
+  z-index: 50;
+}
+
+:host(.s-context-menu-panel) {
+  display: block;
+}
+
+:host(.s-context-menu-panel[data-nested]) {
+  position: absolute;
+  top: calc(-1 * var(--semiui-spacing-xs));
+  inset-inline-start: 100%;
+  padding-inline-start: var(--semiui-spacing-xs);
+  z-index: 1;
+}
+
+:host(.s-context-menu-panel[data-nested].s-context-menu-panel--flip) {
+  inset-inline-start: auto;
+  inset-inline-end: 100%;
+  padding-inline-start: 0;
+  padding-inline-end: var(--semiui-spacing-xs);
+}
+
+.s-context-menu-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: var(--semiui-spacing-xs);
+  min-width: var(--semiui-comp-context-menu-panel-min-width);
+  background: var(--semiui-comp-popover-background);
+  border: 1px solid var(--semiui-comp-popover-border);
+  border-radius: var(--semiui-comp-popover-radius);
+  box-shadow: var(--semiui-comp-popover-shadow);
+  color: var(--semiui-comp-popover-foreground);
+}
+
+.s-context-menu-panel__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-comp-select-option-foreground);
+  cursor: pointer;
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+}
+
+.s-context-menu-panel__item:hover:not([aria-disabled='true']) {
+  background: var(--semiui-comp-select-option-background-hover);
+}
+
+.s-context-menu-panel__item[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.s-context-menu-panel__icon {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+.s-context-menu-panel__label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.s-context-menu-panel__caret {
+  flex-shrink: 0;
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-context-menu-panel__separator {
+  height: 1px;
+  margin: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
+  background: var(--semiui-comp-popover-border);
+}

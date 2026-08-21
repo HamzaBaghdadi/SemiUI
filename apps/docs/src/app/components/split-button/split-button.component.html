@@ -1,0 +1,42 @@
+<div class="s-split-button__group">
+  <button
+    type="button"
+    class="s-split-button__segment s-split-button__main"
+    [disabled]="isDisabled()"
+    [attr.aria-busy]="loading() ? 'true' : null"
+    (click)="pressed.emit()"
+  >
+    @if (loading()) {
+      <s-icon class="s-split-button__icon s-split-button__icon--spin" [ref]="icons.loading" />
+    }
+    <span class="s-split-button__label"><ng-content /></span>
+  </button>
+  <button
+    type="button"
+    class="s-split-button__segment s-split-button__toggle"
+    [disabled]="isDisabled()"
+    aria-haspopup="menu"
+    aria-label="More actions"
+    (click)="po.toggle($event)"
+  >
+    <s-icon class="s-split-button__icon" [ref]="icons.chevronDown" />
+  </button>
+</div>
+<s-popover #po placement="bottom" align="end" [offset]="4" [showArrow]="false">
+  <ul class="s-split-button__menu" role="menu">
+    @for (item of items(); track $index) {
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <li
+        role="menuitem"
+        class="s-split-button__menu-item"
+        [attr.aria-disabled]="item.disabled ? 'true' : null"
+        (click)="selectItem(item); po.hide()"
+      >
+        @if (item.icon) {
+          <s-icon class="s-split-button__menu-icon" [ref]="item.icon" />
+        }
+        {{ item.label }}
+      </li>
+    }
+  </ul>
+</s-popover>

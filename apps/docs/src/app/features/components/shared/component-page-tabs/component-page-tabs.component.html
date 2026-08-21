@@ -1,0 +1,17 @@
+<s-tabs [items]="tabs">
+  <ng-template #content let-i="index">
+    <div class="pt-4">
+      @switch (i) {
+        @case (0) {
+          <ng-container [ngTemplateOutlet]="featuresTemplate()"></ng-container>
+        }
+        @case (1) {
+          <ng-container [ngTemplateOutlet]="apiTemplate()"></ng-container>
+        }
+        @case (2) {
+          <ng-container [ngTemplateOutlet]="themingTemplate()"></ng-container>
+        }
+      }
+    </div>
+  </ng-template>
+</s-tabs>

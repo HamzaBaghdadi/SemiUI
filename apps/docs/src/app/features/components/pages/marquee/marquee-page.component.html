@@ -1,0 +1,71 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Marquee"
+    description="A continuously scrolling content loop -- wrap anything in s-marquee and it repeats seamlessly."
+    slug="marquee"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-marquee>
+              <span>Breaking news -- SemiUI ships a Marquee component -- more at eleven</span>
+            </s-marquee>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Logo strip</h2>
+          <app-component-demo [block]="true">
+            <s-marquee [duration]="20">
+              @for (logo of logos; track logo) {
+                <span class="font-semibold text-muted-foreground">{{ logo }}</span>
+              }
+            </s-marquee>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="logosCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reverse direction</h2>
+          <app-component-demo [block]="true">
+            <s-marquee direction="right" [duration]="10">
+              @for (logo of logos; track logo) {
+                <span class="font-semibold text-muted-foreground">{{ logo }}</span>
+              }
+            </s-marquee>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="rightCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Vertical</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            up/down need a bounded height set on the host, the same convention Splitter's vertical orientation uses.
+          </p>
+          <app-component-demo [block]="true">
+            <s-marquee direction="up" style="height: 8rem; max-width: 12rem">
+              @for (logo of logos; track logo) {
+                <div class="font-semibold text-muted-foreground">{{ logo }}</div>
+              }
+            </s-marquee>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

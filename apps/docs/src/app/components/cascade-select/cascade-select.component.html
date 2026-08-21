@@ -1,0 +1,100 @@
+<button
+  #triggerButton
+  type="button"
+  class="s-cascade-select__trigger"
+  [class.s-cascade-select__trigger--loading]="loading()"
+  role="combobox"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="listboxId"
+  [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  [disabled]="effectiveDisabled() || loading()"
+  (click)="toggle()"
+  (keydown)="onTriggerKeydown($event)"
+>
+  <span class="s-cascade-select__value">
+    @if (selectedTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedPath() }" />
+    } @else if (selectedPath().length > 0) {
+      {{ selectedLabels().join(separator()) }}
+    } @else {
+      <span class="s-cascade-select__placeholder">{{ placeholder() }}</span>
+    }
+  </span>
+  @if (showClear()) {
+    <!-- Not a real <button>: nesting interactive elements inside the trigger <button> is invalid
+         HTML. It's excluded from the tab sequence on purpose -- Backspace/Delete on the trigger
+         is the keyboard-equivalent way to clear the value. -->
+    <span class="s-cascade-select__clear" role="button" tabindex="-1" aria-label="Clear selection" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+      <s-icon [ref]="icons.clear" />
+    </span>
+  }
+  <span class="s-cascade-select__icon">
+    @if (loading()) {
+      <s-icon class="s-cascade-select__icon--spin" [ref]="icons.loading" />
+    } @else if (iconTemplate(); as tpl) {
+      <ng-container [ngTemplateOutlet]="tpl" />
+    } @else {
+      <s-icon [ref]="icons.chevronDown" />
+    }
+  </span>
+</button>
+
+@if (open()) {
+  <div
+    #panel
+    class="s-cascade-select__panel"
+    [attr.data-placement]="panelPlacement()"
+    [attr.data-appended]="appendTo() === 'body' ? '' : null"
+    [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
+    [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
+    [style.width.px]="appendTo() === 'body' ? fixedPosition().width : null"
+    animate.enter="s-cascade-select__panel--enter"
+    animate.leave="s-cascade-select__panel--leave"
+  >
+    @for (column of columns(); track $index; let colIndex = $index) {
+      <ul class="s-cascade-select__column" role="listbox" [id]="colIndex === 0 ? listboxId : null" [attr.aria-label]="'Level ' + (colIndex + 1)">
+        @for (option of column; track $index; let i = $index) {
+          <!-- Deliberately not focusable / no per-item keydown: the same ARIA "combobox with
+               listbox popup" pattern as Select -- keyboard focus stays on the trigger button, and
+               the active option per column is tracked virtually. Click/hover are supplementary
+               pointer-only interactions. -->
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+          <li
+            class="s-cascade-select__option"
+            role="option"
+            [attr.aria-selected]="option === selectedPath()[colIndex]"
+            [attr.data-active]="i === activeIndexFor(colIndex) ? '' : null"
+            [attr.data-has-children]="hasChildren(option) ? '' : null"
+            (click)="onOptionClick(colIndex, i, option)"
+            (mouseenter)="onOptionHover(colIndex, i, option)"
+          >
+            @if (optionTemplate(); as tpl) {
+              <ng-container
+                [ngTemplateOutlet]="tpl"
+                [ngTemplateOutletContext]="{
+                  $implicit: option,
+                  index: i,
+                  level: colIndex,
+                  hasChildren: hasChildren(option),
+                  selected: option === selectedPath()[colIndex]
+                }"
+              />
+            } @else {
+              <span class="s-cascade-select__option-label">{{ labelFor(option) }}</span>
+            }
+            @if (hasChildren(option)) {
+              <s-icon class="s-cascade-select__caret" [ref]="icons.chevronDown" />
+            }
+          </li>
+        } @empty {
+          <li class="s-cascade-select__empty">{{ emptyMessage() }}</li>
+        }
+      </ul>
+    }
+  </div>
+}
+@if (effectiveInvalid()) {
+  <s-error-message [message]="errorMessage()" />
+}

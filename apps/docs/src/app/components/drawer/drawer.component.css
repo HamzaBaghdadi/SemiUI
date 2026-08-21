@@ -13,6 +13,22 @@
   background: transparent;
 }
 
+/* The dimming moves onto .s-drawer__spotlight's own box-shadow instead, so the backdrop's flat
+   background doesn't paint a second, undifferentiated dim layer on top of the cutout. */
+.s-drawer__backdrop[data-spotlight] {
+  background: transparent;
+}
+
+.s-drawer__spotlight {
+  position: fixed;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 9999px var(--semiui-comp-dialog-backdrop-color);
+  border-radius: var(--semiui-radius-sm);
+  outline: 2px solid var(--semiui-color-ring);
+  outline-offset: 2px;
+  pointer-events: none;
+}
+
 .s-drawer__panel {
   position: fixed;
   box-sizing: border-box;

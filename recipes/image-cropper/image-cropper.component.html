@@ -1,0 +1,41 @@
+<div class="s-image-cropper">
+  <div
+    class="s-image-cropper__viewport"
+    [style.width.px]="viewportWidth()"
+    [style.height.px]="viewportHeight()"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp()"
+    (pointercancel)="onPointerUp()"
+    (wheel)="onWheel($event)"
+  >
+    @if (src(); as source) {
+      <img
+        #image
+        class="s-image-cropper__image"
+        [src]="source"
+        crossorigin="anonymous"
+        alt=""
+        draggable="false"
+        [style.width.px]="displayWidth()"
+        [style.height.px]="displayHeight()"
+        [style.transform]="imageTransform()"
+        (load)="onImageLoad($event)"
+      />
+    }
+    <span class="s-image-cropper__grid-line s-image-cropper__grid-line--v1"></span>
+    <span class="s-image-cropper__grid-line s-image-cropper__grid-line--v2"></span>
+    <span class="s-image-cropper__grid-line s-image-cropper__grid-line--h1"></span>
+    <span class="s-image-cropper__grid-line s-image-cropper__grid-line--h2"></span>
+  </div>
+  <s-slider
+    class="s-image-cropper__zoom"
+    ariaLabel="Zoom"
+    [min]="minZoom()"
+    [max]="maxZoom()"
+    [step]="0.01"
+    [showValueBubble]="false"
+    [value]="zoom()"
+    (valueChange)="onZoomInput($event ?? minZoom())"
+  />
+</div>

@@ -1,0 +1,79 @@
+<div class="s-auto-complete">
+  <input
+    #nativeInput
+    sInput
+    type="text"
+    class="s-auto-complete__input"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="open()"
+    [attr.aria-controls]="listboxId"
+    [attr.aria-activedescendant]="activeOptionId()"
+    [invalid]="effectiveInvalid()"
+    [attr.aria-busy]="loading() ? 'true' : null"
+    [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
+    [disabled]="effectiveDisabled()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    (input)="onInput($any($event.target).value)"
+    (keydown)="onKeydown($event)"
+    (focus)="onFocus()"
+    (blur)="onInputBlur()"
+  />
+  @if (loading()) {
+    <s-icon class="s-auto-complete__icon s-auto-complete__icon--spin" [ref]="icons.loading" />
+  } @else if (showClear()) {
+    <!-- mousedown preventDefault keeps focus on the input across the click, matching the same
+         trick each option below uses -- otherwise the input blurs (closing the panel and marking
+         touched) before the click handler ever runs. -->
+    <span class="s-auto-complete__clear" role="button" tabindex="-1" aria-label="Clear" (mousedown)="$event.preventDefault()" (click)="onClearClick($event)">
+      <s-icon [ref]="icons.clear" />
+    </span>
+  }
+</div>
+
+@if (open()) {
+  <ul
+    #panel
+    class="s-auto-complete__panel"
+    role="listbox"
+    [id]="listboxId"
+    [attr.data-placement]="panelPlacement()"
+    [attr.data-appended]="appendTo() === 'body' ? '' : null"
+    [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
+    [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
+    [style.width.px]="appendTo() === 'body' ? fixedPosition().width : null"
+    animate.enter="s-auto-complete__panel--enter"
+    animate.leave="s-auto-complete__panel--leave"
+  >
+    @for (option of filteredOptions(); track $index; let i = $index) {
+      <!-- Deliberately not focusable / no per-item keydown: same ARIA combobox-with-listbox-popup
+           pattern as Select -- keyboard focus stays on the input, and the active option is
+           tracked virtually via aria-activedescendant. Click/hover are supplementary pointer-only
+           interactions. -->
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <li
+        [id]="listboxId + '-option-' + i"
+        class="s-auto-complete__option"
+        role="option"
+        [attr.aria-selected]="i === activeIndex()"
+        [attr.data-active]="i === activeIndex() ? '' : null"
+        (mousedown)="$event.preventDefault()"
+        (click)="selectOption(option)"
+        (mouseenter)="activeIndex.set(i)"
+      >
+        @if (optionTemplate(); as tpl) {
+          <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: option, index: i, query: value() }" />
+        } @else {
+          {{ labelFor(option) }}
+        }
+      </li>
+    } @empty {
+      <li class="s-auto-complete__empty">{{ emptyMessage() }}</li>
+    }
+  </ul>
+}
+@if (effectiveInvalid()) {
+  <s-error-message [message]="errorMessage()" />
+}

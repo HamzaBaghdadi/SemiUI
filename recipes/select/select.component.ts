@@ -96,7 +96,9 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
 
   protected readonly selectedOption = computed<TOption | undefined>(() => {
     const value = this.value();
-    if (value === undefined) {
+    // `== null` (loose) on purpose -- catches both null (the empty value, see emptyValue) and a
+    // stray undefined from an external write, without needing two comparisons.
+    if (value == null) {
       return undefined;
     }
     return this.options().find((option) => this.resolveValue(option) === value);
@@ -134,12 +136,22 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
     }
   });
 
+  /**
+   * `null`, not `undefined` -- with Signal Forms, writing `undefined` into the bound model deletes
+   * that property from the model object, which orphans the field node (NG01902 "Orphan field") and
+   * permanently breaks the view's reactive graph: every later read throws and the DOM silently
+   * stops updating. `null` keeps the property present, so the field survives being cleared.
+   */
   protected override emptyValue(): unknown {
-    return undefined;
+    return null;
   }
 
   focus(options?: FocusOptions): void {
     this.triggerButton()?.nativeElement.focus(options);
+  }
+
+  protected override focusTarget(): HTMLElement | null {
+    return this.triggerButton()?.nativeElement ?? null;
   }
 
   protected labelFor(option: TOption): string {
@@ -202,7 +214,7 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   }
 
   private clearValue(): void {
-    this.value.set(undefined);
+    this.value.set(this.emptyValue());
     this.close();
     this.triggerButton()?.nativeElement.focus();
   }

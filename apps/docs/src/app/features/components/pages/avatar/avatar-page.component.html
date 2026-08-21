@@ -6,6 +6,9 @@
     slug="avatar"
   ></app-component-page-header>
 
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
   <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Image, initials, and icon fallback</h2>
     <app-component-demo>
@@ -47,4 +50,19 @@
     </app-component-demo>
     <app-code-block filename="Usage" [code]="statusCode"></app-code-block>
   </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

@@ -1,0 +1,99 @@
+<div class="s-tree-table__scroll">
+  <table class="s-tree-table" [attr.data-striped]="striped() ? '' : null">
+    <thead class="s-tree-table__head">
+      <tr>
+        @if (selectionMode() === 'multiple') {
+          <th class="s-tree-table__th s-tree-table__th--checkbox"></th>
+        } @else if (selectionMode() === 'single') {
+          <th class="s-tree-table__th s-tree-table__th--checkbox"></th>
+        }
+        @for (column of columns(); track column.field) {
+          <th class="s-tree-table__th" [style.width]="column.width ?? null" [style.text-align]="column.align ?? null">
+            {{ column.header }}
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody class="s-tree-table__body">
+      @if (loading()) {
+        <tr class="s-tree-table__state-row">
+          <td [attr.colspan]="columns().length + (selectionMode() !== 'none' ? 1 : 0)">
+            <div class="s-tree-table__loading">
+              <s-icon class="s-tree-table__loading-icon" [ref]="icons.loading" />
+              Loading...
+            </div>
+          </td>
+        </tr>
+      } @else if (visibleRows().length === 0) {
+        <tr class="s-tree-table__state-row">
+          <td [attr.colspan]="columns().length + (selectionMode() !== 'none' ? 1 : 0)">
+            <div class="s-tree-table__empty">{{ emptyMessage() }}</div>
+          </td>
+        </tr>
+      } @else {
+        @for (row of visibleRows(); track row.node) {
+          <tr class="s-tree-table__tr" [attr.data-selected]="isSelected(row.node) ? '' : null">
+            @if (selectionMode() === 'multiple') {
+              <td class="s-tree-table__td s-tree-table__td--checkbox">
+                <s-checkbox ariaLabel="Select row" [value]="isSelected(row.node)" (valueChange)="toggleSelection(row.node)" />
+              </td>
+            } @else if (selectionMode() === 'single') {
+              <!-- No standalone single-radio component to reuse (same reasoning as Table's own
+                   single-selection column) -- reusing s-radio's exact class names/tokens instead. -->
+              <td class="s-tree-table__td s-tree-table__td--checkbox">
+                <label class="s-radio">
+                  <input
+                    type="radio"
+                    class="s-radio__input"
+                    aria-label="Select row"
+                    [checked]="isSelected(row.node)"
+                    (change)="toggleSelection(row.node)"
+                  />
+                  <span class="s-radio__dot"></span>
+                </label>
+              </td>
+            }
+            @for (column of columns(); track column.field; let ci = $index) {
+              <td class="s-tree-table__td" [style.text-align]="column.align ?? null">
+                @if (ci === 0) {
+                  <span class="s-tree-table__indent" [style.width.rem]="row.level * 1.25"></span>
+                  @if (hasChildren(row.node)) {
+                    <button
+                      type="button"
+                      class="s-tree-table__toggle"
+                      [attr.aria-expanded]="isExpanded(row.node)"
+                      [attr.aria-label]="isExpanded(row.node) ? 'Collapse' : 'Expand'"
+                      (click)="toggleExpand(row.node)"
+                    >
+                      <s-icon
+                        class="s-tree-table__toggle-icon"
+                        [class.s-tree-table__toggle-icon--expanded]="isExpanded(row.node)"
+                        [ref]="icons.chevronDown"
+                      />
+                    </button>
+                  } @else {
+                    <span class="s-tree-table__toggle-spacer"></span>
+                  }
+                }
+                @if (cellTemplate(); as tpl) {
+                  <ng-container
+                    [ngTemplateOutlet]="tpl"
+                    [ngTemplateOutletContext]="{
+                      $implicit: cellValue(row.node, column.field),
+                      node: row.node,
+                      column: column,
+                      value: cellValue(row.node, column.field),
+                      level: row.level,
+                    }"
+                  />
+                } @else {
+                  {{ cellValue(row.node, column.field) }}
+                }
+              </td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

@@ -56,6 +56,10 @@ export class InputNumberComponent extends BaseFormFieldControl<number | null> {
     this.nativeInput()?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.nativeInput()?.nativeElement ?? null;
+  }
+
   /** Only commits well-formed numbers as the user types; a stray "-" or trailing "." is left
    *  on-screen uncommitted until blur, which resyncs the field to the last valid value. */
   protected onInput(raw: string): void {

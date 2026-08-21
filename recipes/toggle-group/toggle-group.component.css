@@ -1,0 +1,190 @@
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  /* Default (also covers the 'link' variant, which isn't given its own block below) --
+     unrecognized/unmapped variants still render as a normal, visibly-stateful group rather than
+     colorless chrome. */
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-primary-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-primary-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-primary-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-primary-foreground);
+}
+
+.s-toggle-group {
+  display: inline-flex;
+}
+
+.s-toggle-group__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--semiui-spacing-sm);
+  border-width: 1px;
+  border-style: solid;
+  font-weight: var(--semiui-comp-button-font-weight);
+  font-family: var(--semiui-typography-font-family);
+  cursor: pointer;
+  background: transparent;
+  color: var(--s-toggle-group-accent);
+  border-color: var(--s-toggle-group-accent);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+/* Segments share a border rather than doubling it up between neighbors -- the same collapsing
+   technique Split Button uses to merge its two buttons into one shape. */
+.s-toggle-group__item + .s-toggle-group__item {
+  margin-inline-start: -1px;
+}
+
+.s-toggle-group__item:first-child {
+  border-start-start-radius: var(--semiui-comp-button-radius);
+  border-end-start-radius: var(--semiui-comp-button-radius);
+}
+
+.s-toggle-group__item:last-child {
+  border-start-end-radius: var(--semiui-comp-button-radius);
+  border-end-end-radius: var(--semiui-comp-button-radius);
+}
+
+.s-toggle-group__item:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--s-toggle-group-accent) 12%, transparent);
+  position: relative;
+  z-index: 1;
+}
+
+.s-toggle-group__item:active:not(:disabled) {
+  background: color-mix(in srgb, var(--s-toggle-group-accent) 20%, transparent);
+}
+
+/* Pressed fills solid -- the same look a regular Button of this variant has, so a selected
+   segment reads as "this is the chosen one" at a glance, same convention as Toggle Button. */
+.s-toggle-group__item[aria-pressed='true'] {
+  background: var(--s-toggle-group-solid-bg);
+  color: var(--s-toggle-group-solid-fg);
+  border-color: var(--s-toggle-group-solid-border);
+  position: relative;
+  z-index: 1;
+}
+
+.s-toggle-group__item[aria-pressed='true']:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--s-toggle-group-solid-bg) 85%, black);
+  border-color: color-mix(in srgb, var(--s-toggle-group-solid-border) 85%, black);
+}
+
+.s-toggle-group__item[aria-pressed='true']:active:not(:disabled) {
+  background: color-mix(in srgb, var(--s-toggle-group-solid-bg) 70%, black);
+  border-color: color-mix(in srgb, var(--s-toggle-group-solid-border) 70%, black);
+}
+
+.s-toggle-group__item:focus-visible {
+  outline: none;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
+}
+
+.s-toggle-group__item:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.s-toggle-group__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+.s-toggle-group__label {
+  white-space: nowrap;
+}
+
+:host([data-size='sm']) .s-toggle-group__item {
+  padding: var(--semiui-comp-button-padding-y-sm) var(--semiui-comp-button-padding-x-sm);
+  font-size: var(--semiui-comp-button-font-size-sm);
+}
+
+:host([data-size='md']) .s-toggle-group__item {
+  padding: var(--semiui-comp-button-padding-y-md) var(--semiui-comp-button-padding-x-md);
+  font-size: var(--semiui-comp-button-font-size-md);
+}
+
+:host([data-size='lg']) .s-toggle-group__item {
+  padding: var(--semiui-comp-button-padding-y-lg) var(--semiui-comp-button-padding-x-lg);
+  font-size: var(--semiui-comp-button-font-size-lg);
+}
+
+/* Each variant just points the shared accent/solid custom properties at Button's own design
+   tokens, same indirection Toggle Button uses. */
+:host([data-variant='primary']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-primary-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-primary-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-primary-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-primary-foreground);
+}
+
+/* Secondary's background/border tokens are a muted neutral wash, not meant as legible
+   text/border color on their own (same reasoning as Toggle Button's own secondary handling) --
+   unpressed points at --semiui-color-muted-foreground instead of reusing its own background. */
+:host([data-variant='secondary']) {
+  --s-toggle-group-accent: var(--semiui-color-muted-foreground);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-secondary-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-secondary-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-secondary-foreground);
+}
+
+:host([data-variant='success']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-success-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-success-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-success-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-success-foreground);
+}
+
+:host([data-variant='info']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-info-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-info-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-info-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-info-foreground);
+}
+
+:host([data-variant='warn']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-warn-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-warn-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-warn-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-warn-foreground);
+}
+
+:host([data-variant='help']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-help-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-help-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-help-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-help-foreground);
+}
+
+:host([data-variant='destructive']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-destructive-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-destructive-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-destructive-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-destructive-foreground);
+}
+
+/* danger is a plain alias of destructive -- same values in every preset, just reachable under
+   PrimeNG-style naming too, matching Button's own convention. */
+:host([data-variant='danger']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-danger-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-danger-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-danger-border);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-danger-foreground);
+}
+
+:host([data-variant='contrast']) {
+  --s-toggle-group-accent: var(--semiui-comp-button-variants-contrast-background);
+  --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-contrast-background);
+  --s-toggle-group-solid-border: var(--semiui-comp-button-variants-contrast-background);
+  --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-contrast-foreground);
+}

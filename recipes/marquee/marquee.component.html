@@ -1,0 +1,8 @@
+<div class="s-marquee__track">
+  <div #primary class="s-marquee__content">
+    <ng-content />
+  </div>
+  <!-- Filled by cloning #primary's children at runtime (see the component) -- a second
+       <ng-content /> here would render empty, since content projects into only one slot. -->
+  <div #clone class="s-marquee__content" aria-hidden="true"></div>
+</div>

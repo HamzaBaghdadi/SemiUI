@@ -6,7 +6,7 @@
       [attr.inputmode]="type() === 'numeric' ? 'numeric' : 'text'"
       class="s-otp__box"
       maxlength="1"
-      autocomplete="one-time-code"
+      [attr.autocomplete]="disableAutocomplete() ? 'off' : 'one-time-code'"
       [attr.aria-label]="'Digit ' + (i + 1)"
       [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
       [value]="digits()[i]"

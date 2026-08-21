@@ -18,7 +18,7 @@
 }
 
 <div class="s-table__scroll">
-  <table class="s-table" [attr.data-striped]="striped() ? '' : null">
+  <table class="s-table" [attr.data-striped]="striped() ? '' : null" [attr.data-gridlines]="showGridlines() ? '' : null">
     <thead class="s-table__head" [attr.data-sticky]="stickyHeader() ? '' : null">
       <tr>
         @if (selectionMode() === 'multiple') {

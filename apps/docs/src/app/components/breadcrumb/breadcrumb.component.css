@@ -16,6 +16,13 @@
   gap: var(--semiui-comp-breadcrumb-gap);
 }
 
+.s-breadcrumb__link,
+.s-breadcrumb__current {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--semiui-spacing-xs);
+}
+
 .s-breadcrumb__link {
   color: var(--semiui-comp-breadcrumb-foreground);
   text-decoration: none;
@@ -35,6 +42,13 @@
 .s-breadcrumb__link--current {
   color: var(--semiui-comp-breadcrumb-current-foreground);
   font-weight: var(--semiui-typography-font-weight-medium);
+}
+
+.s-breadcrumb__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
 }
 
 .s-breadcrumb__separator {

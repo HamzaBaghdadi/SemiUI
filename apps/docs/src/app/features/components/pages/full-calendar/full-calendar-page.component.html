@@ -1,0 +1,42 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Full Calendar"
+    description="A month/week calendar grid with events -- pass events, each just needing a title and a start date."
+    slug="full-calendar"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-full-calendar [events]="events" (dayClick)="onDayClick($event)" (eventClick)="onEventClick($event)" class="w-full" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">{{ log() }}</p>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Week view</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Switch views via the toggle in the header, or bind <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">view</code> directly.
+          </p>
+          <app-component-demo [block]="true">
+            <s-full-calendar [events]="events" view="week" class="w-full" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="weekCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

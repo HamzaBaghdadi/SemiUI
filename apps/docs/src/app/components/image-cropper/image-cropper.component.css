@@ -1,0 +1,77 @@
+:host {
+  display: inline-flex;
+}
+
+.s-image-cropper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--semiui-spacing-md);
+}
+
+.s-image-cropper__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--semiui-radius-md);
+  background: var(--semiui-color-muted);
+  border: 1px solid var(--semiui-comp-table-border);
+  cursor: grab;
+  touch-action: none;
+}
+
+.s-image-cropper__viewport:active {
+  cursor: grabbing;
+}
+
+.s-image-cropper__image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* A common global reset (Tailwind's preflight, among others) sets `img { max-width: 100% }` --
+     that silently capped the explicit pixel width set below whenever the consuming app has one,
+     since max-width wins over width when they conflict. This component computes its own width
+     from the natural image size and zoom, so it must never be capped by the containing block's
+     size the way a "responsive image" reset assumes. */
+  max-width: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.s-image-cropper__grid-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+.s-image-cropper__grid-line--v1 {
+  top: 0;
+  bottom: 0;
+  left: 33.333%;
+  width: 1px;
+}
+
+.s-image-cropper__grid-line--v2 {
+  top: 0;
+  bottom: 0;
+  left: 66.666%;
+  width: 1px;
+}
+
+.s-image-cropper__grid-line--h1 {
+  left: 0;
+  right: 0;
+  top: 33.333%;
+  height: 1px;
+}
+
+.s-image-cropper__grid-line--h2 {
+  left: 0;
+  right: 0;
+  top: 66.666%;
+  height: 1px;
+}
+
+.s-image-cropper__zoom {
+  width: 100%;
+  max-width: var(--semiui-comp-image-cropper-zoom-slider-max-width);
+}

@@ -1,6 +1,6 @@
 <div class="s-stepper" role="list">
   @for (item of items(); track $index; let i = $index; let last = $last) {
-    <div class="s-stepper__step" role="listitem" [attr.data-state]="stepState(i)">
+    <div class="s-stepper__step" role="listitem" [attr.data-state]="stepState(i)" [attr.data-disabled]="item.disabled ? '' : null">
       <div class="s-stepper__row">
         <button
           type="button"

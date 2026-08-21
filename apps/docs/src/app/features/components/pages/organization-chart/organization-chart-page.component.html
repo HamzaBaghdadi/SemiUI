@@ -1,0 +1,79 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Organization Chart"
+    description="A hierarchical tree of nodes connected by lines: pass a single root node, each wrapping data plus optional children."
+    slug="organization-chart"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-organization-chart [node]="root" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Selection</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode="single"</code> makes every
+            node clickable (and focusable via keyboard, Enter/Space toggles it).
+          </p>
+          <app-component-demo [block]="true">
+            <s-organization-chart [node]="root" selectionMode="single" [(selection)]="selection" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">
+            Selected: {{ selection().length ? selection()[0].data.label : 'none' }}
+          </p>
+          <app-code-block filename="Usage" [code]="selectionCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Without collapsing</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[collapsible]="false"</code> drops the
+            toggle from every node -- the whole tree always renders fully expanded.
+          </p>
+          <app-component-demo [block]="true">
+            <s-organization-chart [node]="root" [collapsible]="false" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="noCollapseCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom node content</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#node</code> template slot renders
+            every node's content -- context is
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">{{ '{' }} $implicit: data, node, expanded, selected {{ '}' }}</code>.
+          </p>
+          <app-component-demo [block]="true">
+            <s-organization-chart [node]="root">
+              <ng-template #node let-person>
+                <div class="flex flex-col items-center">
+                  <span class="font-semibold">{{ person.label }}</span>
+                  @if (person.title) {
+                    <span class="text-xs text-muted-foreground">{{ person.title }}</span>
+                  }
+                </div>
+              </ng-template>
+            </s-organization-chart>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="nodeTemplateCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

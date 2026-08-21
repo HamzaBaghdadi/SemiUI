@@ -1,0 +1,50 @@
+<div
+  class="s-organization-chart-node__box"
+  [attr.data-selected]="isSelected() ? '' : null"
+  [attr.tabindex]="selectionMode() !== 'none' ? 0 : null"
+  [attr.role]="selectionMode() !== 'none' ? 'button' : null"
+  [attr.aria-pressed]="selectionMode() !== 'none' ? isSelected() : null"
+  (click)="onSelect()"
+  (keydown.enter)="onSelect()"
+  (keydown.space)="$event.preventDefault(); onSelect()"
+>
+  @if (nodeTemplate(); as tpl) {
+    <ng-container
+      [ngTemplateOutlet]="tpl"
+      [ngTemplateOutletContext]="{ $implicit: node().data, node: node(), expanded: effectiveExpanded(), selected: isSelected() }"
+    />
+  } @else {
+    <span class="s-organization-chart-node__label">{{ labelText() }}</span>
+  }
+  @if (hasChildren() && collapsible()) {
+    <button
+      type="button"
+      class="s-organization-chart-node__toggle"
+      [attr.aria-expanded]="effectiveExpanded()"
+      [attr.aria-label]="effectiveExpanded() ? 'Collapse' : 'Expand'"
+      (click)="toggleExpand($event)"
+    >
+      <s-icon
+        class="s-organization-chart-node__toggle-icon"
+        [class.s-organization-chart-node__toggle-icon--collapsed]="!effectiveExpanded()"
+        [ref]="icons.chevronDown"
+      />
+    </button>
+  }
+</div>
+
+@if (hasChildren() && effectiveExpanded()) {
+  <div class="s-organization-chart-node__children">
+    @for (child of node().children; track child) {
+      <s-organization-chart-node
+        [node]="child"
+        [isRoot]="false"
+        [collapsible]="collapsible()"
+        [selectionMode]="selectionMode()"
+        [selectedNodes]="selectedNodes()"
+        [nodeTemplate]="nodeTemplate()"
+        (toggleSelect)="toggleSelect.emit($event)"
+      />
+    }
+  </div>
+}

@@ -1,10 +1,12 @@
 import { Injectable, TemplateRef, signal } from '@angular/core';
 import { ToastVariant } from '@semiui/tokens';
 
-/** Context handed to a custom `template`: the toast entry itself, and a bound dismiss callback. */
+/** Context handed to a custom `template`: the toast entry itself, a bound dismiss callback, and
+ * the milliseconds left before auto-dismiss (`null` for sticky toasts, which never count down). */
 export interface ToastTemplateContext {
   $implicit: ToastEntry;
   dismiss: () => void;
+  remainingMs: number | null;
 }
 
 export interface ToastOptions {
@@ -15,7 +17,7 @@ export interface ToastOptions {
   duration?: number;
   /** Shows the variant's default icon. Default `true`; set `false` for icon-less toasts. */
   showIcon?: boolean;
-  /** Fully replaces this toast's icon/title/description/close-button chrome with a custom template. Context: `{ $implicit: the toast entry, dismiss: () => void }`. */
+  /** Fully replaces this toast's icon/title/description/close-button chrome with a custom template. Context: `{ $implicit: the toast entry, dismiss: () => void, remainingMs: number | null }`. */
   template?: TemplateRef<ToastTemplateContext>;
 }
 

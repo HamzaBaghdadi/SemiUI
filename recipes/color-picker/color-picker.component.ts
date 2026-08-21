@@ -111,6 +111,16 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
     return null;
   }
 
+  focus(options?: FocusOptions): void {
+    this.focusTarget()?.focus(options);
+  }
+
+  /** `inline` has no trigger button -- the hex field is the closest thing to a natural focus
+   * target, since it's the only always-visible interactive control that isn't a drag surface. */
+  protected override focusTarget(): HTMLElement | null {
+    return this.inline() ? (this.hexInputEl()?.nativeElement ?? null) : (this.triggerButton()?.nativeElement ?? null);
+  }
+
   protected toggle(): void {
     if (this.effectiveDisabled()) {
       return;

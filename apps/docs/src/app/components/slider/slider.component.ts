@@ -26,11 +26,14 @@ export type SliderOrientation = 'horizontal' | 'vertical';
 export class SliderComponent extends BaseFormFieldControl<number | null> {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly track = viewChild<ElementRef<HTMLDivElement>>('track');
+  private readonly thumb = viewChild<ElementRef<HTMLDivElement>>('thumb');
 
   min = input(0);
   max = input(100);
   step = input(1);
   orientation = input<SliderOrientation>('horizontal');
+  /** Accessible name for the thumb, e.g. when no visible label is associated with the slider. */
+  ariaLabel = input<string>();
   errorMessage = input('');
   /** Renders a tick mark at every step along the track. */
   showTicks = input(false, { transform: booleanAttribute });
@@ -64,6 +67,14 @@ export class SliderComponent extends BaseFormFieldControl<number | null> {
 
   protected override emptyValue(): number | null {
     return null;
+  }
+
+  focus(options?: FocusOptions): void {
+    this.thumb()?.nativeElement.focus(options);
+  }
+
+  protected override focusTarget(): HTMLElement | null {
+    return this.thumb()?.nativeElement ?? null;
   }
 
   protected onTrackPointerDown(event: PointerEvent): void {

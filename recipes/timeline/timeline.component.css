@@ -1,0 +1,123 @@
+:host {
+  display: block;
+}
+
+.s-timeline {
+  display: grid;
+  row-gap: var(--semiui-spacing-lg);
+}
+
+:host([data-align='left']) .s-timeline {
+  grid-template-columns: auto 1fr;
+  column-gap: var(--semiui-spacing-md);
+}
+
+:host([data-align='right']) .s-timeline {
+  grid-template-columns: 1fr auto;
+  column-gap: var(--semiui-spacing-md);
+}
+
+:host([data-align='alternate']) .s-timeline {
+  grid-template-columns: 1fr auto 1fr;
+  column-gap: var(--semiui-spacing-md);
+}
+
+:host([data-orientation='horizontal']) .s-timeline {
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  grid-template-rows: auto auto;
+  column-gap: var(--semiui-spacing-lg);
+  row-gap: var(--semiui-spacing-sm);
+  overflow-x: auto;
+  padding-bottom: var(--semiui-spacing-xs);
+}
+
+.s-timeline__axis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host([data-orientation='horizontal']) .s-timeline__axis {
+  flex-direction: row;
+  align-items: center;
+}
+
+.s-timeline__marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--semiui-comp-stepper-circle-size);
+  height: var(--semiui-comp-stepper-circle-size);
+  border-radius: var(--semiui-radius-full);
+  /* Falls back to the same filled dot Stepper's own active circle uses -- an item's `color`
+     points this at one of Button's variant tokens instead, reusing that palette rather than
+     needing its own. */
+  background: var(--s-timeline-marker-bg, var(--semiui-comp-stepper-circle-background-active));
+  color: var(--semiui-comp-stepper-circle-foreground-active);
+  font-size: var(--semiui-comp-stepper-font-size);
+}
+
+.s-timeline__marker s-icon {
+  width: var(--semiui-comp-timeline-marker-icon-size);
+  height: var(--semiui-comp-timeline-marker-icon-size);
+}
+
+.s-timeline__connector {
+  flex: 1;
+  width: 1px;
+  min-height: var(--semiui-spacing-lg);
+  background: var(--semiui-comp-stepper-connector-color);
+  margin-block-start: var(--semiui-spacing-xs);
+}
+
+:host([data-orientation='horizontal']) .s-timeline__connector {
+  width: auto;
+  min-width: var(--semiui-comp-timeline-connector-min-length);
+  min-height: 0;
+  height: 1px;
+  flex: 1;
+  margin-block-start: 0;
+  margin-inline-start: var(--semiui-spacing-xs);
+}
+
+.s-timeline__opposite {
+  display: flex;
+  flex-direction: column;
+}
+
+.s-timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--semiui-comp-timeline-content-gap);
+  padding-bottom: var(--semiui-spacing-lg);
+}
+
+:host([data-orientation='horizontal']) .s-timeline__content {
+  padding-bottom: 0;
+  padding-top: var(--semiui-spacing-xs);
+}
+
+:host([data-align='right']) .s-timeline__content {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.s-timeline__date {
+  font-size: calc(var(--semiui-comp-stepper-font-size) * 0.85);
+  color: var(--semiui-comp-stepper-description-color);
+}
+
+.s-timeline__title {
+  font-size: var(--semiui-comp-stepper-font-size);
+  font-weight: 600;
+  color: var(--semiui-comp-stepper-label-color-active);
+}
+
+.s-timeline__body {
+  margin: 0;
+  font-size: var(--semiui-comp-stepper-font-size);
+  color: var(--semiui-comp-stepper-label-color);
+}

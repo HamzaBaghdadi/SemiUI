@@ -1,6 +1,7 @@
 <div class="s-rating" (mouseleave)="onGroupLeave()">
   @for (star of starIndices(); track star) {
     <button
+      #star
       type="button"
       class="s-rating__star"
       [class.s-rating__star--filled]="star <= displayValue()"

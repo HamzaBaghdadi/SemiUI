@@ -6,172 +6,201 @@
     slug="table"
   ></app-component-page-header>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Basic usage with sorting</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      There's no table-wide "enable sorting" switch -- each column decides for itself via
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">sortable</code>. Click a sortable
-      header to cycle asc / desc / unsorted. The "Age" column also sets
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">align</code>.
-    </p>
-    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
-      A column's <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">align</code> accepts
-      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'left'</code>/<code
-        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
-        >'right'</code
-      >, which pin to that literal physical side regardless of page direction, or
-      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'start'</code>/<code
-        class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
-        >'end'</code
-      >
-      (used below), the mirroring equivalents that flip side under
-      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>. Both pass
-      straight through to CSS <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">text-align</code>.
-    </div>
-    <app-component-demo [block]="true">
-      <s-table [columns]="basicColumns" [data]="people" />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
-  </div>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage with sorting</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            There's no table-wide "enable sorting" switch -- each column decides for itself via
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">sortable</code>. Click a sortable
+            header to cycle asc / desc / unsorted. The "Age" column also sets
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">align</code>.
+          </p>
+          <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+            A column's <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">align</code> accepts
+            <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'left'</code>/<code
+              class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+              >'right'</code
+            >, which pin to that literal physical side regardless of page direction, or
+            <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">'start'</code>/<code
+              class="text-xs bg-background px-1.5 py-0.5 rounded-sm"
+              >'end'</code
+            >
+            (used below), the mirroring equivalents that flip side under
+            <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">dir="rtl"</code>. Both pass
+            straight through to CSS <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">text-align</code>.
+          </div>
+          <app-component-demo [block]="true">
+            <s-table [columns]="basicColumns" [data]="people" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Custom cell template</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Renders a colored
-      <a routerLink="/components/tag" class="text-primary hover:underline">Tag</a> for the status
-      column instead of plain text via an optional
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#cell</code> template.
-    </p>
-    <app-component-demo [block]="true">
-      <s-table [columns]="statusColumns" [data]="people">
-        <ng-template #cell let-row let-column="column" let-value="value">
-          @if (column.field === 'status') {
-            <s-tag [variant]="statusVariant(value)">{{ value }}</s-tag>
-          } @else {
-            {{ value }}
-          }
-        </ng-template>
-      </s-table>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="cellTemplateCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Striped rows and gridlines</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Both off by default -- a plain table stays plain until you opt in.
+          </p>
+          <app-component-demo [block]="true">
+            <s-table [columns]="basicColumns" [data]="people" [striped]="true" [showGridlines]="true" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="stripedGridlinesCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Filterable, selectable, paginated</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      47 rows, filtered client-side across every column, multi-select with a header "select all
-      visible" checkbox, 10 rows per page.
-    </p>
-    <app-component-demo [block]="true">
-      <s-table
-        [columns]="basicColumns"
-        [data]="manyPeople"
-        [filterable]="true"
-        selectionMode="multiple"
-        [(selection)]="selection"
-        [paginated]="true"
-        [pageSize]="10"
-      />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">{{ selection.length }} row(s) selected</p>
-    <app-code-block filename="Usage" [code]="filterableCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom cell template</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Renders a colored
+            <a routerLink="/components/tag" class="text-primary hover:underline">Tag</a> for the status
+            column instead of plain text via an optional
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#cell</code> template.
+          </p>
+          <app-component-demo [block]="true">
+            <s-table [columns]="statusColumns" [data]="people">
+              <ng-template #cell let-row let-column="column" let-value="value">
+                @if (column.field === 'status') {
+                  <s-tag [variant]="statusVariant(value)">{{ value }}</s-tag>
+                } @else {
+                  {{ value }}
+                }
+              </ng-template>
+            </s-table>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="cellTemplateCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Single selection</h2>
-    <app-component-demo [block]="true">
-      <s-table [columns]="basicColumns" [data]="people" selectionMode="single" />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="singleSelectionCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Filterable, selectable, paginated</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            47 rows, filtered client-side across every column, multi-select with a header "select all
+            visible" checkbox, 10 rows per page.
+          </p>
+          <app-component-demo [block]="true">
+            <s-table
+              [columns]="basicColumns"
+              [data]="manyPeople"
+              [filterable]="true"
+              selectionMode="multiple"
+              [(selection)]="selection"
+              [paginated]="true"
+              [pageSize]="10"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">{{ selection.length }} row(s) selected</p>
+          <app-code-block filename="Usage" [code]="filterableCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Summary, rows-per-page, and header/footer templates</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showSummary</code> adds a "Showing X
-      to Y of Z entries" label. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowsPerPageOptions</code>
-      adds a page-size dropdown that writes back to
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[(pageSize)]</code>. With nothing
-      else in the footer, pagination centers itself instead of sitting flush right.
-    </p>
-    <app-component-demo [block]="true">
-      <s-table
-        [columns]="basicColumns"
-        [data]="manyPeople"
-        [paginated]="true"
-        [(pageSize)]="footerPageSize"
-        [rowsPerPageOptions]="[5, 10, 25]"
-        [showSummary]="true"
-      >
-        <ng-template #header>
-          <strong>{{ manyPeople.length }} people</strong>
-        </ng-template>
-        <ng-template #footer>
-          <s-button variant="secondary" size="sm" (pressed)="footerPageSize.set(10)"
-            >Reset page size</s-button
-          >
-        </ng-template>
-      </s-table>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="footerCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Single selection</h2>
+          <app-component-demo [block]="true">
+            <s-table [columns]="basicColumns" [data]="people" selectionMode="single" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="singleSelectionCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Loading and empty states</h2>
-    <app-component-demo>
-      <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
-    </app-component-demo>
-    <app-component-demo [block]="true">
-      <s-table
-        [columns]="basicColumns"
-        [data]="[]"
-        [loading]="isLoadingDemo()"
-        emptyMessage="No people found."
-      >
-        <ng-template #loading>
-          <div class="py-6 text-center text-sm">Fetching people, hold on&hellip;</div>
-        </ng-template>
-      </s-table>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Summary, rows-per-page, and header/footer templates</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showSummary</code> adds a "Showing X
+            to Y of Z entries" label. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowsPerPageOptions</code>
+            adds a page-size dropdown that writes back to
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[(pageSize)]</code>. With nothing
+            else in the footer, pagination centers itself instead of sitting flush right.
+          </p>
+          <app-component-demo [block]="true">
+            <s-table
+              [columns]="basicColumns"
+              [data]="manyPeople"
+              [paginated]="true"
+              [(pageSize)]="footerPageSize"
+              [rowsPerPageOptions]="[5, 10, 25]"
+              [showSummary]="true"
+            >
+              <ng-template #header>
+                <strong>{{ manyPeople.length }} people</strong>
+              </ng-template>
+              <ng-template #footer>
+                <s-button variant="secondary" size="sm" (pressed)="footerPageSize.set(10)"
+                  >Reset page size</s-button
+                >
+              </ng-template>
+            </s-table>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="footerCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-2">
-    <h2 class="text-xl font-bold">Reference</h2>
-    <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">columns</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">data</code>
-        -- column defs and row objects.
-      </li>
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowKey</code> -- identity function
-        for selection tracking; defaults to the row object itself.
-      </li>
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode</code> --
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"none"</code> (default) /
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"single"</code> /
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"multiple"</code>, with a two-way
-        bindable <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selection</code>.
-      </li>
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">filterable</code> -- global search
-        across every column's field value.
-      </li>
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">paginated</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">pageSize</code>
-        / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowsPerPageOptions</code>.
-      </li>
-      <li>
-        Templates: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#cell</code>,
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#header</code>,
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#footer</code>,
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#loading</code>.
-      </li>
-      <li>
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowClick</code> output -- emits the
-        clicked row, regardless of <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode</code>.
-      </li>
-    </ul>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Loading and empty states</h2>
+          <app-component-demo>
+            <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
+          </app-component-demo>
+          <app-component-demo [block]="true">
+            <s-table
+              [columns]="basicColumns"
+              [data]="[]"
+              [loading]="isLoadingDemo()"
+              emptyMessage="No people found."
+            >
+              <ng-template #loading>
+                <div class="py-6 text-center text-sm">Fetching people, hold on&hellip;</div>
+              </ng-template>
+            </s-table>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Reference</h2>
+          <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">columns</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">data</code>
+              -- column defs and row objects.
+            </li>
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowKey</code> -- identity function
+              for selection tracking; defaults to the row object itself.
+            </li>
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode</code> --
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"none"</code> (default) /
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"single"</code> /
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">"multiple"</code>, with a two-way
+              bindable <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selection</code>.
+            </li>
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">filterable</code> -- global search
+              across every column's field value.
+            </li>
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">paginated</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">pageSize</code>
+              / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowsPerPageOptions</code>.
+            </li>
+            <li>
+              Templates: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#cell</code>,
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#header</code>,
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#footer</code>,
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#loading</code>.
+            </li>
+            <li>
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rowClick</code> output -- emits the
+              clicked row, regardless of <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectionMode</code>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

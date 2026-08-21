@@ -6,176 +6,194 @@
     slug="select"
   ></app-component-page-header>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Primitive options</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Plain values (strings, numbers) work directly -- no
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> needed.
-    </p>
-    <app-component-demo>
-      <s-select [options]="fruits" [(ngModel)]="fruit" placeholder="Pick a fruit" />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ fruit }}</p>
-    <app-code-block filename="Usage" [code]="primitiveCode"></app-code-block>
-  </div>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Primitive options</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Plain values (strings, numbers) work directly -- no
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> needed.
+          </p>
+          <app-component-demo>
+            <s-select [options]="fruits" [(ngModel)]="fruit" placeholder="Pick a fruit" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ fruit }}</p>
+          <app-code-block filename="Usage" [code]="primitiveCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Option objects</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> picks which
-      property to display. Without <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionValue</code>,
-      the bound value is the whole option object.
-    </p>
-    <app-component-demo>
-      <s-select
-        [options]="countries"
-        optionLabel="name"
-        [(ngModel)]="country"
-        placeholder="Select a country"
-      />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ country | json }}</p>
-    <app-code-block filename="Usage" [code]="objectsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Option objects</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> picks which
+            property to display. Without <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionValue</code>,
+            the bound value is the whole option object.
+          </p>
+          <app-component-demo>
+            <s-select
+              [options]="countries"
+              optionLabel="name"
+              [(ngModel)]="country"
+              placeholder="Select a country"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ country | json }}</p>
+          <app-code-block filename="Usage" [code]="objectsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Reactive forms</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Pick a country and clear it again (via the "x", or Backspace on the trigger) to see the
-      error message once the control is invalid and touched.
-    </p>
-    <app-component-demo [formGroup]="reactiveForm">
-      <s-select
-        [options]="countries"
-        optionLabel="name"
-        formControlName="country"
-        errorMessage="Please select a country."
-        placeholder="Select a country"
-      />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Pick a country and clear it again (via the "x", or Backspace on the trigger) to see the
+            error message once the control is invalid and touched.
+          </p>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-select
+              [options]="countries"
+              optionLabel="name"
+              formControlName="country"
+              errorMessage="Please select a country."
+              placeholder="Select a country"
+            />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Signal Forms</h2>
-    <app-component-demo>
-      <s-select
-        [options]="countries"
-        optionLabel="name"
-        [formField]="profileForm.country"
-        placeholder="Select a country"
-      />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().country | json }}</p>
-    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-select
+              [options]="countries"
+              optionLabel="name"
+              [formField]="profileForm.country"
+              placeholder="Select a country"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().country | json }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Custom templates</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Five named <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&lt;ng-template&gt;</code>
-      slots: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#selected</code> (the closed
-      trigger's content), <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#option</code>
-      (each row in the list), <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#icon</code>
-      (replaces the default chevron), and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#header</code>
-      / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#footer</code>.
-    </p>
-    <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
-      Angular's strict template checker can't infer a concrete type for
-      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">let-option</code> on a
-      content-projected template (that needs a structural directive with
-      <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">ngTemplateContextGuard</code>).
-      Wrap property access in <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">$any(option)</code>
-      inside these templates -- it's a compile-time-only cast, the runtime value is still your
-      real option.
-    </div>
-    <app-component-demo>
-      <s-select [options]="countries" [(ngModel)]="country" placeholder="Select a country">
-        <ng-template #selected let-option>
-          @if (option) {
-            <strong>{{ $any(option).code }}</strong> &mdash; {{ $any(option).name }}
-          }
-        </ng-template>
-        <ng-template #option let-option let-selected="selected">
-          {{ selected ? '✓' : '' }} {{ $any(option).name }} ({{ $any(option).code }})
-        </ng-template>
-        <ng-template #header>
-          <strong>Available Countries</strong>
-        </ng-template>
-      </s-select>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="customTemplatesCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom templates</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Five named <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&lt;ng-template&gt;</code>
+            slots: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#selected</code> (the closed
+            trigger's content), <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#option</code>
+            (each row in the list), <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#icon</code>
+            (replaces the default chevron), and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#header</code>
+            / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#footer</code>.
+          </p>
+          <div class="rounded-lg border border-border bg-muted p-4 text-sm text-muted-foreground max-w-xl">
+            Angular's strict template checker can't infer a concrete type for
+            <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">let-option</code> on a
+            content-projected template (that needs a structural directive with
+            <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">ngTemplateContextGuard</code>).
+            Wrap property access in <code class="text-xs bg-background px-1.5 py-0.5 rounded-sm">$any(option)</code>
+            inside these templates -- it's a compile-time-only cast, the runtime value is still your
+            real option.
+          </div>
+          <app-component-demo>
+            <s-select [options]="countries" [(ngModel)]="country" placeholder="Select a country">
+              <ng-template #selected let-option>
+                @if (option) {
+                  <strong>{{ $any(option).code }}</strong> &mdash; {{ $any(option).name }}
+                }
+              </ng-template>
+              <ng-template #option let-option let-selected="selected">
+                {{ selected ? '✓' : '' }} {{ $any(option).name }} ({{ $any(option).code }})
+              </ng-template>
+              <ng-template #header>
+                <strong>Available Countries</strong>
+              </ng-template>
+            </s-select>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="customTemplatesCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Clear and search</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Both <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">clearable</code> and
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">filterable</code> default to
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">true</code>. Turn either off per
-      instance:
-    </p>
-    <app-component-demo>
-      <s-select
-        [options]="countries"
-        optionLabel="name"
-        [(ngModel)]="country"
-        [clearable]="false"
-        [filterable]="false"
-        placeholder="No clear, no search"
-      />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="clearSearchCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Clear and search</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Both <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">clearable</code> and
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">filterable</code> default to
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">true</code>. Turn either off per
+            instance:
+          </p>
+          <app-component-demo>
+            <s-select
+              [options]="countries"
+              optionLabel="name"
+              [(ngModel)]="country"
+              [clearable]="false"
+              [filterable]="false"
+              placeholder="No clear, no search"
+            />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="clearSearchCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Loading</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Shows a spinner in place of the chevron and blocks interaction, for async option loading.
-    </p>
-    <app-component-demo>
-      <s-select [options]="fruits" [loading]="loading()" placeholder="Pick a fruit" />
-      <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Loading</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Shows a spinner in place of the chevron and blocks interaction, for async option loading.
+          </p>
+          <app-component-demo>
+            <s-select [options]="fruits" [loading]="loading()" placeholder="Pick a fruit" />
+            <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Disabled</h2>
-    <app-component-demo>
-      <s-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />
-      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
-    </app-component-demo>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <s-select [options]="fruits" [disabled]="disabled()" placeholder="Pick a fruit" />
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Append to body</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      By default the panel is positioned relative to its own trigger, which breaks if an ancestor
-      clips overflow. Set <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code>
-      to move the panel to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code>
-      instead -- it stays pixel-positioned against the trigger, but escapes the clipping container.
-    </p>
-    <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-24 flex items-start gap-4">
-      <s-select [options]="fruits" placeholder="Clipped without appendTo" class="w-48" />
-      <s-select [options]="fruits" appendTo="body" placeholder="appendTo body" class="w-48" />
-    </div>
-    <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Append to body</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            By default the panel is positioned relative to its own trigger, which breaks if an ancestor
+            clips overflow. Set <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code>
+            to move the panel to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code>
+            instead -- it stays pixel-positioned against the trigger, but escapes the clipping container.
+          </p>
+          <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-24 flex items-start gap-4">
+            <s-select [options]="fruits" placeholder="Clipped without appendTo" class="w-48" />
+            <s-select [options]="fruits" appendTo="body" placeholder="appendTo body" class="w-48" />
+          </div>
+          <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-2">
-    <h2 class="text-xl font-bold">Keyboard</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Enter</code> /
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Space</code> /
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↓</code> /
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↑</code> open the panel;
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Backspace</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Delete</code>
-      on the closed trigger clears the value. Once open,
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↑</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↓</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Home</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">End</code>
-      move the highlighted option, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Enter</code>
-      selects it, and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Escape</code> or
-      clicking outside closes the panel.
-    </p>
-  </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="text-xl font-bold">Keyboard</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Enter</code> /
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Space</code> /
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↓</code> /
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↑</code> open the panel;
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Backspace</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Delete</code>
+            on the closed trigger clears the value. Once open,
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↑</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">↓</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Home</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">End</code>
+            move the highlighted option, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Enter</code>
+            selects it, and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Escape</code> or
+            clicking outside closes the panel.
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

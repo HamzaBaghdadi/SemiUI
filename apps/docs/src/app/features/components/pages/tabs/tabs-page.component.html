@@ -6,72 +6,90 @@
     slug="tabs"
   ></app-component-page-header>
 
-  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
-    Same convention as
-    <a routerLink="/components/accordion" class="text-primary hover:underline">Accordion</a>'s
-    <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#content</code>.
-  </p>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+          Same convention as
+          <a routerLink="/components/accordion" class="text-primary hover:underline">Accordion</a>'s
+          <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#content</code>.
+        </p>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Basic usage</h2>
-    <app-component-demo [block]="true">
-      <s-tabs [items]="accountTabs">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong>.</p>
-        </ng-template>
-      </s-tabs>
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      The "Notifications" tab above has
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">disabled: true</code> -- it's
-      skipped by both click and arrow-key navigation.
-    </p>
-    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-tabs [items]="accountTabs">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong>.</p>
+              </ng-template>
+            </s-tabs>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            The "Notifications" tab above has
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">disabled: true</code> -- it's
+            skipped by both click and arrow-key navigation.
+          </p>
+          <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Controlled activeIndex</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">activeIndex</code> is a two-way
-      bindable <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">model()</code>.
-    </p>
-    <app-component-demo>
-      <s-button variant="secondary" (pressed)="goToBilling()">Jump to Billing</s-button>
-    </app-component-demo>
-    <app-component-demo [block]="true">
-      <s-tabs [items]="accountTabs" [(activeIndex)]="controlledIndex">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong>.</p>
-        </ng-template>
-      </s-tabs>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="controlledCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Controlled activeIndex</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">activeIndex</code> is a two-way
+            bindable <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">model()</code>.
+          </p>
+          <app-component-demo>
+            <s-button variant="secondary" (pressed)="goToBilling()">Jump to Billing</s-button>
+          </app-component-demo>
+          <app-component-demo [block]="true">
+            <s-tabs [items]="accountTabs" [(activeIndex)]="controlledIndex">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong>.</p>
+              </ng-template>
+            </s-tabs>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="controlledCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Vertical orientation</h2>
-    <app-component-demo [block]="true">
-      <s-tabs [items]="accountTabs" orientation="vertical">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong>.</p>
-        </ng-template>
-      </s-tabs>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Vertical orientation</h2>
+          <app-component-demo [block]="true">
+            <s-tabs [items]="accountTabs" orientation="vertical">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong>.</p>
+              </ng-template>
+            </s-tabs>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Custom label template</h2>
-    <app-component-demo [block]="true">
-      <s-tabs [items]="accountTabs">
-        <ng-template #label let-item let-i="index">
-          <strong>{{ i + 1 }}.</strong> {{ item.label }}
-        </ng-template>
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong>.</p>
-        </ng-template>
-      </s-tabs>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="customLabelCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom label template</h2>
+          <app-component-demo [block]="true">
+            <s-tabs [items]="accountTabs">
+              <ng-template #label let-item let-i="index">
+                <strong>{{ i + 1 }}.</strong> {{ item.label }}
+              </ng-template>
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong>.</p>
+              </ng-template>
+            </s-tabs>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="customLabelCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

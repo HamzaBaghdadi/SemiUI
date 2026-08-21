@@ -10,6 +10,7 @@
     [value]="value()"
     [disabled]="effectiveDisabled()"
     [invalid]="effectiveInvalid()"
+    [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
     (input)="onInput($any($event.target).value)"
     (blur)="handleBlur()"
   ></textarea>

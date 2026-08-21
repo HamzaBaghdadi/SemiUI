@@ -50,6 +50,7 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
   private readonly triggerButton = viewChild<ElementRef<HTMLDivElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
+  private readonly valueRuler = viewChild<ElementRef<HTMLSpanElement>>('valueRuler');
 
   options = input<readonly TOption[]>([]);
   optionLabel = input<string>();
@@ -126,6 +127,24 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
     }
   });
 
+  /** A single line of plain text (via `.s-multiselect__placeholder`'s own font) is the height
+   * Select/TextInput naturally render at, since neither sets an explicit line-height and browsers
+   * don't expose "line-height: normal"'s resolved px value to CSS -- it can only be read back from
+   * a real rendered box. `<s-tag>` chips are naturally taller than that (their own padding/border),
+   * so pinning each chip's height to this measurement (below, on the #chip tags) is what keeps the
+   * trigger's height matching Select/TextInput exactly, in any preset, at any zoom/DPI, instead of
+   * a hand-tuned CSS guess that's only ever approximately right for one preset's font metrics. */
+  protected readonly chipHeightPx = signal<number | null>(null);
+
+  private readonly measureChipHeight = afterRenderEffect(() => {
+    this.selectedOptions();
+    const ruler = this.valueRuler()?.nativeElement;
+    if (!ruler) {
+      return;
+    }
+    this.chipHeightPx.set(ruler.getBoundingClientRect().height);
+  });
+
   /** Moves the panel to `document.body` and positions it by pixel coordinates once it exists in the DOM. */
   private readonly appendToBodyEffect = afterRenderEffect(() => {
     if (this.open() && this.appendTo() === 'body') {
@@ -139,6 +158,10 @@ export class MultiselectComponent<TOption = unknown> extends BaseFormFieldContro
 
   focus(options?: FocusOptions): void {
     this.triggerButton()?.nativeElement.focus(options);
+  }
+
+  protected override focusTarget(): HTMLElement | null {
+    return this.triggerButton()?.nativeElement ?? null;
   }
 
   protected labelFor(option: TOption): string {

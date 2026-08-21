@@ -26,6 +26,10 @@ export class TextInputComponent extends BaseFormFieldControl<string> {
     this.nativeInput()?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.nativeInput()?.nativeElement ?? null;
+  }
+
   protected onInput(value: string): void {
     this.value.set(value);
   }

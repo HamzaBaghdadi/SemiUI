@@ -1,0 +1,94 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Speed Dial"
+    description="A floating action button that expands into a linear list of mini action buttons. Closes on outside click, Escape, or picking an action."
+    slug="speed-dial"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Delete</code> action is
+            disabled.
+          </p>
+          <app-component-demo>
+            <div class="h-56 flex items-end justify-center">
+              <s-speed-dial [items]="items" (itemSelected)="onSelect($event)"></s-speed-dial>
+            </div>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Last selected: {{ lastSelected() ?? '(none)' }}</p>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Directions</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">direction</code> controls which
+            way the actions fan out from the trigger.
+          </p>
+          <app-component-demo>
+            <div class="h-56 w-full flex items-center justify-around">
+              <s-speed-dial direction="up" [items]="items"></s-speed-dial>
+              <s-speed-dial direction="down" [items]="items"></s-speed-dial>
+              <s-speed-dial direction="left" [items]="items"></s-speed-dial>
+              <s-speed-dial direction="right" [items]="items"></s-speed-dial>
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="directionsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Variants</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant</code> union as
+            Button -- only the trigger changes color, mini actions stay neutral.
+          </p>
+          <app-component-demo>
+            <div class="h-56 flex items-end justify-around">
+              <s-speed-dial variant="secondary" [items]="items"></s-speed-dial>
+              <s-speed-dial variant="destructive" [items]="items"></s-speed-dial>
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Sizes</h2>
+          <app-component-demo>
+            <div class="h-56 flex items-end justify-around">
+              <s-speed-dial size="sm" [items]="items"></s-speed-dial>
+              <s-speed-dial size="md" [items]="items"></s-speed-dial>
+              <s-speed-dial size="lg" [items]="items"></s-speed-dial>
+            </div>
+          </app-component-demo>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <div class="h-56 flex items-end gap-4">
+              <s-speed-dial [items]="items" [disabled]="disabled()"></s-speed-dial>
+              <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+            </div>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

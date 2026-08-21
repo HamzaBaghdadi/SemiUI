@@ -6,6 +6,10 @@
   border-radius: var(--semiui-comp-button-radius);
   font-weight: var(--semiui-comp-button-font-weight);
   font-family: var(--semiui-typography-font-family);
+  /* Explicit rather than relying on a consuming app's own reset (some recipes already do this,
+     e.g. Select) -- the icon-only height formula below is a border-box calc, and needs this to
+     hold regardless of what the host app's global stylesheet does. */
+  box-sizing: border-box;
   border-width: 1px;
   border-style: solid;
   cursor: pointer;
@@ -82,10 +86,31 @@
 /* icon-only mode ([icon]="true") -- square button using the current size's vertical padding on
    every side, so it works at sm/md/lg instead of needing its own dedicated size/token set.
    Two attribute selectors gives this higher specificity than the plain [data-size='*'] rules
-   above, regardless of source order. */
+   above, regardless of source order.
+
+   Neither dimension is computed here. The template renders an invisible one-line spacer span
+   next to the icon, and this switches to grid so the two stack in a single cell (see the
+   grid-area rule below) instead of sitting in a row -- the icon keeps its own 1em box, while the
+   cell takes the spacer's full line box. The content box therefore comes out exactly one line box
+   square, so with symmetric padding the border box is square *and* exactly as tall as a labeled
+   button of the same size, both derived by the browser's own layout.
+
+   Worth deriving rather than computing: an earlier fix did set this directly, as
+   height: calc(1lh + padding-y*2 + 2px). That matched perfectly at 100% zoom but drifted by a
+   device pixel at other zoom levels, because a hand-written calc() and the browser's own
+   accumulation of line box + padding + border don't necessarily round the same way. */
 :host([data-icon-only]) .s-button {
-  aspect-ratio: 1 / 1;
+  display: inline-grid;
+  place-items: center;
 }
+
+/* Stack every child in the one cell. Nothing overlaps: the label is absent in icon-only mode, and
+   showLeadingIcon() is false while loading, so the spinner and the leading icon are mutually
+   exclusive -- there is only ever one visible icon plus the (invisible) spacer. */
+:host([data-icon-only]) .s-button > * {
+  grid-area: 1 / 1;
+}
+
 :host([data-size='sm'][data-icon-only]) .s-button {
   padding: var(--semiui-comp-button-padding-y-sm);
 }
@@ -94,6 +119,18 @@
 }
 :host([data-size='lg'][data-icon-only]) .s-button {
   padding: var(--semiui-comp-button-padding-y-lg);
+}
+
+/* Rendered only in icon-only mode. Its height is its own line box -- one line of real (if
+   invisible) text -- which is what makes an icon-only button exactly as tall as a labeled one;
+   the matching width is what keeps it square. Both from the same line-height the label would
+   use, whatever the browser resolves that to. */
+.s-button__height-spacer {
+  width: 1lh;
+  overflow: hidden;
+  /* It is a real character (U+200B), so without this it lands in the clipboard when a selection
+     is dragged across a row of icon buttons. */
+  user-select: none;
 }
 
 /* variants -- data-variant lives on the <s-button> host, not on the inner .s-button.

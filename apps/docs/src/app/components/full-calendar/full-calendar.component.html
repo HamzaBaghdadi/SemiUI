@@ -1,0 +1,96 @@
+<div class="s-full-calendar__header">
+  <div class="s-full-calendar__nav">
+    <button type="button" class="s-full-calendar__nav-btn" aria-label="Previous" (click)="previous()">
+      <s-icon class="s-full-calendar__nav-icon s-full-calendar__nav-icon--prev" [ref]="icons.chevronDown" />
+    </button>
+    <button type="button" class="s-full-calendar__today-btn" (click)="today()">Today</button>
+    <button type="button" class="s-full-calendar__nav-btn" aria-label="Next" (click)="next()">
+      <s-icon class="s-full-calendar__nav-icon s-full-calendar__nav-icon--next" [ref]="icons.chevronDown" />
+    </button>
+  </div>
+  <h2 class="s-full-calendar__title">{{ visibleRangeLabel() }}</h2>
+  <div class="s-full-calendar__view-switch" role="tablist">
+    <button
+      type="button"
+      class="s-full-calendar__view-btn"
+      role="tab"
+      [attr.aria-selected]="view() === 'month'"
+      [class.s-full-calendar__view-btn--active]="view() === 'month'"
+      (click)="view.set('month')"
+    >
+      Month
+    </button>
+    <button
+      type="button"
+      class="s-full-calendar__view-btn"
+      role="tab"
+      [attr.aria-selected]="view() === 'week'"
+      [class.s-full-calendar__view-btn--active]="view() === 'week'"
+      (click)="view.set('week')"
+    >
+      Week
+    </button>
+  </div>
+</div>
+
+<div class="s-full-calendar__weekdays">
+  @for (label of weekdayLabels(); track $index) {
+    <div class="s-full-calendar__weekday">{{ label }}</div>
+  }
+</div>
+
+@if (view() === 'month') {
+  <div class="s-full-calendar__grid">
+    @for (cell of monthCells(); track cell.date.getTime()) {
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <div
+        class="s-full-calendar__cell"
+        [class.s-full-calendar__cell--outside]="cell.outsideMonth"
+        [class.s-full-calendar__cell--today]="isToday(cell.date)"
+        (click)="onDayClick(cell.date)"
+      >
+        <span class="s-full-calendar__day-number">{{ cell.date.getDate() }}</span>
+        <div class="s-full-calendar__events">
+          @for (event of cell.events.slice(0, maxEventsPerDay()); track $index) {
+            <button
+              type="button"
+              class="s-full-calendar__event"
+              [style.--s-full-calendar-event-color]="eventColorVar(event)"
+              (click)="onEventClick(event, $event)"
+            >
+              {{ event.title }}
+            </button>
+          }
+          @if (cell.events.length > maxEventsPerDay()) {
+            <span class="s-full-calendar__event-more">+{{ cell.events.length - maxEventsPerDay() }} more</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="s-full-calendar__grid s-full-calendar__grid--week">
+    @for (cell of weekCells(); track cell.date.getTime()) {
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <div
+        class="s-full-calendar__cell s-full-calendar__cell--week"
+        [class.s-full-calendar__cell--today]="isToday(cell.date)"
+        (click)="onDayClick(cell.date)"
+      >
+        <span class="s-full-calendar__day-number">{{ cell.date.getDate() }}</span>
+        <div class="s-full-calendar__events">
+          @for (event of cell.events; track $index) {
+            <button
+              type="button"
+              class="s-full-calendar__event"
+              [style.--s-full-calendar-event-color]="eventColorVar(event)"
+              (click)="onEventClick(event, $event)"
+            >
+              {{ event.title }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

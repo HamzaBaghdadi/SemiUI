@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgIcon } from '@ng-icons/core';
-import { provideAuroraIcons } from './provide-aurora-icons';
+import { provideSemiIcons } from './provide-semi-icons';
 
 @Component({
   imports: [NgIcon],
@@ -9,11 +9,11 @@ import { provideAuroraIcons } from './provide-aurora-icons';
 })
 class HostComponent {}
 
-describe('provideAuroraIcons', () => {
+describe('provideSemiIcons', () => {
   it('registers lucideLoaderCircle so <ng-icon name="lucideLoaderCircle"> renders without error', () => {
     TestBed.configureTestingModule({
       imports: [HostComponent],
-      providers: [provideAuroraIcons()],
+      providers: [provideSemiIcons()],
     });
 
     expect(() => {

@@ -10,7 +10,6 @@
   justify-content: space-between;
   gap: 0.5rem;
   width: 100%;
-  min-height: calc(1.25em + 2 * var(--semiui-comp-select-padding-y) + 2px);
   box-sizing: border-box;
   padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
   border-radius: var(--semiui-comp-select-radius);
@@ -26,19 +25,36 @@
 }
 
 .s-multiselect__value {
+  position: relative;
   flex: 1;
   min-width: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem;
-  /* Pinned to s-tag's actual box model (font-size * line-height + 2*padding-y + 2*1px border) --
-     not an em-relative guess against line-height: normal, which is font-metric-dependent and
-     didn't quite match -- otherwise the trigger grows by a couple px the moment a chip appears.
-     Chips render via <s-tag> (see multiselect.component.html); keep this in sync with
-     tag.component.css if that component's own box model ever changes. */
-  min-height: calc(var(--semiui-comp-tag-font-size) * 1.4 + 2 * var(--semiui-comp-tag-padding-y) + 2px);
   text-align: start;
+}
+
+/* Out of flow and invisible -- exists purely so the component can measure a real plain-text
+   line's height (see chipHeightPx in multiselect.component.ts) and pin chips to it exactly. */
+.s-multiselect__value-ruler {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* A chip's own vertical padding makes a single-line <s-tag> taller than a plain text line --
+   zeroing it here (a local custom-property override; these cross component boundaries even under
+   view encapsulation) gets a chip as close as CSS alone can to the plain-text line it sits next to.
+   The exact remaining px (from the chip's own border, which isn't exposed as a var) is closed by
+   forcing each chip to the JS-measured height in multiselect.component.ts/.html (chipHeightPx,
+   bound via [style.height.px] on the chip tags) -- see that measurement's own doc comment for why
+   this couldn't be done with a CSS formula alone. Together these keep the trigger's height matching
+   Select/TextInput exactly whether or not a chip is present, in any preset. Multi-line wrapping
+   (several chips) still grows the trigger, same as it would for any wrapping flex content -- that's
+   expected, not this bug. */
+.s-multiselect__value--chips {
+  --semiui-comp-tag-padding-y: 0px;
 }
 
 .s-multiselect__placeholder {

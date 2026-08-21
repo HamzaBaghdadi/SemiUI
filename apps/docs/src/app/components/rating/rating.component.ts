@@ -1,4 +1,4 @@
-import { Component, booleanAttribute, computed, input, signal } from '@angular/core';
+import { Component, ElementRef, booleanAttribute, computed, input, signal, viewChildren } from '@angular/core';
 import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ButtonSize } from '@semiui/tokens';
@@ -30,6 +30,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
 })
 export class RatingComponent extends BaseFormFieldControl<number | null> {
   protected readonly icons = injectSemiUIIcons();
+  private readonly stars = viewChildren<ElementRef<HTMLButtonElement>>('star');
 
   maxStars = input(5);
   size = input<ButtonSize>('md');
@@ -42,6 +43,14 @@ export class RatingComponent extends BaseFormFieldControl<number | null> {
 
   protected override emptyValue(): number | null {
     return null;
+  }
+
+  focus(options?: FocusOptions): void {
+    this.stars()[0]?.nativeElement.focus(options);
+  }
+
+  protected override focusTarget(): HTMLElement | null {
+    return this.stars()[0]?.nativeElement ?? null;
   }
 
   protected onStarClick(star: number): void {

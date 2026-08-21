@@ -22,6 +22,7 @@
       }
     }
     <div
+      #thumb
       class="s-slider__thumb"
       role="slider"
       [tabindex]="effectiveDisabled() ? -1 : 0"
@@ -30,6 +31,7 @@
       [attr.aria-valuenow]="clampedValue()"
       [attr.aria-orientation]="orientation()"
       [attr.aria-disabled]="effectiveDisabled() ? 'true' : null"
+      [attr.aria-label]="ariaLabel() || null"
       [style.insetInlineStart.%]="orientation() === 'horizontal' ? percent() : null"
       [style.bottom.%]="orientation() === 'vertical' ? percent() : null"
       (keydown)="onKeydown($event)"

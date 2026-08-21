@@ -1,0 +1,173 @@
+:host {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.s-auto-complete {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.s-auto-complete__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--semiui-comp-input-padding-y) var(--semiui-comp-input-padding-x);
+  border-radius: var(--semiui-comp-input-radius);
+  font-size: var(--semiui-comp-input-font-size);
+  font-family: var(--semiui-typography-font-family);
+  background: var(--semiui-comp-input-background);
+  color: var(--semiui-comp-input-foreground);
+  border: 1px solid var(--semiui-comp-input-border);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Room for the trailing clear/loading affordance so typed text never runs under it. */
+:host(:has(.s-auto-complete__clear)) .s-auto-complete__input,
+:host(:has(.s-auto-complete__icon)) .s-auto-complete__input {
+  padding-inline-end: var(--semiui-comp-auto-complete-input-padding-end);
+}
+
+.s-auto-complete__input::placeholder {
+  color: var(--semiui-comp-input-placeholder-foreground);
+}
+
+.s-auto-complete__input:hover:not(:disabled):not([aria-invalid='true']) {
+  border-color: var(--semiui-comp-input-border-hover);
+}
+
+.s-auto-complete__input:focus-visible {
+  outline: none;
+  border-color: var(--semiui-comp-input-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-input-focus-ring) 35%, transparent);
+}
+
+.s-auto-complete__input[aria-invalid='true'] {
+  border-color: var(--semiui-comp-input-border-invalid);
+}
+
+.s-auto-complete__input:disabled {
+  cursor: not-allowed;
+  background: var(--semiui-comp-input-background-disabled);
+  color: var(--semiui-comp-input-foreground-disabled);
+}
+
+.s-auto-complete__icon,
+.s-auto-complete__clear {
+  position: absolute;
+  inset-inline-end: 0.625rem;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  color: var(--semiui-comp-input-placeholder-foreground);
+}
+
+.s-auto-complete__clear {
+  box-sizing: border-box;
+  padding: 0.125em;
+  border-radius: var(--semiui-radius-full);
+  cursor: pointer;
+}
+
+.s-auto-complete__clear:hover {
+  background: var(--semiui-comp-select-option-background-hover);
+  color: var(--semiui-comp-input-foreground);
+}
+
+@keyframes s-auto-complete-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.s-auto-complete__icon--spin {
+  animation: s-auto-complete-spin 1s linear infinite;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.s-auto-complete__panel {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  list-style: none;
+  margin: 0;
+  padding: var(--semiui-spacing-xs);
+  max-height: var(--semiui-comp-select-panel-max-height);
+  overflow-y: auto;
+  background: var(--semiui-comp-select-panel-background);
+  border: 1px solid var(--semiui-comp-select-panel-border);
+  border-radius: var(--semiui-comp-select-radius);
+  box-shadow: var(--semiui-comp-select-panel-shadow);
+  transform-origin: top;
+}
+
+.s-auto-complete__panel[data-placement='top'] {
+  top: auto;
+  bottom: calc(100% + 0.25rem);
+  transform-origin: bottom;
+}
+
+/* Deliberately physical -- see the equivalent rule in select.component.css. */
+.s-auto-complete__panel[data-appended] {
+  position: fixed;
+  right: auto;
+  bottom: auto;
+}
+
+@keyframes s-auto-complete-panel-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.s-auto-complete__panel--enter {
+  animation: s-auto-complete-panel-enter 0.12s ease-out;
+}
+
+@keyframes s-auto-complete-panel-leave {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.s-auto-complete__panel--leave {
+  animation: s-auto-complete-panel-leave 0.1s ease-in;
+}
+
+.s-auto-complete__option {
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-comp-select-option-foreground);
+  cursor: pointer;
+}
+
+.s-auto-complete__option[data-active] {
+  background: var(--semiui-comp-select-option-background-hover);
+}
+
+.s-auto-complete__empty {
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  color: var(--semiui-comp-select-placeholder-foreground);
+  text-align: center;
+}

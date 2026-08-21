@@ -1,0 +1,49 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Rich Text Editor"
+    description="A contenteditable-based WYSIWYG editor -- value is the HTML markup, same shape every other SemiUI field's binding expects."
+    slug="rich-text-editor"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">ngModel</h2>
+          <app-component-demo [block]="true">
+            <s-rich-text-editor [(ngModel)]="content" class="w-full" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom toolbar</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">toolbar</code> picks which built-in tools show, in order.
+          </p>
+          <app-component-demo [block]="true">
+            <s-rich-text-editor [toolbar]="minimalToolbar" placeholder="Leave a comment..." class="w-full" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="minimalCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo [block]="true">
+            <s-rich-text-editor [formField]="noteForm.body" class="w-full" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

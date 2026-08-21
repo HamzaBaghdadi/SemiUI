@@ -1,0 +1,109 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Cascade Select"
+    description="A hierarchical select: each level's children open as an adjacent column. Same trigger/panel chrome as Select, but options are a tree and only leaf nodes are selectable."
+    slug="cascade-select"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">ngModel</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Hover or click a row with children to open the next column; click a leaf (no children)
+            to select it. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">ArrowRight</code> /
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">ArrowLeft</code> do the same from
+            the keyboard.
+          </p>
+          <app-component-demo>
+            <s-cascade-select
+              [options]="places"
+              optionLabel="label"
+              optionValue="label"
+              [(ngModel)]="city"
+              placeholder="Pick a city"
+              class="w-56"
+            ></s-cascade-select>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ city }}</p>
+          <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Open and close it without picking anything to see the
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code> -- same
+            input as <a routerLink="/components/select" class="text-primary hover:underline">Select</a>.
+          </p>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-cascade-select
+              [options]="places"
+              optionLabel="label"
+              optionValue="label"
+              formControlName="destination"
+              placeholder="Pick a destination"
+              errorMessage="Pick a destination to continue."
+              class="w-56"
+            ></s-cascade-select>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-cascade-select
+              [options]="places"
+              optionLabel="label"
+              optionValue="label"
+              [formField]="profileForm.hometown"
+              placeholder="Pick a hometown"
+              class="w-56"
+            ></s-cascade-select>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().hometown }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">appendTo body</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Escapes this card's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">overflow</code>
+            clipping by mounting the panel on <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code>.
+          </p>
+          <app-component-demo>
+            <s-cascade-select [options]="places" optionLabel="label" optionValue="label" appendTo="body" placeholder="Pick a city" class="w-56"></s-cascade-select>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Loading and disabled</h2>
+          <app-component-demo>
+            <s-cascade-select [options]="places" optionLabel="label" optionValue="label" [loading]="loading()" placeholder="Pick a city" class="w-56"></s-cascade-select>
+            <s-button variant="secondary" (pressed)="toggleLoading()">Toggle loading</s-button>
+          </app-component-demo>
+          <app-component-demo>
+            <s-cascade-select [options]="places" optionLabel="label" optionValue="label" [disabled]="disabled()" placeholder="Pick a city" class="w-56"></s-cascade-select>
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

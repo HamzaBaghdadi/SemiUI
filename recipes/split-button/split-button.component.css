@@ -1,0 +1,228 @@
+:host {
+  display: inline-flex;
+  --s-split-button-bg: var(--semiui-comp-button-variants-primary-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-primary-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-primary-foreground);
+}
+
+.s-split-button__group {
+  display: inline-flex;
+  /* Both segments are plain sibling `<button>`s now (no intervening custom-element host), so
+     stretch alone is enough to make the icon-only toggle exactly as tall as the labeled main
+     segment -- no explicit height math needed. */
+  align-items: stretch;
+}
+
+.s-split-button__segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--semiui-spacing-sm);
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: var(--semiui-comp-button-font-weight);
+  font-family: var(--semiui-typography-font-family);
+  cursor: pointer;
+  background: var(--s-split-button-bg);
+  color: var(--s-split-button-fg);
+  border-color: var(--s-split-button-border);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.s-split-button__segment:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--s-split-button-bg) 85%, black);
+  border-color: color-mix(in srgb, var(--s-split-button-border) 85%, black);
+}
+
+.s-split-button__segment:active:not(:disabled) {
+  background: color-mix(in srgb, var(--s-split-button-bg) 70%, black);
+  border-color: color-mix(in srgb, var(--s-split-button-border) 70%, black);
+}
+
+.s-split-button__segment:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
+  /* Whichever segment is focused rises above the shared border seam, so its focus ring isn't
+     partly covered by the other segment's edge sitting on top of it in normal paint order. */
+  position: relative;
+  z-index: 1;
+}
+
+.s-split-button__segment:disabled {
+  cursor: not-allowed;
+  background: var(--semiui-comp-button-background-disabled);
+  color: var(--semiui-comp-button-foreground-disabled);
+  border-color: var(--semiui-comp-button-background-disabled);
+}
+
+.s-split-button__main {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-start-start-radius: var(--semiui-comp-button-radius);
+  border-end-start-radius: var(--semiui-comp-button-radius);
+}
+
+/* Square, icon-only -- width is derived from the stretched height via aspect-ratio, not from its
+   own content+padding, so it always matches .s-split-button__main's height exactly regardless of
+   font metrics. Pulled 1px over the main segment's border to collapse the shared seam into a
+   single line instead of a double-thickness one. */
+.s-split-button__toggle {
+  aspect-ratio: 1 / 1;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-start-end-radius: var(--semiui-comp-button-radius);
+  border-end-end-radius: var(--semiui-comp-button-radius);
+  margin-inline-start: -1px;
+  width: 2rem;
+}
+
+.s-split-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes s-split-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.s-split-button__icon--spin {
+  animation: s-split-button-spin 1s linear infinite;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.s-split-button__label {
+  white-space: nowrap;
+}
+
+/* sizes -- font-size drives the 1em icons too, so it's set on both segments even though only
+   .s-split-button__main has padding-x (the toggle's width comes from aspect-ratio, not padding). */
+:host([data-size='sm']) .s-split-button__main {
+  padding: var(--semiui-comp-button-padding-y-sm)
+    var(--semiui-comp-button-padding-x-sm);
+  font-size: var(--semiui-comp-button-font-size-sm);
+}
+:host([data-size='sm']) .s-split-button__toggle {
+  font-size: var(--semiui-comp-button-font-size-sm);
+}
+
+:host([data-size='md']) .s-split-button__main {
+  padding: var(--semiui-comp-button-padding-y-md)
+    var(--semiui-comp-button-padding-x-md);
+  font-size: var(--semiui-comp-button-font-size-md);
+}
+:host([data-size='md']) .s-split-button__toggle {
+  font-size: var(--semiui-comp-button-font-size-md);
+}
+
+:host([data-size='lg']) .s-split-button__main {
+  padding: var(--semiui-comp-button-padding-y-lg)
+    var(--semiui-comp-button-padding-x-lg);
+  font-size: var(--semiui-comp-button-font-size-lg);
+}
+:host([data-size='lg']) .s-split-button__toggle {
+  font-size: var(--semiui-comp-button-font-size-lg);
+}
+
+/* variants -- each just points the shared bg/border/fg custom properties at Button's own tokens,
+   the same values Button's own solid style uses for that variant. */
+:host([data-variant='primary']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-primary-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-primary-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-primary-foreground);
+}
+:host([data-variant='secondary']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-secondary-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-secondary-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-secondary-foreground);
+}
+:host([data-variant='success']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-success-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-success-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-success-foreground);
+}
+:host([data-variant='info']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-info-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-info-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-info-foreground);
+}
+:host([data-variant='warn']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-warn-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-warn-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-warn-foreground);
+}
+:host([data-variant='help']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-help-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-help-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-help-foreground);
+}
+:host([data-variant='destructive']) {
+  --s-split-button-bg: var(
+    --semiui-comp-button-variants-destructive-background
+  );
+  --s-split-button-border: var(
+    --semiui-comp-button-variants-destructive-border
+  );
+  --s-split-button-fg: var(
+    --semiui-comp-button-variants-destructive-foreground
+  );
+}
+:host([data-variant='danger']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-danger-background);
+  --s-split-button-border: var(--semiui-comp-button-variants-danger-border);
+  --s-split-button-fg: var(--semiui-comp-button-variants-danger-foreground);
+}
+:host([data-variant='contrast']) {
+  --s-split-button-bg: var(--semiui-comp-button-variants-contrast-background);
+  --s-split-button-border: var(
+    --semiui-comp-button-variants-contrast-background
+  );
+  --s-split-button-fg: var(--semiui-comp-button-variants-contrast-foreground);
+}
+
+.s-split-button__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: var(--semiui-comp-split-button-menu-min-width);
+}
+
+.s-split-button__menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
+  border-radius: var(--semiui-radius-sm);
+  color: var(--semiui-comp-select-option-foreground);
+  cursor: pointer;
+  font-size: var(--semiui-comp-select-font-size);
+  font-family: var(--semiui-typography-font-family);
+}
+
+.s-split-button__menu-item:hover {
+  background: var(--semiui-comp-select-option-background-hover);
+}
+
+.s-split-button__menu-item[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.s-split-button__menu-icon {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}

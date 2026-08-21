@@ -1,0 +1,29 @@
+<ul #panel class="s-context-menu-panel__list" role="menu" (mouseenter)="onPanelEnter()" (mouseleave)="onPanelLeave()">
+  @for (item of items(); track $index; let i = $index) {
+    @if (item.separator) {
+      <li class="s-context-menu-panel__separator" role="separator"></li>
+    } @else {
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <li
+        class="s-context-menu-panel__item"
+        role="menuitem"
+        [attr.aria-disabled]="item.disabled ? 'true' : null"
+        [attr.aria-haspopup]="hasSubmenu(item) ? 'menu' : null"
+        (mouseenter)="onItemEnter(i, item)"
+        (mouseleave)="onItemLeave()"
+        (click)="selectItem(item)"
+      >
+        @if (item.icon) {
+          <s-icon class="s-context-menu-panel__icon" [ref]="item.icon" />
+        }
+        <span class="s-context-menu-panel__label">{{ item.label }}</span>
+        @if (hasSubmenu(item)) {
+          <span class="s-context-menu-panel__caret">&rsaquo;</span>
+        }
+        @if (activeIndex() === i) {
+          <s-context-menu-panel [items]="item.items!" [nested]="true" (select)="select.emit($event)" />
+        }
+      </li>
+    }
+  }
+</ul>

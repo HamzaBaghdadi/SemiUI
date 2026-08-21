@@ -1,0 +1,61 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Icon Field"
+    description="A container that adds a leading or trailing icon to any SemiUI field -- project the field as content and it reserves room for the icon on whichever side."
+    slug="icon-field"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Leading icon</h2>
+          <app-component-demo>
+            <s-icon-field [icon]="{ type: 'ng-icon', name: 'lucideSearch' }" class="w-56">
+              <s-text-input [(ngModel)]="search" placeholder="Search"></s-text-input>
+            </s-icon-field>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="leftCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Trailing icon</h2>
+          <app-component-demo>
+            <s-icon-field [icon]="{ type: 'ng-icon', name: 'lucideMail' }" iconPosition="right" class="w-56">
+              <s-text-input [(ngModel)]="email" type="email" placeholder="Email address"></s-text-input>
+            </s-icon-field>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="rightCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Any field</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Not limited to <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a>
+            -- it reserves padding on whichever real SemiUI field is projected, including
+            button-triggered ones like <a routerLink="/components/select" class="text-primary hover:underline">Select</a>.
+          </p>
+          <app-component-demo>
+            <s-icon-field [icon]="{ type: 'ng-icon', name: 'lucideUser' }" class="w-56">
+              <s-select [options]="countries" [(ngModel)]="country" placeholder="Choose a country"></s-select>
+            </s-icon-field>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="anyFieldCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>
