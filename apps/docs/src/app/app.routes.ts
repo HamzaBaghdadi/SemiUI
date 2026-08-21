@@ -7,6 +7,34 @@ const componentRoutes: Route[] = [
       import('./features/components/pages/button/button-page.component').then((m) => m.ButtonPageComponent),
   },
   {
+    path: 'toggle-button',
+    loadComponent: () =>
+      import('./features/components/pages/toggle-button/toggle-button-page.component').then(
+        (m) => m.ToggleButtonPageComponent,
+      ),
+  },
+  {
+    path: 'split-button',
+    loadComponent: () =>
+      import('./features/components/pages/split-button/split-button-page.component').then(
+        (m) => m.SplitButtonPageComponent,
+      ),
+  },
+  {
+    path: 'toggle-group',
+    loadComponent: () =>
+      import('./features/components/pages/toggle-group/toggle-group-page.component').then(
+        (m) => m.ToggleGroupPageComponent,
+      ),
+  },
+  {
+    path: 'speed-dial',
+    loadComponent: () =>
+      import('./features/components/pages/speed-dial/speed-dial-page.component').then(
+        (m) => m.SpeedDialPageComponent,
+      ),
+  },
+  {
     path: 'tag',
     loadComponent: () =>
       import('./features/components/pages/tag/tag-page.component').then((m) => m.TagPageComponent),
@@ -56,6 +84,68 @@ const componentRoutes: Route[] = [
       import('./features/components/pages/table/table-page.component').then((m) => m.TablePageComponent),
   },
   {
+    path: 'timeline',
+    loadComponent: () =>
+      import('./features/components/pages/timeline/timeline-page.component').then((m) => m.TimelinePageComponent),
+  },
+  {
+    path: 'tree-table',
+    loadComponent: () =>
+      import('./features/components/pages/tree-table/tree-table-page.component').then(
+        (m) => m.TreeTablePageComponent,
+      ),
+  },
+  {
+    path: 'splitter',
+    loadComponent: () =>
+      import('./features/components/pages/splitter/splitter-page.component').then((m) => m.SplitterPageComponent),
+  },
+  {
+    path: 'rich-text-editor',
+    loadComponent: () =>
+      import('./features/components/pages/rich-text-editor/rich-text-editor-page.component').then(
+        (m) => m.RichTextEditorPageComponent,
+      ),
+  },
+  {
+    path: 'image-cropper',
+    loadComponent: () =>
+      import('./features/components/pages/image-cropper/image-cropper-page.component').then(
+        (m) => m.ImageCropperPageComponent,
+      ),
+  },
+  {
+    path: 'context-menu',
+    loadComponent: () =>
+      import('./features/components/pages/context-menu/context-menu-page.component').then(
+        (m) => m.ContextMenuPageComponent,
+      ),
+  },
+  {
+    path: 'marquee',
+    loadComponent: () =>
+      import('./features/components/pages/marquee/marquee-page.component').then((m) => m.MarqueePageComponent),
+  },
+  {
+    path: 'full-calendar',
+    loadComponent: () =>
+      import('./features/components/pages/full-calendar/full-calendar-page.component').then(
+        (m) => m.FullCalendarPageComponent,
+      ),
+  },
+  {
+    path: 'organization-chart',
+    loadComponent: () =>
+      import('./features/components/pages/organization-chart/organization-chart-page.component').then(
+        (m) => m.OrganizationChartPageComponent,
+      ),
+  },
+  {
+    path: 'knob',
+    loadComponent: () =>
+      import('./features/components/pages/knob/knob-page.component').then((m) => m.KnobPageComponent),
+  },
+  {
     path: 'chart',
     loadComponent: () =>
       import('./features/components/pages/chart/chart-page.component').then((m) => m.ChartPageComponent),
@@ -70,6 +160,27 @@ const componentRoutes: Route[] = [
     loadComponent: () =>
       import('./features/components/pages/text-input/text-input-page.component').then(
         (m) => m.TextInputPageComponent,
+      ),
+  },
+  {
+    path: 'auto-complete',
+    loadComponent: () =>
+      import('./features/components/pages/auto-complete/auto-complete-page.component').then(
+        (m) => m.AutoCompletePageComponent,
+      ),
+  },
+  {
+    path: 'icon-field',
+    loadComponent: () =>
+      import('./features/components/pages/icon-field/icon-field-page.component').then(
+        (m) => m.IconFieldPageComponent,
+      ),
+  },
+  {
+    path: 'float-label',
+    loadComponent: () =>
+      import('./features/components/pages/float-label/float-label-page.component').then(
+        (m) => m.FloatLabelPageComponent,
       ),
   },
   {
@@ -115,6 +226,13 @@ const componentRoutes: Route[] = [
     path: 'select',
     loadComponent: () =>
       import('./features/components/pages/select/select-page.component').then((m) => m.SelectPageComponent),
+  },
+  {
+    path: 'cascade-select',
+    loadComponent: () =>
+      import('./features/components/pages/cascade-select/cascade-select-page.component').then(
+        (m) => m.CascadeSelectPageComponent,
+      ),
   },
   {
     path: 'multiselect',
@@ -196,6 +314,18 @@ const componentRoutes: Route[] = [
     loadComponent: () =>
       import('./features/components/pages/file-upload/file-upload-page.component').then(
         (m) => m.FileUploadPageComponent,
+      ),
+  },
+  {
+    path: 'scroll-top',
+    loadComponent: () =>
+      import('./features/components/pages/scroll-top/scroll-top-page.component').then((m) => m.ScrollTopPageComponent),
+  },
+  {
+    path: 'progress-bar',
+    loadComponent: () =>
+      import('./features/components/pages/progress-bar/progress-bar-page.component').then(
+        (m) => m.ProgressBarPageComponent,
       ),
   },
 ];

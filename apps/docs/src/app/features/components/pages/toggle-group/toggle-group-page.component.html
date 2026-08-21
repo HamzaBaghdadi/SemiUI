@@ -1,0 +1,104 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Toggle Group"
+    description="A segmented control of toggle-button-styled segments: single-select (exclusive, click again to clear) by default, or multiple for independent per-segment toggling."
+    slug="toggle-group"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">ngModel</h2>
+          <app-component-demo>
+            <s-toggle-group [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ align }}</p>
+          <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Multiple selection</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">multiple</code> lets more than
+            one segment be selected at once, each toggled independently.
+          </p>
+          <app-component-demo>
+            <s-toggle-group multiple [items]="formatItems" [(ngModel)]="formats"></s-toggle-group>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ formats.join(', ') || '(none)' }}</p>
+          <app-code-block filename="Usage" [code]="multipleCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Deselect to see the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
+            -- same input as
+            <a routerLink="/components/toggle-button" class="text-primary hover:underline">Toggle Button</a>.
+            The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Enterprise</code> segment is disabled.
+          </p>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-toggle-group [items]="planItems" formControlName="plan" errorMessage="Pick a plan to continue."></s-toggle-group>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-toggle-group [items]="alignItems" [formField]="profileForm.align"></s-toggle-group>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().align }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Variants</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant</code> union as
+            <a routerLink="/components/button" class="text-primary hover:underline">Button</a>.
+          </p>
+          <app-component-demo>
+            <s-toggle-group variant="primary" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group variant="secondary" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group variant="success" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group variant="destructive" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group variant="contrast" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+          </app-component-demo>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Sizes</h2>
+          <app-component-demo>
+            <s-toggle-group size="sm" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group size="md" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+            <s-toggle-group size="lg" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <s-toggle-group [items]="alignItems" [(ngModel)]="align" [disabled]="disabled()"></s-toggle-group>
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

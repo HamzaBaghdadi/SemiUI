@@ -1,0 +1,43 @@
+:host {
+  display: inline-block;
+}
+
+.s-knob {
+  position: relative;
+}
+
+.s-knob__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.s-knob__track {
+  stroke: var(--semiui-color-muted);
+}
+
+.s-knob__value {
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.s-knob__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.s-knob__value-text {
+  font-size: var(--semiui-comp-knob-value-font-size);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-color-primary);
+}
+
+.s-knob__label {
+  font-size: var(--semiui-comp-knob-label-font-size);
+  color: var(--semiui-comp-knob-label-color);
+}

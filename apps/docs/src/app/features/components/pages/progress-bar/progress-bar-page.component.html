@@ -1,0 +1,69 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Feedback"
+    name="Progress Bar"
+    description="A linear progress indicator: value (0-100) for determinate progress, or indeterminate for an unbounded loading loop."
+    slug="progress-bar"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <div class="flex flex-col gap-3 w-full">
+              <s-progress-bar [value]="40" />
+              <s-progress-bar [value]="70" [showValue]="true" />
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Indeterminate</h2>
+          <app-component-demo [block]="true">
+            <s-progress-bar [indeterminate]="true" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="indeterminateCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Sizes</h2>
+          <app-component-demo [block]="true">
+            <div class="flex flex-col gap-3 w-full">
+              <s-progress-bar size="sm" [value]="60" />
+              <s-progress-bar size="md" [value]="60" />
+              <s-progress-bar size="lg" [value]="60" />
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Colors</h2>
+          <app-component-demo [block]="true">
+            <div class="flex flex-col gap-3 w-full">
+              <s-progress-bar color="success" [value]="80" />
+              <s-progress-bar color="warn" [value]="55" />
+              <s-progress-bar color="danger" [value]="20" />
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="colorsCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

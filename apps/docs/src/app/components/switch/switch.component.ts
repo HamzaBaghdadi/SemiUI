@@ -38,6 +38,10 @@ export class SwitchComponent extends BaseFormFieldControl<boolean> {
     this.track()?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.track()?.nativeElement ?? null;
+  }
+
   protected toggle(): void {
     if (this.effectiveDisabled()) {
       return;

@@ -19,7 +19,13 @@
   (click)="toggle()"
   (keydown)="onTriggerKeydown($event)"
 >
-  <span class="s-multiselect__value">
+  <span
+    class="s-multiselect__value"
+    [class.s-multiselect__value--chips]="!selectedTemplate() && selectedOptions().length > 0 && selectedOptions().length <= maxChipsDisplay()"
+  >
+    <!-- Invisible reference line, always present: measured in the component to pin chip height to
+         a real plain-text line (see chipHeightPx doc) instead of a hand-tuned CSS guess. -->
+    <span #valueRuler class="s-multiselect__value-ruler" aria-hidden="true">&nbsp;</span>
     @if (selectedTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: selectedOptions() }" />
     } @else if (selectedOptions().length === 0) {
@@ -28,7 +34,7 @@
       <span class="s-multiselect__summary">{{ selectedOptions().length }} selected</span>
     } @else {
       @for (option of selectedOptions(); track $index) {
-        <s-tag [removable]="removableChips()" (removed)="removeChip(option)">{{ labelFor(option) }}</s-tag>
+        <s-tag [style.height.px]="chipHeightPx()" [removable]="removableChips()" (removed)="removeChip(option)">{{ labelFor(option) }}</s-tag>
       }
     }
   </span>

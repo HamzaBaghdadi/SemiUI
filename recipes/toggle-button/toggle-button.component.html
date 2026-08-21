@@ -1,0 +1,24 @@
+<button
+  #button
+  type="button"
+  class="s-toggle-button"
+  [attr.aria-pressed]="value()"
+  [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+  [disabled]="effectiveDisabled()"
+  (click)="toggle()"
+>
+  @if (value()) {
+    @if (onIcon(); as icon) {
+      <s-icon class="s-toggle-button__icon" [ref]="icon" />
+    }
+    <span class="s-toggle-button__label">{{ onLabel() }}</span>
+  } @else {
+    @if (offIcon(); as icon) {
+      <s-icon class="s-toggle-button__icon" [ref]="icon" />
+    }
+    <span class="s-toggle-button__label">{{ offLabel() }}</span>
+  }
+</button>
+@if (effectiveInvalid()) {
+  <s-error-message [message]="errorMessage()" />
+}

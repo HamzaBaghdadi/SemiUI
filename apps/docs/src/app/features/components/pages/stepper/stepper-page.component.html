@@ -6,57 +6,87 @@
     slug="stepper"
   ></app-component-page-header>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Basic usage (free navigation)</h2>
-    <app-component-demo [block]="true">
-      <s-stepper [items]="checkoutSteps">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
-        </ng-template>
-      </s-stepper>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
-  </div>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage (free navigation)</h2>
+          <app-component-demo [block]="true">
+            <s-stepper [items]="checkoutSteps">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+              </ng-template>
+            </s-stepper>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicUsageCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Linear mode with next()/previous()</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Steps ahead of the immediate next one are unclickable -- use the buttons to progress.
-    </p>
-    <app-component-demo>
-      <s-button variant="secondary" (pressed)="goPrevious()">Previous</s-button>
-      <s-button variant="secondary" (pressed)="goNext()">Next</s-button>
-    </app-component-demo>
-    <app-component-demo [block]="true">
-      <s-stepper #linearStepper [items]="checkoutSteps" [linear]="true">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
-        </ng-template>
-      </s-stepper>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="linearCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Linear mode with next()/previous()</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Steps ahead of the immediate next one are unclickable -- use the buttons to progress.
+          </p>
+          <app-component-demo>
+            <s-button variant="secondary" (pressed)="goPrevious()">Previous</s-button>
+            <s-button variant="secondary" (pressed)="goNext()">Next</s-button>
+          </app-component-demo>
+          <app-component-demo [block]="true">
+            <s-stepper #linearStepper [items]="checkoutSteps" [linear]="true">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+              </ng-template>
+            </s-stepper>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="linearCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Vertical orientation</h2>
-    <app-component-demo [block]="true">
-      <s-stepper [items]="checkoutSteps" orientation="vertical">
-        <ng-template #content let-item>
-          <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
-        </ng-template>
-      </s-stepper>
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Vertical orientation</h2>
+          <app-component-demo [block]="true">
+            <s-stepper [items]="checkoutSteps" orientation="vertical">
+              <ng-template #content let-item>
+                <p>Content for <strong>{{ item.label }}</strong> -- {{ item.description }}.</p>
+              </ng-template>
+            </s-stepper>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="verticalCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Pure indicator (no #content)</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Omit the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#content</code> template to
-      use Stepper as just the visual progress row.
-    </p>
-    <app-component-demo [block]="true">
-      <s-stepper [items]="checkoutSteps" [activeIndex]="2" />
-    </app-component-demo>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled step</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Any step can set <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">disabled: true</code> --
+            "Gift wrap" below is dimmed and unclickable, whether or not <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">linear</code> is set.
+          </p>
+          <app-component-demo [block]="true">
+            <s-stepper [items]="disabledStepSteps" [activeIndex]="1" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="disabledStepCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Pure indicator (no #content)</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Omit the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">#content</code> template to
+            use Stepper as just the visual progress row.
+          </p>
+          <app-component-demo [block]="true">
+            <s-stepper [items]="checkoutSteps" [activeIndex]="2" />
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

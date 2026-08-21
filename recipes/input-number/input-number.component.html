@@ -24,6 +24,7 @@
     [value]="displayValue()"
     [disabled]="effectiveDisabled()"
     [invalid]="effectiveInvalid()"
+    [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
     (input)="onInput($any($event.target).value)"
     (keydown)="onKeydown($event)"
     (blur)="onBlur()"

@@ -1,0 +1,114 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Toggle Button"
+    description="A two-state button supporting ngModel, reactive forms, and Signal Forms. Unpressed reads as outlined; pressed fills solid, the same look a regular Button of that variant has."
+    slug="toggle-button"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">ngModel</h2>
+          <app-component-demo>
+            <s-toggle-button [(ngModel)]="bold" onLabel="Bold" offLabel="Bold"></s-toggle-button>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ bold }}</p>
+          <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Unpress it to see the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
+            -- same input as
+            <a routerLink="/components/switch" class="text-primary hover:underline">Switch</a>.
+          </p>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-toggle-button
+              formControlName="terms"
+              onLabel="Agreed"
+              offLabel="Not agreed"
+              errorMessage="You must agree to continue."
+            ></s-toggle-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-toggle-button [formField]="profileForm.marketing" onLabel="Subscribed" offLabel="Not subscribed"></s-toggle-button>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().marketing }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Variants</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant</code> union as
+            <a routerLink="/components/button" class="text-primary hover:underline">Button</a>.
+          </p>
+          <app-component-demo>
+            <s-toggle-button variant="primary" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button variant="secondary" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button variant="success" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button variant="destructive" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button variant="contrast" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="variantsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Sizes</h2>
+          <app-component-demo>
+            <s-toggle-button size="sm" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button size="md" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+            <s-toggle-button size="lg" onLabel="On" offLabel="Off" [(ngModel)]="bold"></s-toggle-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Icons</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">onIcon</code> /
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">offIcon</code> lead the label --
+            both optional.
+          </p>
+          <app-component-demo>
+            <s-toggle-button
+              onLabel="Playing"
+              offLabel="Paused"
+              [onIcon]="{ type: 'ng-icon', name: 'lucidePause' }"
+              [offIcon]="{ type: 'ng-icon', name: 'lucidePlay' }"
+            ></s-toggle-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="iconsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <s-toggle-button [(ngModel)]="bold" [disabled]="disabled()" onLabel="On" offLabel="Off"></s-toggle-button>
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

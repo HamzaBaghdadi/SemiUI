@@ -1,0 +1,47 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Actions"
+    name="Scroll Top"
+    description="A floating action button that appears once the page has scrolled past a threshold, and scrolls back to the top on click."
+    slug="scroll-top"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            This page itself has a live <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&lt;s-scroll-top /&gt;</code> --
+            scroll down to see it appear in the bottom-right corner.
+          </p>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom threshold, variant, and label</h2>
+          <app-code-block filename="Usage" [code]="customCode"></app-code-block>
+        </div>
+
+        <!-- Filler so this page has enough scroll room to actually demonstrate the live
+             s-scroll-top below -- without it, the page is shorter than the demo's own threshold
+             and the button could never appear. -->
+        <div class="h-[60vh]"></div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>
+
+<s-scroll-top [threshold]="200" />

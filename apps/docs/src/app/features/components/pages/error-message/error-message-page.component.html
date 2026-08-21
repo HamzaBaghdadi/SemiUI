@@ -6,24 +6,42 @@
     slug="error-message"
   ></app-component-page-header>
 
-  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
-    <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a> and
-    <a routerLink="/components/password" class="text-primary hover:underline">Password</a> use it
-    internally for their <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
-    input; it's also a standalone component for any error text of your own.
-  </p>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <p class="text-sm text-muted-foreground max-w-xl -mt-6">
+          <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a> and
+          <a routerLink="/components/password" class="text-primary hover:underline">Password</a> use it
+          internally for their <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code>
+          input; it's also a standalone component for any error text of your own.
+        </p>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Usage</h2>
-    <app-component-demo>
-      <s-error-message [message]="message()" />
-      <s-button variant="secondary" (pressed)="toggle()">Toggle</s-button>
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      Renders nothing when <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">message</code>
-      is empty -- no empty, invisible element left in the DOM. The text always displays in full:
-      no truncation, no fixed height, it wraps normally.
-    </p>
-    <app-code-block filename="Usage" [code]="usageCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Usage</h2>
+          <app-component-demo>
+            <s-error-message [message]="message()" />
+            <s-button variant="secondary" (pressed)="toggle()">Toggle</s-button>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Renders nothing when <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">message</code>
+            is empty -- no empty, invisible element left in the DOM. The text always displays in full:
+            no truncation, no fixed height, it wraps normally.
+          </p>
+          <app-code-block filename="Usage" [code]="usageCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

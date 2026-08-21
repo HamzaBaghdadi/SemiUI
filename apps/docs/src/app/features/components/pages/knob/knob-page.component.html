@@ -1,0 +1,71 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Knob"
+    description="A radial gauge showing where value sits between min and max, with the formatted value centered inside. Adapted from PrimeNG's Knob, but deliberately not a form control -- purely a display, the radial counterpart to Chart's pie/donut."
+    slug="knob"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo>
+            <s-knob [value]="72" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Live value</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Pass a new <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">value</code> to animate the
+            ring, the same way you'd update any other chart's data.
+          </p>
+          <app-component-demo>
+            <s-knob [value]="cpuValue()" label="CPU" />
+            <s-button variant="secondary" (pressed)="bump()">Randomize</s-button>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="liveCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Dashboard row</h2>
+          <app-component-demo>
+            <s-knob [value]="72" label="CPU" color="#3b82f6" />
+            <s-knob [value]="41" label="Memory" color="#22c55e" />
+            <s-knob [value]="93" label="Disk" color="#ef4444" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="dashboardCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Custom range &amp; formatter</h2>
+          <app-component-demo>
+            <s-knob [value]="4.8" [min]="0" [max]="5" [valueFormatter]="starFormatter" label="Rating" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="formatterCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Size &amp; stroke width</h2>
+          <app-component-demo>
+            <s-knob [value]="60" [size]="80" [strokeWidth]="6" />
+            <s-knob [value]="60" [size]="120" [strokeWidth]="8" />
+            <s-knob [value]="60" [size]="160" [strokeWidth]="10" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="sizeCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

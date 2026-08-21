@@ -63,7 +63,8 @@ export class TableComponent<T = Record<string, unknown>> {
   /** Shows a rows-per-page dropdown in the footer when non-empty, e.g. `[5, 10, 25, 50]`. */
   rowsPerPageOptions = input<readonly number[]>([]);
   loading = input(false, { transform: booleanAttribute });
-  striped = input(true, { transform: booleanAttribute });
+  striped = input(false, { transform: booleanAttribute });
+  showGridlines = input(false, { transform: booleanAttribute });
   stickyHeader = input(false, { transform: booleanAttribute });
   emptyMessage = input('No data available');
   /**

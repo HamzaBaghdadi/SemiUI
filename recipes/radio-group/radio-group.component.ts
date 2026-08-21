@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, input, viewChildren } from '@angular/core';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ButtonSize } from '@semiui/tokens';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
@@ -21,6 +21,8 @@ let nextRadioGroupId = 0;
   },
 })
 export class RadioGroupComponent<TOption = unknown> extends BaseFormFieldControl<unknown> {
+  private readonly radios = viewChildren<ElementRef<HTMLInputElement>>('radio');
+
   options = input<readonly TOption[]>([]);
   /** Property to read the display label from, when options are objects. Omit for primitive options. */
   optionLabel = input<string>();
@@ -35,7 +37,22 @@ export class RadioGroupComponent<TOption = unknown> extends BaseFormFieldControl
   protected readonly groupName = `s-radio-group-${nextRadioGroupId++}`;
 
   protected override emptyValue(): unknown {
-    return undefined;
+    // `null`, not `undefined` -- writing `undefined` into a Signal Forms model deletes the
+    // property, orphaning the field node (NG01902) and permanently breaking the view's reactive
+    // graph. `null` keeps the property present.
+    return null;
+  }
+
+  focus(options?: FocusOptions): void {
+    this.focusTarget()?.focus(options);
+  }
+
+  /** The checked radio if there is one -- matching native radio-group tab behavior -- otherwise
+   * the first radio in the list. */
+  protected override focusTarget(): HTMLElement | null {
+    const radios = this.radios();
+    const checkedIndex = this.options().findIndex((option) => this.isSelected(option));
+    return (checkedIndex >= 0 ? radios[checkedIndex] : radios[0])?.nativeElement ?? null;
   }
 
   protected labelFor(option: TOption): string {

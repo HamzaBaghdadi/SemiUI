@@ -1,0 +1,202 @@
+:host {
+  display: block;
+}
+
+.s-tree-table__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--semiui-comp-table-border);
+  border-radius: var(--semiui-comp-table-radius);
+}
+
+.s-tree-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--semiui-comp-table-font-size);
+}
+
+.s-tree-table__head {
+  background: var(--semiui-comp-table-header-background);
+}
+
+.s-tree-table__th {
+  box-sizing: border-box;
+  padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
+  text-align: start;
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-comp-table-header-foreground);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
+  white-space: nowrap;
+}
+
+.s-tree-table__th--checkbox {
+  width: var(--semiui-comp-tree-table-checkbox-column-width);
+}
+
+.s-tree-table__td {
+  box-sizing: border-box;
+  padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
+  color: var(--semiui-color-foreground);
+}
+
+.s-tree-table__td--checkbox {
+  width: var(--semiui-comp-tree-table-checkbox-column-width);
+}
+
+.s-tree-table__tr:last-child .s-tree-table__td {
+  border-bottom: none;
+}
+
+.s-tree-table[data-striped] .s-tree-table__tr:nth-child(even) {
+  background: var(--semiui-comp-table-row-background-striped);
+}
+
+.s-tree-table__tr:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-tree-table__tr[data-selected] {
+  background: var(--semiui-comp-table-row-background-selected);
+}
+
+/* Indent + toggle sit inline with the first column's text, no flex wrapper needed -- keeping the
+   <td> itself a plain table-cell box (rather than display:flex, which would pull it out of normal
+   table column-width negotiation) is what lets it stay aligned with every other column's cell. */
+.s-tree-table__indent {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.s-tree-table__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex-shrink: 0;
+  width: var(--semiui-comp-tree-table-toggle-size);
+  height: var(--semiui-comp-tree-table-toggle-size);
+  border: none;
+  background: none;
+  padding: 0;
+  margin-inline-end: var(--semiui-comp-tree-table-toggle-margin-end);
+  border-radius: var(--semiui-radius-sm);
+  cursor: pointer;
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-tree-table__toggle:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-tree-table__toggle:focus-visible {
+  outline: 2px solid var(--semiui-color-ring);
+  outline-offset: -2px;
+}
+
+/* Rendered in place of the toggle button for leaf rows, so their text still lines up under a
+   parent row's text rather than under its toggle icon. */
+.s-tree-table__toggle-spacer {
+  display: inline-block;
+  vertical-align: middle;
+  width: var(--semiui-comp-tree-table-toggle-size);
+  margin-inline-end: var(--semiui-comp-tree-table-toggle-margin-end);
+}
+
+.s-tree-table__toggle-icon {
+  width: var(--semiui-comp-tree-table-toggle-icon-size);
+  height: var(--semiui-comp-tree-table-toggle-icon-size);
+  /* chevronDown, rotated to point at the reading-direction-forward side while collapsed -- the
+     same physical-rotation-plus-:dir()-remirror pattern Cascade Select's own caret uses. */
+  transform: rotate(-90deg);
+  transition: transform 0.15s ease;
+}
+
+.s-tree-table__toggle-icon:dir(rtl) {
+  transform: rotate(90deg);
+}
+
+.s-tree-table__toggle-icon--expanded,
+.s-tree-table__toggle-icon--expanded:dir(rtl) {
+  transform: rotate(0deg);
+}
+
+.s-tree-table__state-row .s-tree-table__loading,
+.s-tree-table__state-row .s-tree-table__empty {
+  padding: var(--semiui-spacing-xl) 0;
+  text-align: center;
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-tree-table__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--semiui-spacing-xs);
+}
+
+.s-tree-table__loading-icon {
+  width: var(--semiui-spacing-lg);
+  height: var(--semiui-spacing-lg);
+  animation: s-tree-table-spin 0.8s linear infinite;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@keyframes s-tree-table-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* No standalone single-radio component exists to reuse here (only a whole RadioGroup) --
+   reusing s-radio's exact class names/tokens, same as Table's own single-selection column. */
+.s-radio__input:checked + .s-radio__dot {
+  border-color: var(--semiui-comp-radio-border-checked);
+}
+
+.s-radio__input:checked + .s-radio__dot::after {
+  transform: scale(1);
+}
+
+.s-radio__input:focus-visible + .s-radio__dot {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-radio-focus-ring) 35%, transparent);
+}
+
+.s-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.s-radio__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--semiui-comp-radio-size-md);
+  height: var(--semiui-comp-radio-size-md);
+  border: 1px solid var(--semiui-comp-radio-border);
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-radio-background);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.s-radio__dot::after {
+  content: '';
+  width: 50%;
+  height: 50%;
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-radio-dot-background);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}

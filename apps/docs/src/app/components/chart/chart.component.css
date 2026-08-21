@@ -13,6 +13,15 @@
   overflow: visible;
 }
 
+/* Mirrors the whole plot -- gridlines, bars, lines, points, slices, radar -- around the SVG's own
+   center. Deliberately the *only* RTL-mirroring rule for any of that geometry: correctness follows
+   for free from the live :dir(rtl) state (a CSS selector re-evaluates instantly on a direction
+   flip), instead of a JS-computed mirror that would need its own change-detection story. See the
+   component's class doc comment for why. */
+.s-chart__svg:dir(rtl) {
+  transform: scaleX(-1);
+}
+
 .s-chart__gridline {
   stroke: var(--semiui-comp-chart-grid-color);
   stroke-width: 1;
@@ -21,6 +30,15 @@
 .s-chart__axis-label {
   fill: var(--semiui-comp-chart-axis-label-color);
   font-size: var(--semiui-comp-chart-axis-label-font-size);
+  /* Counter-mirrors each label's own glyphs in place around its own bounding-box center, canceling
+     out .s-chart__svg's whole-plot flip so text stays readable while its anchor position still
+     moves with the rest of the mirrored plot. */
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.s-chart__axis-label:dir(rtl) {
+  transform: scaleX(-1);
 }
 
 .s-chart__line {
@@ -60,6 +78,22 @@
 
 .s-chart__slice:hover {
   opacity: 0.85;
+}
+
+.s-chart__radar-ring {
+  stroke: var(--semiui-comp-chart-grid-color);
+  stroke-width: 1;
+}
+
+.s-chart__radar-spoke {
+  stroke: var(--semiui-comp-chart-grid-color);
+  stroke-width: 1;
+}
+
+.s-chart__radar-area {
+  fill-opacity: var(--semiui-comp-chart-area-opacity);
+  stroke-width: var(--semiui-comp-chart-line-stroke-width);
+  stroke-linejoin: round;
 }
 
 .s-chart__tooltip {

@@ -1,0 +1,136 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-speed-dial__trigger {
+  border-radius: var(--semiui-comp-speed-dial-radius);
+  box-shadow: var(--semiui-comp-speed-dial-shadow);
+  position: relative;
+  z-index: 1;
+}
+
+.s-speed-dial__actions {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--semiui-comp-speed-dial-gap);
+  pointer-events: none;
+}
+
+/* Sized from the preset's own actionSize scale rather than one fixed value: the trigger is a
+   Button, whose icon-only height derives from that size's line-height and padding tokens, so a
+   single hardcoded action size drifts against it -- at md it once came out 1px TALLER than the
+   trigger, inverting the FAB/mini-action hierarchy. Each preset keeps its actions below its own
+   trigger size. */
+.s-speed-dial__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--semiui-comp-speed-dial-radius);
+  border: 1px solid var(--semiui-comp-speed-dial-action-border);
+  background: var(--semiui-comp-speed-dial-action-background);
+  color: var(--semiui-comp-speed-dial-action-foreground);
+  cursor: pointer;
+  box-shadow: var(--semiui-comp-speed-dial-shadow);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  transition-delay: 0s;
+}
+
+:host([data-size='sm']) .s-speed-dial__action {
+  width: var(--semiui-comp-speed-dial-action-size-sm);
+  height: var(--semiui-comp-speed-dial-action-size-sm);
+  font-size: var(--semiui-comp-button-font-size-sm);
+}
+
+:host([data-size='md']) .s-speed-dial__action {
+  width: var(--semiui-comp-speed-dial-action-size-md);
+  height: var(--semiui-comp-speed-dial-action-size-md);
+  font-size: var(--semiui-comp-button-font-size-md);
+}
+
+:host([data-size='lg']) .s-speed-dial__action {
+  width: var(--semiui-comp-speed-dial-action-size-lg);
+  height: var(--semiui-comp-speed-dial-action-size-lg);
+  font-size: var(--semiui-comp-button-font-size-lg);
+}
+
+.s-speed-dial__action s-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.s-speed-dial__action:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--semiui-comp-speed-dial-action-background) 85%, black);
+}
+
+.s-speed-dial__action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
+}
+
+.s-speed-dial__action:disabled {
+  cursor: not-allowed;
+}
+
+/* Fanned out one at a time, staggered off each action's index by the preset's own step (a preset
+   can set '0ms' to reveal them all at once). A disabled action still reveals and takes its place
+   in the fan (just dimmed, below) -- excluding it entirely would silently drop it from the visible
+   list instead of showing it as unavailable. */
+:host([data-open]) .s-speed-dial__actions {
+  pointer-events: auto;
+}
+
+:host([data-open]) .s-speed-dial__action {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: calc(var(--s-speed-dial-index) * var(--semiui-comp-speed-dial-stagger));
+}
+
+:host([data-open]) .s-speed-dial__action:disabled {
+  opacity: 0.5;
+}
+
+/* Layout per direction: actions stack away from the trigger, closest segment first so the
+   staggered reveal reads as "unfurling" outward from the FAB. The offset from the trigger is the
+   same gap token that separates the actions from each other. */
+:host([data-direction='up']) .s-speed-dial__actions {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+  padding-bottom: var(--semiui-comp-speed-dial-gap);
+}
+
+:host([data-direction='down']) .s-speed-dial__actions {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  padding-top: var(--semiui-comp-speed-dial-gap);
+}
+
+:host([data-direction='left']) .s-speed-dial__actions {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row-reverse;
+  padding-right: var(--semiui-comp-speed-dial-gap);
+}
+
+:host([data-direction='right']) .s-speed-dial__actions {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row;
+  padding-left: var(--semiui-comp-speed-dial-gap);
+}

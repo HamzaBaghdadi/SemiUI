@@ -3,6 +3,7 @@ import {
   afterNextRender,
   Directive,
   DestroyRef,
+  booleanAttribute,
   computed,
   effect,
   inject,
@@ -36,6 +37,12 @@ export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
   protected readonly ngControl = inject(NgControl, { optional: true, self: true });
 
   private isWriting = false;
+  /** Set once the constructor's effect (below) has run for the first time. Angular runs a fresh
+   * effect once unconditionally, regardless of whether any tracked signal actually changed -- so
+   * the *first* `writeValue()` call is always safely consumed by that guaranteed run, even when
+   * its value happens to equal `value`'s pre-existing initial one. Only writes arriving *after*
+   * that first run needs the no-op short-circuit in `writeValue()` below. */
+  private hasSyncedOnce = false;
   private onChangeCb: (value: T) => void = noop;
   protected onTouchedCb: () => void = noop;
   private readonly cvaDisabled = signal(false);
@@ -45,6 +52,13 @@ export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
   /** FormUiControl contract: bound from Signal Forms; also settable directly for standalone use. */
   disabled = input(false);
   invalid = input(false);
+  /** Focuses the field once, after its first render. False by default -- opt in per field, don't
+   * fight the browser's own scroll position or steal focus from wherever the user already is. */
+  autoFocus = input(false, { transform: booleanAttribute });
+  /** Sets `autocomplete="off"` on the field's native text-entry element, for fields the browser
+   * shouldn't offer to autofill (declared here for a consistent name across every field, even
+   * though only subclasses with a real native text input actually consume it). */
+  disableAutocomplete = input(false, { transform: booleanAttribute });
   /** FormUiControl contract: emit on blur so Signal Forms marks the field touched. */
   touch = output<void>();
 
@@ -68,6 +82,7 @@ export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
     }
     effect(() => {
       const value = this.value();
+      this.hasSyncedOnce = true;
       // `isWriting` is cleared *here*, not synchronously at the end of writeValue(), because
       // effects run asynchronously: by the time this callback fires, writeValue() has already
       // returned and reset the flag. Clearing it inside the effect instead means the flag survives
@@ -94,14 +109,41 @@ export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
         });
       });
     }
+
+    // Deferred to after the first render (same reasoning as the statusChanges subscription above)
+    // so `focusTarget()` -- overridden per subclass -- sees its `viewChild` populated. Read here in
+    // the constructor rather than a signal-tracking `effect`, since `autoFocus` is meant to focus
+    // the field once on mount, not re-focus it every time the input's bound value happens to change.
+    afterNextRender(() => {
+      if (this.autoFocus()) {
+        this.focusTarget()?.focus();
+      }
+    });
   }
 
   /** The value to fall back to when the CVA is written a nullish value (e.g. `''` for text). */
   protected abstract emptyValue(): T;
 
+  /** The element `autoFocus` calls `.focus()` on. The base class has no template of its own, so
+   * every subclass that wants `autoFocus` to work must override this to return its own native
+   * focusable element (e.g. `this.inputRef()?.nativeElement ?? null`). Defaults to a no-op. */
+  protected focusTarget(): HTMLElement | null {
+    return null;
+  }
+
   writeValue(value: T): void {
+    const next = value ?? this.emptyValue();
+    // Skipping a same-value write avoids leaving `isWriting` stuck (see hasSyncedOnce's doc) --
+    // but only once the constructor's effect has already run at least once. Before that, the
+    // effect's first run hasn't happened yet regardless of whether *this* write is a no-op against
+    // `value`'s pre-existing initial value, so it must still arm the guard: that first run is
+    // guaranteed to happen and is exactly what needs to see `isWriting === true` to avoid echoing
+    // this initial CVA-pushed value back through onChange.
+    if (this.hasSyncedOnce && Object.is(next, this.value())) {
+      return;
+    }
     this.isWriting = true;
-    this.value.set(value ?? this.emptyValue());
+    this.value.set(next);
   }
 
   registerOnChange(fn: (value: T) => void): void {

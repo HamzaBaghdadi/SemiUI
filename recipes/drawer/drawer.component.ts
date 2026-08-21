@@ -48,6 +48,11 @@ export class DrawerComponent {
   blurBackdrop = input(false, { transform: booleanAttribute });
   /** Hides the dimming/blur backdrop entirely -- the panel still portals, traps focus, and locks scroll, it just doesn't visually cover the page behind it. */
   showBackdrop = input(true, { transform: booleanAttribute });
+  /** An element (or its ElementRef) to keep fully visible above the backdrop instead of dimmed with
+   * the rest of the page -- a "spotlight" cutout, e.g. to keep pointing at whatever triggered the
+   * drawer. Measured once when the drawer opens; the drawer's own scroll lock means the page can't
+   * move out from under it while open, so it isn't re-measured on every frame. */
+  focusedElement = input<HTMLElement | ElementRef<HTMLElement> | null>(null);
 
   /** Custom header content, replacing the plain `title` text. The close button (if `closable`) still renders alongside it. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
@@ -72,6 +77,18 @@ export class DrawerComponent {
       document.body.appendChild(backdrop);
     }
     this.panel()?.nativeElement.focus();
+  });
+
+  protected readonly focusedRect = signal<DOMRect | null>(null);
+
+  private readonly measureFocusedElement = afterRenderEffect(() => {
+    const value = this.focusedElement();
+    if (!this.open() || !value) {
+      this.focusedRect.set(null);
+      return;
+    }
+    const el = value instanceof ElementRef ? value.nativeElement : value;
+    this.focusedRect.set(el.getBoundingClientRect());
   });
 
   show(): void {

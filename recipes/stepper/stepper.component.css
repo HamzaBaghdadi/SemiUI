@@ -48,6 +48,10 @@
   cursor: not-allowed;
 }
 
+.s-stepper__step[data-disabled] {
+  opacity: 0.5;
+}
+
 .s-stepper__circle-button:focus-visible {
   outline: 2px solid var(--semiui-color-ring);
   outline-offset: 2px;

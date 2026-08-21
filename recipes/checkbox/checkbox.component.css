@@ -1,6 +1,7 @@
 :host {
   display: inline-flex;
   flex-direction: column;
+  vertical-align: middle;
 }
 
 .s-checkbox {

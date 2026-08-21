@@ -1,0 +1,119 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Forms"
+    name="Auto Complete"
+    description="A free-text input with a filtered suggestions panel. Unlike Select, the bound value is whatever's typed -- picking a suggestion just fills the text in, it isn't required."
+    slug="auto-complete"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">ngModel</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Type at least <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">minChars</code>
+            (1 by default) characters to see matches. Try "ap".
+          </p>
+          <app-component-demo>
+            <s-auto-complete [options]="fruits" [(ngModel)]="fruit" placeholder="Type a fruit" class="w-56"></s-auto-complete>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ fruit }}</p>
+          <app-code-block filename="Usage" [code]="ngModelCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Focus and blur it empty to see the
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">errorMessage</code> -- same
+            input as <a routerLink="/components/text-input" class="text-primary hover:underline">Text Input</a>.
+          </p>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-auto-complete
+              [options]="fruits"
+              formControlName="fruit"
+              placeholder="Type a fruit"
+              errorMessage="Pick a fruit to continue."
+              class="w-56"
+            ></s-auto-complete>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-auto-complete [options]="fruits" [formField]="profileForm.favoriteFruit" placeholder="Type a fruit" class="w-56"></s-auto-complete>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().favoriteFruit }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Option objects</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code> reads the
+            display text (and what gets filled in on selection) from an object property.
+          </p>
+          <app-component-demo>
+            <s-auto-complete [options]="cities" optionLabel="name" placeholder="Type a city" class="w-56"></s-auto-complete>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="objectOptionsCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Async / server-driven suggestions</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Ignore the built-in client-side filter by feeding <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">options</code>
+            from the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">(search)</code> output instead of a static array --
+            this demo simulates a 400ms network delay.
+          </p>
+          <app-component-demo>
+            <s-auto-complete
+              [options]="asyncResults()"
+              [loading]="asyncLoading()"
+              (search)="onAsyncSearch($event)"
+              optionLabel="name"
+              placeholder="Type a city"
+              class="w-56"
+            ></s-auto-complete>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="asyncCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">appendTo body</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Escapes this card's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">overflow</code>
+            clipping by mounting the panel on <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code>.
+          </p>
+          <app-component-demo>
+            <s-auto-complete [options]="fruits" appendTo="body" placeholder="Type a fruit" class="w-56"></s-auto-complete>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <s-auto-complete [options]="fruits" [disabled]="disabled()" placeholder="Type a fruit" class="w-56"></s-auto-complete>
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

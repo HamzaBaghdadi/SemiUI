@@ -1,0 +1,201 @@
+:host {
+  display: block;
+  border: 1px solid var(--semiui-comp-table-border);
+  border-radius: var(--semiui-comp-table-radius);
+  overflow: hidden;
+  background: var(--semiui-color-background);
+}
+
+.s-full-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--semiui-spacing-sm);
+  padding: var(--semiui-spacing-md);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
+}
+
+.s-full-calendar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--semiui-spacing-xs);
+}
+
+.s-full-calendar__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--semiui-comp-full-calendar-nav-button-size);
+  height: var(--semiui-comp-full-calendar-nav-button-size);
+  flex-shrink: 0;
+  border: 1px solid var(--semiui-comp-table-border);
+  background: transparent;
+  border-radius: var(--semiui-radius-sm);
+  cursor: pointer;
+  color: var(--semiui-color-foreground);
+}
+
+.s-full-calendar__nav-btn:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-full-calendar__nav-icon {
+  width: var(--semiui-comp-full-calendar-nav-icon-size);
+  height: var(--semiui-comp-full-calendar-nav-icon-size);
+}
+
+/* chevronDown, rotated to point sideways -- there's no dedicated left/right chevron in the shared
+   icon token set. */
+.s-full-calendar__nav-icon--prev {
+  transform: rotate(90deg);
+}
+
+.s-full-calendar__nav-icon--next {
+  transform: rotate(-90deg);
+}
+
+.s-full-calendar__today-btn {
+  padding-block: var(--semiui-comp-full-calendar-toolbar-button-padding-y);
+  padding-inline: var(--semiui-spacing-md);
+  border: 1px solid var(--semiui-comp-table-border);
+  background: transparent;
+  border-radius: var(--semiui-radius-sm);
+  cursor: pointer;
+  font-size: var(--semiui-comp-table-font-size);
+  color: var(--semiui-color-foreground);
+}
+
+.s-full-calendar__today-btn:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-full-calendar__title {
+  margin: 0;
+  font-size: var(--semiui-comp-full-calendar-title-font-size);
+  font-weight: 600;
+  color: var(--semiui-color-foreground);
+}
+
+.s-full-calendar__view-switch {
+  display: inline-flex;
+  border: 1px solid var(--semiui-comp-table-border);
+  border-radius: var(--semiui-radius-sm);
+  overflow: hidden;
+}
+
+.s-full-calendar__view-btn {
+  padding-block: var(--semiui-comp-full-calendar-toolbar-button-padding-y);
+  padding-inline: var(--semiui-spacing-md);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--semiui-comp-table-font-size);
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-full-calendar__view-btn--active {
+  background: var(--semiui-color-primary);
+  color: var(--semiui-comp-button-variants-primary-foreground);
+}
+
+.s-full-calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid var(--semiui-comp-table-border);
+  background: var(--semiui-comp-table-header-background);
+}
+
+.s-full-calendar__weekday {
+  padding: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
+  text-align: center;
+  font-size: var(--semiui-comp-table-font-size);
+  font-weight: var(--semiui-typography-font-weight-medium);
+  color: var(--semiui-comp-table-header-foreground);
+}
+
+.s-full-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.s-full-calendar__cell {
+  box-sizing: border-box;
+  min-height: var(--semiui-comp-full-calendar-cell-min-height);
+  padding: var(--semiui-spacing-xs);
+  border-inline-end: 1px solid var(--semiui-comp-table-border);
+  border-block-end: 1px solid var(--semiui-comp-table-border);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--semiui-spacing-xs);
+}
+
+.s-full-calendar__cell:nth-child(7n) {
+  border-inline-end: none;
+}
+
+.s-full-calendar__cell--week {
+  min-height: var(--semiui-comp-full-calendar-cell-min-height-week);
+}
+
+.s-full-calendar__cell:hover {
+  background: var(--semiui-comp-table-row-background-hover);
+}
+
+.s-full-calendar__cell--outside {
+  background: var(--semiui-comp-table-row-background-striped);
+}
+
+.s-full-calendar__cell--outside .s-full-calendar__day-number {
+  color: var(--semiui-color-muted-foreground);
+}
+
+.s-full-calendar__day-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--semiui-spacing-xl);
+  height: var(--semiui-spacing-xl);
+  border-radius: var(--semiui-radius-full);
+  font-size: var(--semiui-comp-table-font-size);
+  color: var(--semiui-color-foreground);
+}
+
+.s-full-calendar__cell--today .s-full-calendar__day-number {
+  background: var(--semiui-color-primary);
+  color: var(--semiui-comp-button-variants-primary-foreground);
+  font-weight: 600;
+}
+
+.s-full-calendar__events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--semiui-comp-full-calendar-events-gap);
+  min-width: 0;
+}
+
+.s-full-calendar__event {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding-block: var(--semiui-comp-full-calendar-event-padding-y);
+  padding-inline: var(--semiui-comp-full-calendar-event-padding-x);
+  border: none;
+  border-radius: var(--semiui-radius-sm);
+  background: var(--s-full-calendar-event-color, var(--semiui-comp-button-variants-primary-background));
+  color: var(--semiui-comp-button-variants-primary-foreground);
+  font-size: var(--semiui-comp-full-calendar-event-font-size);
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.s-full-calendar__event-more {
+  font-size: var(--semiui-comp-full-calendar-event-font-size);
+  color: var(--semiui-color-muted-foreground);
+  padding-inline-start: var(--semiui-comp-full-calendar-event-padding-x);
+}

@@ -16,7 +16,15 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled',
       }),
     ),
-    provideSemiUI({ preset: Semi }),
+    provideSemiUI({
+      preset: {
+        ...Semi,
+        tokens: {
+          ...Semi.tokens,
+          typography: { ...Semi.tokens.typography, fontFamily: 'Poppins' },
+        },
+      },
+    }),
     provideSemiIcons(),
   ],
 };

@@ -105,6 +105,8 @@ export interface ThemeTokens {
       panelBackground: string;
       panelBorder: string;
       panelShadow: string;
+      /** Shared by Cascade Select's and Auto Complete's panels (both reuse `comp.select.*` throughout): the option list's `max-height` before it scrolls. */
+      panelMaxHeight: string;
       optionForeground: string;
       optionBackgroundHover: string;
       optionBackgroundSelected: string;
@@ -376,6 +378,107 @@ export interface ThemeTokens {
       titleFontWeight: string;
       padding: string;
       widths: Record<DialogSize, string>;
+    };
+    speedDial: {
+      /** Radius of the trigger and of every mini action. `'var(--semiui-radius-full)'` gives the conventional circular FAB; a square-cornered preset sets its own. */
+      radius: string;
+      /** Elevation on the trigger and on every mini action. `'none'` for presets that don't use shadow. */
+      shadow: string;
+      /** Distance between the trigger and the fan of actions, and between the actions themselves. */
+      gap: string;
+      /** Diameter of one mini action, per the Speed Dial's `size`. Kept below the trigger's own size so the FAB stays visually dominant. */
+      actionSize: Record<ButtonSize, string>;
+      actionBackground: string;
+      actionForeground: string;
+      actionBorder: string;
+      /** Delay step between consecutive actions in the staggered reveal, e.g. `'40ms'` -- the nth action waits n times this. `'0ms'` reveals them all at once. */
+      stagger: string;
+    };
+    fullCalendar: {
+      navButtonSize: string;
+      navIconSize: string;
+      /** Block-axis padding of the today/view-switch toolbar buttons. The inline axis reuses `var(--semiui-spacing-md)` -- it matches on every preset's spacing scale. */
+      toolbarButtonPaddingY: string;
+      titleFontSize: string;
+      cellMinHeight: string;
+      cellMinHeightWeek: string;
+      eventsGap: string;
+      eventPaddingX: string;
+      eventPaddingY: string;
+      eventFontSize: string;
+    };
+    treeTable: {
+      checkboxColumnWidth: string;
+      toggleSize: string;
+      toggleMarginEnd: string;
+      toggleIconSize: string;
+    };
+    richTextEditor: {
+      toolbarGap: string;
+      toolSize: string;
+      toolIconSize: string;
+      /** `font-size` of an `<h1>` inside the editable content, in `em` relative to the editor's own base font size. */
+      contentHeadingFontSizeLg: string;
+      /** `font-size` of an `<h2>` inside the editable content, in `em` relative to the editor's own base font size. */
+      contentHeadingFontSizeMd: string;
+      /** Vertical margin shared by headings, paragraphs, and lists inside the editable content, in `em`. */
+      contentBlockSpacing: string;
+      /** `padding-inline-start` of `<ul>`/`<ol>` inside the editable content, in `em`. */
+      contentListIndent: string;
+    };
+    timeline: {
+      markerIconSize: string;
+      /** `min-width` of a connector segment when `orientation="horizontal"`; the vertical orientation's connector length instead maps directly to `var(--semiui-spacing-lg)`, which matches on every preset. */
+      connectorMinLength: string;
+      contentGap: string;
+    };
+    cascadeSelect: {
+      /** `min-width` of one cascade column's panel. Deliberately narrower than a top-level Select dropdown, so it's its own token rather than reusing `comp.select.*` like the rest of Cascade Select does. */
+      panelMinWidth: string;
+    };
+    contextMenu: {
+      panelMinWidth: string;
+    };
+    autoComplete: {
+      /** `padding-inline-end` reserved on the input so typed text never runs under the trailing clear/loading affordance. */
+      inputPaddingEnd: string;
+    };
+    progressBar: {
+      trackHeight: Record<ButtonSize, string>;
+      labelFontSize: string;
+    };
+    scrollTop: {
+      buttonSize: string;
+      iconSize: string;
+    };
+    splitButton: {
+      menuMinWidth: string;
+    };
+    imageCropper: {
+      /** Rule-of-thirds grid line color, drawn over the cropped image itself rather than over app chrome -- conventionally a translucent white regardless of light/dark theme, but still a preset-owned value rather than a literal. */
+      gridLineColor: string;
+      zoomSliderMaxWidth: string;
+    };
+    organizationChart: {
+      /** A node's box reuses `comp.popover.*` directly for background/border/radius/shadow, and
+       * `var(--semiui-spacing-lg)` / `var(--semiui-spacing-md)` for its padding -- a node card is
+       * genuinely a popover-style surface, and the padding matches on every preset's spacing scale.
+       * Only what's actually new to this component gets its own token. */
+      nodeMinWidth: string;
+      nodeBackgroundSelected: string;
+      nodeBorderSelected: string;
+      toggleSize: string;
+      /** Vertical connector length between a node and its children, and the horizontal gap between sibling subtrees. */
+      gap: string;
+    };
+    knob: {
+      /** The track reuses `var(--semiui-color-muted)` and the default arc/value-text color reuses
+       * `var(--semiui-color-primary)` directly in CSS -- same precedent as Progress Bar's own
+       * track/fill, which reuse those same two global tokens rather than declaring their own. Only
+       * the sizing/label values below are genuinely new to this component. */
+      valueFontSize: string;
+      labelColor: string;
+      labelFontSize: string;
     };
   };
 }

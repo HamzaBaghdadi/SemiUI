@@ -1,0 +1,46 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Overlays"
+    name="Context Menu"
+    description="A right-click menu: wrap anything in s-context-menu, and right-clicking it opens the menu at the cursor instead of the browser's native one."
+    slug="context-menu"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-context-menu [items]="basicItems" (itemSelected)="onSelect($event)">
+              <div class="rounded-lg border p-8 text-center text-sm text-muted-foreground w-full">Right-click me</div>
+            </s-context-menu>
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">{{ log() }}</p>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Nested submenus</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            An item's own <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">items</code> opens a submenu on hover, any depth.
+          </p>
+          <app-component-demo [block]="true">
+            <s-context-menu [items]="nestedItems" (itemSelected)="onSelect($event)">
+              <div class="rounded-lg border p-8 text-center text-sm text-muted-foreground w-full">Right-click me -- try Share</div>
+            </s-context-menu>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="nestedCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

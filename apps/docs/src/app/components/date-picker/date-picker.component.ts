@@ -333,6 +333,12 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     this.triggerInput()?.nativeElement.focus(options);
   }
 
+  /** `null` in `inline` mode -- there's no trigger at all, just the calendar grid, so there's
+   * nothing sensible for autoFocus to focus. */
+  protected override focusTarget(): HTMLElement | null {
+    return this.inline() ? null : (this.triggerInput()?.nativeElement ?? null);
+  }
+
   protected toggle(): void {
     if (this.effectiveDisabled()) {
       return;

@@ -1,0 +1,33 @@
+<div class="s-rich-text-editor" [class.s-rich-text-editor--disabled]="effectiveDisabled()">
+  <div class="s-rich-text-editor__toolbar" role="toolbar">
+    @for (btn of toolbarButtons(); track btn.tool) {
+      <button
+        type="button"
+        class="s-rich-text-editor__tool"
+        [class.s-rich-text-editor__tool--active]="activeTools().has(btn.tool)"
+        [attr.aria-label]="btn.label"
+        [attr.aria-pressed]="activeTools().has(btn.tool)"
+        [disabled]="effectiveDisabled()"
+        (mousedown)="$event.preventDefault()"
+        (click)="runCommand(btn.tool)"
+      >
+        <s-icon [ref]="btn.icon" />
+      </button>
+    }
+  </div>
+  <div
+    #editor
+    class="s-rich-text-editor__content"
+    [attr.contenteditable]="effectiveDisabled() ? null : true"
+    [attr.data-placeholder]="placeholder()"
+    [style.min-height]="minHeight()"
+    [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
+    (input)="onInput()"
+    (blur)="handleBlur()"
+    (keyup)="refreshActiveTools()"
+    (mouseup)="refreshActiveTools()"
+  ></div>
+</div>
+@if (effectiveInvalid()) {
+  <s-error-message [message]="errorMessage()" />
+}

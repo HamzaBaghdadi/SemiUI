@@ -1,0 +1,10 @@
+<div class="s-progress-bar__track">
+  <div
+    class="s-progress-bar__fill"
+    [class.s-progress-bar__fill--indeterminate]="indeterminate()"
+    [style.width.%]="indeterminate() ? null : clampedValue()"
+  ></div>
+</div>
+@if (showValue() && !indeterminate()) {
+  <span class="s-progress-bar__label">{{ clampedValue() }}%</span>
+}

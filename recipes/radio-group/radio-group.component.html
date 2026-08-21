@@ -2,6 +2,7 @@
   @for (option of options(); track $index; let i = $index) {
     <label class="s-radio">
       <input
+        #radio
         type="radio"
         class="s-radio__input"
         [attr.data-size]="size()"

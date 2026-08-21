@@ -6,6 +6,9 @@
     slug="dialog"
   ></app-component-page-header>
 
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
   <p class="text-sm text-muted-foreground max-w-xl -mt-6">
     Controlled the same way as
     <a routerLink="/components/popover" class="text-primary hover:underline">Popover</a>.
@@ -137,4 +140,19 @@
     </app-component-demo>
     <app-code-block filename="Usage" [code]="serviceCode"></app-code-block>
   </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

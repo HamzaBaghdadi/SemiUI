@@ -172,6 +172,16 @@
   background: var(--semiui-comp-table-row-background-striped);
 }
 
+.s-table[data-gridlines] .s-table__th,
+.s-table[data-gridlines] .s-table__td {
+  border-inline-end: 1px solid var(--semiui-comp-table-border);
+}
+
+.s-table[data-gridlines] .s-table__th:last-child,
+.s-table[data-gridlines] .s-table__td:last-child {
+  border-inline-end: none;
+}
+
 .s-table__tr:hover {
   background: var(--semiui-comp-table-row-background-hover);
 }

@@ -1,0 +1,95 @@
+:host {
+  position: fixed;
+  inset-block-end: var(--semiui-spacing-xl);
+  inset-inline-end: var(--semiui-spacing-xl);
+  z-index: 40;
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-primary-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-primary-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-primary-foreground);
+}
+
+.s-scroll-top__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--semiui-comp-scroll-top-button-size);
+  height: var(--semiui-comp-scroll-top-button-size);
+  border-radius: var(--semiui-radius-full);
+  border: 1px solid var(--s-scroll-top-border);
+  background: var(--s-scroll-top-bg);
+  color: var(--s-scroll-top-fg);
+  cursor: pointer;
+  box-shadow: var(--semiui-comp-popover-shadow);
+  opacity: 0;
+  transform: translateY(0.5rem) scale(0.8);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background-color 0.15s ease;
+}
+
+.s-scroll-top__button:hover {
+  background: color-mix(in srgb, var(--s-scroll-top-bg) 85%, black);
+}
+
+.s-scroll-top__button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
+}
+
+:host([data-visible]) .s-scroll-top__button {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.s-scroll-top__icon {
+  width: var(--semiui-comp-scroll-top-icon-size);
+  height: var(--semiui-comp-scroll-top-icon-size);
+}
+
+.s-scroll-top__icon--default {
+  transform: rotate(180deg);
+}
+
+:host([data-variant='secondary']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-secondary-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-secondary-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-secondary-foreground);
+}
+:host([data-variant='success']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-success-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-success-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-success-foreground);
+}
+:host([data-variant='info']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-info-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-info-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-info-foreground);
+}
+:host([data-variant='warn']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-warn-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-warn-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-warn-foreground);
+}
+:host([data-variant='help']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-help-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-help-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-help-foreground);
+}
+:host([data-variant='destructive']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-destructive-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-destructive-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-destructive-foreground);
+}
+:host([data-variant='danger']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-danger-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-danger-border);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-danger-foreground);
+}
+:host([data-variant='contrast']) {
+  --s-scroll-top-bg: var(--semiui-comp-button-variants-contrast-background);
+  --s-scroll-top-border: var(--semiui-comp-button-variants-contrast-background);
+  --s-scroll-top-fg: var(--semiui-comp-button-variants-contrast-foreground);
+}

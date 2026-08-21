@@ -1,19 +1,13 @@
 <nav
   class="flex flex-col gap-1 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1 sticky top-0"
 >
-  <div class="relative mb-3">
-    <ng-icon
-      name="lucideSearch"
-      class="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"
-    ></ng-icon>
-    <input
-      type="text"
-      placeholder="Search components"
-      class="w-full pl-8 pr-3 py-2 text-sm rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:border focus:border-primary"
+  <s-icon-field class="mb-3" [icon]="{ type: 'ng-icon', name: 'lucideSearch' }">
+    <s-text-input
       [value]="query()"
       (input)="onQueryInput($event)"
+      placeholder="Search components"
     />
-  </div>
+  </s-icon-field>
 
   @for (group of groups(); track group.category) {
     <div class="flex flex-col gap-0.5 mb-3">

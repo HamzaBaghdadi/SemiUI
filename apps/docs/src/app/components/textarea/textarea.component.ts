@@ -43,6 +43,10 @@ export class TextareaComponent extends BaseFormFieldControl<string> {
     this.nativeTextarea()?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.nativeTextarea()?.nativeElement ?? null;
+  }
+
   protected onInput(value: string): void {
     this.value.set(value);
   }

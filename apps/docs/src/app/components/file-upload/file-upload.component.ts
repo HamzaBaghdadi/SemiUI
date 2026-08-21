@@ -35,6 +35,7 @@ function formatBytes(bytes: number): string {
 })
 export class FileUploadComponent extends BaseFormFieldControl<File[]> {
   protected readonly icons = injectSemiUIIcons();
+  private readonly dropzone = viewChild<ElementRef<HTMLDivElement>>('dropzone');
   private readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   private readonly previewUrls = new Map<File, string>();
 
@@ -61,6 +62,14 @@ export class FileUploadComponent extends BaseFormFieldControl<File[]> {
 
   protected override emptyValue(): File[] {
     return [];
+  }
+
+  focus(options?: FocusOptions): void {
+    this.dropzone()?.nativeElement.focus(options);
+  }
+
+  protected override focusTarget(): HTMLElement | null {
+    return this.dropzone()?.nativeElement ?? null;
   }
 
   protected openFileBrowser(): void {

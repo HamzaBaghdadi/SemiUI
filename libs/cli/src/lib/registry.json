@@ -11,11 +11,58 @@
     "files": ["button.component.ts", "button.component.html", "button.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
   },
+  "split-button": {
+    "name": "split-button",
+    "description": "A primary action with a caret that opens a menu of secondary actions -- native button segments styled directly against Button's own design tokens, merged into one shape via a shared flex row rather than composing separate Button instances. Composes Popover for the menu.",
+    "files": ["split-button.component.ts", "split-button.component.html", "split-button.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
+    "recipeDependencies": ["popover"]
+  },
+  "toggle-button": {
+    "name": "toggle-button",
+    "description": "A two-state button supporting ngModel, reactive forms, and Signal Forms -- unpressed reads outlined, pressed fills solid, reusing Button's own variant tokens.",
+    "files": ["toggle-button.component.ts", "toggle-button.component.html", "toggle-button.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
+    "recipeDependencies": ["error-message"]
+  },
+  "speed-dial": {
+    "name": "speed-dial",
+    "description": "A floating action button that expands into a linear (up/down/left/right) list of mini action buttons -- composes Button for the trigger. Closes on outside click, Escape, or picking an action.",
+    "files": ["speed-dial.component.ts", "speed-dial.component.html", "speed-dial.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
+    "recipeDependencies": ["button"]
+  },
+  "toggle-group": {
+    "name": "toggle-group",
+    "description": "A segmented control of Toggle-Button-styled segments -- single-select (exclusive, click again to clear) by default, or multiple for independent per-segment toggling. Supports ngModel, reactive forms, and Signal Forms.",
+    "files": ["toggle-group.component.ts", "toggle-group.component.html", "toggle-group.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
+    "recipeDependencies": ["error-message"]
+  },
   "text-input": {
     "name": "text-input",
     "description": "A text input supporting ngModel, reactive forms, and Angular signal forms.",
     "files": ["text-input.component.ts", "text-input.component.html", "text-input.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
+    "recipeDependencies": ["error-message"]
+  },
+  "float-label": {
+    "name": "float-label",
+    "description": "A floating label wrapper for any SemiUI field -- merges PrimeNG's FloatLabel and IftaLabel into one component via a variant input (over/on/in). Pure CSS, no JS state tracking; uses ViewEncapsulation.None to read the projected field's focus/filled state.",
+    "files": ["float-label.component.ts", "float-label.component.html", "float-label.component.css"],
+    "npmDependencies": ["@semiui/tokens"]
+  },
+  "icon-field": {
+    "name": "icon-field",
+    "description": "A container that adds a leading or trailing icon to any SemiUI field -- project the field as content and it reserves room for the icon. Uses ViewEncapsulation.None to reach the projected field's own padding.",
+    "files": ["icon-field.component.ts", "icon-field.component.html", "icon-field.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
+  },
+  "auto-complete": {
+    "name": "auto-complete",
+    "description": "A free-text input with a filtered suggestions panel -- the bound value is whatever's typed, not constrained to the option list. Client-side filtering by default; feed options from the (search) output for async/server-driven suggestions.",
+    "files": ["auto-complete.component.ts", "auto-complete.component.html", "auto-complete.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
   "password": {
@@ -29,6 +76,13 @@
     "name": "select",
     "description": "A listbox select with search/filter, a clear button, viewport-aware panel placement, and custom templates for the trigger, options, icon, header, and footer.",
     "files": ["select.component.ts", "select.component.html", "select.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
+    "recipeDependencies": ["error-message"]
+  },
+  "cascade-select": {
+    "name": "cascade-select",
+    "description": "A hierarchical select: each level's children open as an adjacent column, same trigger/panel chrome as Select. Only leaf nodes are selectable; the trigger shows the full label path.",
+    "files": ["cascade-select.component.ts", "cascade-select.component.html", "cascade-select.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
     "recipeDependencies": ["error-message"]
   },
@@ -159,6 +213,84 @@
     "files": ["tabs.component.ts", "tabs.component.html", "tabs.component.css"],
     "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
   },
+  "rich-text-editor": {
+    "name": "rich-text-editor",
+    "description": "A contenteditable-based WYSIWYG editor -- value is HTML markup, works with ngModel/reactive forms/Signal Forms like any other field. Formatting runs through document.execCommand (deprecated but universally supported, avoids a third-party editor dependency). Toolbar icons are raw inline SVG defined in the recipe itself, not the shared icon token set. toolbar picks which built-in tools show.",
+    "files": ["rich-text-editor.component.ts", "rich-text-editor.component.html", "rich-text-editor.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
+  },
+  "image-cropper": {
+    "name": "image-cropper",
+    "description": "A pan/zoom image cropper -- a fixed crop frame stays put while the image is dragged and zoomed underneath it (the common avatar-upload pattern), rather than a movable/resizable rectangle over a static image. getCroppedDataUrl()/getCroppedBlob() render the current crop via canvas. src is a plain URL/data-URI string -- file selection is left to File Upload or a plain <input type=\"file\"> elsewhere. The zoom control is the library's own Slider component, not a native <input type=\"range\">.",
+    "files": ["image-cropper.component.ts", "image-cropper.component.html", "image-cropper.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"],
+    "recipeDependencies": ["slider"]
+  },
+  "context-menu": {
+    "name": "context-menu",
+    "description": "A right-click menu anchored at the cursor, with nested submenus (opened on hover, any depth) -- wrap anything in <s-context-menu>. The recursive submenu rendering (ContextMenuPanelComponent) imports itself via forwardRef, the standard Angular pattern for a standalone component referencing its own not-yet-initialized class in its own imports array.",
+    "files": [
+      "context-menu.component.ts",
+      "context-menu.component.html",
+      "context-menu-panel.component.html",
+      "context-menu.component.css"
+    ],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens"]
+  },
+  "full-calendar": {
+    "name": "full-calendar",
+    "description": "A month/week calendar grid with events -- pass events (title + start, optional end/color). Month view shows up to maxEventsPerDay pills per day plus a \"+N more\" count; week view lists every event per day in an agenda-style column, not an hour-by-hour time grid. Purely display/navigation -- dayClick/eventClick hand off to the consumer to act on.",
+    "files": ["full-calendar.component.ts", "full-calendar.component.html", "full-calendar.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
+  },
+  "organization-chart": {
+    "name": "organization-chart",
+    "description": "A hierarchical tree of nodes connected by lines -- pass a single root node (data plus optional children, recursively). Each node renders as a card with an expand/collapse toggle when it has children; selectionMode adds click/keyboard selection. The recursive per-node rendering (OrganizationChartNodeComponent) imports itself via forwardRef, the same pattern Context Menu's own recursive submenu uses. Connector lines are drawn with the classic ul/li CSS-tree technique adapted to these custom elements, written entirely in inline-* logical properties so it mirrors correctly under RTL. #node template slot for custom node content.",
+    "files": [
+      "organization-chart.component.ts",
+      "organization-chart.component.html",
+      "organization-chart-node.component.html",
+      "organization-chart.component.css"
+    ],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
+  },
+  "marquee": {
+    "name": "marquee",
+    "description": "A continuously scrolling content loop -- pure CSS (a duplicated copy of the projected content, animated -50% along the scroll axis), no JS measuring/cloning. Horizontal or vertical, pause-on-hover.",
+    "files": ["marquee.component.ts", "marquee.component.html", "marquee.component.css"],
+    "npmDependencies": ["@semiui/tokens"]
+  },
+  "scroll-top": {
+    "name": "scroll-top",
+    "description": "A floating action button that appears once the page has scrolled past a threshold, and scrolls back to the top on click. Native button styled against Button's own variant tokens, not a composed <s-button>.",
+    "files": ["scroll-top.component.ts", "scroll-top.component.html", "scroll-top.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
+  },
+  "progress-bar": {
+    "name": "progress-bar",
+    "description": "A linear progress indicator -- determinate (value 0-100) or indeterminate (unbounded loading loop). color reuses Button's own variant tokens rather than owning a separate palette.",
+    "files": ["progress-bar.component.ts", "progress-bar.component.html", "progress-bar.component.css"],
+    "npmDependencies": ["@semiui/tokens"]
+  },
+  "splitter": {
+    "name": "splitter",
+    "description": "Resizable panes divided by a draggable gutter -- panels are ng-template sSplitterPanel children, gathered via contentChildren and rendered (interleaved with gutters) by the splitter itself, since plain content projection can't interleave elements between projected children on its own. Sized via flex-grow rather than a literal percentage width, so gutters' own pixel width never pushes the total past 100%. Drag or arrow-key a gutter to resize; horizontal or vertical.",
+    "files": ["splitter.component.ts", "splitter.component.html", "splitter.component.css"],
+    "npmDependencies": ["@semiui/tokens"]
+  },
+  "tree-table": {
+    "name": "tree-table",
+    "description": "A hierarchical data table -- pass columns and nodes (each wrapping row data plus optional children). The first column gets a depth indent and expand/collapse toggle; every other column renders like Table's own, reusing its tokens directly. Narrower than Table: no sorting/filtering/pagination. #cell template slot for custom rendering.",
+    "files": ["tree-table.component.ts", "tree-table.component.html", "tree-table.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"],
+    "recipeDependencies": ["checkbox"]
+  },
+  "timeline": {
+    "name": "timeline",
+    "description": "A vertical or horizontal sequence of events -- each item is title/content/date/icon/color, all optional. Reuses Stepper's own marker/connector/label tokens (a timeline is structurally the same shape, without progress state) and Button's variant tokens for per-item marker color. #content/#marker template slots override per-entry rendering.",
+    "files": ["timeline.component.ts", "timeline.component.html", "timeline.component.css"],
+    "npmDependencies": ["@semiui/primitives", "@semiui/tokens", "@semiui/theme"]
+  },
   "stepper": {
     "name": "stepper",
     "description": "A step progress indicator with completed/active/upcoming states, linear (no-skip-ahead) mode, horizontal/vertical orientation, and an optional #content template slot for the active step's panel.",
@@ -228,6 +360,12 @@
     "name": "chart",
     "description": "An SVG chart supporting line, bar, area, pie, and donut via a type input -- no canvas, no external charting library. Gridlines/axes and a clickable legend for cartesian types, hover tooltips for all types.",
     "files": ["chart.component.ts", "chart.component.html", "chart.component.css", "chart-math.ts"],
+    "npmDependencies": ["@semiui/tokens"]
+  },
+  "knob": {
+    "name": "knob",
+    "description": "A radial gauge: a circular progress ring showing where value sits between min and max, with the formatted value (and an optional label) centered inside. Adapted from PrimeNG's Knob but deliberately not a form control -- no drag-to-set interaction, no ControlValueAccessor. A chart type (the radial counterpart to Chart's pie/donut) for displaying a metric, not collecting one.",
+    "files": ["knob.component.ts", "knob.component.html", "knob.component.css"],
     "npmDependencies": ["@semiui/tokens"]
   }
 }

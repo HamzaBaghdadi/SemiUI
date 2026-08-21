@@ -14,6 +14,11 @@
   }
   @if (!icon()) {
     <span class="s-button__label"><ng-content /></span>
+  } @else {
+    <!-- Invisible one-line spacer (a zero-width space): gives icon-only mode a real text line box
+         to size against, so it ends up exactly as tall as a labeled button. See the
+         [data-icon-only] block in this component's CSS. -->
+    <span class="s-button__height-spacer" aria-hidden="true">&#8203;</span>
   }
   @if (showTrailingIcon()) {
     <s-icon class="s-button__icon" [ref]="iconTrailing()!" />

@@ -1,0 +1,10 @@
+<div class="s-organization-chart__scroll">
+  <s-organization-chart-node
+    [node]="node()"
+    [collapsible]="collapsible()"
+    [selectionMode]="selectionMode()"
+    [selectedNodes]="selectedSet()"
+    [nodeTemplate]="contentNodeTemplate() ?? null"
+    (toggleSelect)="onToggleSelect($event)"
+  />
+</div>

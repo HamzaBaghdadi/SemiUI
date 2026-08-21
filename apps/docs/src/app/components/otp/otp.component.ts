@@ -74,6 +74,10 @@ export class OtpComponent extends BaseFormFieldControl<string> {
     this.boxes()[0]?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.boxes()[0]?.nativeElement ?? null;
+  }
+
   protected onBoxInput(index: number, raw: string): void {
     const char = this.sanitize(raw.slice(-1));
     if (!char) {

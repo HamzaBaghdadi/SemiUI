@@ -193,6 +193,7 @@
       [placeholder]="placeholder()"
       [value]="displayValue()"
       [disabled]="effectiveDisabled()"
+      [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
       (click)="toggle()"
       (keydown.enter)="onTriggerKeydownEnter($event)"
       (blur)="onTriggerBlur($event)"

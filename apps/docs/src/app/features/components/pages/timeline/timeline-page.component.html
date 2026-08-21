@@ -1,0 +1,66 @@
+<div class="flex flex-col gap-10">
+  <app-component-page-header
+    category="Data display"
+    name="Timeline"
+    description="A vertical or horizontal sequence of events: pass items, each with any of title/content/date/icon/color."
+    slug="timeline"
+  ></app-component-page-header>
+
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Basic usage</h2>
+          <app-component-demo [block]="true">
+            <s-timeline [items]="basicItems" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="basicCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Alternate alignment</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Content alternates sides per entry, with the date moved to the opposite side -- the classic centered timeline look.
+          </p>
+          <app-component-demo [block]="true">
+            <s-timeline [items]="basicItems" align="alternate" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="alternateCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Icons and colors</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Each entry's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">icon</code> and
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">color</code> point the marker at
+            Button's own icon slot and variant tokens.
+          </p>
+          <app-component-demo [block]="true">
+            <s-timeline [items]="coloredItems" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="coloredCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Horizontal orientation</h2>
+          <app-component-demo [block]="true">
+            <s-timeline [items]="horizontalItems" orientation="horizontal" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="horizontalCode"></app-code-block>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
+</div>

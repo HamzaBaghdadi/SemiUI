@@ -1,0 +1,72 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--semiui-color-border);
+  border-radius: var(--semiui-radius-md);
+}
+
+:host([data-orientation='vertical']) {
+  flex-direction: column;
+}
+
+.s-splitter__panel {
+  /* Grown proportionally rather than given a literal percentage flex-basis -- growth only
+     distributes space left over *after* the gutters' own fixed pixel width is subtracted, so N
+     gutters never push the total past 100% and overflow the container. */
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  overflow: auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.s-splitter__gutter {
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative;
+  background: var(--semiui-color-border);
+  transition: background-color 0.15s ease;
+}
+
+:host([data-orientation='horizontal']) .s-splitter__gutter {
+  width: 1px;
+  cursor: col-resize;
+}
+
+:host([data-orientation='vertical']) .s-splitter__gutter {
+  height: 1px;
+  cursor: row-resize;
+}
+
+/* Widens the actual hit/drag target well beyond the thin 1px visible line, without changing how
+   thick the gutter looks. */
+.s-splitter__gutter::before {
+  content: '';
+  position: absolute;
+}
+
+:host([data-orientation='horizontal']) .s-splitter__gutter::before {
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+}
+
+:host([data-orientation='vertical']) .s-splitter__gutter::before {
+  left: 0;
+  right: 0;
+  top: -4px;
+  bottom: -4px;
+}
+
+.s-splitter__gutter:hover,
+.s-splitter__gutter:focus-visible {
+  background: var(--semiui-color-primary);
+}
+
+.s-splitter__gutter:focus-visible {
+  outline: none;
+}

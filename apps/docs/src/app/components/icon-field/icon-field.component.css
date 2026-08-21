@@ -1,0 +1,51 @@
+/* ViewEncapsulation.None -- every rule here is deliberately scoped under .s-icon-field by hand
+   (see the component's own doc comment for why). Do not add a bare/unscoped rule to this file. */
+
+.s-icon-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.s-icon-field__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  color: var(--semiui-comp-input-placeholder-foreground);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.s-icon-field[data-icon-position='left'] .s-icon-field__icon {
+  inset-inline-start: var(--semiui-comp-input-padding-x);
+}
+
+.s-icon-field[data-icon-position='right'] .s-icon-field__icon {
+  inset-inline-end: var(--semiui-comp-input-padding-x);
+}
+
+/* Reserve room for the icon in whatever SemiUI field is projected -- reaching past its own view
+   encapsulation, since the padding has to live in *its* stylesheet, not this wrapper's. Covers
+   every native-input-based field via the shared `sInput` marker directive, plus the button-
+   triggered listbox fields by their known trigger class. Specificity (one class + one attribute +
+   the field's own class/type, all under the .s-icon-field ancestor) already outweighs each field's
+   own scoped padding rule, so this wins without needing !important. */
+.s-icon-field[data-icon-position='left'] input[sInput],
+.s-icon-field[data-icon-position='left'] textarea[sInput],
+.s-icon-field[data-icon-position='left'] .s-select__trigger,
+.s-icon-field[data-icon-position='left'] .s-multiselect__trigger,
+.s-icon-field[data-icon-position='left'] .s-cascade-select__trigger {
+  padding-inline-start: calc(1em + var(--semiui-comp-input-padding-x) * 2);
+}
+
+.s-icon-field[data-icon-position='right'] input[sInput],
+.s-icon-field[data-icon-position='right'] textarea[sInput],
+.s-icon-field[data-icon-position='right'] .s-select__trigger,
+.s-icon-field[data-icon-position='right'] .s-multiselect__trigger,
+.s-icon-field[data-icon-position='right'] .s-cascade-select__trigger {
+  padding-inline-end: calc(1em + var(--semiui-comp-input-padding-x) * 2);
+}

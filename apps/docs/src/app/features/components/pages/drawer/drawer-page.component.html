@@ -6,6 +6,9 @@
     slug="drawer"
   ></app-component-page-header>
 
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
   <p class="text-sm text-muted-foreground max-w-xl -mt-6">
     Controlled the same way as
     <a routerLink="/components/dialog" class="text-primary hover:underline">Dialog</a> -- the
@@ -112,4 +115,35 @@
     </app-component-demo>
     <app-code-block filename="Usage" [code]="backdropCode"></app-code-block>
   </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Focused element (spotlight)</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">focusedElement</code> keeps one element
+      fully visible above the backdrop instead of dimmed with the rest of the page -- the button below
+      stays lit up while everything else dims.
+    </p>
+    <app-component-demo>
+      <s-button #spotlightTrigger (click)="spotlightDrawer.show()">Open drawer</s-button>
+      <s-drawer #spotlightDrawer title="Spotlighted trigger" [focusedElement]="spotlightTriggerEl() ?? null">
+        <p>The button that opened this drawer stays lit up behind it.</p>
+      </s-drawer>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="spotlightCode"></app-code-block>
+  </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>

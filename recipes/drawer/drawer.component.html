@@ -7,10 +7,20 @@
     class="s-drawer__backdrop"
     [attr.data-blur]="blurBackdrop() ? '' : null"
     [attr.data-hidden]="showBackdrop() ? null : ''"
+    [attr.data-spotlight]="focusedRect() ? '' : null"
     (click)="onBackdropClick()"
     animate.enter="s-drawer__backdrop--enter"
     animate.leave="s-drawer__backdrop--leave"
   >
+    @if (focusedRect(); as rect) {
+      <div
+        class="s-drawer__spotlight"
+        [style.top.px]="rect.top"
+        [style.left.px]="rect.left"
+        [style.width.px]="rect.width"
+        [style.height.px]="rect.height"
+      ></div>
+    }
     <div
       #panel
       class="s-drawer__panel"

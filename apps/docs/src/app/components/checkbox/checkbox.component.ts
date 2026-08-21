@@ -39,6 +39,10 @@ export class CheckboxComponent extends BaseFormFieldControl<boolean> {
     this.nativeInput()?.nativeElement.focus(options);
   }
 
+  protected override focusTarget(): HTMLElement | null {
+    return this.nativeInput()?.nativeElement ?? null;
+  }
+
   protected onChange(checked: boolean): void {
     this.value.set(checked);
   }

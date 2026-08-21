@@ -6,93 +6,111 @@
     slug="radio-group"
   ></app-component-page-header>
 
-  <p class="text-sm text-muted-foreground max-w-xl -mt-6">
-    Options follow the same shape as
-    <a routerLink="/components/select" class="text-primary hover:underline">Select</a> -- plain
-    values, or objects via <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code>
-    / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionValue</code>.
-  </p>
+  <app-component-page-tabs>
+    <ng-template #features>
+      <div class="flex flex-col gap-10">
+        <p class="text-sm text-muted-foreground max-w-xl">
+          Options follow the same shape as
+          <a routerLink="/components/select" class="text-primary hover:underline">Select</a> -- plain
+          values, or objects via <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionLabel</code>
+          / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionValue</code>.
+        </p>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Primitive options</h2>
-    <app-component-demo>
-      <s-radio-group [options]="fruits" [(ngModel)]="fruit" />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ fruit }}</p>
-    <app-code-block filename="Usage" [code]="primitiveCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Primitive options</h2>
+          <app-component-demo>
+            <s-radio-group [options]="fruits" [(ngModel)]="fruit" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ fruit }}</p>
+          <app-code-block filename="Usage" [code]="primitiveCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Option objects, with a disabled option</h2>
-    <p class="text-sm text-muted-foreground max-w-xl">
-      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionDisabled</code> reads a
-      per-option disabled flag, when options are objects.
-    </p>
-    <app-component-demo>
-      <s-radio-group
-        [options]="plans"
-        optionLabel="name"
-        optionValue="id"
-        optionDisabled="disabled"
-        [(ngModel)]="plan"
-      />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ plan }}</p>
-    <app-code-block filename="Usage" [code]="objectsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Option objects, with a disabled option</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">optionDisabled</code> reads a
+            per-option disabled flag, when options are objects.
+          </p>
+          <app-component-demo>
+            <s-radio-group
+              [options]="plans"
+              optionLabel="name"
+              optionValue="id"
+              optionDisabled="disabled"
+              [(ngModel)]="plan"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ plan }}</p>
+          <app-code-block filename="Usage" [code]="objectsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Reactive forms + validation</h2>
-    <app-component-demo [formGroup]="reactiveForm">
-      <s-radio-group
-        [options]="plans"
-        optionLabel="name"
-        optionValue="id"
-        formControlName="plan"
-        errorMessage="Please choose a plan."
-      />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Reactive forms + validation</h2>
+          <app-component-demo [formGroup]="reactiveForm">
+            <s-radio-group
+              [options]="plans"
+              optionLabel="name"
+              optionValue="id"
+              formControlName="plan"
+              errorMessage="Please choose a plan."
+            />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="reactiveFormsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Signal Forms</h2>
-    <app-component-demo>
-      <s-radio-group
-        [options]="plans"
-        optionLabel="name"
-        optionValue="id"
-        [formField]="profileForm.plan"
-      />
-    </app-component-demo>
-    <p class="text-sm text-muted-foreground">Model value: {{ profileModel().plan }}</p>
-    <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Signal Forms</h2>
+          <app-component-demo>
+            <s-radio-group
+              [options]="plans"
+              optionLabel="name"
+              optionValue="id"
+              [formField]="profileForm.plan"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Model value: {{ profileModel().plan }}</p>
+          <app-code-block filename="Usage" [code]="signalFormsCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Horizontal direction</h2>
-    <app-component-demo>
-      <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="horizontalCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Horizontal direction</h2>
+          <app-component-demo>
+            <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="horizontalCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Sizes</h2>
-    <app-component-demo>
-      <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="sm" />
-    </app-component-demo>
-    <app-component-demo>
-      <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="lg" />
-    </app-component-demo>
-    <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Sizes</h2>
+          <app-component-demo>
+            <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="sm" />
+          </app-component-demo>
+          <app-component-demo>
+            <s-radio-group [options]="fruits" [(ngModel)]="fruit" direction="horizontal" size="lg" />
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
+        </div>
 
-  <div class="flex flex-col gap-3">
-    <h2 class="text-xl font-bold">Disabled</h2>
-    <app-component-demo>
-      <s-radio-group [options]="fruits" [(ngModel)]="fruit" [disabled]="disabled()" />
-      <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
-    </app-component-demo>
-  </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <app-component-demo>
+            <s-radio-group [options]="fruits" [(ngModel)]="fruit" [disabled]="disabled()" />
+            <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
+          </app-component-demo>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #api>
+      <app-api-table [props]="apiProps" [events]="apiEvents"></app-api-table>
+    </ng-template>
+
+    <ng-template #theming>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
+    </ng-template>
+  </app-component-page-tabs>
 </div>
