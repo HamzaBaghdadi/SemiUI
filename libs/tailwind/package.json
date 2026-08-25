@@ -1,0 +1,16 @@
+{
+  "name": "@semiui/tailwind",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@semiui/tokens": "workspace:^1.0.0"
+  }
+}

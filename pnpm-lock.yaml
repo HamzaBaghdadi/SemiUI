@@ -197,8 +197,11 @@ importers:
       '@ng-icons/lucide':
         specifier: ^34.0.0
         version: 34.0.0
+      '@semiui/presets-semi':
+        specifier: workspace:^1.0.0
+        version: link:../semi
       '@semiui/tokens':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^1.0.0
         version: link:../../tokens
 
   libs/presets/semi:
@@ -213,7 +216,7 @@ importers:
         specifier: ^34.0.0
         version: 34.0.0
       '@semiui/tokens':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^1.0.0
         version: link:../../tokens
 
   libs/primitives:
@@ -228,7 +231,7 @@ importers:
         specifier: ^34.0.0
         version: 34.0.0(@angular-devkit/schematics@22.0.9(chokidar@5.0.0))(@angular/common@22.0.8(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2))(@schematics/angular@22.0.9(chokidar@5.0.0))(rxjs@7.8.2)
       '@semiui/tokens':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^1.0.0
         version: link:../tokens
 
   libs/theme:
@@ -240,7 +243,7 @@ importers:
         specifier: ^22.0.0
         version: 22.0.8(@angular/compiler@22.0.8)(rxjs@7.8.2)
       '@semiui/tokens':
-        specifier: workspace:^0.9.0
+        specifier: workspace:^1.0.0
         version: link:../tokens
 
   libs/tokens:

@@ -1,11 +1,8 @@
-import { ColorTokens, ThemePreset } from '@semiui/tokens';
+import { ThemePreset, definePreset } from '@semiui/tokens';
+import { Semi } from '@semiui/presets-semi';
 
-/** Material 3 baseline elevation shadows -- the exact multi-layer key+ambient shadow curves from
- * Google's Material Design spec, not the softer single/double shadow other presets use. This is
- * most of what actually reads as "Material" at a glance, alongside the primary purple and the
- * pill-shaped buttons below. */
-const elevation2 =
-  '0 3px 1px -2px rgb(0 0 0 / 0.2), 0 2px 2px 0 rgb(0 0 0 / 0.14), 0 1px 5px 0 rgb(0 0 0 / 0.12)';
+/** Material's elevation ramp -- three stacked shadows per level (umbra, penumbra, ambient), which
+ * is what gives it its characteristic soft-but-defined lift. */
 const elevation6 =
   '0 3px 5px -1px rgb(0 0 0 / 0.2), 0 6px 10px 0 rgb(0 0 0 / 0.14), 0 1px 18px 0 rgb(0 0 0 / 0.12)';
 const elevation8 =
@@ -13,610 +10,232 @@ const elevation8 =
 const elevation24 =
   '0 11px 15px -7px rgb(0 0 0 / 0.2), 0 24px 38px 3px rgb(0 0 0 / 0.14), 0 9px 46px 8px rgb(0 0 0 / 0.12)';
 
-/** Material's canonical baseline scheme (the literal values from Google's M3 spec / MDC-Web
- * defaults) -- #6750a4 and #121212 in particular are about as recognizably "Material Design" as a
- * color value gets. */
-const lightColor: ColorTokens = {
-  background: '#ffffff',
-  foreground: '#1c1b1f',
-  primary: '#6750a4',
-  primaryForeground: '#ffffff',
-  destructive: '#b3261e',
-  destructiveForeground: '#ffffff',
-  border: '#cac4d0',
-  ring: '#6750a4',
-  muted: '#e7e0ec',
-  mutedForeground: '#49454f',
-};
-
-const darkColor: ColorTokens = {
-  background: '#121212',
-  foreground: '#e6e1e5',
-  primary: '#d0bcff',
-  primaryForeground: '#381e72',
-  destructive: '#f2b8b5',
-  destructiveForeground: '#601410',
-  border: '#49454f',
-  ring: '#d0bcff',
-  muted: '#2b2930',
-  mutedForeground: '#cac4d0',
-};
-
-export const Material: ThemePreset = {
+/**
+ * Material -- Google's design language: the Material 3 baseline purple, Roboto, pill-shaped buttons
+ * and chips, generous touch targets, and the elevation ramp above.
+ *
+ * Material is the preset that diverges most in its *dark* scheme: M3 flips to light tonal fills
+ * with dark on-color ink, which is expressed here as a per-ramp `*Foreground` override rather than
+ * one shared ink -- exactly the kind of decision the semantic layer exists to hold.
+ */
+export const Material: ThemePreset = definePreset(Semi, {
   name: 'material',
-  tokens: {
-    color: lightColor,
-    spacing: {
-      xs: '0.25rem',
-      sm: '0.5rem',
-      md: '0.75rem',
-      lg: '1rem',
-      xl: '1.5rem',
+
+  primitive: {
+    /** M3's baseline Primary tonal palette (tones 95 down to 10). */
+    purple: {
+      50: '#f6edff',
+      100: '#eaddff',
+      200: '#d0bcff',
+      300: '#b69df8',
+      400: '#9a82db',
+      500: '#6750a4',
+      600: '#5b459a',
+      700: '#4f378b',
+      800: '#381e72',
+      900: '#2a1461',
+      950: '#21005d',
     },
-    // Rounder across the board than Aurora/Semi -- M3's "medium"/"large" shape categories, not
-    // the boxier ~0.5rem scale the other presets share.
-    radius: {
-      sm: '0.25rem',
-      md: '0.75rem',
-      lg: '1rem',
-      full: '9999px',
+    /** M3's Error tonal palette. */
+    red: {
+      50: '#fffbf9',
+      100: '#f9dedc',
+      200: '#f2b8b5',
+      300: '#ec928e',
+      400: '#e46962',
+      500: '#b3261e',
+      600: '#8c1d18',
+      700: '#601410',
+      800: '#410e0b',
+      900: '#2d0a07',
+      950: '#1a0604',
     },
-    typography: {
-      fontFamily: 'Roboto, "Helvetica Neue", Arial, sans-serif',
-      fontSizeSm: '0.875rem',
-      fontSizeMd: '1rem',
-      fontWeightMedium: '500',
+    green: {
+      50: '#e8f5e9',
+      100: '#c8e6c9',
+      200: '#a5d6a7',
+      300: '#81c784',
+      400: '#66bb6a',
+      500: '#4caf50',
+      600: '#43a047',
+      700: '#388e3c',
+      800: '#2e7d32',
+      900: '#1b5e20',
+      950: '#0d3311',
     },
-    comp: {
-      button: {
-        // The signature Material "filled button" -- fully pill-shaped, not a rounded rectangle.
-        radius: 'var(--semiui-radius-full)',
-        fontWeight: '500',
-        focusRing: 'var(--semiui-color-ring)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        foregroundDisabled: 'var(--semiui-color-muted-foreground)',
-        // Pill buttons need more generous horizontal breathing room than a boxy button does.
-        paddingX: { sm: '1rem', md: '1.5rem', lg: '2rem' },
-        paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem' },
-        fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem' },
-        variants: {
-          primary: {
-            background: 'var(--semiui-color-primary)',
-            foreground: 'var(--semiui-color-primary-foreground)',
-            border: 'var(--semiui-color-primary)',
-          },
-          secondary: {
-            background: 'var(--semiui-color-muted)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-muted)',
-          },
-          destructive: {
-            background: 'var(--semiui-color-destructive)',
-            foreground: 'var(--semiui-color-destructive-foreground)',
-            border: 'var(--semiui-color-destructive)',
-          },
-          danger: {
-            background: 'var(--semiui-color-destructive)',
-            foreground: 'var(--semiui-color-destructive-foreground)',
-            border: 'var(--semiui-color-destructive)',
-          },
-          success: {
-            background: '#4caf50',
-            foreground: '#ffffff',
-            border: '#4caf50',
-          },
-          info: {
-            background: '#2196f3',
-            foreground: '#ffffff',
-            border: '#2196f3',
-          },
-          warn: {
-            background: '#ff9800',
-            foreground: '#ffffff',
-            border: '#ff9800',
-          },
-          help: {
-            // Material's other half of its most iconic pairing -- #6750a4 (primary) + teal.
-            background: '#03dac6',
-            foreground: '#00201c',
-            border: '#03dac6',
-          },
-          contrast: {
-            background: 'var(--semiui-color-foreground)',
-            foreground: 'var(--semiui-color-background)',
-            border: 'var(--semiui-color-foreground)',
-          },
-          link: {
-            background: 'transparent',
-            foreground: 'var(--semiui-color-primary)',
-            border: 'transparent',
-          },
-        },
-      },
-      input: {
-        paddingX: '1rem',
-        paddingY: '1rem',
-        radius: '0.25rem',
-        fontSize: '1rem',
-        background: 'var(--semiui-color-background)',
-        foreground: 'var(--semiui-color-foreground)',
-        placeholderForeground: 'var(--semiui-color-muted-foreground)',
-        border: 'var(--semiui-color-border)',
-        borderHover: 'var(--semiui-color-foreground)',
-        borderFocus: 'var(--semiui-color-ring)',
-        focusRing: 'var(--semiui-color-ring)',
-        borderInvalid: 'var(--semiui-color-destructive)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        foregroundDisabled: 'var(--semiui-color-muted-foreground)',
-      },
-      select: {
-        paddingX: '0.75rem',
-        paddingY: '0.5rem',
-        radius: '0.25rem',
-        fontSize: '0.875rem',
-        background: 'var(--semiui-color-background)',
-        foreground: 'var(--semiui-color-foreground)',
-        placeholderForeground: 'var(--semiui-color-muted-foreground)',
-        border: 'var(--semiui-color-border)',
-        borderHover: 'var(--semiui-color-muted-foreground)',
-        borderFocus: 'var(--semiui-color-ring)',
-        focusRing: 'var(--semiui-color-ring)',
-        borderInvalid: 'var(--semiui-color-destructive)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        foregroundDisabled: 'var(--semiui-color-muted-foreground)',
-        panelBackground: 'var(--semiui-color-background)',
-        panelBorder: 'var(--semiui-color-border)',
-        panelShadow: elevation8,
-        panelMaxHeight: '16rem',
-        optionForeground: 'var(--semiui-color-foreground)',
-        optionBackgroundHover: 'var(--semiui-color-muted)',
-        optionBackgroundSelected: 'var(--semiui-color-primary)',
-        optionForegroundSelected: 'var(--semiui-color-primary-foreground)',
-      },
-      switch: {
-        trackPadding: '0.125rem',
-        trackBorderWidth: '2px',
-        radius: 'var(--semiui-radius-full)',
-        background: 'var(--semiui-color-background)',
-        backgroundChecked: 'var(--semiui-color-primary)',
-        border: 'var(--semiui-color-muted-foreground)',
-        borderChecked: 'var(--semiui-color-primary)',
-        thumbBackground: 'var(--semiui-color-muted-foreground)',
-        focusRing: 'var(--semiui-color-ring)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        transitionDuration: '0.15s',
-        trackWidth: { sm: '2.5rem', md: '3.25rem', lg: '4rem' },
-        trackHeight: { sm: '1.5rem', md: '2rem', lg: '2.5rem' },
-        thumbSize: { sm: '1.125rem', md: '1.5rem', lg: '1.875rem' },
-      },
-      checkbox: {
-        radius: '0.25rem',
-        border: 'var(--semiui-color-border)',
-        borderChecked: 'var(--semiui-color-primary)',
-        background: 'var(--semiui-color-background)',
-        backgroundChecked: 'var(--semiui-color-primary)',
-        foregroundChecked: 'var(--semiui-color-primary-foreground)',
-        focusRing: 'var(--semiui-color-ring)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        borderDisabled: 'var(--semiui-color-border)',
-        size: { sm: '1rem', md: '1.25rem', lg: '1.5rem' },
-      },
-      radio: {
-        border: 'var(--semiui-color-border)',
-        borderChecked: 'var(--semiui-color-primary)',
-        background: 'var(--semiui-color-background)',
-        backgroundDisabled: 'var(--semiui-color-muted)',
-        borderDisabled: 'var(--semiui-color-border)',
-        dotBackground: 'var(--semiui-color-primary)',
-        focusRing: 'var(--semiui-color-ring)',
-        size: { sm: '1rem', md: '1.25rem', lg: '1.5rem' },
-      },
-      popover: {
-        background: 'var(--semiui-color-background)',
-        border: 'var(--semiui-color-border)',
-        shadow: elevation8,
-        radius: '0.75rem',
-        foreground: 'var(--semiui-color-foreground)',
-        paddingX: '1rem',
-        paddingY: '0.75rem',
-      },
-      tooltip: {
-        background: 'var(--semiui-color-foreground)',
-        foreground: 'var(--semiui-color-background)',
-        radius: '0.375rem',
-        paddingX: '0.5rem',
-        paddingY: '0.25rem',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-      },
-      skeleton: {
-        background: 'var(--semiui-color-muted)',
-        shimmer:
-          'color-mix(in srgb, var(--semiui-color-muted-foreground) 20%, transparent)',
-        radius: '0.375rem',
-      },
-      avatar: {
-        background: 'var(--semiui-color-muted)',
-        foreground: 'var(--semiui-color-foreground)',
-        radius: '0.5rem',
-        statusOnline: '#4caf50',
-        statusAway: '#ff9800',
-        statusBusy: '#f44336',
-        statusOffline: '#9e9e9e',
-        size: { sm: '1.75rem', md: '2.5rem', lg: '3.5rem', xl: '5rem' },
-        fontSize: {
-          sm: '0.625rem',
-          md: '0.875rem',
-          lg: '1.125rem',
-          xl: '1.5rem',
-        },
-      },
-      tag: {
-        // Material Chips are pill-shaped, same shape family as the buttons.
-        radius: 'var(--semiui-radius-full)',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        paddingX: '0.75rem',
-        paddingY: '0.125rem',
-        variants: {
-          default: {
-            background: 'var(--semiui-color-muted)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'transparent',
-          },
-          primary: {
-            background:
-              'color-mix(in srgb, var(--semiui-color-primary) 15%, transparent)',
-            foreground: 'var(--semiui-color-primary)',
-            border: 'transparent',
-          },
-          secondary: {
-            background: 'var(--semiui-color-muted)',
-            foreground: 'var(--semiui-color-muted-foreground)',
-            border: 'transparent',
-          },
-          destructive: {
-            background:
-              'color-mix(in srgb, var(--semiui-color-destructive) 15%, transparent)',
-            foreground: 'var(--semiui-color-destructive)',
-            border: 'transparent',
-          },
-          danger: {
-            background:
-              'color-mix(in srgb, var(--semiui-color-destructive) 15%, transparent)',
-            foreground: 'var(--semiui-color-destructive)',
-            border: 'transparent',
-          },
-          success: {
-            background: 'color-mix(in srgb, #4caf50 15%, transparent)',
-            foreground: '#4caf50',
-            border: 'transparent',
-          },
-          info: {
-            background: 'color-mix(in srgb, #2196f3 15%, transparent)',
-            foreground: '#2196f3',
-            border: 'transparent',
-          },
-          warn: {
-            background: 'color-mix(in srgb, #ff9800 15%, transparent)',
-            foreground: '#ff9800',
-            border: 'transparent',
-          },
-          help: {
-            background: 'color-mix(in srgb, #03dac6 20%, transparent)',
-            foreground: '#00695c',
-            border: 'transparent',
-          },
-          contrast: {
-            background: 'var(--semiui-color-foreground)',
-            foreground: 'var(--semiui-color-background)',
-            border: 'transparent',
-          },
-          outline: {
-            background: 'transparent',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-border)',
-          },
-        },
-      },
-      breadcrumb: {
-        foreground: 'var(--semiui-color-muted-foreground)',
-        currentForeground: 'var(--semiui-color-foreground)',
-        separatorColor: 'var(--semiui-color-muted-foreground)',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        gap: '0.375rem',
-      },
-      badge: {
-        size: '1.25rem',
-        dotSize: '0.625rem',
-        fontSize: '0.6875rem',
-        ringColor: 'var(--semiui-color-background)',
-        variants: {
-          default: {
-            background: 'var(--semiui-color-muted)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'transparent',
-          },
-          primary: {
-            background: 'var(--semiui-color-primary)',
-            foreground: 'var(--semiui-color-primary-foreground)',
-            border: 'transparent',
-          },
-          secondary: {
-            background: 'var(--semiui-color-muted)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'transparent',
-          },
-          destructive: {
-            background: 'var(--semiui-color-destructive)',
-            foreground: 'var(--semiui-color-destructive-foreground)',
-            border: 'transparent',
-          },
-          danger: {
-            background: 'var(--semiui-color-destructive)',
-            foreground: 'var(--semiui-color-destructive-foreground)',
-            border: 'transparent',
-          },
-          success: {
-            background: '#4caf50',
-            foreground: '#ffffff',
-            border: 'transparent',
-          },
-          info: {
-            background: '#2196f3',
-            foreground: '#ffffff',
-            border: 'transparent',
-          },
-          warn: {
-            background: '#ff9800',
-            foreground: '#ffffff',
-            border: 'transparent',
-          },
-          help: {
-            background: '#03dac6',
-            foreground: '#00201c',
-            border: 'transparent',
-          },
-          contrast: {
-            background: 'var(--semiui-color-foreground)',
-            foreground: 'var(--semiui-color-background)',
-            border: 'transparent',
-          },
-          outline: {
-            background: 'var(--semiui-color-background)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-border)',
-          },
-        },
-      },
-      pagination: {
-        radius: 'var(--semiui-radius-full)',
-        gap: '0.25rem',
-        size: '2.25rem',
-        border: 'var(--semiui-color-border)',
-        background: 'transparent',
-        foreground: 'var(--semiui-color-foreground)',
-        backgroundHover: 'var(--semiui-color-muted)',
-        backgroundActive: 'var(--semiui-color-primary)',
-        foregroundActive: 'var(--semiui-color-primary-foreground)',
-        foregroundDisabled: 'var(--semiui-color-muted-foreground)',
-      },
-      rating: {
-        filledColor: '#ffc107',
-        emptyColor: 'var(--semiui-color-border)',
-        gap: '0',
-        size: { sm: '1.25rem', md: '2rem', lg: '2.75rem' },
-      },
-      accordion: {
-        border: 'var(--semiui-color-border)',
-        radius: 'var(--semiui-radius-md)',
-        headerBackground: 'transparent',
-        headerBackgroundHover: 'var(--semiui-color-muted)',
-        headerForeground: 'var(--semiui-color-foreground)',
-        panelBackground: 'transparent',
-        panelForeground: 'var(--semiui-color-muted-foreground)',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        fontWeight: 'var(--semiui-typography-font-weight-medium)',
-        paddingX: 'var(--semiui-spacing-md)',
-        paddingY: 'var(--semiui-spacing-sm)',
-      },
-      tabs: {
-        border: 'var(--semiui-color-border)',
-        gap: 'var(--semiui-spacing-md)',
-        foreground: 'var(--semiui-color-muted-foreground)',
-        foregroundActive: 'var(--semiui-color-primary)',
-        foregroundDisabled: 'var(--semiui-color-muted-foreground)',
-        indicatorColor: 'var(--semiui-color-primary)',
-        // M3 tab indicators are a noticeably thick bar, not a hairline.
-        indicatorThickness: '3px',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        fontWeight: 'var(--semiui-typography-font-weight-medium)',
-        paddingX: 'var(--semiui-spacing-md)',
-        paddingY: 'var(--semiui-spacing-sm)',
-      },
-      stepper: {
-        circleSize: '2rem',
-        circleBorder: 'var(--semiui-color-border)',
-        circleBackground: 'var(--semiui-color-background)',
-        circleForeground: 'var(--semiui-color-muted-foreground)',
-        circleBackgroundActive: 'var(--semiui-color-primary)',
-        circleForegroundActive: 'var(--semiui-color-primary-foreground)',
-        circleBackgroundCompleted: 'var(--semiui-color-primary)',
-        circleForegroundCompleted: 'var(--semiui-color-primary-foreground)',
-        connectorColor: 'var(--semiui-color-border)',
-        connectorColorCompleted: 'var(--semiui-color-primary)',
-        labelColor: 'var(--semiui-color-muted-foreground)',
-        labelColorActive: 'var(--semiui-color-foreground)',
-        descriptionColor: 'var(--semiui-color-muted-foreground)',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        gap: 'var(--semiui-spacing-sm)',
-      },
-      slider: {
-        trackSize: '1rem',
-        trackColor: 'var(--semiui-color-muted)',
-        fillColor: 'var(--semiui-color-primary)',
-        thumbSize: '1.5rem',
-        thumbBackground: 'var(--semiui-color-primary)',
-        thumbBorder: 'var(--semiui-color-primary)',
-        thumbBorderFocus: 'var(--semiui-color-ring)',
-        tickColor: 'var(--semiui-color-primary-foreground)',
-        tickSize: '0.125rem',
-        bubbleBackground: 'var(--semiui-color-foreground)',
-        bubbleForeground: 'var(--semiui-color-background)',
-      },
-      chart: {
-        gridColor: 'var(--semiui-color-border)',
-        axisLabelColor: 'var(--semiui-color-muted-foreground)',
-        axisLabelFontSize: '9px',
-        tooltipBackground: 'var(--semiui-color-foreground)',
-        tooltipForeground: 'var(--semiui-color-background)',
-        tooltipRadius: 'var(--semiui-radius-sm)',
-        legendFontSize: 'var(--semiui-typography-font-size-sm)',
-        legendGap: 'var(--semiui-spacing-md)',
-        lineStrokeWidth: '2',
-        areaOpacity: '0.15',
-      },
-      table: {
-        border: 'var(--semiui-color-border)',
-        radius: 'var(--semiui-radius-md)',
-        headerBackground: 'var(--semiui-color-muted)',
-        headerForeground: 'var(--semiui-color-foreground)',
-        rowBackground: 'var(--semiui-color-background)',
-        rowBackgroundStriped: 'var(--semiui-color-muted)',
-        rowBackgroundHover: 'var(--semiui-color-muted)',
-        rowBackgroundSelected:
-          'color-mix(in srgb, var(--semiui-color-primary) 12%, transparent)',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        cellPaddingX: 'var(--semiui-spacing-md)',
-        cellPaddingY: 'var(--semiui-spacing-sm)',
-        sortIconColor: 'var(--semiui-color-muted-foreground)',
-        sortIconColorActive: 'var(--semiui-color-foreground)',
-      },
-      colorPicker: {
-        svAreaSize: '12rem',
-        hueTrackHeight: '0.75rem',
-        thumbSize: '1rem',
-        hueThumbWidth: '0.75rem',
-        presetSize: '1.5rem',
-        presetGap: '0.375rem',
-        presetBorder: 'var(--semiui-color-border)',
-        presetBorderSelected: 'var(--semiui-color-primary)',
-      },
-      datePicker: {
-        daySize: '2.25rem',
-        fontSize: 'var(--semiui-typography-font-size-sm)',
-        dayForeground: 'var(--semiui-color-foreground)',
-        dayForegroundOutsideMonth: 'var(--semiui-color-muted-foreground)',
-        dayBackgroundHover: 'var(--semiui-color-muted)',
-        dayBackgroundSelected: 'var(--semiui-color-primary)',
-        dayForegroundSelected: 'var(--semiui-color-primary-foreground)',
-        dayBorderToday: 'var(--semiui-color-primary)',
-        navBackgroundHover: 'var(--semiui-color-muted)',
-        weekdayForeground: 'var(--semiui-color-muted-foreground)',
-        monthLabelForeground: 'var(--semiui-color-foreground)',
-      },
-      carousel: {
-        radius: 'var(--semiui-radius-lg)',
-        arrowSize: '2.5rem',
-        arrowBackground: 'rgb(0 0 0 / 0.4)',
-        arrowBackgroundHover: 'rgb(0 0 0 / 0.6)',
-        arrowColor: '#fff',
-        dotSize: '0.5rem',
-        dotColor: 'var(--semiui-color-border)',
-        dotColorActive: 'var(--semiui-color-primary)',
-        dotGap: 'var(--semiui-spacing-xs)',
-      },
-      toast: {
-        // M3 snackbars are deliberately NOT pill-shaped -- one of the few components that stays
-        // close to square, which is worth keeping distinct rather than rounding everything.
-        radius: '0.25rem',
-        shadow: elevation6,
-        paddingX: 'var(--semiui-spacing-md)',
-        paddingY: 'var(--semiui-spacing-sm)',
-        gap: 'var(--semiui-spacing-sm)',
-        width: '24rem',
-        blur: 'blur(12px)',
-        variants: {
-          default: {
-            background:
-              'color-mix(in srgb, var(--semiui-color-background) 88%, transparent)',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-border)',
-            iconColor: 'var(--semiui-color-muted-foreground)',
-          },
-          success: {
-            background:
-              'color-mix(in srgb, #4caf50 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
-            foreground: 'var(--semiui-color-foreground)',
-            border: '#4caf50',
-            iconColor: '#4caf50',
-          },
-          error: {
-            background:
-              'color-mix(in srgb, var(--semiui-color-destructive) 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
-            foreground: 'var(--semiui-color-foreground)',
-            border: 'var(--semiui-color-destructive)',
-            iconColor: 'var(--semiui-color-destructive)',
-          },
-          warning: {
-            background:
-              'color-mix(in srgb, #ff9800 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
-            foreground: 'var(--semiui-color-foreground)',
-            border: '#ff9800',
-            iconColor: '#ff9800',
-          },
-          info: {
-            background:
-              'color-mix(in srgb, #2196f3 14%, color-mix(in srgb, var(--semiui-color-background) 88%, transparent))',
-            foreground: 'var(--semiui-color-foreground)',
-            border: '#2196f3',
-            iconColor: '#2196f3',
-          },
-        },
-      },
-      fileUpload: {
-        border: 'var(--semiui-color-border)',
-        borderDragOver: 'var(--semiui-color-primary)',
-        background: 'transparent',
-        backgroundDragOver: 'var(--semiui-color-muted)',
-        radius: 'var(--semiui-radius-lg)',
-        iconColor: 'var(--semiui-color-muted-foreground)',
-        hintColor: 'var(--semiui-color-foreground)',
-        acceptColor: 'var(--semiui-color-muted-foreground)',
-        itemBackground: 'var(--semiui-color-muted)',
-        itemBorder: 'var(--semiui-color-border)',
-        itemRadius: 'var(--semiui-radius-md)',
-        thumbSize: '2.5rem',
-        rejectionColor: 'var(--semiui-color-destructive)',
-      },
-      dialog: {
-        backdropColor: 'rgb(0 0 0 / 0.5)',
-        panelBackground: 'var(--semiui-color-background)',
-        panelBorder: 'var(--semiui-color-border)',
-        // M3's dialog shape token is famously very rounded (28dp) -- worth the literal value
-        // rather than reaching for the shared `lg` radius, which other components also use.
-        radius: '1.75rem',
-        shadow: elevation24,
-        headerBorder: 'var(--semiui-color-border)',
-        footerBorder: 'var(--semiui-color-border)',
-        titleFontSize: '1.125rem',
-        titleFontWeight: '500',
-        padding: 'var(--semiui-spacing-lg)',
-        widths: {
-          sm: '24rem',
-          md: '32rem',
-          lg: '48rem',
-          full: 'calc(100vw - 2rem)',
-        },
-      },
-    speedDial: {
-      radius: 'var(--semiui-radius-full)',
-      shadow: 'var(--semiui-comp-popover-shadow)',
-      gap: 'var(--semiui-spacing-md)',
-      actionSize: { sm: '2rem', md: '2.5rem', lg: '3rem' },
-      actionBackground: 'var(--semiui-comp-button-variants-secondary-background)',
-      actionForeground: 'var(--semiui-comp-button-variants-secondary-foreground)',
-      actionBorder: 'var(--semiui-comp-button-variants-secondary-border)',
-      stagger: '50ms',
+    blue: {
+      50: '#e3f2fd',
+      100: '#bbdefb',
+      200: '#90caf9',
+      300: '#64b5f6',
+      400: '#42a5f5',
+      500: '#2196f3',
+      600: '#1e88e5',
+      700: '#1976d2',
+      800: '#1565c0',
+      900: '#0d47a1',
+      950: '#082e63',
     },
+    /** Material Amber at the light end, Orange from 500 down -- the pairing Material itself uses
+     * for "rating gold" versus "warning". */
+    amber: {
+      50: '#fff8e1',
+      100: '#ffecb3',
+      200: '#ffe082',
+      300: '#ffd54f',
+      400: '#ffc107',
+      500: '#ff9800',
+      600: '#fb8c00',
+      700: '#f57c00',
+      800: '#ef6c00',
+      900: '#e65100',
+      950: '#8f3200',
+    },
+    /** Material's signature teal secondary. */
+    teal: {
+      50: '#e0f7f4',
+      100: '#b2ebe4',
+      200: '#80ded3',
+      300: '#4dd0c1',
+      400: '#1fc9b3',
+      500: '#03dac6',
+      600: '#00bfa5',
+      700: '#00897b',
+      800: '#00695c',
+      900: '#004d40',
+      950: '#00201c',
+    },
+    /** M3's Neutral / Neutral-Variant tones. */
+    slate: {
+      50: '#fffbfe',
+      100: '#e7e0ec',
+      200: '#e6e1e5',
+      300: '#cac4d0',
+      400: '#b0aab8',
+      500: '#9e9e9e',
+      600: '#79747e',
+      700: '#49454f',
+      800: '#2b2930',
+      900: '#1c1b1f',
+      950: '#121212',
+    },
+    night: { base: '#121212', raised: '#2b2930', ink: '#1c1b1f' },
+  },
+
+  semantic: {
+    primary: '{purple.500}',
+    palette: { primary: '{purple}' },
+    border: '{slate.300}',
+    mutedForeground: '{slate.700}',
+    success: '{green.500}',
+    destructive: '{red.500}',
+    warning: '{amber.500}',
+    // Material's secondary accent is teal, not a neutral wash -- so `help` gets its own ramp and
+    // its own dark ink, rather than aliasing white.
+    help: '{teal.500}',
+    helpForeground: '{teal.950}',
+
+    radius: { sm: '0.25rem', md: '0.75rem', lg: '1rem' },
+    typography: { fontFamily: 'Roboto, "Helvetica Neue", Arial, sans-serif' },
+  },
+
+  dark: {
+    semantic: {
+      // M3's dark scheme: a light tonal fill carrying dark on-color ink, per color family.
+      primary: '{purple.200}',
+      primaryForeground: '{purple.800}',
+      destructive: '{red.200}',
+      destructiveForeground: '{red.700}',
+      success: '{green.300}',
+      successForeground: '{green.950}',
+      info: '{blue.300}',
+      infoForeground: '{blue.950}',
+      warning: '{amber.300}',
+      warningForeground: '{amber.950}',
+      help: '{teal.300}',
+      helpForeground: '{teal.950}',
+
+      border: '{slate.700}',
+      mutedForeground: '{slate.300}',
+    },
+  },
+
+  components: {
+    button: {
+      // The M3 pill.
+      radius: '{radius.full}',
+      paddingX: { sm: '1rem', md: '1.5rem', lg: '2rem' },
+    },
+
+    // Material's filled text field is tall and roomy, with a small corner.
+    input: {
+      paddingX: '1rem',
+      paddingY: '1rem',
+      radius: '{radius.sm}',
+      fontSize: '{typography.fontSize.md}',
+      borderHover: '{foreground}',
+    },
+    select: { radius: '{radius.sm}', panelShadow: elevation8 },
+
+    // The M3 switch: a wide outlined track with a small neutral thumb until it's checked.
+    switch: {
+      trackBorderWidth: '2px',
+      background: '{background}',
+      border: '{mutedForeground}',
+      thumbBackground: '{mutedForeground}',
+      trackWidth: { sm: '2.5rem', md: '3.25rem', lg: '4rem' },
+      trackHeight: { sm: '1.5rem', md: '2rem', lg: '2.5rem' },
+      thumbSize: { sm: '1.125rem', md: '1.5rem', lg: '1.875rem' },
+    },
+
+    popover: { shadow: elevation8 },
+    avatar: { statusOffline: '{slate.500}' },
+
+    // M3 chips are pills with a little more breathing room.
+    tag: {
+      radius: '{radius.full}',
+      paddingX: '{spacing.md}',
+      variants: {
+        // Teal's wash needs a heavier mix and darker ink than the other statuses.
+        help: { background: 'color-mix(in srgb, {help} 20%, transparent)', foreground: '{teal.800}' },
+      },
+    },
+    pagination: { radius: '{radius.full}' },
+    rating: { filledColor: '{amber.400}' },
+    tabs: { indicatorThickness: '3px' },
+
+    // The M3 slider: a thick track with a wide thumb and tick marks drawn *on* the fill.
+    slider: {
+      trackSize: '1rem',
+      thumbSize: '1.5rem',
+      thumbBackground: '{primary}',
+      tickColor: '{primaryForeground}',
+      tickSize: '0.125rem',
+    },
+
+    toast: {
+      radius: '{radius.sm}',
+      shadow: elevation6,
+      variants: {
+        default: { border: '{border}' },
+        success: { border: '{success}' },
+        error: { border: '{error}' },
+        warning: { border: '{warning}' },
+        info: { border: '{info}' },
+      },
+    },
+
+    dialog: {
+      // M3's extra-large corner, which is genuinely bigger than anything else in the theme --
+      // a dialog-only shape, so it stays a dialog-only value.
+      radius: '1.75rem',
+      shadow: elevation24,
+      titleFontWeight: '500',
+    },
+
+    speedDial: { actionSize: { sm: '2rem', md: '2.5rem', lg: '3rem' }, stagger: '50ms' },
+
+    // Material's touch targets run larger than the default across the board.
     fullCalendar: {
       navButtonSize: '2.5rem',
       navIconSize: '1.05rem',
@@ -635,77 +254,10 @@ export const Material: ThemePreset = {
       toggleMarginEnd: '0.1875rem',
       toggleIconSize: '1.05rem',
     },
-    richTextEditor: {
-      toolbarGap: '0.1875rem',
-      toolSize: '2rem',
-      toolIconSize: '1.125rem',
-      contentHeadingFontSizeLg: '1.5em',
-      contentHeadingFontSizeMd: '1.25em',
-      contentBlockSpacing: '0.5em',
-      contentListIndent: '1.5em',
-    },
-    timeline: {
-      markerIconSize: '0.85rem',
-      connectorMinLength: '2rem',
-      contentGap: '0.125rem',
-    },
-    cascadeSelect: {
-      panelMinWidth: '12rem',
-    },
-    contextMenu: {
-      panelMinWidth: '12rem',
-    },
-    autoComplete: {
-      inputPaddingEnd: '2rem',
-    },
-    progressBar: {
-      trackHeight: { sm: '0.5rem', md: '0.625rem', lg: '0.875rem' },
-      labelFontSize: '0.75rem',
-    },
-    scrollTop: {
-      buttonSize: '3.25rem',
-      iconSize: '1.3rem',
-    },
-    splitButton: {
-      menuMinWidth: '10rem',
-    },
-    imageCropper: {
-      gridLineColor: 'rgba(255, 255, 255, 0.6)',
-      zoomSliderMaxWidth: '16rem',
-    },
-    organizationChart: {
-      nodeMinWidth: '12rem',
-      nodeBackgroundSelected: 'color-mix(in srgb, var(--semiui-color-primary) 12%, transparent)',
-      nodeBorderSelected: 'var(--semiui-color-primary)',
-      toggleSize: '1.5rem',
-      gap: '2rem',
-    },
-    knob: {
-      valueFontSize: '1.75rem',
-      labelColor: 'var(--semiui-color-muted-foreground)',
-      labelFontSize: '0.8125rem',
-    },
-    },
+    richTextEditor: { toolbarGap: '0.1875rem', toolSize: '2rem', toolIconSize: '1.125rem' },
+    progressBar: { trackHeight: { sm: '0.5rem', md: '0.625rem', lg: '0.875rem' } },
+    scrollTop: { buttonSize: '3.25rem', iconSize: '1.3rem' },
+    organizationChart: { nodeMinWidth: '12rem', toggleSize: '1.5rem', gap: '2rem' },
+    knob: { valueFontSize: '1.75rem', labelFontSize: '0.8125rem' },
   },
-  darkColor,
-  icons: {
-    loading: { type: 'ng-icon', name: 'lucideLoaderCircle' },
-    chevronDown: { type: 'ng-icon', name: 'lucideChevronDown' },
-    clear: { type: 'ng-icon', name: 'lucideX' },
-    passwordShow: { type: 'ng-icon', name: 'lucideEye' },
-    passwordHide: { type: 'ng-icon', name: 'lucideEyeOff' },
-    checkboxCheck: { type: 'ng-icon', name: 'lucideCheck' },
-    checkboxIndeterminate: { type: 'ng-icon', name: 'lucideMinus' },
-    search: { type: 'ng-icon', name: 'lucideSearch' },
-    plus: { type: 'ng-icon', name: 'lucidePlus' },
-    minus: { type: 'ng-icon', name: 'lucideMinus' },
-    avatarFallback: { type: 'ng-icon', name: 'lucideUser' },
-    rating: { type: 'ng-icon', name: 'lucideStar' },
-    upload: { type: 'ng-icon', name: 'lucideUpload' },
-    file: { type: 'ng-icon', name: 'lucideFile' },
-    toastSuccess: { type: 'ng-icon', name: 'lucideCircleCheck' },
-    toastError: { type: 'ng-icon', name: 'lucideCircleX' },
-    toastWarning: { type: 'ng-icon', name: 'lucideTriangleAlert' },
-    toastInfo: { type: 'ng-icon', name: 'lucideInfo' },
-  },
-};
+});

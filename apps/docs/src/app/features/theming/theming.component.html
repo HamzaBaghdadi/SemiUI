@@ -85,16 +85,116 @@
           class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
         ><code><span class="text-white/50">interface</span> ThemePreset {{ '{' }}
   name: string;
-  tokens: {{ '{' }}
-    color: ColorTokens;      <span class="text-white/40">// background, foreground, primary, border, ring...</span>
-    spacing: {{ '{' }} xs: string; sm: string; md: string; lg: string; xl: string {{ '}' }};
-    radius: {{ '{' }} sm: string; md: string; lg: string; full: string {{ '}' }};
-    typography: {{ '{' }} fontFamily: string; fontSizeSm: string; fontSizeMd: string; fontWeightMedium: string {{ '}' }};
-    comp: ComponentTokens;   <span class="text-white/40">// one entry per component -- comp.button, comp.input, comp.tag...</span>
-  {{ '}' }};
-  darkColor: ColorTokens;    <span class="text-white/40">// paired dark-mode palette</span>
-  icons: IconTokens;         <span class="text-white/40">// logical slot -> icon reference</span>
+  primitive: PrimitiveTokens;    <span class="text-white/40">// raw values -- blue.500, slate.200, white, night.base</span>
+  semantic: SemanticTokens;      <span class="text-white/40">// meanings -- primary, destructive, muted, spacing, radius, typography</span>
+  components: ComponentTokens;   <span class="text-white/40">// one entry per component -- button, input, tag...</span>
+  dark?: ThemeOverrides;         <span class="text-white/40">// dark-mode overrides, normally semantic tokens only</span>
+  icons: IconTokens;             <span class="text-white/40">// logical slot -> icon reference</span>
 {{ '}' }}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token layers -->
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Three layers</span
+      >
+      <h2 class="text-2xl font-extrabold">How a token resolves</h2>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >A preset never names a CSS variable. It writes <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">{{ '{' }}token.path{{ '}' }}</code> references, and the
+        engine follows them — which is what makes one override reach every component downstream of
+        it.
+      </span>
+
+      <div class="flex flex-col gap-3 mt-6">
+        @for (step of resolutionChain; track step.path) {
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-lg border border-border p-4">
+            <span class="text-xs font-bold uppercase tracking-[0.06em] text-muted-foreground sm:w-24 shrink-0">{{ step.layer }}</span>
+            <div class="flex flex-col gap-1 min-w-0 flex-1">
+              <span class="font-mono text-sm break-all">{{ step.path }}</span>
+              <span class="font-mono text-xs text-muted-foreground break-all">
+                authored as {{ step.authored }} &rarr; generates {{ step.cssVar }}
+              </span>
+              <span class="text-xs text-muted-foreground">{{ step.note }}</span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="size-8 rounded-md border border-border" [style.background]="step.resolved"></span>
+              <span class="font-mono text-xs text-muted-foreground">{{ step.resolved }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <span class="text-muted-foreground text-sm max-w-xl mt-4"
+        >Those swatches come from <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">resolvePresetToken()</code> reading the real Semi preset, not
+        from values typed into this page. The generated CSS keeps the chain intact rather than
+        flattening it — <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-color-primary</code> is literally
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">var(--semiui-primitive-blue-500)</code> — which is why redefining three variables under
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">.dark</code> is enough to move the whole library.
+      </span>
+
+      <h3 class="text-lg font-bold mt-8">What a token value can be</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >The system is deliberately not all-or-nothing. Reuse a token when the value has
+        design-system meaning; keep it raw when it is genuinely local to one component.
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">token values</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tokenValues')"
+          >
+            <ng-icon [name]="isCopied('tokenValues') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tokenValues') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tokenValues') }}</code></pre>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">Aliases, not copies</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >Component APIs accept <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">danger</code>, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">error</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">warn</code> as well as
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">destructive</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">warning</code>. Those are one color each, reachable under
+        several names — never a second hex to keep in sync.
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">semi.ts</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('aliases')"
+          >
+            <ng-icon [name]="isCopied('aliases') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('aliases') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('aliases') }}</code></pre>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">Mistakes fail loudly</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >A reference that does not resolve is an error with a suggestion, raised before any CSS is
+        generated — not a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">var(--undefined)</code> you find in the browser.
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">diagnostics</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('validation')"
+          >
+            <ng-icon [name]="isCopied('validation') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('validation') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('validation') }}</code></pre>
       </div>
     </div>
   </section>
@@ -108,32 +208,38 @@
       >
       <h2 class="text-2xl font-extrabold">The Semi preset's tokens</h2>
       <span class="text-muted-foreground text-sm max-w-xl mt-1"
-        >These swatches read the real <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-color-*</code>
-        variables this docs site is running on right now — click one to copy
-        its variable name, or flip the theme toggle in the top bar to see the
-        dark palette take over.
+        >The complete semantic vocabulary — every <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semantic.*</code>
+        color a preset declares. Each swatch reads the generated variable live, so it shows what
+        the preset and color mode active on this page resolve it to right now. Click one to copy
+        its variable name, switch preset or theme in the top bar to watch them all move.
       </span>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-        @for (token of colorTokens; track token.key) {
-          <button
-            type="button"
-            class="flex flex-col rounded-lg border border-border overflow-hidden text-left cursor-pointer hover:border-muted-foreground"
-            (click)="copy(token.key)"
-          >
-            <div
-              class="h-14 border-b border-border"
-              [style.background]="'var(--semiui-color-' + token.key + ')'"
-            ></div>
-            <div class="flex flex-col p-3 gap-0.5">
-              <span class="text-sm font-bold">{{ token.label }}</span>
-              <span class="text-xs text-muted-foreground">
-                {{ isCopied(token.key) ? 'Copied!' : '--semiui-color-' + token.key }}
-              </span>
-            </div>
-          </button>
-        }
-      </div>
+      @for (group of colorGroups; track group.title) {
+        <div class="flex flex-col gap-1 mt-8">
+          <span class="text-xs font-bold uppercase tracking-[0.06em] text-muted-foreground">{{ group.title }}</span>
+          <span class="text-muted-foreground text-sm">{{ group.caption }}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-3">
+          @for (token of group.tokens; track token.key) {
+            <button
+              type="button"
+              class="flex flex-col rounded-lg border border-border overflow-hidden text-left cursor-pointer hover:border-muted-foreground"
+              (click)="copy(token.key)"
+            >
+              <div
+                class="h-14 border-b border-border"
+                [style.background]="'var(--semiui-color-' + token.key + ')'"
+              ></div>
+              <div class="flex flex-col p-3 gap-0.5">
+                <span class="text-sm font-bold">{{ token.label }}</span>
+                <span class="text-xs text-muted-foreground">
+                  {{ isCopied(token.key) ? 'Copied!' : '--semiui-color-' + token.key }}
+                </span>
+              </div>
+            </button>
+          }
+        </div>
+      }
 
       <div class="grid grid-cols-1 sm:grid-cols-2 items-center gap-10 mt-10">
         <div class="flex flex-col gap-3">
@@ -226,28 +332,30 @@
           <pre
             class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
           ><code><span class="text-white/50">import</span> {{ '{' }} Semi {{ '}' }} <span class="text-white/50">from</span> '@semiui/presets-semi';
-<span class="text-white/50">import type</span> {{ '{' }} ThemePreset {{ '}' }} <span class="text-white/50">from</span> '@semiui/tokens';
+<span class="text-white/50">import</span> {{ '{' }} definePreset {{ '}' }} <span class="text-white/50">from</span> '@semiui/tokens';
 
-<span class="text-white/50">export const</span> Ember: ThemePreset = {{ '{' }}
-  ...Semi,
+<span class="text-white/50">export const</span> Ember = definePreset(Semi, {{ '{' }}
   name: 'ember',
-  tokens: {{ '{' }}
-    ...Semi.tokens,
-    color: {{ '{' }}
-      background: '#fffaf5',
-      foreground: '#431407',
-      primary: '#ea580c',
-      primaryForeground: '#ffffff',
-      destructive: '#dc2626',
-      destructiveForeground: '#ffffff',
-      border: '#fed7aa',
-      ring: '#ea580c',
-      muted: '#ffedd5',
-      mutedForeground: '#9a3412',
+  primitive: {{ '{' }}
+    ember: {{ '{' }}
+      50: '#fffaf5', 100: '#ffedd5', 200: '#fed7aa',
+      400: '#fb923c', 500: '#ea580c', 800: '#9a3412', 900: '#431407',
     {{ '}' }},
   {{ '}' }},
-  <span class="text-white/40">// darkColor and comp are inherited from Semi as-is -- override only what changes.</span>
-{{ '}' }};</code></pre>
+  semantic: {{ '{' }}
+    primary: '{{ '{' }}ember.500{{ '}' }}',
+    background: '{{ '{' }}ember.50{{ '}' }}',
+    foreground: '{{ '{' }}ember.900{{ '}' }}',
+    muted: '{{ '{' }}ember.100{{ '}' }}',
+    mutedForeground: '{{ '{' }}ember.800{{ '}' }}',
+    border: '{{ '{' }}ember.200{{ '}' }}',
+  {{ '}' }},
+  dark: {{ '{' }}
+    semantic: {{ '{' }} primary: '{{ '{' }}ember.400{{ '}' }}' {{ '}' }},
+  {{ '}' }},
+{{ '}' }});
+<span class="text-white/40">// Nothing else needs saying: every component token references the semantic layer, so</span>
+<span class="text-white/40">// buttons, tags, focus rings and checked checkboxes all follow automatically.</span></code></pre>
         </div>
 
         <div class="bg-slate-900 text-white rounded-lg overflow-hidden">
@@ -282,6 +390,42 @@
     </div>
   </section>
 
+  <!-- Preset composition -->
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Composition</span
+      >
+      <h2 class="text-2xl font-extrabold">Presets build on presets</h2>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        ><code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">definePreset</code> merges key by key at every depth, so overriding <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">blue.500</code>
+        keeps the other ten shades and overriding one button variant keeps the other nine. It never
+        mutates the base, and the result can itself be extended.
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-4">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">carbon.ts</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('composition')"
+          >
+            <ng-icon [name]="isCopied('composition') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('composition') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('composition') }}</code></pre>
+      </div>
+
+      <span class="text-muted-foreground text-sm max-w-xl mt-4"
+        >This is not just an API for your themes — it is how the six presets above are written.
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">Semi</code> is the base; Aurora, Material, Carbon, Fluent, Cupertino and Samsung are each
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">definePreset(Semi, …)</code> holding only what genuinely differs.
+      </span>
+    </div>
+  </section>
+
   <!-- Component-level overrides -->
   <section class="border-t border-border">
     <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
@@ -291,7 +435,7 @@
       >
       <h2 class="text-2xl font-extrabold">One entry per component</h2>
       <span class="text-muted-foreground text-sm max-w-xl mt-1"
-        >Beyond the shared palette, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">tokens.comp</code>
+        >Beyond the shared palette, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components</code>
         restyles a single component without touching the rest. This is the
         exact object driving <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">s-button</code> everywhere in
         this app.
@@ -315,25 +459,21 @@
         </div>
         <pre
           class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
-        ><code>comp: {{ '{' }}
+        ><code>components: {{ '{' }}
   button: {{ '{' }}
-    radius: '0.5rem',
-    fontWeight: '500',
-    focusRing: 'var(--semiui-color-ring)',
-    backgroundDisabled: 'var(--semiui-color-muted)',
-    foregroundDisabled: 'var(--semiui-color-muted-foreground)',
+    radius: '{{ '{' }}radius.md{{ '}' }}',
+    fontWeight: '{{ '{' }}typography.fontWeight.medium{{ '}' }}',
+    focusRing: '{{ '{' }}ring{{ '}' }}',
+    backgroundDisabled: '{{ '{' }}muted{{ '}' }}',
+    foregroundDisabled: '{{ '{' }}mutedForeground{{ '}' }}',
     paddingX: {{ '{' }} sm: '0.75rem', md: '1rem', lg: '1.25rem' {{ '}' }},
     paddingY: {{ '{' }} sm: '0.375rem', md: '0.5rem', lg: '0.625rem' {{ '}' }},
     fontSize: {{ '{' }} sm: '0.8125rem', md: '0.875rem', lg: '1rem' {{ '}' }},
     variants: {{ '{' }}
-      primary: {{ '{' }}
-        background: 'var(--semiui-color-primary)',
-        foreground: 'var(--semiui-color-primary-foreground)',
-        border: 'var(--semiui-color-primary)',
-      {{ '}' }},
-      success: {{ '{' }} background: '#16a34a', foreground: '#ffffff', border: '#16a34a' {{ '}' }},
-      link: {{ '{' }} background: 'transparent', foreground: 'var(--semiui-color-primary)', border: 'transparent' {{ '}' }},
-      <span class="text-background/40">// ...secondary, destructive, danger, info, warn, help, contrast</span>
+      primary: {{ '{' }} background: '{{ '{' }}primary{{ '}' }}', foreground: '{{ '{' }}primaryForeground{{ '}' }}', border: '{{ '{' }}primary{{ '}' }}' {{ '}' }},
+      success: {{ '{' }} background: '{{ '{' }}success{{ '}' }}', foreground: '{{ '{' }}successForeground{{ '}' }}', border: '{{ '{' }}success{{ '}' }}' {{ '}' }},
+      link: {{ '{' }} background: '{{ '{' }}transparent{{ '}' }}', foreground: '{{ '{' }}primary{{ '}' }}', border: '{{ '{' }}transparent{{ '}' }}' {{ '}' }},
+      <span class="text-white/40">// ...secondary, destructive, danger, info, warn, help, contrast</span>
     {{ '}' }},
   {{ '}' }},
 {{ '}' }},</code></pre>
@@ -420,8 +560,9 @@
       >
       <h2 class="text-2xl font-extrabold">Where the dark palette comes from</h2>
       <span class="text-muted-foreground text-sm max-w-xl mt-1"
-        >Every preset pairs its light <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">tokens.color</code>
-        with a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">darkColor</code> object of the same shape.
+        >A preset's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semantic</code> tokens are its light-mode values; its <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">dark</code> block
+        re-points just the handful of them that change. Component tokens reference the semantic layer, so
+        they follow on their own — no parallel dark component tree.
         <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">provideSemiUI</code> writes both onto a single
         <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&lt;style&gt;</code> tag —
         the base tokens on <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">:root</code>, the dark palette
@@ -472,40 +613,219 @@
       >
       <h2 class="text-2xl font-extrabold">Bridging into Tailwind</h2>
       <span class="text-muted-foreground text-sm max-w-xl mt-1"
-        >SemiUI doesn't set up Tailwind for you, and its injected
-        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-*</code> variables live independently of
-        any <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">@theme</code> block. If your project already
-        uses Tailwind, map the two together by hand — only where you actually
-        want a Tailwind utility backed by the active preset.
+        >If your project already uses Tailwind v4, install the bridge -- a plain CSS file, copied
+        into your project like any other component -- and Tailwind utilities like
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text-muted-foreground</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rounded-md</code>, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-blue-500</code> and
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">p-semiui-md</code>
+        automatically follow whichever preset and light/dark mode is active -- on plain
+        Tailwind-classed elements, not just SemiUI's own components. Opacity modifiers
+        (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary/10</code>) and aliases (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-danger</code>) work too, and no
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">dark:</code> variant is needed for a semantic color.
       </span>
 
       <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-4">
-        <div
-          class="flex items-center justify-between px-4 py-2 border-b border-white/10"
-        >
-          <span class="text-xs text-white/60">src/styles.css</span>
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">Terminal</span>
           <button
             type="button"
             class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
             (click)="copy('tailwindBridge')"
           >
-            <ng-icon
-              [name]="isCopied('tailwindBridge') ? 'lucideClipboardCheck' : 'lucideCopy'"
-            ></ng-icon>
+            <ng-icon [name]="isCopied('tailwindBridge') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
             {{ isCopied('tailwindBridge') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code><span class="text-white/50">npx</span> semiui add tailwind</code></pre>
+      </div>
+
+      <span class="text-muted-foreground text-sm max-w-xl mt-4"
+        >Then import it after Tailwind itself in your global stylesheet -- order matters, since the
+        bridge's values need to win the cascade for anything your own
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">@theme</code> block also defines:</span
+      >
+
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-2">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">src/styles.css</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindImport')"
+          >
+            <ng-icon [name]="isCopied('tailwindImport') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindImport') ? 'Copied' : 'Copy' }}
           </button>
         </div>
         <pre
           class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
         ><code><span class="text-white/50">@import</span> "tailwindcss";
-<span class="text-white/50">@import</span> "./my-app.css"; <span class="text-white/40">/* wherever provideSemiUI's injected &lt;style&gt; lands is untouched by this */</span>
-
-<span class="text-white/50">@theme</span> {{ '{' }}
-  --color-primary: var(--semiui-color-primary);
-  --color-background: var(--semiui-color-background);
-  <span class="text-white/40">/* map the rest of --semiui-* the same way, only where you need Tailwind utilities */</span>
-{{ '}' }}</code></pre>
+<span class="text-white/50">@import</span> "./tailwind/tailwind.css"; <span class="text-white/40">/* wherever "semiui add" placed it -- after @import "tailwindcss" */</span></code></pre>
       </div>
+
+      <span class="text-muted-foreground text-sm max-w-xl mt-4"
+        >The bridge is generated from the preset's token tree, not hand-written, so a semantic token
+        added to a preset becomes a Tailwind utility with no extra work. Component tokens are
+        deliberately left out: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.button.variants.primary.background</code> stays
+        internal.
+      </span>
+
+      <span class="text-muted-foreground text-sm max-w-xl mt-2"
+        >Spacing and typography arrive namespaced (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">p-semiui-md</code>, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text-semiui-sm</code>).
+        Tailwind resolves <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">max-w-*</code>, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">w-*</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">h-*</code> named keys through its
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--spacing-*</code> scale as a fallback, so claiming a bare <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--spacing-xl</code> would
+        silently rewrite <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">max-w-xl</code> from 36rem to 1.5rem. Colors and radius are never
+        namespaced -- <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rounded-md</code> following the preset is the point.
+      </span>
+
+
+      <h3 class="text-lg font-bold mt-8">In practice</h3>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">template.html</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindUsage')"
+          >
+            <ng-icon [name]="isCopied('tailwindUsage') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindUsage') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindUsage') }}</code></pre>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">Generated, not hand-written</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >The bridge is produced from the preset's token tree by <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">@semiui/tailwind</code>, which
+        holds no list of colors and no <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-*</code> string of its own — it walks the tokens
+        and asks the engine for each variable name. Add a semantic token to a preset and it becomes
+        a Tailwind utility with no change anywhere else. If you use a JS Tailwind config rather than
+        the CSS-first workflow, the same generator is available as a plugin:
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">tailwind.config.js</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindPlugin')"
+          >
+            <ng-icon [name]="isCopied('tailwindPlugin') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindPlugin') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindPlugin') }}</code></pre>
+      </div>
+      <h3 class="text-lg font-bold mt-6">Customizing a color from Tailwind's own palette</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >A preset's color fields are plain CSS color strings -- point one at your own Tailwind
+        theme's palette directly (PrimeNG-style theming, e.g. "primary is green-500") instead of a
+        literal hex:</span
+      >
+
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-2">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">my-preset.ts</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindCustomPrimary')"
+          >
+            <ng-icon [name]="isCopied('tailwindCustomPrimary') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindCustomPrimary') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre
+          class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+        ><code><span class="text-white/50">const</span> MyTheme = definePreset(Semi, {{ '{' }}
+  name: <span class="text-white/70">'my-theme'</span>,
+  semantic: {{ '{' }}
+    primary: <span class="text-white/70">'var(--color-green-500)'</span>,        <span class="text-white/40">// &lt;- your own Tailwind theme's green-500</span>
+    primaryForeground: <span class="text-white/70">'var(--color-white)'</span>,
+  {{ '}' }},
+{{ '}' }});</code></pre>
+      </div>
+
+      <h3 class="text-lg font-bold mt-6">PrimeNG-style utilities</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >Every preset backs its primary with a full 50-950 ramp (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semantic.palette.primary</code>,
+        usually a whole-scale reference into one of its own primitive scales), which arrives as
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary-50</code> .. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary-950</code>, plus a few PrimeNG-named
+        single-purpose utilities that aren't a plain named-scale lookup:</span
+      >
+
+      <div class="flex flex-wrap gap-2 mt-3">
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-50"></div>
+          <span class="text-xs text-muted-foreground">50</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-100"></div>
+          <span class="text-xs text-muted-foreground">100</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-200"></div>
+          <span class="text-xs text-muted-foreground">200</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-300"></div>
+          <span class="text-xs text-muted-foreground">300</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-400"></div>
+          <span class="text-xs text-muted-foreground">400</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-500"></div>
+          <span class="text-xs text-muted-foreground">500</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-600"></div>
+          <span class="text-xs text-muted-foreground">600</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-700"></div>
+          <span class="text-xs text-muted-foreground">700</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-800"></div>
+          <span class="text-xs text-muted-foreground">800</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-900"></div>
+          <span class="text-xs text-muted-foreground">900</span>
+        </div>
+        <div class="flex flex-col items-center gap-1">
+          <div class="size-9 rounded-md border border-border bg-primary-950"></div>
+          <span class="text-xs text-muted-foreground">950</span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 mt-4">
+        <span class="inline-flex items-center px-3 py-1.5 bg-primary text-primary-contrast rounded-border text-sm font-medium"
+          >primary + primary-contrast + rounded-border</span
+        >
+        <span class="inline-flex items-center px-3 py-1.5 bg-primary-emphasis text-primary-contrast rounded-border text-sm font-medium"
+          >primary-emphasis</span
+        >
+        <span class="text-foreground text-sm">text-foreground</span>
+        <span class="text-muted-foreground text-sm">text-muted-foreground</span>
+        <span class="inline-block size-9 rounded-md border-2 border-surface"></span>
+      </div>
+
+      <span class="text-muted-foreground text-xs max-w-xl mt-2"
+        >Not implemented (deliberately -- SemiUI has no single "surface" elevation ramp, and the
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">surface-[0-950]</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-emphasis</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-highlight</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-highlight-emphasis</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text-color-emphasis</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text-muted-color-emphasis</code> -- SemiUI models background/muted/border as three
+        distinct concepts rather than shades of one ramp. Add them yourself as extra semantic
+        tokens and they will appear as utilities automatically.
+      </span>
     </div>
   </section>
 
@@ -515,8 +835,9 @@
     >
       <h2 class="text-3xl font-extrabold">That's the whole token model</h2>
       <span class="text-muted-foreground max-w-lg"
-        >One object in, one stylesheet out — everything else on this site
-        follows from it.
+        >One object in, one stylesheet out. Not just the component demos either — this site has no
+        palette, radius scale or type scale of its own, so the preset picker in the top bar
+        restyles the page you are reading.
       </span>
       <s-button class="mt-4" size="lg" (click)="goInstallation()"
         >Back to installation</s-button
