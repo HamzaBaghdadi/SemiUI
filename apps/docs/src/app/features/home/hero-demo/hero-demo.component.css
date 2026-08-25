@@ -18,7 +18,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: radial-gradient(220px circle at var(--glow-x) var(--glow-y), var(--color-primary) 0%, transparent 70%);
+  background: radial-gradient(220px circle at var(--glow-x) var(--glow-y), var(--semiui-color-primary) 0%, transparent 70%);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);

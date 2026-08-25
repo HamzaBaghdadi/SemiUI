@@ -5,7 +5,10 @@ import { TopbarComponent } from './topbar/topbar.component';
 @Component({
   selector: 'app-layout',
   template: `
-    <div class="flex-1   bg-background">
+    <!-- background/foreground as a pair: every heading and paragraph on the site that doesn't set
+         its own color inherits the active preset's foreground from here, so it stays readable in
+         dark mode and follows whichever preset is selected. -->
+    <div class="flex-1 bg-background text-foreground">
       <app-topbar></app-topbar>
       <ng-content></ng-content>
       <app-footer></app-footer>

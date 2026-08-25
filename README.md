@@ -37,10 +37,11 @@ Light/dark mode comes free — inject `ColorModeService` from `@semiui/theme` an
 
 | Package | What it is |
 | --- | --- |
-| [`@semiui/tokens`](libs/tokens) | Framework-agnostic design token contract + the `flattenTokensToCssVars` utility. No Angular dependency. |
+| [`@semiui/tokens`](libs/tokens) | Framework-agnostic design token engine: the primitive/semantic/component token contract, `{token.path}` reference resolution, `definePreset()`, and CSS variable generation. No Angular dependency. |
 | [`@semiui/theme`](libs/theme) | `provideSemiUI()`, `ColorModeService`, and the CSS-stylesheet injection that makes light/dark mode work. |
+| [`@semiui/tailwind`](libs/tailwind) | Derives a Tailwind v4 theme from a preset's token tree, so `bg-primary` and `<s-button variant="primary">` resolve to the same variable. No second palette, no separate dark config. |
 | [`@semiui/primitives`](libs/primitives) | Unstyled behavior: `ButtonDirective`, `InputDirective`, `SIconComponent`, `BaseFormFieldControl` (the shared `ControlValueAccessor` + Angular Signal Forms plumbing every form component builds on). |
-| [`@semiui/presets-semi`](libs/presets/semi) | The default preset: a full light + dark color palette and component tokens. |
+| [`@semiui/presets-semi`](libs/presets/semi) | The default preset, and the base every other built-in preset is derived from with `definePreset()`. |
 | [`@semiui/cli`](libs/cli) | The CLI, installs as the `semiui` command (`init` / `add`). |
 
 Recipes — the actual styled components (`Button`, `TextInput`, `Password`) — live in [`recipes/`](recipes) and are deliberately **not** published to npm; the CLI copies them into consumer projects instead.

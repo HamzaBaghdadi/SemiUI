@@ -5,7 +5,16 @@ import {
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideSemiIcons, Semi } from '@semiui/presets-semi';
 import { provideSemiUI } from '@semiui/theme';
+import { definePreset } from '@semiui/tokens';
 import { appRoutes } from './app.routes';
+
+/** These docs run on stock Semi with one change: Poppins instead of Inter. */
+const DocsTheme = definePreset(Semi, {
+  name: 'semi-docs',
+  semantic: {
+    typography: { fontFamily: 'Poppins' },
+  },
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,15 +25,7 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled',
       }),
     ),
-    provideSemiUI({
-      preset: {
-        ...Semi,
-        tokens: {
-          ...Semi.tokens,
-          typography: { ...Semi.tokens.typography, fontFamily: 'Poppins' },
-        },
-      },
-    }),
+    provideSemiUI({ preset: DocsTheme }),
     provideSemiIcons(),
   ],
 };

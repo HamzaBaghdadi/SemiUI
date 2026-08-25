@@ -1,19 +1,33 @@
-import { flattenTokensToCssVars } from '@semiui/tokens';
+import { buildThemeVars, resolvePresetToken } from '@semiui/tokens';
 import { Fluent } from './fluent';
 
 describe('Fluent preset', () => {
-  it('produces the expected component CSS custom properties', () => {
-    const vars = flattenTokensToCssVars(Fluent.tokens as unknown as Record<string, unknown>);
+  const { root, dark } = buildThemeVars(Fluent);
 
-    expect(vars['--semiui-comp-button-radius']).toBe('var(--semiui-radius-sm)');
+  it('wires component tokens through the semantic layer rather than to literals', () => {
+    const vars = root;
+
     expect(vars['--semiui-comp-button-variants-primary-background']).toBe('var(--semiui-color-primary)');
     expect(vars['--semiui-comp-button-variants-destructive-background']).toBe('var(--semiui-color-destructive)');
-    expect(vars['--semiui-color-primary']).toBe('#0078d4');
+    // Status colors reach components through the semantic layer too -- no component restates them.
+    expect(vars['--semiui-comp-button-variants-success-background']).toBe('var(--semiui-color-success)');
+    expect(vars['--semiui-comp-toast-variants-success-icon-color']).toBe('var(--semiui-color-success)');
+    expect(vars['--semiui-comp-button-radius']).toBe('var(--semiui-radius-sm)');
+    // Fluent's info accent is an alias of its primary, not a duplicate of the hex.
+    expect(vars['--semiui-color-info']).toBe('var(--semiui-color-primary)');
   });
 
-  it('defines a distinct dark-mode color palette', () => {
-    expect(Fluent.darkColor.background).not.toBe(Fluent.tokens.color.background);
-    expect(Fluent.darkColor.foreground).not.toBe(Fluent.tokens.color.foreground);
+  it('resolves its primary all the way down to its own primitive', () => {
+    expect(resolvePresetToken(Fluent, 'primary')).toBe('#0078d4');
+    expect(resolvePresetToken(Fluent, 'components.button.variants.primary.background')).toBe('#0078d4');
+    expect(root['--semiui-color-palette-primary-500']).toBe(root['--semiui-color-primary']);
+  });
+
+  it('overrides only semantic tokens for dark mode, and lets components follow', () => {
+    expect(dark['--semiui-color-background']).toBeDefined();
+    expect(dark['--semiui-color-foreground']).toBeDefined();
+    // Component variables keep pointing at the semantic ones, so none of them are redeclared.
+    expect(Object.keys(dark).some((name) => name.startsWith('--semiui-comp-'))).toBe(false);
   });
 
   it('defines the default loading icon', () => {

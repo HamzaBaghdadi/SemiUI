@@ -4,5 +4,10 @@
   "lib": {
     "entryFile": "src/index.ts"
   },
-  "allowedNonPeerDependencies": ["@semiui/tokens", "@ng-icons/core", "@ng-icons/lucide"]
+  "allowedNonPeerDependencies": [
+    "@semiui/tokens",
+    "@ng-icons/core",
+    "@ng-icons/lucide",
+    "@semiui/presets-semi"
+  ]
 }

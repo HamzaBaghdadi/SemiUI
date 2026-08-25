@@ -1,23 +1,24 @@
-import { ThemePreset, flattenTokensToCssVars } from '@semiui/tokens';
+import { ThemePreset, buildThemeVars, toDeclarationBlock } from '@semiui/tokens';
 
 const STYLE_ELEMENT_ID = 'semiui-theme';
 
-function toDeclarationBlock(vars: Record<string, string>): string {
-  return Object.entries(vars)
-    .map(([name, value]) => `  ${name}: ${value};`)
-    .join('\n');
-}
-
 /**
- * Builds the theme stylesheet text: base tokens (including the light-mode palette) on `:root`,
- * and the dark-mode palette override scoped under `.{darkClassName}` so the cascade -- not JS --
- * handles switching, and inline styles never fight the toggled class.
+ * Compiles a preset to its stylesheet: everything it declares on `:root`, and only what dark mode
+ * actually changes scoped under `.{darkClassName}`, so the cascade -- not JS -- handles switching
+ * and inline styles never fight the toggled class.
+ *
+ * Which variables exist, what they're called, and how `{token.path}` references become `var()`
+ * references is entirely `buildThemeVars`' business (see `@semiui/tokens`); this function only
+ * decides which selector each set lands on.
  */
 export function renderThemeStylesheet(preset: ThemePreset, darkClassName: string): string {
-  const baseVars = flattenTokensToCssVars(preset.tokens as unknown as Record<string, unknown>);
-  const darkVars = flattenTokensToCssVars({ color: preset.darkColor } as unknown as Record<string, unknown>);
+  const { root, dark } = buildThemeVars(preset);
 
-  return `:root {\n${toDeclarationBlock(baseVars)}\n}\n\n.${darkClassName} {\n${toDeclarationBlock(darkVars)}\n}`;
+  const rootRule = `:root {\n${toDeclarationBlock(root)}\n}`;
+  if (Object.keys(dark).length === 0) {
+    return rootRule;
+  }
+  return `${rootRule}\n\n.${darkClassName} {\n${toDeclarationBlock(dark)}\n}`;
 }
 
 /** Injects (or updates) the `<style>` element carrying the active preset's CSS custom properties. */

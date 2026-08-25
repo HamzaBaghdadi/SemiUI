@@ -1,0 +1,183 @@
+/**
+ * SemiUI <-> Tailwind v4 bridge -- GENERATED, do not edit by hand.
+ *
+ * Regenerate with `renderTailwindThemeCss({ preset })` from `@semiui/tailwind`.
+ * Generated from the "semi" preset's token tree; every value below is a `var()` into a
+ * variable the SemiUI token engine emits, so there is exactly one source of truth for what
+ * `primary` means -- the preset -- shared by SemiUI's components and Tailwind's utilities alike.
+ *
+ * Import it AFTER `@import 'tailwindcss'` in your global stylesheet:
+ *
+ *   @import 'tailwindcss';
+ *   @import './tailwind/tailwind.css';
+ *
+ * `@theme inline` rather than a plain `@theme`: the `--semiui-*` values change at runtime (a
+ * different preset, a toggled dark class), and `inline` keeps the utility pointing straight at the
+ * live variable instead of adding a redundant `:root` copy. Opacity modifiers, variants and
+ * arbitrary values all work normally -- `dark:hover:bg-primary/30` compiles to a `color-mix()`
+ * over the same variable.
+ *
+ * Names are decided by the token engine, not by this file. The variable a token maps to comes from
+ * `tokenPathToCssVar` in `@semiui/tokens`; nothing here hard-codes a `--semiui-*` string.
+ */
+
+@theme inline {
+  /* Semantic colors. `bg-primary` follows whatever the preset points `primary` at -- including
+     its dark-mode override -- because the value below is a live var(), not a compiled color.
+     Aliases (danger/error/warn) are ordinary semantic tokens in the preset, so they arrive here
+     the same way and resolve through the same chain. */
+  --color-background: var(--semiui-color-background);
+  --color-foreground: var(--semiui-color-foreground);
+  --color-primary: var(--semiui-color-primary);
+  --color-primary-foreground: var(--semiui-color-primary-foreground);
+  --color-secondary: var(--semiui-color-secondary);
+  --color-secondary-foreground: var(--semiui-color-secondary-foreground);
+  --color-success: var(--semiui-color-success);
+  --color-success-foreground: var(--semiui-color-success-foreground);
+  --color-info: var(--semiui-color-info);
+  --color-info-foreground: var(--semiui-color-info-foreground);
+  --color-warning: var(--semiui-color-warning);
+  --color-warning-foreground: var(--semiui-color-warning-foreground);
+  --color-destructive: var(--semiui-color-destructive);
+  --color-destructive-foreground: var(--semiui-color-destructive-foreground);
+  --color-help: var(--semiui-color-help);
+  --color-help-foreground: var(--semiui-color-help-foreground);
+  --color-contrast: var(--semiui-color-contrast);
+  --color-contrast-foreground: var(--semiui-color-contrast-foreground);
+  --color-muted: var(--semiui-color-muted);
+  --color-muted-foreground: var(--semiui-color-muted-foreground);
+  --color-border: var(--semiui-color-border);
+  --color-ring: var(--semiui-color-ring);
+  --color-danger: var(--semiui-color-danger);
+  --color-danger-foreground: var(--semiui-color-danger-foreground);
+  --color-error: var(--semiui-color-error);
+  --color-error-foreground: var(--semiui-color-error-foreground);
+  --color-warn: var(--semiui-color-warn);
+  --color-warn-foreground: var(--semiui-color-warn-foreground);
+  --color-primary-contrast: var(--semiui-color-primary-foreground);
+
+  /* The semantic ramps, as `primary-50` .. `primary-950`. */
+  --color-primary-50: var(--semiui-color-palette-primary-50);
+  --color-primary-100: var(--semiui-color-palette-primary-100);
+  --color-primary-200: var(--semiui-color-palette-primary-200);
+  --color-primary-300: var(--semiui-color-palette-primary-300);
+  --color-primary-400: var(--semiui-color-palette-primary-400);
+  --color-primary-500: var(--semiui-color-palette-primary-500);
+  --color-primary-600: var(--semiui-color-palette-primary-600);
+  --color-primary-700: var(--semiui-color-palette-primary-700);
+  --color-primary-800: var(--semiui-color-palette-primary-800);
+  --color-primary-900: var(--semiui-color-palette-primary-900);
+  --color-primary-950: var(--semiui-color-palette-primary-950);
+  --color-primary-emphasis: var(--semiui-color-palette-primary-600);
+
+  /* The preset's own primitive scales, e.g. `bg-blue-500`. These deliberately take over
+     Tailwind's default palette names: under this integration the preset is the source of truth
+     for what `blue-500` means, so Carbon's `blue-500` is IBM Blue 60 and Cupertino's is
+     systemBlue. Pass `include` without 'primitive' if you would rather keep Tailwind's own. */
+  --color-white: var(--semiui-primitive-white);
+  --color-black: var(--semiui-primitive-black);
+  --color-transparent: var(--semiui-primitive-transparent);
+  --color-blue-50: var(--semiui-primitive-blue-50);
+  --color-blue-100: var(--semiui-primitive-blue-100);
+  --color-blue-200: var(--semiui-primitive-blue-200);
+  --color-blue-300: var(--semiui-primitive-blue-300);
+  --color-blue-400: var(--semiui-primitive-blue-400);
+  --color-blue-500: var(--semiui-primitive-blue-500);
+  --color-blue-600: var(--semiui-primitive-blue-600);
+  --color-blue-700: var(--semiui-primitive-blue-700);
+  --color-blue-800: var(--semiui-primitive-blue-800);
+  --color-blue-900: var(--semiui-primitive-blue-900);
+  --color-blue-950: var(--semiui-primitive-blue-950);
+  --color-slate-50: var(--semiui-primitive-slate-50);
+  --color-slate-100: var(--semiui-primitive-slate-100);
+  --color-slate-200: var(--semiui-primitive-slate-200);
+  --color-slate-300: var(--semiui-primitive-slate-300);
+  --color-slate-400: var(--semiui-primitive-slate-400);
+  --color-slate-500: var(--semiui-primitive-slate-500);
+  --color-slate-600: var(--semiui-primitive-slate-600);
+  --color-slate-700: var(--semiui-primitive-slate-700);
+  --color-slate-800: var(--semiui-primitive-slate-800);
+  --color-slate-900: var(--semiui-primitive-slate-900);
+  --color-slate-950: var(--semiui-primitive-slate-950);
+  --color-red-50: var(--semiui-primitive-red-50);
+  --color-red-100: var(--semiui-primitive-red-100);
+  --color-red-200: var(--semiui-primitive-red-200);
+  --color-red-300: var(--semiui-primitive-red-300);
+  --color-red-400: var(--semiui-primitive-red-400);
+  --color-red-500: var(--semiui-primitive-red-500);
+  --color-red-600: var(--semiui-primitive-red-600);
+  --color-red-700: var(--semiui-primitive-red-700);
+  --color-red-800: var(--semiui-primitive-red-800);
+  --color-red-900: var(--semiui-primitive-red-900);
+  --color-red-950: var(--semiui-primitive-red-950);
+  --color-green-50: var(--semiui-primitive-green-50);
+  --color-green-100: var(--semiui-primitive-green-100);
+  --color-green-200: var(--semiui-primitive-green-200);
+  --color-green-300: var(--semiui-primitive-green-300);
+  --color-green-400: var(--semiui-primitive-green-400);
+  --color-green-500: var(--semiui-primitive-green-500);
+  --color-green-600: var(--semiui-primitive-green-600);
+  --color-green-700: var(--semiui-primitive-green-700);
+  --color-green-800: var(--semiui-primitive-green-800);
+  --color-green-900: var(--semiui-primitive-green-900);
+  --color-green-950: var(--semiui-primitive-green-950);
+  --color-amber-50: var(--semiui-primitive-amber-50);
+  --color-amber-100: var(--semiui-primitive-amber-100);
+  --color-amber-200: var(--semiui-primitive-amber-200);
+  --color-amber-300: var(--semiui-primitive-amber-300);
+  --color-amber-400: var(--semiui-primitive-amber-400);
+  --color-amber-500: var(--semiui-primitive-amber-500);
+  --color-amber-600: var(--semiui-primitive-amber-600);
+  --color-amber-700: var(--semiui-primitive-amber-700);
+  --color-amber-800: var(--semiui-primitive-amber-800);
+  --color-amber-900: var(--semiui-primitive-amber-900);
+  --color-amber-950: var(--semiui-primitive-amber-950);
+  --color-violet-50: var(--semiui-primitive-violet-50);
+  --color-violet-100: var(--semiui-primitive-violet-100);
+  --color-violet-200: var(--semiui-primitive-violet-200);
+  --color-violet-300: var(--semiui-primitive-violet-300);
+  --color-violet-400: var(--semiui-primitive-violet-400);
+  --color-violet-500: var(--semiui-primitive-violet-500);
+  --color-violet-600: var(--semiui-primitive-violet-600);
+  --color-violet-700: var(--semiui-primitive-violet-700);
+  --color-violet-800: var(--semiui-primitive-violet-800);
+  --color-violet-900: var(--semiui-primitive-violet-900);
+  --color-violet-950: var(--semiui-primitive-violet-950);
+  --color-night-base: var(--semiui-primitive-night-base);
+  --color-night-raised: var(--semiui-primitive-night-raised);
+  --color-night-ink: var(--semiui-primitive-night-ink);
+
+  /* Radius -- overrides Tailwind's own scale, so `rounded-md` follows the preset. */
+  --radius-sm: var(--semiui-radius-sm);
+  --radius-md: var(--semiui-radius-md);
+  --radius-lg: var(--semiui-radius-lg);
+  --radius-full: var(--semiui-radius-full);
+
+  /* Spacing. Namespaced, because Tailwind resolves `max-w-*`, `w-*` and `h-*` named keys
+     through `--spacing-*` too: a bare `--spacing-xl` silently rewrites `max-w-xl` from 36rem to
+     1.5rem. Pass `scaleNamespace: null` to claim the bare names anyway. */
+  --spacing-semiui-xs: var(--semiui-spacing-xs);
+  --spacing-semiui-sm: var(--semiui-spacing-sm);
+  --spacing-semiui-md: var(--semiui-spacing-md);
+  --spacing-semiui-lg: var(--semiui-spacing-lg);
+  --spacing-semiui-xl: var(--semiui-spacing-xl);
+
+  /* Typography. Namespaced for the same reason: `--text-sm` and `--font-weight-medium` reach
+     every piece of prose in the host app, not just SemiUI's own components. */
+  --font-semiui: var(--semiui-typography-font-family);
+  --text-semiui-sm: var(--semiui-typography-font-size-sm);
+  --text-semiui-md: var(--semiui-typography-font-size-md);
+  --font-weight-semiui-medium: var(--semiui-typography-font-weight-medium);
+}
+
+/* Utilities Tailwind's `@theme` cannot express: a named scale entry only ever produces
+   `{utility}-{name}` classes, so a bare class like `rounded-border` needs its own definition.
+   `@utility` (rather than a plain rule) keeps variant composition working -- `dark:rounded-border`
+   and `hover:border-surface` behave like any built-in utility. */
+@utility rounded-border {
+  border-radius: var(--semiui-radius-md);
+}
+
+@utility border-surface {
+  border-color: var(--semiui-color-border);
+}
