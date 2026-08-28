@@ -130,7 +130,6 @@
   border-radius: var(--semiui-comp-select-radius);
   box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
-  min-width: 15rem;
 }
 
 .s-select__panel[data-placement='top'] {

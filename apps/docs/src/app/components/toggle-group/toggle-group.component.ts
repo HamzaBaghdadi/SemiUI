@@ -37,6 +37,7 @@ export class ToggleGroupComponent<TValue = unknown> extends BaseFormFieldControl
 
   items = input<readonly ToggleGroupItem<TValue>[]>([]);
   multiple = input(false, { transform: booleanAttribute });
+  allowEmpty = input(true, { transform: booleanAttribute });
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('md');
   errorMessage = input('');
@@ -81,11 +82,11 @@ export class ToggleGroupComponent<TValue = unknown> extends BaseFormFieldControl
     if (this.multiple()) {
       const current = Array.isArray(this.value()) ? (this.value() as TValue[]) : [];
       const next = current.includes(item.value)
-        ? current.filter((v) => v !== item.value)
+        ? (current.length === 1 && !this.allowEmpty() ? current : current.filter((v) => v !== item.value))
         : [...current, item.value];
       this.value.set(next);
     } else {
-      this.value.set(this.value() === item.value ? this.emptyValue() : item.value);
+      this.value.set((this.value() === item.value && this.allowEmpty()) ? this.emptyValue() : item.value);
     }
   }
 }

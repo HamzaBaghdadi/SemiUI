@@ -55,6 +55,17 @@
         </div>
 
         <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Allow Empty</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+             <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">allowEmpty</code> Controls whether the toggle group can have no selected option. When disabled, the currently selected option cannot be unselected.
+          </p>
+          <app-component-demo>
+            <s-toggle-group variant="primary" [items]="alignItems" [(ngModel)]="align" [allowEmpty]="false"></s-toggle-group>
+            <s-toggle-group variant="primary" [items]="formatItems" [(ngModel)]="formats" [(ngModel)]="formats" multiple [allowEmpty]="false"></s-toggle-group>
+          </app-component-demo>
+        </div>
+
+        <div class="flex flex-col gap-3">
           <h2 class="text-xl font-bold">Variants</h2>
           <p class="text-sm text-muted-foreground max-w-xl">
             Same <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant</code> union as
