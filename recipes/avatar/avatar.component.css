@@ -59,7 +59,7 @@
 
 .s-avatar__initials {
   font-size: var(--s-avatar-font-size);
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-avatar-font-weight);
   font-family: var(--semiui-typography-font-family);
   text-transform: uppercase;
 }

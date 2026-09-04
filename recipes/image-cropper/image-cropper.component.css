@@ -39,7 +39,7 @@
 
 .s-image-cropper__grid-line {
   position: absolute;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--semiui-comp-image-cropper-grid-line-color);
   pointer-events: none;
 }
 

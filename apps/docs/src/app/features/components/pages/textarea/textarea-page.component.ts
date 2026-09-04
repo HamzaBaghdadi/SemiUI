@@ -115,6 +115,12 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the field invalid. Also computed automatically from a bound reactive-forms/Signal Forms control once touched or dirty.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container instead of sizing to its content.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -136,7 +142,9 @@ protected profileForm = form(this.profileModel);
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-textarea-wrapper', description: 'Positioning wrapper around the native <textarea> and the character counter.' },

@@ -56,6 +56,20 @@
       <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
     </app-component-demo>
   </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Fluid</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">fluid</code> stretches the row to fill its container, and the boxes divide that
+      width evenly instead of holding their fixed size.
+    </p>
+    <app-component-demo block>
+      <div class="max-w-sm">
+        <s-otp [(ngModel)]="code" [fluid]="true" />
+      </div>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
+  </div>
       </div>
     </ng-template>
 

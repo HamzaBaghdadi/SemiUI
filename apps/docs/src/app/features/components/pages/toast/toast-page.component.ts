@@ -199,6 +199,7 @@ toastService.clear();`;
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-toast-title-font-weight', description: "Weight of a toast's title." },
     { name: '--semiui-comp-toast-gap', description: 'Gap between stacked toasts.' },
     { name: '--semiui-comp-toast-width', description: 'Toast card width.' },
     { name: '--semiui-comp-toast-padding-y', description: 'Vertical padding.' },

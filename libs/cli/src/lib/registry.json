@@ -91,7 +91,7 @@
   },
   "text-input": {
     "name": "text-input",
-    "description": "A text input supporting ngModel, reactive forms, and Angular signal forms.",
+    "description": "A text input with an optional clear button, supporting ngModel, reactive forms, and Angular signal forms.",
     "files": [
       "text-input.component.ts",
       "text-input.component.html",
@@ -99,7 +99,8 @@
     ],
     "npmDependencies": [
       "@semiui/primitives",
-      "@semiui/tokens"
+      "@semiui/tokens",
+      "@semiui/theme"
     ],
     "recipeDependencies": [
       "error-message"
@@ -769,7 +770,7 @@
   },
   "table": {
     "name": "table",
-    "description": "A data-driven table with optional per-column sorting, a global filter box (via <s-text-input>), single/multiple row selection (via <s-checkbox>), a rows-per-page dropdown (via <s-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <s-pagination>.",
+    "description": "A data-driven table with optional per-column sorting, a global filter box (via <s-text-input>), single/multiple row selection (via <s-checkbox>), a rows-per-page dropdown (via <s-select>), a \"Showing X to Y of Z\" summary, #cell/#header/#footer/#loading templates, and built-in pagination via <s-pagination>. Set lazy to hand filtering/sorting/paging to a server instead, driven by the lazyLoad event.",
     "files": [
       "table.component.ts",
       "table.component.html",

@@ -218,6 +218,12 @@ protected profileForm = form(this.profileModel);
       description: 'Replaces the default trigger chevron.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container -- already the default here, so this only restates it.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -234,6 +240,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: 'Present on the host while the panel is open.' },
     { name: 'data-active', description: "Present on the highlighted option within its column, e.g. for keyboard navigation." },
     { name: 'data-has-children', description: 'Present on an option that opens a further column instead of being directly selectable.' },

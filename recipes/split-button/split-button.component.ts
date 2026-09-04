@@ -31,6 +31,7 @@ export interface SplitButtonItem {
     class: 's-split-button',
     '[attr.data-variant]': 'variant()',
     '[attr.data-size]': 'size()',
+    '[attr.data-fluid]': "fluid() ? '' : null",
   },
 })
 export class SplitButtonComponent {
@@ -41,6 +42,9 @@ export class SplitButtonComponent {
   size = input<ButtonSize>('md');
   disabled = input(false, { transform: booleanAttribute });
   loading = input(false, { transform: booleanAttribute });
+  /** Stretches the button to fill its container. The caret segment keeps its square footprint;
+   * the labeled main segment takes up the slack. */
+  fluid = input(false, { transform: booleanAttribute });
 
   /** Emitted when the main action is pressed. */
   pressed = output<void>();

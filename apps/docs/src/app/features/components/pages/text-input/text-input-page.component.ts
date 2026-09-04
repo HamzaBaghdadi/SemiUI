@@ -42,6 +42,12 @@ export class TextInputPageComponent {
   protected profileModel = signal({ username: '' });
   protected profileForm = form(this.profileModel);
 
+  protected clearableValue = 'Clear me';
+
+  protected readonly clearableCode = `<s-text-input [clearable]="true" [(ngModel)]="query" placeholder="Search" />`;
+
+  protected readonly fluidCode = `<s-text-input [fluid]="true" placeholder="Fluid" />`;
+
   protected readonly ngModelCode = `<s-text-input [(ngModel)]="name" [disabled]="nameDisabled()" />`;
 
   protected readonly reactiveFormsCode = `protected reactiveForm = new FormGroup({
@@ -101,6 +107,19 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the field invalid. Also computed automatically from a bound reactive-forms/Signal Forms control once touched or dirty.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container instead of sizing to its content.',
+    },
+    {
+      name: 'clearable',
+      type: 'boolean',
+      default: 'false',
+      description:
+        'Shows a clear button inside the field once it holds a value. Off by default -- unlike the listbox fields, a text input can already be emptied from the keyboard.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -122,10 +141,15 @@ protected profileForm = form(this.profileModel);
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
+    { name: '.s-text-input-wrapper', description: 'Positioning context for the clear button; wraps the input alone, not the error message.' },
     { name: '.s-text-input', description: 'The native <input> element carrying background, border, and typography.' },
+    { name: '.s-text-input--clearable', description: 'On the input while the clear button is shown -- reserves the padding it occupies.' },
+    { name: '.s-text-input__clear', description: 'The clear button. Styled from the input tokens, the same way Password styles its reveal toggle.' },
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [

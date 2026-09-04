@@ -96,6 +96,7 @@ export class BreadcrumbPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-breadcrumb-current-font-weight', description: "Weight of the trailing \"you are here\" item, which is what sets it apart from the links before it." },
     { name: '--semiui-comp-breadcrumb-gap', description: 'Spacing between crumbs and between a crumb and its icon/separator.' },
     { name: '--semiui-comp-breadcrumb-font-size', description: 'Font size of the trail.' },
     { name: '--semiui-comp-breadcrumb-foreground', description: 'Text color of non-current links.' },

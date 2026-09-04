@@ -48,6 +48,8 @@ export class OtpPageComponent {
     this.disabled.update((value) => !value);
   }
 
+  protected readonly fluidCode = `<s-otp [(ngModel)]="code" [fluid]="true" />`;
+
   protected readonly ngModelCode = `<s-otp [(ngModel)]="code" />`;
 
   protected readonly reactiveFormsCode = `protected reactiveForm = new FormGroup({
@@ -111,6 +113,12 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the control invalid, in addition to any reactive-forms/Signal-Forms invalid state detected automatically.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the row to fill its container, with the boxes dividing the width evenly.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -132,7 +140,9 @@ protected profileForm = form(this.profileModel);
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-otp', description: 'The row wrapping all digit boxes.' },

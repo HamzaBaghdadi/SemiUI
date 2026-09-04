@@ -89,6 +89,7 @@ export class AvatarPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-avatar-font-weight', description: "Weight of the initials shown when there is no image." },
     { name: '--semiui-comp-avatar-size-{sm,md,lg,xl}', description: 'Diameter per size.' },
     { name: '--semiui-comp-avatar-font-size-{sm,md,lg,xl}', description: 'Initials font size per size.' },
     { name: '--semiui-comp-avatar-background', description: 'Background color behind the image/initials/icon.' },

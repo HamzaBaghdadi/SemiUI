@@ -25,7 +25,7 @@
   border-radius: var(--semiui-radius-full);
   font-size: var(--semiui-comp-badge-font-size);
   font-family: var(--semiui-typography-font-family);
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-badge-font-weight);
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
@@ -51,51 +51,61 @@
 .s-badge[data-variant='default'] {
   background: var(--semiui-comp-badge-variants-default-background);
   color: var(--semiui-comp-badge-variants-default-foreground);
+  border-color: var(--semiui-comp-badge-variants-default-border);
 }
 
 .s-badge[data-variant='primary'] {
   background: var(--semiui-comp-badge-variants-primary-background);
   color: var(--semiui-comp-badge-variants-primary-foreground);
+  border-color: var(--semiui-comp-badge-variants-primary-border);
 }
 
 .s-badge[data-variant='secondary'] {
   background: var(--semiui-comp-badge-variants-secondary-background);
   color: var(--semiui-comp-badge-variants-secondary-foreground);
+  border-color: var(--semiui-comp-badge-variants-secondary-border);
 }
 
 .s-badge[data-variant='destructive'] {
   background: var(--semiui-comp-badge-variants-destructive-background);
   color: var(--semiui-comp-badge-variants-destructive-foreground);
+  border-color: var(--semiui-comp-badge-variants-destructive-border);
 }
 
 .s-badge[data-variant='danger'] {
   background: var(--semiui-comp-badge-variants-danger-background);
   color: var(--semiui-comp-badge-variants-danger-foreground);
+  border-color: var(--semiui-comp-badge-variants-danger-border);
 }
 
 .s-badge[data-variant='success'] {
   background: var(--semiui-comp-badge-variants-success-background);
   color: var(--semiui-comp-badge-variants-success-foreground);
+  border-color: var(--semiui-comp-badge-variants-success-border);
 }
 
 .s-badge[data-variant='info'] {
   background: var(--semiui-comp-badge-variants-info-background);
   color: var(--semiui-comp-badge-variants-info-foreground);
+  border-color: var(--semiui-comp-badge-variants-info-border);
 }
 
 .s-badge[data-variant='warn'] {
   background: var(--semiui-comp-badge-variants-warn-background);
   color: var(--semiui-comp-badge-variants-warn-foreground);
+  border-color: var(--semiui-comp-badge-variants-warn-border);
 }
 
 .s-badge[data-variant='help'] {
   background: var(--semiui-comp-badge-variants-help-background);
   color: var(--semiui-comp-badge-variants-help-foreground);
+  border-color: var(--semiui-comp-badge-variants-help-border);
 }
 
 .s-badge[data-variant='contrast'] {
   background: var(--semiui-comp-badge-variants-contrast-background);
   color: var(--semiui-comp-badge-variants-contrast-foreground);
+  border-color: var(--semiui-comp-badge-variants-contrast-border);
 }
 
 .s-badge[data-variant='outline'] {

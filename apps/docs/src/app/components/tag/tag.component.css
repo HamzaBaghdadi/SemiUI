@@ -6,6 +6,7 @@
   padding: var(--semiui-comp-tag-padding-y) var(--semiui-comp-tag-padding-x);
   border-radius: var(--semiui-comp-tag-radius);
   font-size: var(--semiui-comp-tag-font-size);
+  font-weight: var(--semiui-comp-tag-font-weight);
   font-family: var(--semiui-typography-font-family);
   line-height: 1.4;
   white-space: nowrap;

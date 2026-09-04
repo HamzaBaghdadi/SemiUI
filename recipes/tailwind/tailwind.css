@@ -11,11 +11,13 @@
  *   @import 'tailwindcss';
  *   @import './tailwind/tailwind.css';
  *
- * `@theme inline` rather than a plain `@theme`: the `--semiui-*` values change at runtime (a
- * different preset, a toggled dark class), and `inline` keeps the utility pointing straight at the
- * live variable instead of adding a redundant `:root` copy. Opacity modifiers, variants and
- * arbitrary values all work normally -- `dark:hover:bg-primary/30` compiles to a `color-mix()`
- * over the same variable.
+ * The theme uses Tailwind v4's inline theme mode rather than a plain theme declaration:
+ * the `--semiui-*` values change at runtime (a different preset, a toggled dark class),
+ * and inline mode keeps the utility pointing straight at the live variable instead of
+ * adding a redundant `:root` copy.
+ *
+ * Opacity modifiers, variants and arbitrary values all work normally --
+ * `dark:hover:bg-primary/30` compiles to a `color-mix()` over the same variable.
  *
  * Names are decided by the token engine, not by this file. The variable a token maps to comes from
  * `tokenPathToCssVar` in `@semiui/tokens`; nothing here hard-codes a `--semiui-*` string.
@@ -167,7 +169,10 @@
   --font-semiui: var(--semiui-typography-font-family);
   --text-semiui-sm: var(--semiui-typography-font-size-sm);
   --text-semiui-md: var(--semiui-typography-font-size-md);
+  --font-weight-semiui-normal: var(--semiui-typography-font-weight-normal);
   --font-weight-semiui-medium: var(--semiui-typography-font-weight-medium);
+  --font-weight-semiui-semibold: var(--semiui-typography-font-weight-semibold);
+  --font-weight-semiui-bold: var(--semiui-typography-font-weight-bold);
 }
 
 /* Utilities Tailwind's `@theme` cannot express: a named scale entry only ever produces

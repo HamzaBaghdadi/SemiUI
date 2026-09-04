@@ -144,3 +144,11 @@
   bottom: 50%;
   transform: translateY(50%);
 }
+
+/* fluid -- the track is width:100% of the host, so this hands it the full container. It also
+   makes the 12rem min-width floor above moot, which is the point: that floor exists so a slider
+   in a flex row doesn't collapse to nothing, and fluid answers the same question properly. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}

@@ -173,7 +173,7 @@
   padding: 0.125rem var(--semiui-spacing-xs);
   border-radius: var(--semiui-radius-sm);
   font: inherit;
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-date-picker-label-font-weight);
   color: var(--semiui-comp-date-picker-month-label-foreground);
   font-size: var(--semiui-comp-date-picker-font-size);
   cursor: pointer;
@@ -315,7 +315,7 @@
 }
 
 .s-date-picker__time-sep {
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-date-picker-label-font-weight);
   color: var(--semiui-comp-date-picker-month-label-foreground);
 }
 
@@ -505,4 +505,12 @@
 
 .s-date-picker__panel--leave {
   animation: s-date-picker-panel-leave 0.1s ease-in;
+}
+
+/* fluid -- the trigger is already width:100%, so only the host needs sizing. Placed after the
+   [data-inline] rule above and at equal specificity, so an inline calendar asked to be fluid
+   spans the container too rather than staying shrink-wrapped. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
 }

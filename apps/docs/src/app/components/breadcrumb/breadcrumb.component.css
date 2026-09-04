@@ -34,14 +34,14 @@
 
 .s-breadcrumb__current {
   color: var(--semiui-comp-breadcrumb-current-foreground);
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-breadcrumb-current-font-weight);
 }
 
 /* A linked item that routerLinkActive confirms matches the current route -- still a real,
    clickable anchor (unlike .s-breadcrumb__current), just styled to read as "you are here". */
 .s-breadcrumb__link--current {
   color: var(--semiui-comp-breadcrumb-current-foreground);
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-breadcrumb-current-font-weight);
 }
 
 .s-breadcrumb__icon {

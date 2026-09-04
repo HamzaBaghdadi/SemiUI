@@ -93,6 +93,12 @@ export class FileUploadPageComponent {
       description: 'Marks the control invalid, in addition to any reactive-forms/Signal-Forms invalid state detected automatically.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the dropzone to fill its container, including inside a flex row.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -108,7 +114,9 @@ export class FileUploadPageComponent {
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-file-upload__dropzone', description: 'The drag-and-drop / click-to-browse target.' },

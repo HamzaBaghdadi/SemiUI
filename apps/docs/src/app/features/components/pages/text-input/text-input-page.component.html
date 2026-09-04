@@ -66,6 +66,39 @@
     </app-component-demo>
     <app-code-block filename="Usage" [code]="autoFocusCode"></app-code-block>
   </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Clear button</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">clearable</code> shows a clear button
+      inside the field once it holds a value. It is off by default: Select and the other listbox
+      fields default it on because they have no keyboard-only way to empty a selection, whereas a
+      text input already does. The button is a real focusable
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">&lt;button&gt;</code> and hands focus
+      back to the input after clearing.
+    </p>
+    <app-component-demo>
+      <s-text-input [clearable]="true" [(ngModel)]="clearableValue" placeholder="Type something" />
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground">Model value: {{ clearableValue || '(empty)' }}</p>
+    <app-code-block filename="Usage" [code]="clearableCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Fluid</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      A field sizes to its own content inside a flex row. <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">fluid</code> makes it fill
+      the container instead, so a form column lines its fields up without a wrapper
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">div</code> or a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">w-full</code> override.
+    </p>
+    <app-component-demo block>
+      <div class="flex flex-col gap-3 max-w-sm">
+        <s-text-input placeholder="Sized to its content" />
+        <s-text-input [fluid]="true" placeholder="Fluid" />
+      </div>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
+  </div>
       </div>
     </ng-template>
 

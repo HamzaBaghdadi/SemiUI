@@ -140,6 +140,12 @@ protected profileForm = form(this.profileModel);
       description: 'Message shown below the button while the field is invalid.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the toggle to fill its container instead of sizing to its label.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -156,6 +162,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-variant', description: "The active variant, e.g. [data-variant='primary'] -- set on the host, drives the accent/solid tokens below." },
     { name: 'data-size', description: "The active size, e.g. [data-size='md'] -- set on the host, drives padding/font-size tokens." },
   ];

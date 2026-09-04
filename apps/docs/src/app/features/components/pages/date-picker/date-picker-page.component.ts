@@ -250,6 +250,12 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the control invalid, driving aria-invalid and the error border. Also derived automatically from a touched/dirty invalid reactive-forms control.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container instead of sizing to its content.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -272,6 +278,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: 'Present while the popover panel is open (absent when inline).' },
     { name: 'data-inline', description: 'Present when inline is set -- switches :host to display: inline-block.' },
   ];
@@ -290,6 +297,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-date-picker-label-font-weight', description: "Weight of the panel's chrome -- the month/year buttons and the time separator. Day numbers stay at the inherited weight." },
     { name: '--semiui-comp-date-picker-day-size', description: 'Width/height of each day cell, and the basis for the panel min-width.' },
     { name: '--semiui-comp-date-picker-font-size', description: 'Font size across the header, grid, and time controls.' },
     { name: '--semiui-comp-date-picker-nav-background-hover', description: 'Hover background for the prev/next and month/year header buttons.' },

@@ -132,6 +132,12 @@ export class SliderPageComponent {
       description: 'Formats the value shown in the bubble, e.g. to add units or currency.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the slider to fill its container, past the 12rem minimum width it otherwise holds.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -148,6 +154,7 @@ export class SliderPageComponent {
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-orientation', description: "The active orientation, e.g. [data-orientation='vertical']." },
     { name: 'data-disabled', description: 'Present when the slider is disabled.' },
   ];

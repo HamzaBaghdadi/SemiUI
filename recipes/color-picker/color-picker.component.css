@@ -225,3 +225,16 @@
 .s-color-picker__panel--leave {
   animation: s-color-picker-panel-leave 0.1s ease-in;
 }
+
+/* fluid -- unlike the other pickers the trigger is an inline-flex chip sized to its swatch and
+   label, so it needs stretching explicitly rather than just inheriting the host's width. Placed
+   after the [data-inline] rule above, at equal specificity, so fluid wins for an inline picker. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-color-picker__trigger {
+  display: flex;
+  width: 100%;
+}

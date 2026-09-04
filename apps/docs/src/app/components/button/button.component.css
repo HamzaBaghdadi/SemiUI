@@ -1,4 +1,13 @@
 .s-button {
+  /* Defaults for the disabled state; every [data-variant] block below re-points them at that
+     variant's own disabled tokens. These bare button-level tokens are what is left for a button
+     with no variant at all. --s-button-disabled-accent is deliberately not defaulted here: the
+     outlined/text rules fall back to --s-button-disabled-background when a variant does not set
+     one, exactly as their at-rest counterparts fall back for --s-button-accent-border. */
+  --s-button-disabled-background: var(--semiui-comp-button-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-opacity-disabled);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,13 +37,19 @@
   cursor: not-allowed;
 }
 
-/* Loading is functionally disabled (no clicks) but visually distinct from a plain disabled
-   button: it keeps the variant's normal colors and just dims via opacity, rather than swapping
-   to the flat disabled palette -- so it still reads as "this button", not "this button is gone". */
+/* Disabled reads as "this button, dimmed", not "this button is gone": the colors come from the
+   active variant's own disabled tokens, which every preset points back at that variant's live
+   colors, and the dimming is a single opacity -- so a disabled Destructive still reads as red.
+   A preset that wants the old flat-grey behaviour sets variants.*.backgroundDisabled (etc.) to a
+   neutral; that is the whole point of these being per-variant tokens.
+
+   Loading is excluded: it is functionally disabled (no clicks) but keeps the button fully in its
+   normal at-rest palette, dimmed by its own opacity below. */
 .s-button[aria-disabled='true']:not(.s-button--loading) {
-  background: var(--semiui-comp-button-background-disabled);
-  color: var(--semiui-comp-button-foreground-disabled);
-  border-color: var(--semiui-comp-button-background-disabled);
+  background: var(--s-button-disabled-background);
+  color: var(--s-button-disabled-foreground);
+  border-color: var(--s-button-disabled-border);
+  opacity: var(--s-button-disabled-opacity);
 }
 
 .s-button--loading {
@@ -144,12 +159,18 @@
    That indirection is what lets those modifiers stay variant-agnostic (one rule instead of one
    per variant): whichever variant is active has already pointed the custom property at its own
    color by the time the modifier rule reads it. */
+:host([data-variant='primary']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-primary-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-primary-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-primary-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-primary-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-primary-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-primary-opacity-disabled);
+}
 :host([data-variant='primary']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-primary-background);
   color: var(--semiui-comp-button-variants-primary-foreground);
   border-color: var(--semiui-comp-button-variants-primary-border);
-  --s-button-accent: var(--semiui-comp-button-variants-primary-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-primary-border);
 }
 :host([data-variant='primary']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-primary-background) 85%, black);
@@ -167,12 +188,21 @@
    buttons render as near-invisible pale-on-page text. --semiui-color-muted-foreground is the
    token every preset actually designs to pair with "muted" as readable ink, so this variant
    points there instead of following the same background-reuse pattern as the others. */
+:host([data-variant='secondary']) .s-button {
+  --s-button-accent: var(--semiui-color-muted-foreground);
+  --s-button-accent-border: var(--semiui-color-muted-foreground);
+  /* Same reasoning as --s-button-accent just above: secondary's background is a pale wash, so an
+     outlined/text secondary button cannot use it as disabled ink either. */
+  --s-button-disabled-accent: var(--semiui-color-muted-foreground);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-secondary-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-secondary-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-secondary-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-secondary-opacity-disabled);
+}
 :host([data-variant='secondary']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-secondary-background);
   color: var(--semiui-comp-button-variants-secondary-foreground);
   border-color: var(--semiui-comp-button-variants-secondary-border);
-  --s-button-accent: var(--semiui-color-muted-foreground);
-  --s-button-accent-border: var(--semiui-color-muted-foreground);
 }
 :host([data-variant='secondary']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-background) 85%, black);
@@ -183,12 +213,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-secondary-border) 70%, black);
 }
 
+:host([data-variant='destructive']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-destructive-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-destructive-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-destructive-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-destructive-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-destructive-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-destructive-opacity-disabled);
+}
 :host([data-variant='destructive']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-destructive-background);
   color: var(--semiui-comp-button-variants-destructive-foreground);
   border-color: var(--semiui-comp-button-variants-destructive-border);
-  --s-button-accent: var(--semiui-comp-button-variants-destructive-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-destructive-border);
 }
 :host([data-variant='destructive']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-destructive-background) 85%, black);
@@ -202,12 +238,18 @@
 /* Severity variants (danger/success/info/warn/help/contrast) follow the exact same
    base/hover/active color-mix() pattern as primary/secondary/destructive above. danger is a
    plain alias of destructive -- same tokens, just reachable under PrimeNG-style naming too. */
+:host([data-variant='danger']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-danger-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-danger-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-danger-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-danger-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-danger-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-danger-opacity-disabled);
+}
 :host([data-variant='danger']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-danger-background);
   color: var(--semiui-comp-button-variants-danger-foreground);
   border-color: var(--semiui-comp-button-variants-danger-border);
-  --s-button-accent: var(--semiui-comp-button-variants-danger-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-danger-border);
 }
 :host([data-variant='danger']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-danger-background) 85%, black);
@@ -218,12 +260,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-danger-border) 70%, black);
 }
 
+:host([data-variant='success']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-success-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-success-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-success-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-success-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-success-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-success-opacity-disabled);
+}
 :host([data-variant='success']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-success-background);
   color: var(--semiui-comp-button-variants-success-foreground);
   border-color: var(--semiui-comp-button-variants-success-border);
-  --s-button-accent: var(--semiui-comp-button-variants-success-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-success-border);
 }
 :host([data-variant='success']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-success-background) 85%, black);
@@ -234,12 +282,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-success-border) 70%, black);
 }
 
+:host([data-variant='info']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-info-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-info-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-info-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-info-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-info-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-info-opacity-disabled);
+}
 :host([data-variant='info']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-info-background);
   color: var(--semiui-comp-button-variants-info-foreground);
   border-color: var(--semiui-comp-button-variants-info-border);
-  --s-button-accent: var(--semiui-comp-button-variants-info-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-info-border);
 }
 :host([data-variant='info']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-info-background) 85%, black);
@@ -250,12 +304,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-info-border) 70%, black);
 }
 
+:host([data-variant='warn']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-warn-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-warn-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-warn-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-warn-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-warn-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-warn-opacity-disabled);
+}
 :host([data-variant='warn']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-warn-background);
   color: var(--semiui-comp-button-variants-warn-foreground);
   border-color: var(--semiui-comp-button-variants-warn-border);
-  --s-button-accent: var(--semiui-comp-button-variants-warn-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-warn-border);
 }
 :host([data-variant='warn']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-warn-background) 85%, black);
@@ -266,12 +326,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-warn-border) 70%, black);
 }
 
+:host([data-variant='help']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-help-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-help-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-help-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-help-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-help-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-help-opacity-disabled);
+}
 :host([data-variant='help']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-help-background);
   color: var(--semiui-comp-button-variants-help-foreground);
   border-color: var(--semiui-comp-button-variants-help-border);
-  --s-button-accent: var(--semiui-comp-button-variants-help-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-help-border);
 }
 :host([data-variant='help']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-help-background) 85%, black);
@@ -282,12 +348,18 @@
   border-color: color-mix(in srgb, var(--semiui-comp-button-variants-help-border) 70%, black);
 }
 
+:host([data-variant='contrast']) .s-button {
+  --s-button-accent: var(--semiui-comp-button-variants-contrast-background);
+  --s-button-accent-border: var(--semiui-comp-button-variants-contrast-border);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-contrast-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-contrast-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-contrast-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-contrast-opacity-disabled);
+}
 :host([data-variant='contrast']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-contrast-background);
   color: var(--semiui-comp-button-variants-contrast-foreground);
   border-color: var(--semiui-comp-button-variants-contrast-border);
-  --s-button-accent: var(--semiui-comp-button-variants-contrast-background);
-  --s-button-accent-border: var(--semiui-comp-button-variants-contrast-border);
 }
 :host([data-variant='contrast']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--semiui-comp-button-variants-contrast-background) 85%, transparent);
@@ -296,12 +368,23 @@
   background: color-mix(in srgb, var(--semiui-comp-button-variants-contrast-background) 70%, transparent);
 }
 
+:host([data-variant='link']) .s-button {
+  /* Shape, not state -- it has to survive into the disabled rendering, which is why it sits here
+     rather than in the at-rest rule below. */
+  padding-inline: 0;
+  text-underline-offset: 3px;
+  /* Link has no fill at all, so its ink -- not its (transparent) background -- is what an
+     outlined/text link button dims. */
+  --s-button-disabled-accent: var(--semiui-comp-button-variants-link-foreground-disabled);
+  --s-button-disabled-background: var(--semiui-comp-button-variants-link-background-disabled);
+  --s-button-disabled-foreground: var(--semiui-comp-button-variants-link-foreground-disabled);
+  --s-button-disabled-border: var(--semiui-comp-button-variants-link-border-disabled);
+  --s-button-disabled-opacity: var(--semiui-comp-button-variants-link-opacity-disabled);
+}
 :host([data-variant='link']) .s-button:where(:not([aria-disabled='true']), .s-button--loading) {
   background: var(--semiui-comp-button-variants-link-background);
   color: var(--semiui-comp-button-variants-link-foreground);
   border-color: var(--semiui-comp-button-variants-link-border);
-  padding-inline: 0;
-  text-underline-offset: 3px;
 }
 :host([data-variant='link']) .s-button:hover:where(:not([aria-disabled='true']), .s-button--loading) {
   text-decoration: underline;
@@ -346,4 +429,43 @@
 :host([data-text]) .s-button:active:where(:not([aria-disabled='true']), .s-button--loading) {
   background: color-mix(in srgb, var(--s-button-accent) 20%, transparent);
   border-color: transparent;
+}
+
+/* Disabled outlined/text. Neither style has a fill, so the variant's backgroundDisabled must not
+   reach them -- the background stays transparent and the *ink* is what carries the variant's
+   identity, taken from --s-button-disabled-accent (secondary and link set their own; every other
+   variant falls through to its backgroundDisabled, the same color its at-rest accent already
+   uses). Only the border and the opacity are shared with the solid style.
+
+   Higher specificity than the plain disabled rule above (one extra host attribute), so these win
+   outright rather than relying on source order. */
+:host([data-outlined]) .s-button[aria-disabled='true']:not(.s-button--loading) {
+  background: transparent;
+  color: var(--s-button-disabled-accent, var(--s-button-disabled-background));
+  /* Same accent as the ink, not borderDisabled: an outlined button's border *is* its accent, and
+     for secondary the two differ (borderDisabled is the pale fill, the accent is readable ink) --
+     using borderDisabled here made the border change color the moment the button was disabled. */
+  border-color: var(--s-button-disabled-accent, var(--s-button-disabled-border));
+  opacity: var(--s-button-disabled-opacity);
+}
+
+:host([data-text]) .s-button[aria-disabled='true']:not(.s-button--loading) {
+  background: transparent;
+  color: var(--s-button-disabled-accent, var(--s-button-disabled-background));
+  border-color: transparent;
+  opacity: var(--s-button-disabled-opacity);
+}
+
+/* fluid -- fills the container instead of sizing to the label, so callers don't have to reach
+   in from outside with [&_.s-button]:w-full. The host is display:inline by default (it has no
+   :host rule at all above), so it has to be blockified here before a width can apply. Icon-only
+   fluid buttons stay valid: the inner element keeps its inline-grid + place-items:center, so the
+   icon simply centres in the wider box. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-button {
+  width: 100%;
 }

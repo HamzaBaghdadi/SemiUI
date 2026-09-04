@@ -1,3 +1,11 @@
+/* Wraps the input alone, not the error message below it, so the clear button's 50% offset is
+   half of the *field* rather than half of field-plus-message. Same reason Textarea and Password
+   carry their own wrappers. */
+.s-text-input-wrapper {
+  position: relative;
+  display: block;
+}
+
 .s-text-input {
   display: block;
   width: 100%;
@@ -36,4 +44,53 @@
   cursor: not-allowed;
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);
+}
+
+/* Only applied while the button is actually rendered, so a field that never clears keeps its full
+   width for text. The reserved room matches the button's own footprint below. */
+.s-text-input--clearable {
+  padding-inline-end: calc(var(--semiui-comp-input-padding-x) + 1.75rem);
+}
+
+/* Positioned and sized exactly like Password's reveal toggle -- the two sit in the same place in
+   the same kind of field, and a caller who uses both should not see them disagree by a pixel. */
+.s-text-input__clear {
+  position: absolute;
+  inset-inline-end: 0.375rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--semiui-comp-input-placeholder-foreground);
+  cursor: pointer;
+  border-radius: var(--semiui-radius-sm);
+}
+
+.s-text-input__clear:hover {
+  color: var(--semiui-comp-input-foreground);
+  background: var(--semiui-color-muted);
+}
+
+.s-text-input__clear:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--semiui-comp-input-focus-ring) 45%, transparent);
+}
+
+.s-text-input__clear svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* fluid -- the native input inside is already width:100%, so blockifying the host (it has no
+   :host rule above, making it display:inline) and giving it a width is all that's needed. Without
+   this the host shrink-wraps in a flex row and the input follows it. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
 }

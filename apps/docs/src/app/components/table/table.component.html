@@ -6,7 +6,7 @@
         <s-text-input
           type="search"
           [placeholder]="filterPlaceholder()"
-          [value]="filterText()"
+          [value]="filterValue()"
           (valueChange)="onFilterInput($event)"
         />
       </label>
@@ -132,7 +132,7 @@
       <span class="s-table__summary">{{ summaryText() }}</span>
     }
     @if (paginated()) {
-      <s-pagination [page]="currentPage()" (pageChange)="onPageChange($event)" [pageCount]="totalPages()" />
+      <s-pagination [page]="page()" (pageChange)="onPageChange($event)" [pageCount]="totalPages()" />
     }
     @if (rowsPerPageOptions().length > 0 || footerTemplate()) {
       <span class="s-table__footer-end">

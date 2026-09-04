@@ -85,6 +85,12 @@ export class PasswordPageComponent {
       description: 'Forces the invalid visual state and error message, independent of form-control validity.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container instead of sizing to its content.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -106,7 +112,9 @@ export class PasswordPageComponent {
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-password', description: 'The wrapping element, positioned relatively so the toggle button can be placed inside the field.' },

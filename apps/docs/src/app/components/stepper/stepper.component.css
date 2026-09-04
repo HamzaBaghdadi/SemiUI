@@ -69,7 +69,7 @@
   background: var(--semiui-comp-stepper-circle-background);
   color: var(--semiui-comp-stepper-circle-foreground);
   font-size: var(--semiui-comp-stepper-font-size);
-  font-weight: 600;
+  font-weight: var(--semiui-comp-stepper-circle-font-weight);
   transition:
     background-color 0.15s ease,
     color 0.15s ease,
@@ -134,7 +134,7 @@
 .s-stepper__label {
   font-size: var(--semiui-comp-stepper-font-size);
   color: var(--semiui-comp-stepper-label-color);
-  font-weight: 500;
+  font-weight: var(--semiui-comp-stepper-label-font-weight);
 }
 
 .s-stepper__step[data-state='active'] .s-stepper__label,

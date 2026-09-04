@@ -63,7 +63,7 @@
 
 .s-toggle-button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: var(--semiui-comp-button-opacity-disabled);
 }
 
 .s-toggle-button__icon {
@@ -164,4 +164,15 @@
 
 .s-toggle-button__label {
   white-space: nowrap;
+}
+
+/* fluid -- fills the container. display:flex rather than block keeps the host's column
+   direction (control above, error message below) that :host sets up. */
+:host([data-fluid]) {
+  display: flex;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-toggle-button {
+  width: 100%;
 }

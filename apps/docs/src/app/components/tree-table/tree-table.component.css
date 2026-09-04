@@ -22,7 +22,7 @@
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   text-align: start;
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-table-header-font-weight);
   color: var(--semiui-comp-table-header-foreground);
   border-bottom: 1px solid var(--semiui-comp-table-border);
   white-space: nowrap;
@@ -36,7 +36,7 @@
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   border-bottom: 1px solid var(--semiui-comp-table-border);
-  color: var(--semiui-color-foreground);
+  color: var(--semiui-comp-table-row-foreground);
 }
 
 .s-tree-table__td--checkbox {
@@ -47,7 +47,13 @@
   border-bottom: none;
 }
 
-.s-tree-table[data-striped] .s-tree-table__tr:nth-child(even) {
+/* Same four layers, same ordering, and the same :where() on the stripe as Table -- see the note
+   there. Tree Table reads table.* throughout, so it had the identical bug. */
+.s-tree-table__tr {
+  background: var(--semiui-comp-table-row-background);
+}
+
+:where(.s-tree-table[data-striped]) .s-tree-table__tr:where(:nth-child(even)) {
   background: var(--semiui-comp-table-row-background-striped);
 }
 

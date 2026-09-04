@@ -44,7 +44,7 @@ export const MyPreset: ThemePreset = {
     palette: { primary: '{blue}' }, // whole-scale reference, expanded shade by shade
     spacing: { xs: '0.25rem', sm: '0.5rem', md: '0.75rem', lg: '1rem', xl: '1.5rem' },
     radius: { sm: '0.375rem', md: '0.5rem', lg: '0.75rem', full: '9999px' },
-    typography: { fontFamily: 'Inter, sans-serif', fontSize: { sm: '0.875rem', md: '1rem' }, fontWeight: { medium: '500' } },
+    typography: { fontFamily: 'Inter, sans-serif', fontSize: { sm: '0.875rem', md: '1rem' }, fontWeight: { normal: '400', medium: '500', semibold: '600', bold: '700' } },
   },
 
   dark: {

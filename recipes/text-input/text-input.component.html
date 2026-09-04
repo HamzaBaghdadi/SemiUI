@@ -1,16 +1,28 @@
-<input
-  #nativeInput
-  sInput
-  class="s-text-input"
-  [type]="type()"
-  [placeholder]="placeholder()"
-  [value]="value()"
-  [disabled]="effectiveDisabled()"
-  [invalid]="effectiveInvalid()"
-  [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
-  (input)="onInput($any($event.target).value)"
-  (blur)="handleBlur()"
-/>
+<div class="s-text-input-wrapper">
+  <input
+    #nativeInput
+    sInput
+    class="s-text-input"
+    [class.s-text-input--clearable]="showClear()"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    [disabled]="effectiveDisabled()"
+    [invalid]="effectiveInvalid()"
+    [attr.autocomplete]="disableAutocomplete() ? 'off' : null"
+    (input)="onInput($any($event.target).value)"
+    (blur)="handleBlur()"
+  />
+  @if (showClear()) {
+    <!-- A real <button> rather than the <span role="button"> the listbox fields use: those sit
+         inside their trigger <button> and can't nest one, which is also why they're excluded from
+         the tab sequence. There's no such constraint here, so this is focusable like Password's
+         reveal toggle. -->
+    <button type="button" class="s-text-input__clear" sButton aria-label="Clear" (pressed)="clear()">
+      <s-icon [ref]="icons.clear" />
+    </button>
+  }
+</div>
 @if (effectiveInvalid()) {
   <s-error-message [message]="errorMessage()" />
 }

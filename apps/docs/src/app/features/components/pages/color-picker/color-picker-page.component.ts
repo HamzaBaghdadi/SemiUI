@@ -126,6 +126,12 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the control invalid, driving aria-invalid and the error border. Also derived automatically from a touched/dirty invalid reactive-forms control.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the trigger to fill its container instead of sizing to its swatch and label.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -148,6 +154,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: 'Present while the popover panel is open (absent when inline).' },
     { name: 'data-inline', description: 'Present when inline is set -- switches :host to display: inline-block.' },
   ];

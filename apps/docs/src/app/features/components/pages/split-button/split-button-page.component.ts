@@ -43,6 +43,8 @@ export class SplitButtonPageComponent {
     this.log.set(`Selected: ${item.label}`);
   }
 
+  protected readonly fluidCode = `<s-split-button [items]="exportItems" [fluid]="true">Save</s-split-button>`;
+
   protected readonly basicCode = `protected items = [
   { label: 'Export as CSV', icon: { type: 'ng-icon', name: 'lucideDownload' } },
   { label: 'Export as PDF', icon: { type: 'ng-icon', name: 'lucideDownload' } },
@@ -80,6 +82,12 @@ export class SplitButtonPageComponent {
       description: "Controls padding and font size via Button's size-scoped tokens.",
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the button to fill its container; the caret segment keeps its square footprint and the main segment absorbs the slack.',
+    },
+    {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
@@ -104,6 +112,10 @@ export class SplitButtonPageComponent {
       type: 'EventEmitter<SplitButtonItem>',
       description: 'Emitted with the picked entry when a menu item (that is not disabled) is clicked.',
     },
+  ];
+
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
   ];
 
   protected readonly themingCssClasses: ThemingRow[] = [

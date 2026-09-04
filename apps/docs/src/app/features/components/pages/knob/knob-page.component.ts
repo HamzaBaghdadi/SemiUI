@@ -116,6 +116,7 @@ export class KnobPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-knob-value-font-weight', description: "Weight of the value read-out in the middle of the dial." },
     {
       name: '--semiui-color-muted / --semiui-color-primary',
       description: "Reused directly for the track and default arc/value-text color -- same precedent as Progress Bar's own track/fill.",

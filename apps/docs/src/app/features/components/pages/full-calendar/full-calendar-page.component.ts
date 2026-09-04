@@ -96,6 +96,9 @@ export class FullCalendarPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-full-calendar-title-font-weight', description: "Weight of the month/week title in the toolbar." },
+    { name: '--semiui-comp-full-calendar-weekday-font-weight', description: "Weight of the Mon/Tue/... column headings." },
+    { name: '--semiui-comp-full-calendar-today-font-weight', description: "Weight of today's date number." },
     { name: '--semiui-comp-table-*', description: "Reused for the grid's borders, header row, and hover color -- a calendar grid is structurally close to a table." },
     { name: '--semiui-comp-button-variants-*-background', description: "Reused for an event's color, via --s-full-calendar-event-color." },
     { name: '--semiui-color-primary', description: "Today's day-number badge, and the active view-switch tab." },

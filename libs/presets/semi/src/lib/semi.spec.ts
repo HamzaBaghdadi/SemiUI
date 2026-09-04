@@ -1,5 +1,23 @@
+import { readdirSync, readFileSync, statSync } from 'fs';
+import { join } from 'path';
 import { buildThemeVars, definePreset, resolvePresetToken, validatePreset } from '@semiui/tokens';
 import { Semi } from './semi';
+
+const RECIPES = join(__dirname, '../../../../../recipes');
+
+/** Every component stylesheet, minus the generated Tailwind bridge (which reads the public scales,
+ * not component tokens). */
+function stylesheets(dir: string, out: string[] = []): string[] {
+  for (const entry of readdirSync(dir)) {
+    const path = join(dir, entry);
+    if (statSync(path).isDirectory()) {
+      if (entry !== 'tailwind') stylesheets(path, out);
+    } else if (entry.endsWith('.css')) {
+      out.push(path);
+    }
+  }
+  return out;
+}
 
 describe('Semi preset', () => {
   const { root, dark } = buildThemeVars(Semi);
@@ -105,5 +123,37 @@ describe('Semi preset', () => {
 
   it('defines the default loading icon', () => {
     expect(Semi.icons.loading).toEqual({ type: 'ng-icon', name: 'lucideLoaderCircle' });
+  });
+
+  /**
+   * The two ways a token and the stylesheet that should read it drift apart. Both are silent at
+   * runtime, which is what makes them worth a test: a token nothing reads looks like working
+   * configuration until someone sets it and nothing happens, and a var() no preset defines makes
+   * the whole declaration invalid at computed-value time, so the property quietly falls back to
+   * its inherited value with no error anywhere.
+   */
+  describe('component tokens and the stylesheets that read them', () => {
+    const files = stylesheets(RECIPES);
+    const referenced = new Map<string, string[]>();
+    for (const file of files) {
+      for (const match of readFileSync(file, 'utf8').matchAll(/var\((--semiui-[a-z0-9-]+)/g)) {
+        const users = referenced.get(match[1]) ?? [];
+        if (!users.includes(file)) users.push(file);
+        referenced.set(match[1], users);
+      }
+    }
+
+    it('reads every component token from at least one stylesheet', () => {
+      const dead = Object.keys(root)
+        .filter((name) => name.startsWith('--semiui-comp-'))
+        .filter((name) => !referenced.has(name))
+        .sort();
+      expect(dead).toEqual([]);
+    });
+
+    it('never reads a variable no preset defines', () => {
+      const undefined_ = [...referenced.keys()].filter((name) => !(name in root)).sort();
+      expect(undefined_).toEqual([]);
+    });
   });
 });
