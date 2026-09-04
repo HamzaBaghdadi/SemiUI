@@ -167,7 +167,10 @@
   --font-semiui: var(--semiui-typography-font-family);
   --text-semiui-sm: var(--semiui-typography-font-size-sm);
   --text-semiui-md: var(--semiui-typography-font-size-md);
+  --font-weight-semiui-normal: var(--semiui-typography-font-weight-normal);
   --font-weight-semiui-medium: var(--semiui-typography-font-weight-medium);
+  --font-weight-semiui-semibold: var(--semiui-typography-font-weight-semibold);
+  --font-weight-semiui-bold: var(--semiui-typography-font-weight-bold);
 }
 
 /* Utilities Tailwind's `@theme` cannot express: a named scale entry only ever produces

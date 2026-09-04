@@ -148,7 +148,7 @@ export const MyTheme: ThemePreset = {
     typography: {
       fontFamily: 'Inter, sans-serif',
       fontSize: { sm: '0.875rem', md: '1rem' },
-      fontWeight: { medium: '500' },
+      fontWeight: { normal: '400', medium: '500', semibold: '600', bold: '700' },
     },
   },
 

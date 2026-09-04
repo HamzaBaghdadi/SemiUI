@@ -44,3 +44,16 @@
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);
 }
+
+/* fluid -- the row spans the container and the boxes divide it evenly. Their fixed 2.5rem width
+   has to be released for that (flex-basis 0 alone can't override an explicit width). */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-otp__box {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}

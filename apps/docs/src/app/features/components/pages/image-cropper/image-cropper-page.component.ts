@@ -109,6 +109,11 @@ export class ImageCropperPageComponent {
     { name: '--semiui-comp-table-border', description: "The frame's border color." },
     { name: '--semiui-color-muted', description: "The frame's background, visible while the image is loading." },
     { name: '--semiui-radius-md', description: "The frame's corner radius." },
+    {
+      name: '--semiui-comp-image-cropper-grid-line-color',
+      description:
+        'Color of the rule-of-thirds guides drawn over the image. Translucent white by default: the guides sit over the user\'s own picture rather than over app chrome, so they do not follow the light/dark palette.',
+    },
     { name: '--semiui-comp-image-cropper-zoom-slider-max-width', description: "The zoom slider's max-width." },
   ];
 }

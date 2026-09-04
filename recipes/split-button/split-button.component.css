@@ -3,6 +3,10 @@
   --s-split-button-bg: var(--semiui-comp-button-variants-primary-background);
   --s-split-button-border: var(--semiui-comp-button-variants-primary-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-primary-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-primary-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-primary-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-primary-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-primary-opacity-disabled);
 }
 
 .s-split-button__group {
@@ -53,11 +57,14 @@
   z-index: 1;
 }
 
+/* Same model as Button: the variant's own disabled tokens plus one opacity, so a disabled
+   Destructive split button still reads as red rather than collapsing to a grey slab. */
 .s-split-button__segment:disabled {
   cursor: not-allowed;
-  background: var(--semiui-comp-button-background-disabled);
-  color: var(--semiui-comp-button-foreground-disabled);
-  border-color: var(--semiui-comp-button-background-disabled);
+  background: var(--s-split-button-disabled-bg);
+  color: var(--s-split-button-disabled-fg);
+  border-color: var(--s-split-button-disabled-border);
+  opacity: var(--s-split-button-disabled-opacity);
 }
 
 .s-split-button__main {
@@ -142,31 +149,55 @@
   --s-split-button-bg: var(--semiui-comp-button-variants-primary-background);
   --s-split-button-border: var(--semiui-comp-button-variants-primary-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-primary-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-primary-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-primary-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-primary-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-primary-opacity-disabled);
 }
 :host([data-variant='secondary']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-secondary-background);
   --s-split-button-border: var(--semiui-comp-button-variants-secondary-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-secondary-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-secondary-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-secondary-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-secondary-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-secondary-opacity-disabled);
 }
 :host([data-variant='success']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-success-background);
   --s-split-button-border: var(--semiui-comp-button-variants-success-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-success-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-success-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-success-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-success-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-success-opacity-disabled);
 }
 :host([data-variant='info']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-info-background);
   --s-split-button-border: var(--semiui-comp-button-variants-info-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-info-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-info-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-info-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-info-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-info-opacity-disabled);
 }
 :host([data-variant='warn']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-warn-background);
   --s-split-button-border: var(--semiui-comp-button-variants-warn-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-warn-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-warn-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-warn-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-warn-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-warn-opacity-disabled);
 }
 :host([data-variant='help']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-help-background);
   --s-split-button-border: var(--semiui-comp-button-variants-help-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-help-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-help-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-help-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-help-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-help-opacity-disabled);
 }
 :host([data-variant='destructive']) {
   --s-split-button-bg: var(
@@ -178,11 +209,19 @@
   --s-split-button-fg: var(
     --semiui-comp-button-variants-destructive-foreground
   );
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-destructive-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-destructive-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-destructive-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-destructive-opacity-disabled);
 }
 :host([data-variant='danger']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-danger-background);
   --s-split-button-border: var(--semiui-comp-button-variants-danger-border);
   --s-split-button-fg: var(--semiui-comp-button-variants-danger-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-danger-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-danger-border-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-danger-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-danger-opacity-disabled);
 }
 :host([data-variant='contrast']) {
   --s-split-button-bg: var(--semiui-comp-button-variants-contrast-background);
@@ -190,6 +229,10 @@
     --semiui-comp-button-variants-contrast-background
   );
   --s-split-button-fg: var(--semiui-comp-button-variants-contrast-foreground);
+  --s-split-button-disabled-bg: var(--semiui-comp-button-variants-contrast-background-disabled);
+  --s-split-button-disabled-border: var(--semiui-comp-button-variants-contrast-background-disabled);
+  --s-split-button-disabled-fg: var(--semiui-comp-button-variants-contrast-foreground-disabled);
+  --s-split-button-disabled-opacity: var(--semiui-comp-button-variants-contrast-opacity-disabled);
 }
 
 .s-split-button__menu {
@@ -225,4 +268,20 @@
   flex-shrink: 0;
   width: 1em;
   height: 1em;
+}
+
+/* fluid -- the group spans the container and the labeled segment absorbs the extra width.
+   The caret segment is deliberately left out of the growth: its width comes from aspect-ratio
+   against the shared row height, and letting it grow would stretch it into a rectangle. */
+:host([data-fluid]) {
+  display: flex;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-split-button__group {
+  width: 100%;
+}
+
+:host([data-fluid]) .s-split-button__main {
+  flex: 1 1 auto;
 }

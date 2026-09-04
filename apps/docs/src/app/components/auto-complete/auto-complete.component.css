@@ -171,3 +171,9 @@
   color: var(--semiui-comp-select-placeholder-foreground);
   text-align: center;
 }
+
+/* fluid -- see Select: Auto Complete already spans its container, so this restates the default
+   rather than switching anything on. */
+:host([data-fluid]) {
+  width: 100%;
+}

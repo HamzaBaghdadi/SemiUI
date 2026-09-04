@@ -165,3 +165,9 @@
   width: 0.8em;
   height: 0.8em;
 }
+
+/* fluid -- .s-input-number is already width:100%, so only the host needs sizing. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}

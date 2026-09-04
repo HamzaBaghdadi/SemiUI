@@ -121,6 +121,7 @@ export class TimelinePageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-timeline-title-font-weight', description: "Weight of an entry's title. Timeline reuses stepper.* for its font size and label colors, but Stepper has no title of its own." },
     {
       name: '--semiui-comp-stepper-*',
       description:

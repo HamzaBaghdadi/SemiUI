@@ -10,21 +10,33 @@
   --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-primary-foreground);
 }
 
+/* The track. Every one of these is transparent/zero in Semi, so by default there is no visible
+   container at all and the segments read as one joined row -- exactly what this component looked
+   like when it had no tokens of its own. Turning them up (a background, a border width, padding,
+   a gap) is what produces the padded segmented-control style, entirely from a preset. */
 .s-toggle-group {
   display: inline-flex;
+  box-sizing: border-box;
+  background: var(--semiui-comp-toggle-group-background);
+  border: var(--semiui-comp-toggle-group-border-width) solid var(--semiui-comp-toggle-group-border);
+  border-radius: var(--semiui-comp-toggle-group-radius);
+  padding: var(--semiui-comp-toggle-group-padding);
+  gap: var(--semiui-comp-toggle-group-gap);
 }
 
 .s-toggle-group__item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--semiui-spacing-sm);
-  border-width: 1px;
+  box-sizing: border-box;
+  gap: var(--semiui-comp-toggle-group-item-gap);
+  border-width: var(--semiui-comp-toggle-group-item-border-width);
   border-style: solid;
-  font-weight: var(--semiui-comp-button-font-weight);
+  border-radius: var(--semiui-comp-toggle-group-item-radius);
+  font-weight: var(--semiui-comp-toggle-group-font-weight);
   font-family: var(--semiui-typography-font-family);
   cursor: pointer;
-  background: transparent;
+  background: var(--semiui-comp-toggle-group-item-background);
   color: var(--s-toggle-group-accent);
   border-color: var(--s-toggle-group-accent);
   transition:
@@ -34,19 +46,29 @@
 }
 
 /* Segments share a border rather than doubling it up between neighbors -- the same collapsing
-   technique Split Button uses to merge its two buttons into one shape. */
+   technique Split Button uses to merge its two buttons into one shape.
+
+   Derived from the border width rather than hardcoded at -1px, so it disappears on its own for a
+   preset that sets itemBorderWidth to 0: borderless segments have no seam to collapse, and a
+   leftover -1px would then eat into the track's gap instead. (A preset that keeps a border *and*
+   adds a gap gets its gap narrowed by that border width -- the two styles aren't meant to
+   combine, and the padded-track look drops the segment border precisely because the track's own
+   border has taken over that job.) */
 .s-toggle-group__item + .s-toggle-group__item {
-  margin-inline-start: -1px;
+  margin-inline-start: calc(-1 * var(--semiui-comp-toggle-group-item-border-width));
 }
 
+/* Only the group's outer corners, so the joined default rounds the two ends while the shared
+   inner seams stay square. A preset that wants uniformly rounded pills points itemRadiusOuter at
+   the same value as itemRadius. */
 .s-toggle-group__item:first-child {
-  border-start-start-radius: var(--semiui-comp-button-radius);
-  border-end-start-radius: var(--semiui-comp-button-radius);
+  border-start-start-radius: var(--semiui-comp-toggle-group-item-radius-outer);
+  border-end-start-radius: var(--semiui-comp-toggle-group-item-radius-outer);
 }
 
 .s-toggle-group__item:last-child {
-  border-start-end-radius: var(--semiui-comp-button-radius);
-  border-end-end-radius: var(--semiui-comp-button-radius);
+  border-start-end-radius: var(--semiui-comp-toggle-group-item-radius-outer);
+  border-end-end-radius: var(--semiui-comp-toggle-group-item-radius-outer);
 }
 
 .s-toggle-group__item:hover:not(:disabled) {
@@ -83,12 +105,12 @@
   outline: none;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-button-focus-ring) 45%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-toggle-group-focus-ring) 45%, transparent);
 }
 
 .s-toggle-group__item:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: var(--semiui-comp-toggle-group-opacity-disabled);
 }
 
 .s-toggle-group__icon {
@@ -105,18 +127,18 @@
 }
 
 :host([data-size='sm']) .s-toggle-group__item {
-  padding: var(--semiui-comp-button-padding-y-sm) var(--semiui-comp-button-padding-x-sm);
-  font-size: var(--semiui-comp-button-font-size-sm);
+  padding: var(--semiui-comp-toggle-group-item-padding-y-sm) var(--semiui-comp-toggle-group-item-padding-x-sm);
+  font-size: var(--semiui-comp-toggle-group-item-font-size-sm);
 }
 
 :host([data-size='md']) .s-toggle-group__item {
-  padding: var(--semiui-comp-button-padding-y-md) var(--semiui-comp-button-padding-x-md);
-  font-size: var(--semiui-comp-button-font-size-md);
+  padding: var(--semiui-comp-toggle-group-item-padding-y-md) var(--semiui-comp-toggle-group-item-padding-x-md);
+  font-size: var(--semiui-comp-toggle-group-item-font-size-md);
 }
 
 :host([data-size='lg']) .s-toggle-group__item {
-  padding: var(--semiui-comp-button-padding-y-lg) var(--semiui-comp-button-padding-x-lg);
-  font-size: var(--semiui-comp-button-font-size-lg);
+  padding: var(--semiui-comp-toggle-group-item-padding-y-lg) var(--semiui-comp-toggle-group-item-padding-x-lg);
+  font-size: var(--semiui-comp-toggle-group-item-font-size-lg);
 }
 
 /* Each variant just points the shared accent/solid custom properties at Button's own design
@@ -187,4 +209,20 @@
   --s-toggle-group-solid-bg: var(--semiui-comp-button-variants-contrast-background);
   --s-toggle-group-solid-border: var(--semiui-comp-button-variants-contrast-background);
   --s-toggle-group-solid-fg: var(--semiui-comp-button-variants-contrast-foreground);
+}
+
+/* fluid -- the group spans the container and its segments divide it evenly (flex-basis 0, not
+   auto, so a long label doesn't claim more room than its neighbors). display:flex rather than
+   block keeps the host's column direction that :host sets up. */
+:host([data-fluid]) {
+  display: flex;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-toggle-group {
+  width: 100%;
+}
+
+:host([data-fluid]) .s-toggle-group__item {
+  flex: 1 1 0;
 }

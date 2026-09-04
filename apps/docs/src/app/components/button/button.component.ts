@@ -15,6 +15,7 @@ import { injectSemiUIIcons } from '@semiui/theme';
     '[attr.data-icon-only]': 'icon() ? \'\' : null',
     '[attr.data-outlined]': 'outlined() ? \'\' : null',
     '[attr.data-text]': 'text() ? \'\' : null',
+    '[attr.data-fluid]': 'fluid() ? \'\' : null',
   },
 })
 export class ButtonComponent {
@@ -28,6 +29,9 @@ export class ButtonComponent {
   outlined = input(false, { transform: booleanAttribute });
   /** Transparent background, no border, text in the variant's color -- the old "ghost" style, now a modifier that combines with any `variant`. */
   text = input(false, { transform: booleanAttribute });
+  /** Stretches the button to fill its container instead of sizing to its label -- the one-input
+   * replacement for reaching in from outside with `[&_.s-button]:w-full`. */
+  fluid = input(false, { transform: booleanAttribute });
   disabled = input(false, { transform: booleanAttribute });
   loading = input(false, { transform: booleanAttribute });
   iconLeading = input<IconRef>();

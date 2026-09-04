@@ -202,7 +202,7 @@
 
 .s-toast__title {
   margin: 0;
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-toast-title-font-weight);
   font-size: var(--semiui-typography-font-size-sm);
 }
 

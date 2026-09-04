@@ -145,13 +145,15 @@ export class BadgePageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-badge-font-weight', description: "Label font weight." },
     { name: '--semiui-comp-badge-size', description: 'Minimum width/height of the non-dot badge.' },
     { name: '--semiui-comp-badge-dot-size', description: 'Width/height of the badge when dot is set.' },
     { name: '--semiui-comp-badge-ring-color', description: 'Border color that rings the overlay badge (creates separation from the wrapped content).' },
     { name: '--semiui-comp-badge-font-size', description: 'Font size of label/count content.' },
     {
       name: '--semiui-comp-badge-variants-{variant}-{background,foreground,border}',
-      description: 'Per-variant color triad (default, primary, secondary, destructive, danger, success, info, warn, help, contrast, outline). border only applies to outline.',
+      description:
+        "Per-variant color triad (default, primary, secondary, destructive, danger, success, info, warn, help, contrast, outline). For outline, border is a real outline; for every other variant it is the ring that cuts an overlay badge out of the content behind it, defaulting to ring-color. A standalone badge has no ring, so border does not apply there.",
     },
   ];
 }

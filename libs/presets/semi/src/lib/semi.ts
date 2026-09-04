@@ -184,8 +184,13 @@ const semantic: SemanticTokens = {
       sm: '0.875rem',
       md: '1rem',
     },
+    // Four named steps rather than one: every weight a component reaches for now has somewhere
+    // to point, so no component's CSS has to hardcode a 600 or a 700 that no preset could restyle.
     fontWeight: {
+      normal: '400',
       medium: '500',
+      semibold: '600',
+      bold: '700',
     },
   },
 };
@@ -234,22 +239,113 @@ const components: ComponentTokens = {
     radius: '{radius.md}',
     fontWeight: '{typography.fontWeight.medium}',
     focusRing: '{ring}',
+    // Only reached by a button with no variant, and by the button-derived components that aren't
+    // variant-aware (Split Button's segments, Toggle Button, Toggle Group). Every <s-button>
+    // variant carries its own disabled palette below.
     backgroundDisabled: '{muted}',
     foregroundDisabled: '{mutedForeground}',
+    borderDisabled: '{muted}',
+    // A percentage rather than a bare number so overriding it reads unambiguously: 'opacity: 60'
+    // would clamp to a fully opaque 1, 'opacity: 60%' means what it says.
+    opacityDisabled: '60%',
     paddingX: { sm: '0.75rem', md: '1rem', lg: '1.25rem' },
     paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem' },
     fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem' },
+    // Each variant's disabled palette points back at that same variant's own colors, so a disabled
+    // button keeps its identity (a dimmed blue Primary, a dimmed red Destructive) instead of every
+    // variant collapsing to one grey slab -- and so a preset that recolors only `background` gets a
+    // matching disabled state without restating it. Dimming is left entirely to `opacityDisabled`.
     variants: {
-      primary: { background: '{primary}', foreground: '{primaryForeground}', border: '{primary}' },
-      secondary: { background: '{secondary}', foreground: '{secondaryForeground}', border: '{secondary}' },
-      destructive: { background: '{destructive}', foreground: '{destructiveForeground}', border: '{destructive}' },
-      danger: { background: '{danger}', foreground: '{dangerForeground}', border: '{danger}' },
-      success: { background: '{success}', foreground: '{successForeground}', border: '{success}' },
-      info: { background: '{info}', foreground: '{infoForeground}', border: '{info}' },
-      warn: { background: '{warn}', foreground: '{warnForeground}', border: '{warn}' },
-      help: { background: '{help}', foreground: '{helpForeground}', border: '{help}' },
-      contrast: { background: '{contrast}', foreground: '{contrastForeground}', border: '{contrast}' },
-      link: { background: '{transparent}', foreground: '{primary}', border: '{transparent}' },
+      primary: {
+        background: '{primary}',
+        foreground: '{primaryForeground}',
+        border: '{primary}',
+        backgroundDisabled: '{components.button.variants.primary.background}',
+        foregroundDisabled: '{components.button.variants.primary.foreground}',
+        borderDisabled: '{components.button.variants.primary.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      secondary: {
+        background: '{secondary}',
+        foreground: '{secondaryForeground}',
+        border: '{secondary}',
+        backgroundDisabled: '{components.button.variants.secondary.background}',
+        foregroundDisabled: '{components.button.variants.secondary.foreground}',
+        borderDisabled: '{components.button.variants.secondary.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      destructive: {
+        background: '{destructive}',
+        foreground: '{destructiveForeground}',
+        border: '{destructive}',
+        backgroundDisabled: '{components.button.variants.destructive.background}',
+        foregroundDisabled: '{components.button.variants.destructive.foreground}',
+        borderDisabled: '{components.button.variants.destructive.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      danger: {
+        background: '{danger}',
+        foreground: '{dangerForeground}',
+        border: '{danger}',
+        backgroundDisabled: '{components.button.variants.danger.background}',
+        foregroundDisabled: '{components.button.variants.danger.foreground}',
+        borderDisabled: '{components.button.variants.danger.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      success: {
+        background: '{success}',
+        foreground: '{successForeground}',
+        border: '{success}',
+        backgroundDisabled: '{components.button.variants.success.background}',
+        foregroundDisabled: '{components.button.variants.success.foreground}',
+        borderDisabled: '{components.button.variants.success.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      info: {
+        background: '{info}',
+        foreground: '{infoForeground}',
+        border: '{info}',
+        backgroundDisabled: '{components.button.variants.info.background}',
+        foregroundDisabled: '{components.button.variants.info.foreground}',
+        borderDisabled: '{components.button.variants.info.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      warn: {
+        background: '{warn}',
+        foreground: '{warnForeground}',
+        border: '{warn}',
+        backgroundDisabled: '{components.button.variants.warn.background}',
+        foregroundDisabled: '{components.button.variants.warn.foreground}',
+        borderDisabled: '{components.button.variants.warn.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      help: {
+        background: '{help}',
+        foreground: '{helpForeground}',
+        border: '{help}',
+        backgroundDisabled: '{components.button.variants.help.background}',
+        foregroundDisabled: '{components.button.variants.help.foreground}',
+        borderDisabled: '{components.button.variants.help.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      contrast: {
+        background: '{contrast}',
+        foreground: '{contrastForeground}',
+        border: '{contrast}',
+        backgroundDisabled: '{components.button.variants.contrast.background}',
+        foregroundDisabled: '{components.button.variants.contrast.foreground}',
+        borderDisabled: '{components.button.variants.contrast.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
+      link: {
+        background: '{transparent}',
+        foreground: '{primary}',
+        border: '{transparent}',
+        backgroundDisabled: '{components.button.variants.link.background}',
+        foregroundDisabled: '{components.button.variants.link.foreground}',
+        borderDisabled: '{components.button.variants.link.border}',
+        opacityDisabled: '{components.button.opacityDisabled}',
+      },
     },
   },
 
@@ -299,6 +395,7 @@ const components: ComponentTokens = {
 
   switch: {
     trackPadding: '0.125rem',
+    opacityDisabled: '50%',
     trackBorderWidth: '1px',
     radius: '{radius.full}',
     background: '{muted}',
@@ -373,6 +470,7 @@ const components: ComponentTokens = {
     statusAway: '{warning}',
     statusBusy: '{destructive}',
     statusOffline: '{mutedForeground}',
+    fontWeight: '{typography.fontWeight.medium}',
     size: { sm: '1.75rem', md: '2.5rem', lg: '3.5rem', xl: '5rem' },
     fontSize: { sm: '0.625rem', md: '0.875rem', lg: '1.125rem', xl: '1.5rem' },
   },
@@ -380,6 +478,9 @@ const components: ComponentTokens = {
   tag: {
     radius: '{radius.sm}',
     fontSize: '{typography.fontSize.sm}',
+    // Tag previously inherited whatever weight surrounded it. Medium matches Badge, the same
+    // family of chip -- the two share TagVariant and should not disagree about their own ink.
+    fontWeight: '{typography.fontWeight.medium}',
     paddingX: '{spacing.sm}',
     paddingY: '0.125rem',
     // Every status tag is the same recipe -- a 15% wash of its own semantic color, with that color
@@ -432,6 +533,7 @@ const components: ComponentTokens = {
     currentForeground: '{foreground}',
     separatorColor: '{mutedForeground}',
     fontSize: '{typography.fontSize.sm}',
+    currentFontWeight: '{typography.fontWeight.medium}',
     gap: '0.375rem',
   },
 
@@ -439,18 +541,23 @@ const components: ComponentTokens = {
     size: '1.25rem',
     dotSize: '0.625rem',
     fontSize: '0.6875rem',
+    fontWeight: '{typography.fontWeight.medium}',
     ringColor: '{background}',
+    // Each variant's `border` is the 2px ring that cuts the badge out of whatever it sits on, so
+    // it defaults to `ringColor` rather than to transparent -- that is what these have always
+    // painted, and the ten non-outline variants had no rule reading the token at all. `outline` is
+    // the one variant whose border is a real outline instead.
     variants: {
-      default: { background: '{muted}', foreground: '{foreground}', border: '{transparent}' },
-      primary: { background: '{primary}', foreground: '{primaryForeground}', border: '{transparent}' },
-      secondary: { background: '{secondary}', foreground: '{secondaryForeground}', border: '{transparent}' },
-      destructive: { background: '{destructive}', foreground: '{destructiveForeground}', border: '{transparent}' },
-      danger: { background: '{danger}', foreground: '{dangerForeground}', border: '{transparent}' },
-      success: { background: '{success}', foreground: '{successForeground}', border: '{transparent}' },
-      info: { background: '{info}', foreground: '{infoForeground}', border: '{transparent}' },
-      warn: { background: '{warn}', foreground: '{warnForeground}', border: '{transparent}' },
-      help: { background: '{help}', foreground: '{helpForeground}', border: '{transparent}' },
-      contrast: { background: '{contrast}', foreground: '{contrastForeground}', border: '{transparent}' },
+      default: { background: '{muted}', foreground: '{foreground}', border: '{components.badge.ringColor}' },
+      primary: { background: '{primary}', foreground: '{primaryForeground}', border: '{components.badge.ringColor}' },
+      secondary: { background: '{secondary}', foreground: '{secondaryForeground}', border: '{components.badge.ringColor}' },
+      destructive: { background: '{destructive}', foreground: '{destructiveForeground}', border: '{components.badge.ringColor}' },
+      danger: { background: '{danger}', foreground: '{dangerForeground}', border: '{components.badge.ringColor}' },
+      success: { background: '{success}', foreground: '{successForeground}', border: '{components.badge.ringColor}' },
+      info: { background: '{info}', foreground: '{infoForeground}', border: '{components.badge.ringColor}' },
+      warn: { background: '{warn}', foreground: '{warnForeground}', border: '{components.badge.ringColor}' },
+      help: { background: '{help}', foreground: '{helpForeground}', border: '{components.badge.ringColor}' },
+      contrast: { background: '{contrast}', foreground: '{contrastForeground}', border: '{components.badge.ringColor}' },
       outline: { background: '{background}', foreground: '{foreground}', border: '{border}' },
     },
   },
@@ -518,6 +625,8 @@ const components: ComponentTokens = {
     labelColorActive: '{foreground}',
     descriptionColor: '{mutedForeground}',
     fontSize: '{typography.fontSize.sm}',
+    circleFontWeight: '{typography.fontWeight.semibold}',
+    labelFontWeight: '{typography.fontWeight.medium}',
     gap: '{spacing.sm}',
   },
 
@@ -553,15 +662,24 @@ const components: ComponentTokens = {
     radius: '{radius.md}',
     headerBackground: '{muted}',
     headerForeground: '{foreground}',
-    rowBackground: '{background}',
+    // Transparent rather than '{background}': that is what rows have always rendered as (nothing
+    // painted a row fill at all until this token was wired up), so the table keeps showing the
+    // surface underneath it. '{background}' here makes rows opaque.
+    rowBackground: '{transparent}',
     rowBackgroundStriped: '{muted}',
     rowBackgroundHover: '{muted}',
     rowBackgroundSelected: 'color-mix(in srgb, {primary} 12%, transparent)',
+    rowForeground: '{foreground}',
     fontSize: '{typography.fontSize.sm}',
+    headerFontWeight: '{typography.fontWeight.medium}',
     cellPaddingX: '{spacing.md}',
     cellPaddingY: '{spacing.sm}',
     sortIconColor: '{mutedForeground}',
     sortIconColorActive: '{foreground}',
+    sortIconSize: '0.75rem',
+    checkboxColumnWidth: '2.5rem',
+    filterMaxWidth: '20rem',
+    rowsPerPageWidth: '5rem',
   },
 
   colorPicker: {
@@ -587,6 +705,7 @@ const components: ComponentTokens = {
     navBackgroundHover: '{muted}',
     weekdayForeground: '{mutedForeground}',
     monthLabelForeground: '{foreground}',
+    labelFontWeight: '{typography.fontWeight.medium}',
   },
 
   carousel: {
@@ -610,13 +729,14 @@ const components: ComponentTokens = {
     paddingY: '{spacing.sm}',
     gap: '{spacing.sm}',
     width: '24rem',
+    titleFontWeight: '{typography.fontWeight.medium}',
     blur: 'blur(12px)',
     variants: {
+      // No iconColor: a default toast renders no icon (see ToastVariantsTokens).
       default: {
         background: 'color-mix(in srgb, {background} 88%, transparent)',
         foreground: '{foreground}',
         border: '{transparent}',
-        iconColor: '{mutedForeground}',
       },
       success: {
         background: 'color-mix(in srgb, {success} 14%, color-mix(in srgb, {background} 88%, transparent))',
@@ -670,7 +790,7 @@ const components: ComponentTokens = {
     headerBorder: '{border}',
     footerBorder: '{border}',
     titleFontSize: '1.125rem',
-    titleFontWeight: '700',
+    titleFontWeight: '{typography.fontWeight.bold}',
     padding: '{spacing.lg}',
     // Genuinely component-local: a dialog's width has no design-system meaning outside dialogs,
     // so it stays here rather than becoming a global token nothing else would use.
@@ -696,6 +816,9 @@ const components: ComponentTokens = {
     navIconSize: '0.85rem',
     toolbarButtonPaddingY: '0.375rem',
     titleFontSize: '1.1rem',
+    titleFontWeight: '{typography.fontWeight.semibold}',
+    weekdayFontWeight: '{typography.fontWeight.medium}',
+    todayFontWeight: '{typography.fontWeight.semibold}',
     cellMinHeight: '6rem',
     cellMinHeightWeek: '12rem',
     eventsGap: '0.125rem',
@@ -717,6 +840,7 @@ const components: ComponentTokens = {
     toolIconSize: '0.95rem',
     contentHeadingFontSizeLg: '1.5em',
     contentHeadingFontSizeMd: '1.25em',
+    contentHeadingFontWeight: '{typography.fontWeight.bold}',
     contentBlockSpacing: '0.5em',
     contentListIndent: '1.5em',
   },
@@ -725,6 +849,7 @@ const components: ComponentTokens = {
     markerIconSize: '0.85rem',
     connectorMinLength: '2rem',
     contentGap: '0.125rem',
+    titleFontWeight: '{typography.fontWeight.semibold}',
   },
 
   cascadeSelect: {
@@ -753,6 +878,48 @@ const components: ComponentTokens = {
     menuMinWidth: '10rem',
   },
 
+  // Every value here reproduces what Toggle Group rendered when it read `button.*` directly, so
+  // the default look is unchanged -- they exist so a preset can move the group without moving
+  // Button with it. The ones that reference Button keep that relationship live rather than
+  // freezing a copy of the value.
+  //
+  // The joined-segments default is: no track (transparent, no border, no padding, no gap), and
+  // segments that share a collapsed 1px border with square inner corners and rounded ends. The
+  // padded-track style is six overrides away -- see the Toggle Group docs page for the snippet.
+  toggleGroup: {
+    background: '{transparent}',
+    // Invisible until borderWidth is turned up; declared so a preset enabling the track doesn't
+    // also have to decide on a color.
+    border: '{border}',
+    borderWidth: '0px',
+    radius: '{radius.md}',
+    padding: '0',
+    gap: '0',
+    itemBackground: '{transparent}',
+    itemBorderWidth: '1px',
+    itemRadius: '0',
+    itemRadiusOuter: '{components.button.radius}',
+    itemGap: '{spacing.sm}',
+    itemPaddingX: {
+      sm: '{components.button.paddingX.sm}',
+      md: '{components.button.paddingX.md}',
+      lg: '{components.button.paddingX.lg}',
+    },
+    itemPaddingY: {
+      sm: '{components.button.paddingY.sm}',
+      md: '{components.button.paddingY.md}',
+      lg: '{components.button.paddingY.lg}',
+    },
+    itemFontSize: {
+      sm: '{components.button.fontSize.sm}',
+      md: '{components.button.fontSize.md}',
+      lg: '{components.button.fontSize.lg}',
+    },
+    fontWeight: '{components.button.fontWeight}',
+    focusRing: '{components.button.focusRing}',
+    opacityDisabled: '{components.button.opacityDisabled}',
+  },
+
   imageCropper: {
     // Drawn over the user's own image rather than over app chrome, so it's translucent white in
     // both modes by design -- one of the few places a raw value is the right answer.
@@ -770,6 +937,7 @@ const components: ComponentTokens = {
 
   knob: {
     valueFontSize: '1.5rem',
+    valueFontWeight: '{typography.fontWeight.medium}',
     labelColor: '{mutedForeground}',
     labelFontSize: '0.75rem',
   },

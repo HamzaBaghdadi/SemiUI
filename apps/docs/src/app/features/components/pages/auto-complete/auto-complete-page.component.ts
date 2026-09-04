@@ -237,6 +237,12 @@ onSearch(query: string): void {
       description: 'Custom rendering for each suggestion row.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container -- already the default here, so this only restates it.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -269,6 +275,7 @@ onSearch(query: string): void {
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: 'Present on the host while the suggestions panel is open.' },
     { name: 'data-active', description: 'Present on the keyboard-highlighted option.' },
   ];

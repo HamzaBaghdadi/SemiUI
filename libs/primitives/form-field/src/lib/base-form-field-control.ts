@@ -32,7 +32,14 @@ function noop(): void {
  * dependency (NG0200): the value-accessor lookup needs this component, which needs `NgControl`,
  * which needs the value-accessor lookup to resolve first.
  */
-@Directive()
+@Directive({
+  host: {
+    // Reflected as an attribute rather than a class so each component's own stylesheet can hook it
+    // with `:host([data-fluid])` -- a host *class* would need ::ng-deep or an unencapsulated rule
+    // to reach from the outside, which is exactly what `fluid` exists to spare callers.
+    '[attr.data-fluid]': "fluid() ? '' : null",
+  },
+})
 export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
   protected readonly ngControl = inject(NgControl, { optional: true, self: true });
 
@@ -59,6 +66,18 @@ export abstract class BaseFormFieldControl<T> implements ControlValueAccessor {
    * shouldn't offer to autofill (declared here for a consistent name across every field, even
    * though only subclasses with a real native text input actually consume it). */
   disableAutocomplete = input(false, { transform: booleanAttribute });
+  /**
+   * Stretches the field to fill its container instead of letting it size to its own content --
+   * the one-input replacement for reaching into a component from the outside with
+   * `[&_.s-text-input]:w-full` or a wrapper `div` set to `w-full`.
+   *
+   * Declared here for a consistent name across every field (the same reasoning as
+   * `disableAutocomplete` above); a field whose control has a fixed intrinsic size -- Checkbox,
+   * Switch, Rating, Knob -- has nothing to stretch and ignores it. Note that Select, Multiselect,
+   * Auto Complete and Cascade Select already span their container by default, so `fluid` is what
+   * they *always* do rather than something it turns on.
+   */
+  fluid = input(false, { transform: booleanAttribute });
   /** FormUiControl contract: emit on blur so Signal Forms marks the field touched. */
   touch = output<void>();
 

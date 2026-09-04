@@ -73,6 +73,49 @@ export class ToggleGroupPageComponent {
     this.disabled.update((value) => !value);
   }
 
+  protected paddedAlign = 'center';
+
+  /** The variables `paddedTrackCode`'s preset generates, applied inline by the demo -- the docs app
+   * can't install a second preset at runtime, so the demo applies what one would compile to.
+   * Verified against `buildThemeVars(definePreset(Semi, ...))`; if the snippet below changes,
+   * these change with it. */
+  protected readonly paddedTrackVars: Record<string, string> = {
+    '--semiui-comp-toggle-group-background': 'var(--semiui-color-muted)',
+    '--semiui-comp-toggle-group-border-width': '1px',
+    '--semiui-comp-toggle-group-radius': 'var(--semiui-radius-md)',
+    '--semiui-comp-toggle-group-padding': '0.25rem',
+    '--semiui-comp-toggle-group-gap': '0.25rem',
+    '--semiui-comp-toggle-group-item-border-width': '0px',
+    '--semiui-comp-toggle-group-item-radius': 'var(--semiui-radius-sm)',
+    '--semiui-comp-toggle-group-item-radius-outer': 'var(--semiui-radius-sm)',
+    '--semiui-comp-toggle-group-item-padding-x-md': '1rem',
+    '--semiui-comp-toggle-group-item-padding-y-md': '0.25rem',
+  };
+
+  protected readonly paddedTrackCode = `import { definePreset } from '@semiui/tokens';
+import { Semi } from '@semiui/presets-semi';
+
+export const MyTheme = definePreset(Semi, {
+  components: {
+    toggleGroup: {
+      // the track: a filled, bordered, padded container
+      background: '{muted}',
+      borderWidth: '1px',
+      radius: '{radius.md}',
+      padding: '0.25rem',
+      gap: '0.25rem',
+      // the segments: borderless pills, uniformly rounded
+      itemBorderWidth: '0px',
+      itemRadius: '{radius.sm}',
+      itemRadiusOuter: '{radius.sm}',
+      itemPaddingX: { md: '1rem' },
+      itemPaddingY: { md: '0.25rem' },
+    },
+  },
+});`;
+
+  protected readonly fluidCode = `<s-toggle-group [(ngModel)]="align" [items]="alignItems" [fluid]="true" />`;
+
   protected readonly ngModelCode = `protected align = 'left';
 
 <s-toggle-group [items]="alignItems" [(ngModel)]="align" />`;
@@ -134,6 +177,12 @@ protected profileForm = form(this.profileModel);
       description: 'Disables the whole group.',
     },
     {
+      name: 'allowEmpty',
+      type: 'boolean',
+      default: 'true',
+      description: 'Allows the group to have no selected items.',
+    },
+    {
       name: 'invalid',
       type: 'boolean',
       default: 'false',
@@ -144,6 +193,12 @@ protected profileForm = form(this.profileModel);
       type: 'string',
       default: "''",
       description: 'Message shown below the group while the field is invalid.',
+    },
+    {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the group to fill its container, with its segments dividing the width evenly.',
     },
     {
       name: 'autoFocus',
@@ -162,27 +217,39 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-variant', description: "The active variant, e.g. [data-variant='primary'] -- set on the host, drives the accent/solid tokens below." },
     { name: 'data-size', description: "The active size, e.g. [data-size='md'] -- set on the host, drives padding/font-size tokens." },
   ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
-    { name: '.s-toggle-group', description: 'The row of segments.' },
-    { name: '.s-toggle-group__item', description: 'A single segment button. Shares a collapsed border with its neighbors; only the first/last segment is rounded.' },
+    { name: '.s-toggle-group', description: 'The track holding the segments -- background, border, radius, padding and gap all come from tokens, so it is invisible by default and a real container once a preset turns it on.' },
+    { name: '.s-toggle-group__item', description: 'A single segment button. In the default (joined) style it shares a collapsed border with its neighbors and only the first/last segment is rounded.' },
     { name: '.s-toggle-group__icon', description: "Wraps a segment's icon." },
     { name: '.s-toggle-group__label', description: "Wraps a segment's label text." },
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
-    { name: '--semiui-comp-button-radius', description: "Corner radius of the group's first/last segment -- reuses Button's own tokens rather than owning a comp.toggleGroup block." },
-    { name: '--semiui-comp-button-font-weight', description: 'Segment label font weight.' },
-    { name: '--semiui-comp-button-focus-ring', description: 'Color of the focus-visible ring (rendered at 45% opacity).' },
-    { name: '--semiui-comp-button-padding-x-{sm,md,lg}', description: 'Horizontal padding per size.' },
-    { name: '--semiui-comp-button-padding-y-{sm,md,lg}', description: 'Vertical padding per size.' },
-    { name: '--semiui-comp-button-font-size-{sm,md,lg}', description: 'Font size per size.' },
+    {
+      name: '--semiui-comp-toggle-group-{background,border,border-width,radius,padding,gap}',
+      description: 'The track. All transparent/zero by default, so there is no visible container at all and the segments read as one joined row. Turning them up is what produces the padded segmented-control style.',
+    },
+    {
+      name: '--semiui-comp-toggle-group-item-{background,border-width,radius,gap}',
+      description: "A segment's own chrome. item-radius is 0 by default (square inner seams) and item-gap is the space between a segment's icon and its label.",
+    },
+    {
+      name: '--semiui-comp-toggle-group-item-radius-outer',
+      description: "The first and last segment's outer corners -- the ends of the group. Separate from item-radius so the joined default rounds the ends without rounding the shared seams; set both the same for uniformly rounded segments.",
+    },
+    { name: '--semiui-comp-toggle-group-item-padding-{x,y}-{sm,md,lg}', description: 'Segment padding per size. Defaults to Button\'s, so changing Button moves it unless a preset overrides it here.' },
+    { name: '--semiui-comp-toggle-group-item-font-size-{sm,md,lg}', description: "Segment font size per size. Defaults to Button's." },
+    { name: '--semiui-comp-toggle-group-font-weight', description: "Segment label font weight. Defaults to Button's." },
+    { name: '--semiui-comp-toggle-group-focus-ring', description: "Color of the focus-visible ring (rendered at 45% opacity). Defaults to Button's." },
+    { name: '--semiui-comp-toggle-group-opacity-disabled', description: "Opacity of a disabled segment. Defaults to Button's." },
     {
       name: '--semiui-comp-button-variants-{variant}-{background,foreground,border}',
-      description: 'Per-variant color triad, same tokens Button and Toggle Button read. Unselected uses background/border as the outlined accent color; selected fills with background/foreground/border directly.',
+      description: "Per-variant color triad, deliberately still Button's: a Toggle Group's \"primary\" is Button's primary, and copying the ramp here would be a second source of truth. Unselected uses background/border as the outlined accent color; selected fills with background/foreground/border directly.",
     },
   ];
 }

@@ -143,7 +143,22 @@ export type RadiusTokens = {
 export type TypographyTokens = {
   fontFamily: TokenValue;
   fontSize: { sm: TokenValue; md: TokenValue } & { [step: string]: TokenValue };
-  fontWeight: { medium: TokenValue } & { [step: string]: TokenValue };
+  /**
+   * The named weights components draw from. `medium` is the workhorse (labels, buttons, table
+   * headers); `semibold` and `bold` exist because components genuinely need them -- a stepper
+   * circle, a calendar title, an editor heading -- and a hardcoded 600 or 700 in a component's
+   * CSS is a weight no preset can ever restyle.
+   *
+   * Extra steps are allowed by the index signature. The four named ones are required so that a
+   * component referencing `{typography.fontWeight.semibold}` can never resolve to nothing in a
+   * hand-written preset.
+   */
+  fontWeight: {
+    normal: TokenValue;
+    medium: TokenValue;
+    semibold: TokenValue;
+    bold: TokenValue;
+  } & { [step: string]: TokenValue };
 };
 
 /**
@@ -185,16 +200,55 @@ export type ToastVariantTokens = SurfaceVariantTokens & {
   iconColor: TokenValue;
 };
 
+/**
+ * Toast's variants, split because the neutral one genuinely has no icon: `variantIcon()` returns a
+ * status glyph for success/error/warning/info and `null` for `default`, so an `iconColor` there
+ * would be a colour with nothing to paint -- config that reads as available and silently does
+ * nothing. Give Toast a `toastDefault` icon and this becomes a plain `Record` again.
+ */
+export type ToastVariantsTokens = Record<Exclude<ToastVariant, 'default'>, ToastVariantTokens> & {
+  default: SurfaceVariantTokens;
+};
+
+/**
+ * A button variant's own disabled palette, on top of the three surface colors it uses at rest.
+ *
+ * These exist per variant rather than once on `ButtonTokens` so a disabled button keeps its
+ * variant's identity instead of every variant collapsing into the same flat grey slab. Semi points
+ * each one back at the variant's *own* live color (`backgroundDisabled:
+ * '{components.button.variants.primary.background}'`) and dims the whole button with
+ * `opacityDisabled` -- so a preset that only recolors `background` gets a matching disabled state
+ * for free, and a preset that genuinely wants a flat grey disabled state says so explicitly.
+ *
+ * The outlined and text modifiers have no fill of their own, so `backgroundDisabled` is ignored
+ * for them (their background stays transparent); they use `borderDisabled` and `opacityDisabled`,
+ * and take their ink from the variant's accent color.
+ */
+export type ButtonVariantTokens = SurfaceVariantTokens & {
+  backgroundDisabled: TokenValue;
+  foregroundDisabled: TokenValue;
+  borderDisabled: TokenValue;
+  /** Any CSS opacity value -- `'60%'` or `'0.6'`. Applied to the button as a whole. */
+  opacityDisabled: TokenValue;
+};
+
 export type ButtonTokens = {
   radius: TokenValue;
   fontWeight: TokenValue;
   focusRing: TokenValue;
+  /**
+   * The disabled palette for a button with no variant of its own -- and the value Split Button,
+   * Toggle Button and Toggle Group read, none of which are variant-aware. A variant's own
+   * `variants.*.backgroundDisabled` (etc.) wins over these for `<s-button>`.
+   */
   backgroundDisabled: TokenValue;
   foregroundDisabled: TokenValue;
+  borderDisabled: TokenValue;
+  opacityDisabled: TokenValue;
   paddingX: Record<ButtonSize, TokenValue>;
   paddingY: Record<ButtonSize, TokenValue>;
   fontSize: Record<ButtonSize, TokenValue>;
-  variants: Record<ButtonVariant, SurfaceVariantTokens>;
+  variants: Record<ButtonVariant, ButtonVariantTokens>;
 };
 
 /** Input and Select share this field set; Select adds its own panel/option tokens on top. */
@@ -243,6 +297,8 @@ export type ComponentTokens = {
   select: SelectTokens;
   switch: {
     trackPadding: TokenValue;
+    /** Opacity of a disabled switch, on top of `backgroundDisabled`. Any CSS opacity value. */
+    opacityDisabled: TokenValue;
     trackBorderWidth: TokenValue;
     radius: TokenValue;
     background: TokenValue;
@@ -309,12 +365,15 @@ export type ComponentTokens = {
     statusAway: TokenValue;
     statusBusy: TokenValue;
     statusOffline: TokenValue;
+    /** Weight of the initials shown when there's no image. */
+    fontWeight: TokenValue;
     size: Record<AvatarSize, TokenValue>;
     fontSize: Record<AvatarSize, TokenValue>;
   };
   tag: {
     radius: TokenValue;
     fontSize: TokenValue;
+    fontWeight: TokenValue;
     paddingX: TokenValue;
     paddingY: TokenValue;
     variants: Record<TagVariant, SurfaceVariantTokens>;
@@ -324,12 +383,16 @@ export type ComponentTokens = {
     currentForeground: TokenValue;
     separatorColor: TokenValue;
     fontSize: TokenValue;
+    /** Weight of the trailing "you are here" item, which is what distinguishes it from the
+     * links before it alongside `currentForeground`. */
+    currentFontWeight: TokenValue;
     gap: TokenValue;
   };
   badge: {
     size: TokenValue;
     dotSize: TokenValue;
     fontSize: TokenValue;
+    fontWeight: TokenValue;
     ringColor: TokenValue;
     variants: Record<TagVariant, SurfaceVariantTokens>;
   };
@@ -392,6 +455,10 @@ export type ComponentTokens = {
     labelColorActive: TokenValue;
     descriptionColor: TokenValue;
     fontSize: TokenValue;
+    /** Weight of the number inside a step's circle. */
+    circleFontWeight: TokenValue;
+    /** Weight of a step's label. */
+    labelFontWeight: TokenValue;
     gap: TokenValue;
   };
   slider: {
@@ -424,15 +491,32 @@ export type ComponentTokens = {
     radius: TokenValue;
     headerBackground: TokenValue;
     headerForeground: TokenValue;
+    /**
+     * A body row's own fill, underneath the three state layers below. Transparent by default, so
+     * rows show whatever surface the table sits on; point it at `{background}` for opaque rows
+     * (which also makes a striped table's odd rows read as a deliberate stripe rather than as the
+     * surface showing through).
+     */
     rowBackground: TokenValue;
     rowBackgroundStriped: TokenValue;
     rowBackgroundHover: TokenValue;
     rowBackgroundSelected: TokenValue;
+    /** Body cell text color. Header cells use `headerForeground`. */
+    rowForeground: TokenValue;
     fontSize: TokenValue;
+    /** Weight of a header cell. Tree Table reads this too -- its header is the same header. */
+    headerFontWeight: TokenValue;
     cellPaddingX: TokenValue;
     cellPaddingY: TokenValue;
     sortIconColor: TokenValue;
     sortIconColorActive: TokenValue;
+    sortIconSize: TokenValue;
+    /** Width of the leading selection column, when `selectionMode` renders one. */
+    checkboxColumnWidth: TokenValue;
+    /** How wide the toolbar's filter field is allowed to grow. */
+    filterMaxWidth: TokenValue;
+    /** Width of the footer's rows-per-page Select. */
+    rowsPerPageWidth: TokenValue;
   };
   colorPicker: {
     svAreaSize: TokenValue;
@@ -456,6 +540,9 @@ export type ComponentTokens = {
     navBackgroundHover: TokenValue;
     weekdayForeground: TokenValue;
     monthLabelForeground: TokenValue;
+    /** Weight of the panel's own chrome -- the month/year buttons and the time separator -- as
+     * opposed to the day numbers in the grid, which stay at the inherited weight. */
+    labelFontWeight: TokenValue;
   };
   carousel: {
     radius: TokenValue;
@@ -476,10 +563,11 @@ export type ComponentTokens = {
     gap: TokenValue;
     /** Every toast's width, e.g. `'24rem'`. */
     width: TokenValue;
+    titleFontWeight: TokenValue;
     /** `backdrop-filter` value applied to every toast, e.g. `'blur(12px)'`. `'none'` disables it.
      * Pairs with translucent variant backgrounds (see `variants.*.background`). */
     blur: TokenValue;
-    variants: Record<ToastVariant, ToastVariantTokens>;
+    variants: ToastVariantsTokens;
   };
   fileUpload: {
     border: TokenValue;
@@ -535,6 +623,11 @@ export type ComponentTokens = {
      * `{spacing.md}` -- it matches on every preset's spacing scale. */
     toolbarButtonPaddingY: TokenValue;
     titleFontSize: TokenValue;
+    titleFontWeight: TokenValue;
+    /** Weight of the Mon/Tue/... column headings. */
+    weekdayFontWeight: TokenValue;
+    /** Weight of today's date number, which is what makes it read as today alongside its fill. */
+    todayFontWeight: TokenValue;
     cellMinHeight: TokenValue;
     cellMinHeightWeek: TokenValue;
     eventsGap: TokenValue;
@@ -557,6 +650,8 @@ export type ComponentTokens = {
     contentHeadingFontSizeLg: TokenValue;
     /** `font-size` of an `<h2>` inside the editable content, in `em`. */
     contentHeadingFontSizeMd: TokenValue;
+    /** Weight shared by `<h1>` and `<h2>` inside the editable content. */
+    contentHeadingFontWeight: TokenValue;
     /** Vertical margin shared by headings, paragraphs, and lists inside the editable content. */
     contentBlockSpacing: TokenValue;
     /** `padding-inline-start` of `<ul>`/`<ol>` inside the editable content, in `em`. */
@@ -568,6 +663,9 @@ export type ComponentTokens = {
      * orientation's connector length maps directly to `{spacing.lg}`. */
     connectorMinLength: TokenValue;
     contentGap: TokenValue;
+    /** Weight of an entry's title. Timeline reuses `stepper.*` for its font size and label
+     * colors -- an entry genuinely is a step -- but Stepper has no title of its own. */
+    titleFontWeight: TokenValue;
   };
   cascadeSelect: {
     /** `min-width` of one cascade column's panel. Deliberately narrower than a top-level Select
@@ -594,6 +692,53 @@ export type ComponentTokens = {
   splitButton: {
     menuMinWidth: TokenValue;
   };
+  /**
+   * A segmented control is a *track* holding *segments*, and the two have to be styleable
+   * independently -- which is exactly what reusing `button.*` throughout could not express.
+   *
+   * The colors are still Button's: a Toggle Group's "primary" genuinely is Button's primary, and
+   * copying `variants.*` here would be the duplicated-semantic-value this file warns about. What
+   * lives here is the chrome and geometry that make the thing a group rather than a row of
+   * buttons, plus the handful of shared decisions (padding, font, focus ring) a preset needs to
+   * be able to move for the group *without* moving them for every Button on the page.
+   *
+   * Semi's defaults reproduce the joined-buttons look exactly -- a track with no fill, border or
+   * padding, over segments sharing a collapsed 1px border with only the group's outer corners
+   * rounded. Repointing six of them gives the padded-track style instead: a filled, bordered
+   * track with a gap between individually rounded, borderless segments.
+   */
+  toggleGroup: {
+    // --- the track -----------------------------------------------------------------------------
+    background: TokenValue;
+    /** Only visible once `borderWidth` is non-zero, which is why the two are separate: a preset
+     * turning the track on sets the width and inherits a sensible color. */
+    border: TokenValue;
+    borderWidth: TokenValue;
+    radius: TokenValue;
+    padding: TokenValue;
+    /** Space between segments. Non-zero is what separates them into individual pills; it also
+     * cancels the shared-border collapse, since segments that don't touch have no seam to merge. */
+    gap: TokenValue;
+
+    // --- the segments --------------------------------------------------------------------------
+    itemBackground: TokenValue;
+    itemBorderWidth: TokenValue;
+    /** Every segment's corners. `0` in the joined default, so only the group's two outer corners
+     * (below) are rounded. */
+    itemRadius: TokenValue;
+    /** The first and last segment's *outer* corners -- the ends of the group. Kept separate from
+     * `itemRadius` so the joined default can round the group's ends without rounding the shared
+     * inner seams; set both to the same value for uniformly rounded segments. */
+    itemRadiusOuter: TokenValue;
+    /** Space between a segment's icon and its label. */
+    itemGap: TokenValue;
+    itemPaddingX: Record<ButtonSize, TokenValue>;
+    itemPaddingY: Record<ButtonSize, TokenValue>;
+    itemFontSize: Record<ButtonSize, TokenValue>;
+    fontWeight: TokenValue;
+    focusRing: TokenValue;
+    opacityDisabled: TokenValue;
+  };
   imageCropper: {
     /** Rule-of-thirds grid line color, drawn over the cropped image itself rather than over app
      * chrome -- conventionally a translucent white regardless of light/dark theme. */
@@ -616,6 +761,7 @@ export type ComponentTokens = {
     /** The track reuses `{muted}` and the arc reuses `{primary}` directly in CSS -- same precedent
      * as Progress Bar's track/fill. Only the sizing/label values are new to this component. */
     valueFontSize: TokenValue;
+    valueFontWeight: TokenValue;
     labelColor: TokenValue;
     labelFontSize: TokenValue;
   };

@@ -84,6 +84,12 @@ protected noteForm = form(this.noteModel);
       description: 'Disables editing. Also set automatically when the bound reactive-forms control is disabled.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the editor to fill its container, including inside a flex row.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -99,6 +105,10 @@ protected noteForm = form(this.noteModel);
     },
   ];
 
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
+  ];
+
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-rich-text-editor', description: 'The bordered wrapper around the toolbar and content area.' },
     { name: '.s-rich-text-editor__toolbar', description: 'The row of formatting buttons.' },
@@ -108,6 +118,7 @@ protected noteForm = form(this.noteModel);
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-rich-text-editor-content-heading-font-weight', description: "Weight shared by <h1> and <h2> inside the editable content." },
     { name: '--semiui-comp-input-*', description: "Reused directly -- border, radius, background, typography, and focus/invalid/disabled colors all match Text Input and Textarea." },
     { name: '--semiui-color-primary', description: 'Active-tool highlight color, and link text color inside the content.' },
     { name: '--semiui-color-muted', description: "The toolbar's background." },

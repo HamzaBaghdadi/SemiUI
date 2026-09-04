@@ -78,6 +78,7 @@ export class TagPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-tag-font-weight', description: "Label font weight. Tag previously inherited whatever weight surrounded it; it now sits at medium, matching Badge." },
     { name: '--semiui-comp-tag-padding-x', description: 'Horizontal padding.' },
     { name: '--semiui-comp-tag-padding-y', description: 'Vertical padding.' },
     { name: '--semiui-comp-tag-radius', description: 'Corner radius.' },

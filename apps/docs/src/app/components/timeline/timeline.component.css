@@ -112,7 +112,7 @@
 
 .s-timeline__title {
   font-size: var(--semiui-comp-stepper-font-size);
-  font-weight: 600;
+  font-weight: var(--semiui-comp-timeline-title-font-weight);
   color: var(--semiui-comp-stepper-label-color-active);
 }
 

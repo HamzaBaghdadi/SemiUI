@@ -43,7 +43,11 @@
     </ng-template>
 
     <ng-template #theming>
-      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
     </ng-template>
   </app-component-page-tabs>
 </div>

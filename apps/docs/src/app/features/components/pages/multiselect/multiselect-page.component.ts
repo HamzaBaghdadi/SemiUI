@@ -226,6 +226,12 @@ protected profileForm = form(this.profileModel);
       description: 'Marks the control invalid, in addition to any reactive-forms/Signal-Forms invalid state detected automatically.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container -- already the default here, so this only restates it.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -242,6 +248,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: "Present on the host while the panel is open -- e.g. [data-open] rotates the trigger's chevron icon." },
   ];
 

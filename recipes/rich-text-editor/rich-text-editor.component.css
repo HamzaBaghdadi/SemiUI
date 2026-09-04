@@ -92,13 +92,13 @@
 
 .s-rich-text-editor__content h1 {
   font-size: var(--semiui-comp-rich-text-editor-content-heading-font-size-lg);
-  font-weight: 700;
+  font-weight: var(--semiui-comp-rich-text-editor-content-heading-font-weight);
   margin: var(--semiui-comp-rich-text-editor-content-block-spacing) 0;
 }
 
 .s-rich-text-editor__content h2 {
   font-size: var(--semiui-comp-rich-text-editor-content-heading-font-size-md);
-  font-weight: 700;
+  font-weight: var(--semiui-comp-rich-text-editor-content-heading-font-weight);
   margin: var(--semiui-comp-rich-text-editor-content-block-spacing) 0;
 }
 
@@ -115,4 +115,10 @@
 .s-rich-text-editor__content a {
   color: var(--semiui-color-primary);
   text-decoration: underline;
+}
+
+/* fluid -- see File Upload: block already fills normal flow, the width is what covers a flex row. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
 }

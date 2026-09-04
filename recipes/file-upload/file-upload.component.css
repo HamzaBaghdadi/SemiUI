@@ -147,3 +147,10 @@
   width: 1rem;
   height: 1rem;
 }
+
+/* fluid -- the host is already a block (full width in normal flow); the explicit width is what
+   makes it fill a flex row too, where a bare block shrink-wraps instead. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}

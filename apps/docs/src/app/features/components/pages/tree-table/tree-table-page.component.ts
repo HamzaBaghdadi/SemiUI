@@ -164,9 +164,11 @@ protected nodes = [
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-table-header-font-weight', description: "Weight of a header cell -- Table's token, since Tree Table's header is the same header." },
     {
       name: '--semiui-comp-table-*',
-      description: 'Reused directly from Table -- border, radius, header/row colors, cell padding, font size all match a plain Table.',
+      description:
+        'Reused directly from Table -- border, radius, header/row colors, cell padding, font size all match a plain Table. Row backgrounds layer the same way too: row-background, then striped, then hover, then selected.',
     },
     {
       name: '--semiui-comp-radio-*',

@@ -73,7 +73,7 @@
 .s-full-calendar__title {
   margin: 0;
   font-size: var(--semiui-comp-full-calendar-title-font-size);
-  font-weight: 600;
+  font-weight: var(--semiui-comp-full-calendar-title-font-weight);
   color: var(--semiui-color-foreground);
 }
 
@@ -110,7 +110,7 @@
   padding: var(--semiui-spacing-xs) var(--semiui-spacing-sm);
   text-align: center;
   font-size: var(--semiui-comp-table-font-size);
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-full-calendar-weekday-font-weight);
   color: var(--semiui-comp-table-header-foreground);
 }
 
@@ -166,7 +166,7 @@
 .s-full-calendar__cell--today .s-full-calendar__day-number {
   background: var(--semiui-color-primary);
   color: var(--semiui-comp-button-variants-primary-foreground);
-  font-weight: 600;
+  font-weight: var(--semiui-comp-full-calendar-today-font-weight);
 }
 
 .s-full-calendar__events {

@@ -125,6 +125,8 @@ export class StepperPageComponent {
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
+    { name: '--semiui-comp-stepper-circle-font-weight', description: "Weight of the number inside a step's circle." },
+    { name: '--semiui-comp-stepper-label-font-weight', description: "Weight of a step's label." },
     { name: '--semiui-comp-stepper-gap', description: 'Gap between steps.' },
     { name: '--semiui-comp-stepper-circle-size', description: 'Diameter of the step circle.' },
     { name: '--semiui-comp-stepper-font-size', description: "Font size for the circle number and step label; the description uses 85% of it." },

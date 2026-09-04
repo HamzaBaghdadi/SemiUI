@@ -31,9 +31,12 @@ export class ButtonPageComponent {
   protected variants: ButtonVariant[] = ['primary', 'secondary', 'destructive', 'link'];
   protected severities: ButtonVariant[] = ['success', 'info', 'warn', 'help', 'danger', 'contrast'];
   protected allSeverities: ButtonVariant[] = ['primary', 'secondary', 'success', 'info', 'warn', 'help', 'danger', 'contrast'];
+  protected allVariants: ButtonVariant[] = ['primary', 'secondary', 'destructive', 'danger', 'success', 'info', 'warn', 'help', 'contrast', 'link'];
   protected sizes: ButtonSize[] = ['sm', 'md', 'lg'];
   protected loading = signal(false);
   protected saveIcon: IconRef = { type: 'ng-icon', name: 'lucideSave' };
+
+  protected readonly fluidCode = `<s-button [fluid]="true">Continue</s-button>`;
 
   protected readonly variantsCode = `<s-button variant="primary">primary</s-button>
 <s-button variant="destructive">destructive</s-button>`;
@@ -53,6 +56,28 @@ export class ButtonPageComponent {
   protected readonly iconOnlyCode = `<s-button icon [iconLeading]="{ type: 'ng-icon', name: 'lucideSave' }" aria-label="Save" />`;
 
   protected readonly iconCode = `<s-button [iconLeading]="{ type: 'ng-icon', name: 'lucideSave' }">Save</s-button>`;
+
+  protected readonly disabledCode = `<s-button variant="destructive" [disabled]="true">destructive</s-button>
+<s-button variant="success" [outlined]="true" [disabled]="true">success</s-button>`;
+
+  protected readonly disabledPresetCode = `definePreset(Semi, {
+  components: {
+    button: {
+      // Every variant carries its own disabled palette, defaulting to that
+      // variant's live colors -- override one variant, or all of them.
+      variants: {
+        destructive: { opacityDisabled: '45%' },
+        // Prefer the flat-grey disabled style? Point them at a neutral:
+        primary: {
+          backgroundDisabled: '{muted}',
+          foregroundDisabled: '{mutedForeground}',
+          borderDisabled: '{muted}',
+          opacityDisabled: '100%',
+        },
+      },
+    },
+  },
+})`;
 
   protected readonly loadingCode = `<s-button [loading]="isSubmitting()">Submit</s-button>`;
 
@@ -92,6 +117,12 @@ export class ButtonPageComponent {
       description: 'Transparent background, no border, text in the variant color. Combines with any variant.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the button to fill its container instead of sizing to its label -- replaces reaching in with [&_.s-button]:w-full.',
+    },
+    {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
@@ -126,6 +157,7 @@ export class ButtonPageComponent {
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-variant', description: "The active variant, e.g. [data-variant='primary'] -- drives the color tokens read below." },
     { name: 'data-size', description: "The active size, e.g. [data-size='md'] -- drives padding and font-size tokens." },
     { name: 'data-icon-only', description: 'Present when icon is set -- makes the button a 1:1 square.' },
@@ -135,7 +167,7 @@ export class ButtonPageComponent {
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-button', description: 'The inner element carrying background, border, and typography.' },
-    { name: '.s-button--loading', description: "Applied while loading -- keeps the variant's colors but dims via opacity instead of the flat disabled palette." },
+    { name: '.s-button--loading', description: "Applied while loading -- keeps the variant's at-rest colors rather than switching to its disabled ones." },
     { name: '.s-button__icon', description: 'Wraps each rendered icon (leading, trailing, or loading spinner).' },
     { name: '.s-button__icon--spin', description: 'Added to the loading icon to animate its rotation.' },
   ];
@@ -144,14 +176,27 @@ export class ButtonPageComponent {
     { name: '--semiui-comp-button-radius', description: 'Corner radius, shared across all sizes and variants.' },
     { name: '--semiui-comp-button-font-weight', description: 'Label font weight.' },
     { name: '--semiui-comp-button-focus-ring', description: 'Color of the focus-visible ring (rendered at 45% opacity).' },
-    { name: '--semiui-comp-button-background-disabled', description: 'Background (and border) when disabled and not loading.' },
-    { name: '--semiui-comp-button-foreground-disabled', description: 'Text color when disabled and not loading.' },
+    {
+      name: '--semiui-comp-button-{background,foreground,border,opacity}-disabled',
+      description:
+        'Disabled fallback, used only by a button with no variant. Every variant overrides these with its own disabled tokens below.',
+    },
     { name: '--semiui-comp-button-padding-x-{sm,md,lg}', description: 'Horizontal padding per size.' },
     { name: '--semiui-comp-button-padding-y-{sm,md,lg}', description: 'Vertical padding per size.' },
     { name: '--semiui-comp-button-font-size-{sm,md,lg}', description: 'Font size per size.' },
     {
       name: '--semiui-comp-button-variants-{variant}-{background,foreground,border}',
       description: 'Per-variant color triad (primary, secondary, destructive, danger, success, info, warn, help, contrast, link). Hover/active states are derived from background/border via color-mix(), not separate tokens.',
+    },
+    {
+      name: '--semiui-comp-button-variants-{variant}-{background,foreground,border}-disabled',
+      description:
+        "Per-variant disabled triad. Each defaults to that variant's own at-rest color, so a disabled button keeps its identity instead of collapsing to grey -- set them to a neutral if you want the flat-grey style. Outlined and text buttons have no fill, so background-disabled is ignored for them; their ink follows the variant's accent color.",
+    },
+    {
+      name: '--semiui-comp-button-variants-{variant}-opacity-disabled',
+      description:
+        "Opacity applied to the whole button when disabled -- the sole source of the dimming, since the disabled colors are the variant's own. Any CSS opacity value ('60%' or '0.6'); note a bare '60' clamps to a fully opaque 1.",
     },
   ];
 }

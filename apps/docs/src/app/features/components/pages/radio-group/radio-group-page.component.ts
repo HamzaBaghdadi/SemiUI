@@ -144,6 +144,12 @@ protected profileForm = form(this.profileModel);
       description: 'Forces the invalid visual state and error message, independent of form-control validity.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the group to fill its container.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -160,6 +166,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-direction', description: "The active direction, e.g. [data-direction='horizontal'] -- switches the group to a row layout." },
     { name: 'data-size', description: "The active size, e.g. [data-size='md'] -- drives each radio dot's diameter." },
   ];

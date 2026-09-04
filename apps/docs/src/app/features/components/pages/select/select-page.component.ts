@@ -217,6 +217,12 @@ protected profileForm = form(this.profileModel);
       description: 'Content-projected template slot. Rendered below the option list.',
     },
     {
+      name: 'fluid',
+      type: 'boolean',
+      default: 'false',
+      description: 'Stretches the field to fill its container -- already the default here, so this only restates it.',
+    },
+    {
       name: 'autoFocus',
       type: 'boolean',
       default: 'false',
@@ -233,6 +239,7 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-fluid', description: 'Present on the host when fluid is set -- switches it to full-container width.' },
     { name: 'data-open', description: 'Present on the host while the panel is open -- rotates the chevron icon.' },
     { name: 'data-placement', description: "On the panel: 'top' or 'bottom' -- which side of the trigger it opened on." },
     { name: 'data-appended', description: "On the panel: present when appendTo=\"body\" -- switches it to fixed, pixel-positioned layout." },

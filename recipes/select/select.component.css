@@ -257,3 +257,10 @@
   background: var(--semiui-comp-select-option-background-selected);
   color: var(--semiui-comp-select-option-foreground-selected);
 }
+
+/* fluid -- Select already spans its container (see the width on :host above), so this is what
+   it does with or without the attribute. The rule exists so the input is honoured rather than
+   silently ignored, and so the behaviour survives any future change to that default. */
+:host([data-fluid]) {
+  width: 100%;
+}

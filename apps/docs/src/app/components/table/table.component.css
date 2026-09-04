@@ -13,7 +13,7 @@
 .s-table__filter {
   display: block;
   width: 100%;
-  max-width: 20rem;
+  max-width: var(--semiui-comp-table-filter-max-width);
 }
 
 /* Visually hidden but still reachable by assistive tech -- the search field's accessible name
@@ -57,7 +57,7 @@
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   text-align: start;
-  font-weight: var(--semiui-typography-font-weight-medium);
+  font-weight: var(--semiui-comp-table-header-font-weight);
   color: var(--semiui-comp-table-header-foreground);
   border-bottom: 1px solid var(--semiui-comp-table-border);
   white-space: nowrap;
@@ -69,18 +69,18 @@
 }
 
 .s-table__th--checkbox {
-  width: 2.5rem;
+  width: var(--semiui-comp-table-checkbox-column-width);
 }
 
 .s-table__th-content {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--semiui-spacing-xs);
 }
 
 .s-table__sort-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: var(--semiui-comp-table-sort-icon-size);
+  height: var(--semiui-comp-table-sort-icon-size);
   color: var(--semiui-comp-table-sort-icon-color);
   transform: rotate(180deg);
   transition: transform 0.15s ease, color 0.15s ease;
@@ -98,11 +98,11 @@
   box-sizing: border-box;
   padding: var(--semiui-comp-table-cell-padding-y) var(--semiui-comp-table-cell-padding-x);
   border-bottom: 1px solid var(--semiui-comp-table-border);
-  color: var(--semiui-color-foreground);
+  color: var(--semiui-comp-table-row-foreground);
 }
 
 .s-table__td--checkbox {
-  width: 2.5rem;
+  width: var(--semiui-comp-table-checkbox-column-width);
 }
 
 /* No standalone single-radio component exists (only a whole RadioGroup, which renders every
@@ -168,7 +168,18 @@
   border-bottom: none;
 }
 
-.s-table[data-striped] .s-table__tr:nth-child(even) {
+/* Row backgrounds are four layers: the row's own fill (here), the stripe, hover, and selection.
+   Order and weight matter -- see the note on the stripe below. */
+.s-table__tr {
+  background: var(--semiui-comp-table-row-background);
+}
+
+/* The stripe deliberately carries none of its own specificity: written the obvious way
+   (.s-table[data-striped] .s-table__tr:nth-child(even)) it outweighs both state rules below, and
+   hovering or selecting an even row of a striped table did nothing at all. :where() drops it to
+   the same weight as the base fill above, so it wins on source order and the state layers still
+   win over it on theirs. */
+:where(.s-table[data-striped]) .s-table__tr:where(:nth-child(even)) {
   background: var(--semiui-comp-table-row-background-striped);
 }
 
@@ -186,12 +197,13 @@
   background: var(--semiui-comp-table-row-background-hover);
 }
 
-.s-table__tr--clickable {
-  cursor: pointer;
-}
-
+/* Last of the four layers, so a selected row stays visibly selected while hovered. */
 .s-table__tr[data-selected] {
   background: var(--semiui-comp-table-row-background-selected);
+}
+
+.s-table__tr--clickable {
+  cursor: pointer;
 }
 
 .s-table__state-row .s-table__loading,
@@ -209,8 +221,10 @@
 }
 
 .s-table__loading-icon {
-  width: 1rem;
-  height: 1rem;
+  /* {spacing.lg} rather than a bare 1rem -- Tree Table already sizes its identical spinner from
+     the same token, and the two should not drift apart on a preset with a different scale. */
+  width: var(--semiui-spacing-lg);
+  height: var(--semiui-spacing-lg);
   animation: s-table-spin 0.8s linear infinite;
   transform-origin: 50% 50%;
   /* Without this, some browsers recompute the (slightly larger, anti-aliased) axis-aligned
@@ -267,5 +281,5 @@
 }
 
 .s-table__rows-per-page s-select {
-  width: 5rem;
+  width: var(--semiui-comp-table-rows-per-page-width);
 }

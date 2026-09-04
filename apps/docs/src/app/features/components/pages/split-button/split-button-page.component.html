@@ -38,6 +38,23 @@
           </app-component-demo>
           <app-code-block filename="Usage" [code]="sizesCode"></app-code-block>
         </div>
+
+          <div class="flex flex-col gap-3">
+            <h2 class="text-xl font-bold">Fluid</h2>
+            <p class="text-sm text-muted-foreground max-w-xl">
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">fluid</code> stretches the button to fill its container. The caret segment keeps
+              its square footprint -- its width is derived from the shared row height -- so the labeled
+              segment absorbs all of the extra width.
+            </p>
+            <app-component-demo block>
+              <div class="max-w-sm">
+                <s-split-button [items]="exportItems" [fluid]="true" (pressed)="onPressed()" (itemSelected)="onItemSelected($event)">
+                  Save
+                </s-split-button>
+              </div>
+            </app-component-demo>
+            <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
+          </div>
       </div>
     </ng-template>
 
@@ -46,7 +63,11 @@
     </ng-template>
 
     <ng-template #theming>
-      <app-theming-table [cssClasses]="themingCssClasses" [cssVariables]="themingCssVariables"></app-theming-table>
+      <app-theming-table
+        [dataAttributes]="themingDataAttributes"
+        [cssClasses]="themingCssClasses"
+        [cssVariables]="themingCssVariables"
+      ></app-theming-table>
     </ng-template>
   </app-component-page-tabs>
 </div>

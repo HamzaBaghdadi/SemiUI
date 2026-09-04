@@ -97,6 +97,40 @@
             <s-button variant="secondary" (pressed)="toggleDisabled()">Toggle disabled</s-button>
           </app-component-demo>
         </div>
+
+          <div class="flex flex-col gap-3">
+            <h2 class="text-xl font-bold">Preset styling</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            The group is a <em>track</em> holding <em>segments</em>, and both are driven entirely by
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.toggleGroup</code>
+            tokens -- background, border, radius, padding and gap on the track; border, radius and
+            padding on the segments. The default is a track with none of those turned on, which is
+            why segments read as one joined row. Turning them up gives the padded segmented-control
+            style below, with no CSS of your own. Colors stay on
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">components.button.variants</code>
+            deliberately -- a Toggle Group's "primary" is Button's primary.
+          </p>
+          <app-component-demo block>
+            <div [style]="paddedTrackVars">
+              <s-toggle-group [items]="alignItems" [(ngModel)]="paddedAlign"></s-toggle-group>
+            </div>
+          </app-component-demo>
+          <app-code-block filename="my-theme.ts" [code]="paddedTrackCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Fluid</h2>
+            <p class="text-sm text-muted-foreground max-w-xl">
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">fluid</code> stretches the group to fill its container, and its segments then
+              divide that width evenly rather than each sizing to its own label.
+            </p>
+            <app-component-demo block>
+              <div class="max-w-md">
+                <s-toggle-group [(ngModel)]="align" [items]="alignItems" [fluid]="true" />
+              </div>
+            </app-component-demo>
+            <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
+          </div>
       </div>
     </ng-template>
 

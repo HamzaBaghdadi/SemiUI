@@ -102,6 +102,41 @@
         </div>
 
         <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Disabled</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            A disabled button keeps its own variant's colors and dims, so a disabled
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">destructive</code> still reads as
+            red rather than collapsing to grey. Each color is a preset token
+            (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">backgroundDisabled</code>,
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">foregroundDisabled</code>,
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">borderDisabled</code>) and the
+            dimming is <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">opacityDisabled</code>
+            -- point them at a neutral for one flat grey across every variant.
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">outlined</code> and
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text</code> have no fill, so
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">backgroundDisabled</code> is
+            ignored for them.
+          </p>
+          <app-component-demo>
+            @for (variant of allVariants; track variant) {
+              <s-button [variant]="variant" [disabled]="true">{{ variant }}</s-button>
+            }
+          </app-component-demo>
+          <app-component-demo>
+            @for (variant of allVariants; track variant) {
+              <s-button [variant]="variant" [outlined]="true" [disabled]="true">{{ variant }}</s-button>
+            }
+          </app-component-demo>
+          <app-component-demo>
+            @for (variant of allVariants; track variant) {
+              <s-button [variant]="variant" [text]="true" [disabled]="true">{{ variant }}</s-button>
+            }
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="disabledCode"></app-code-block>
+          <app-code-block filename="Preset" [code]="disabledPresetCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
           <h2 class="text-xl font-bold">Loading state</h2>
           <p class="text-sm text-muted-foreground max-w-xl">
             <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">loading</code> disables the button
@@ -116,6 +151,25 @@
           </app-component-demo>
           <app-code-block filename="Usage" [code]="loadingCode"></app-code-block>
         </div>
+
+          <div class="flex flex-col gap-3">
+            <h2 class="text-xl font-bold">Fluid</h2>
+            <p class="text-sm text-muted-foreground max-w-xl">
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">fluid</code> stretches the button to fill its container instead of sizing to
+              its label -- the built-in replacement for reaching in from outside with
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">[&amp;_.s-button]:w-full</code>. It combines with every variant, size, and with
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">outlined</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">text</code>.
+            </p>
+            <app-component-demo block>
+              <div class="flex flex-col gap-3 max-w-sm">
+                @for (variant of variants; track variant) {
+                  <s-button [variant]="variant" [fluid]="true">{{ variant }}</s-button>
+                }
+                <s-button [outlined]="true" [fluid]="true" [iconLeading]="saveIcon">Save changes</s-button>
+              </div>
+            </app-component-demo>
+            <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
+          </div>
       </div>
     </ng-template>
 

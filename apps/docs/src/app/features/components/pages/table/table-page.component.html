@@ -188,6 +188,64 @@
             </li>
           </ul>
         </div>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Lazy loading (server-side)</h2>
+          <p class="text-sm text-muted-foreground max-w-2xl">
+            Filtering, sorting and paging above all run in the browser over the whole
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">data</code> array, which stops
+            being viable once the dataset outgrows what you want to ship to the client.
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">lazy</code> turns that off: the
+            table renders <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">data</code>
+            untouched, reads its page count from
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">totalRecords</code>, and emits
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">lazyLoad</code> with the offset,
+            page size, sort and filter every time any of them changes -- once on init too, so the
+            first page comes from the same handler.
+          </p>
+          <p class="text-sm text-muted-foreground max-w-2xl">
+            The demo below is backed by a stand-in "server" holding 213 rows that answers after
+            350ms. Sort a column, page, change the rows per page or search -- the request the table
+            asked for is printed underneath.
+          </p>
+          <app-component-demo block>
+            <s-table
+              [columns]="basicColumns"
+              [data]="lazyPeople()"
+              [lazy]="true"
+              [totalRecords]="lazyTotal()"
+              [loading]="lazyLoading()"
+              [paginated]="true"
+              [filterable]="true"
+              [showSummary]="true"
+              [rowsPerPageOptions]="[5, 10, 25]"
+              [pageSize]="5"
+              filterPlaceholder="Search 213 rows..."
+              (lazyLoad)="onLazyLoad($event)"
+            />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">
+            Last request:
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">{{ lazyLastRequest() }}</code>
+          </p>
+          <app-code-block filename="Usage" [code]="lazyCode"></app-code-block>
+          <app-code-block filename="Handler" [code]="lazyHandlerCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Events</h2>
+          <p class="text-sm text-muted-foreground max-w-2xl">
+            Every piece of table state is a two-way model, so each one emits its own change event
+            whether or not <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">lazy</code> is
+            set -- bind them to drive analytics, sync the URL, or restore state on return. Sorting
+            also emits <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">sortChange</code>
+            with the field and direction together.
+          </p>
+          <app-component-demo block>
+            <s-table [columns]="basicColumns" [data]="people" (sortChange)="onSortChange($event)" />
+          </app-component-demo>
+          <p class="text-sm text-muted-foreground">Last sort: {{ lastSort() }}</p>
+          <app-code-block filename="Usage" [code]="eventsCode"></app-code-block>
+        </div>
       </div>
     </ng-template>
 

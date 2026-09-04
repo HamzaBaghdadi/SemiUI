@@ -57,3 +57,10 @@
   color: var(--semiui-comp-input-placeholder-foreground);
   pointer-events: none;
 }
+
+/* fluid -- see Text Input: the textarea is already width:100% inside its wrapper, so the host
+   is the only thing that needs a width. */
+:host([data-fluid]) {
+  display: block;
+  width: 100%;
+}

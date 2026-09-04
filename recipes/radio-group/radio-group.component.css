@@ -99,3 +99,14 @@
   font-family: var(--semiui-typography-font-family);
   color: var(--semiui-color-foreground);
 }
+
+/* fluid -- the option list spans the container. Useful mainly for direction="horizontal", where
+   the options then spread across the full width instead of bunching at the start. */
+:host([data-fluid]) {
+  display: flex;
+  width: 100%;
+}
+
+:host([data-fluid]) .s-radio-group {
+  width: 100%;
+}

@@ -1,5 +1,6 @@
 /**
- * Regenerates `recipes/tailwind/tailwind.css` from the Semi preset's token tree.
+ * Regenerates the Tailwind bridge CSS from the Semi preset's token tree -- both the copy shipped as
+ * a recipe and the one the docs app imports.
  *
  *   npx tsx scripts/generate-tailwind-recipe.mts
  *
@@ -16,6 +17,16 @@ import { join } from 'path';
 import { renderTailwindThemeCss } from '../libs/tailwind/src/lib/render-css';
 import { Semi } from '../libs/presets/semi/src/lib/semi';
 
-const target = join(process.cwd(), 'recipes', 'tailwind', 'tailwind.css');
-writeFileSync(target, renderTailwindThemeCss({ preset: Semi }), 'utf8');
-console.log(`Wrote ${target}`);
+const css = renderTailwindThemeCss({ preset: Semi });
+
+const targets = [
+  join(process.cwd(), 'recipes', 'tailwind', 'tailwind.css'),
+  // The docs app imports this from src/styles.css. Same bytes, same source of truth -- it is only
+  // a separate file because an app can't import out of the recipes directory.
+  join(process.cwd(), 'apps', 'docs', 'src', 'semiui-tailwind.css'),
+];
+
+for (const target of targets) {
+  writeFileSync(target, css, 'utf8');
+  console.log(`Wrote ${target}`);
+}
