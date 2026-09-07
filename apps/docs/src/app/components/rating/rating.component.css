@@ -31,7 +31,15 @@
 }
 
 :host([data-disabled]) {
-  opacity: 0.6;
+  opacity: var(--semiui-comp-rating-opacity-disabled);
+}
+
+:host([data-disabled]) .s-rating__star {
+  color: var(--semiui-comp-rating-empty-color-disabled);
+}
+
+:host([data-disabled]) .s-rating__star--filled {
+  color: var(--semiui-comp-rating-filled-color-disabled);
 }
 
 .s-rating__star:disabled {

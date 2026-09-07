@@ -180,5 +180,8 @@ export class SliderPageComponent {
     { name: '--semiui-comp-slider-thumb-border-focus', description: 'Thumb border/focus-ring color when focus-visible.' },
     { name: '--semiui-comp-slider-bubble-background', description: 'Background color of the value bubble.' },
     { name: '--semiui-comp-slider-bubble-foreground', description: 'Text color of the value bubble.' },
+    { name: '--semiui-comp-slider-track-color-disabled', description: 'Track color when the slider is disabled.' },
+    { name: '--semiui-comp-slider-fill-color-disabled', description: 'Fill color when the slider is disabled.' },
+    { name: '--semiui-comp-slider-opacity-disabled', description: 'Opacity of a disabled track. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
   ];
 }

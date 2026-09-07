@@ -71,13 +71,14 @@
   border-color: var(--semiui-color-destructive);
 }
 
-.s-checkbox__input:disabled + .s-checkbox__box {
+.s-checkbox__input:disabled:not(:checked):not(:indeterminate) + .s-checkbox__box {
   background: var(--semiui-comp-checkbox-background-disabled);
   border-color: var(--semiui-comp-checkbox-border-disabled);
 }
 
 .s-checkbox:has(.s-checkbox__input:disabled) {
   cursor: not-allowed;
+  opacity: var(--semiui-comp-checkbox-opacity-disabled);
 }
 
 .s-checkbox__label {

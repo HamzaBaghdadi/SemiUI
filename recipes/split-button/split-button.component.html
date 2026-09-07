@@ -22,7 +22,7 @@
     <s-icon class="s-split-button__icon" [ref]="icons.chevronDown" />
   </button>
 </div>
-<s-popover #po placement="bottom" align="end" [offset]="4" [showArrow]="false">
+<s-popover #po placement="bottom" align="end" [offset]="4" [showArrow]="false" [appendTo]="appendTo()">
   <ul class="s-split-button__menu" role="menu">
     @for (item of items(); track $index) {
       <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->

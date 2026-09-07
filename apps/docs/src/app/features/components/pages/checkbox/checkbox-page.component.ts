@@ -150,7 +150,8 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-checkbox-border-checked', description: 'Box border color when checked or indeterminate.' },
     { name: '--semiui-comp-checkbox-foreground-checked', description: 'Color of the check/indeterminate icon.' },
     { name: '--semiui-comp-checkbox-focus-ring', description: 'Color of the focus-visible ring (rendered at 35% opacity).' },
-    { name: '--semiui-comp-checkbox-background-disabled', description: 'Box background when disabled.' },
+    { name: '--semiui-comp-checkbox-background-disabled', description: 'Box background when disabled and unchecked. A checked box keeps its checked fill and is dimmed by the opacity below, so the tick stays readable.' },
     { name: '--semiui-comp-checkbox-border-disabled', description: 'Box border color when disabled.' },
+    { name: '--semiui-comp-checkbox-opacity-disabled', description: 'Opacity of a disabled checkbox and its label, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey it out instead.' },
   ];
 }

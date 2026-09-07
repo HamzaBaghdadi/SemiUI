@@ -140,6 +140,8 @@
 .s-multiselect__trigger[aria-disabled='true']:not(.s-multiselect__trigger--loading) {
   background: var(--semiui-comp-select-background-disabled);
   color: var(--semiui-comp-select-foreground-disabled);
+  border-color: var(--semiui-comp-select-border-disabled);
+  opacity: var(--semiui-comp-select-opacity-disabled);
 }
 
 .s-multiselect__trigger--loading {
@@ -167,7 +169,12 @@
 }
 
 /* Deliberately physical -- see the equivalent rule in select.component.css. */
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
 .s-multiselect__panel[data-appended] {
+  z-index: 120;
   position: fixed;
   right: auto;
   bottom: auto;
@@ -227,6 +234,7 @@
 
 .s-multiselect__select-all:disabled {
   cursor: not-allowed;
+  opacity: var(--semiui-comp-checkbox-opacity-disabled);
 }
 
 .s-multiselect__select-all-box {
@@ -265,7 +273,7 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-checkbox-focus-ring) 35%, transparent);
 }
 
-.s-multiselect__select-all:disabled .s-multiselect__select-all-box {
+.s-multiselect__select-all:disabled .s-multiselect__select-all-box:not([data-checked]) {
   background: var(--semiui-comp-checkbox-background-disabled);
   border-color: var(--semiui-comp-checkbox-border-disabled);
 }

@@ -53,13 +53,16 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-switch-focus-ring) 35%, transparent);
 }
 
-/* Reads backgroundDisabled the way Checkbox and Radio read theirs, so a disabled switch is flat
-   rather than a dimmed copy of its checked colour. It sits after the checked rules, so it applies
-   in both states -- again matching Checkbox. */
-.s-switch__track:disabled {
-  cursor: not-allowed;
+/* backgroundDisabled is the *off* track's fill, so this is scoped to the off state: a disabled
+   switch that is on keeps its checked colour and is dimmed by opacityDisabled alone, which is what
+   keeps the on/off state readable while disabled. Same shape as Checkbox and Radio. */
+.s-switch__track:disabled:not([aria-checked='true']) {
   background: var(--semiui-comp-switch-background-disabled);
   border-color: var(--semiui-comp-switch-background-disabled);
+}
+
+.s-switch__track:disabled {
+  cursor: not-allowed;
   opacity: var(--semiui-comp-switch-opacity-disabled);
 }
 

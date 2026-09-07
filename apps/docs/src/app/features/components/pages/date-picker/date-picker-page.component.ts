@@ -116,6 +116,8 @@ protected profileForm = form(this.profileModel);
 <!-- Opt back into a floating side panel even on mobile -->
 <s-date-picker [inlineYearsOnMobile]="false" />`;
 
+  protected readonly appendToCode = `<s-date-picker appendTo="body" />`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'placeholder',
@@ -267,6 +269,18 @@ protected profileForm = form(this.profileModel);
       default: 'false',
       description: 'Sets autocomplete="off" on the trigger input, for manualInput fields the browser shouldn\'t offer to autofill.',
     },
+    {
+      name: 'appendTo',
+      type: "'body' | null",
+      default: 'null',
+      description: "Moves the panel to a direct child of document.body, escaping any ancestor's overflow: hidden clipping or transform/filter stacking context. No effect in inline mode.",
+    },
+    {
+      name: 'closeOnScroll',
+      type: 'boolean',
+      default: 'false',
+      description: "Closes the panel when a scroll container under the trigger scrolls, instead of repositioning the panel to follow it. Applies to a nested overflow-y: auto ancestor as much as to the page itself.",
+    },
   ];
 
   protected readonly apiEvents: ApiEventRow[] = [
@@ -309,6 +323,9 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-date-picker-day-border-today', description: "Border color marking today's cell." },
     { name: '--semiui-comp-date-picker-day-background-selected', description: 'Background of a selected day/month/year cell (and the range-in-between tint, at reduced opacity).' },
     { name: '--semiui-comp-date-picker-day-foreground-selected', description: 'Text color of a selected cell.' },
+    { name: '--semiui-comp-date-picker-day-background-disabled', description: 'Background of a cell ruled out by min/max/disabledDates. Not applied to a selected or in-range cell, which keeps its highlight.' },
+    { name: '--semiui-comp-date-picker-day-foreground-disabled', description: 'Text color of that same cell.' },
+    { name: '--semiui-comp-date-picker-day-opacity-disabled', description: 'Opacity of an unselectable cell. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
     {
       name: '--semiui-comp-select-*',
       description: 'The trigger input and popover panel chrome (border, background, radius, focus ring, disabled state) intentionally reuse the Select component\'s tokens, for a consistent look across form controls.',

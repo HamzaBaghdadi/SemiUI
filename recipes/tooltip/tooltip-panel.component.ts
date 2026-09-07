@@ -12,4 +12,6 @@ export class TooltipPanelComponent {
   placement = input<TooltipPlacement>('top');
   top = input(0);
   left = input(0);
+  /** Set by the directive when `tooltipAppendTo="body"` -- raises the panel above Dialog/Drawer. */
+  appended = input(false);
 }

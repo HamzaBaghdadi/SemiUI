@@ -17,6 +17,14 @@
   font-family: var(--semiui-typography-font-family);
 }
 
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
+.s-popover[data-appended] {
+  z-index: 120;
+}
+
 .s-popover[data-arrow]::after {
   content: '';
   position: absolute;

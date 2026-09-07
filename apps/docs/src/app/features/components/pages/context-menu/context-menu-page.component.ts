@@ -88,6 +88,10 @@ export class ContextMenuPageComponent {
   <div class="rounded-lg border p-8 text-center">Right-click me -- try Share</div>
 </s-context-menu>`;
 
+  protected readonly appendToCode = `<s-context-menu [items]="items" appendTo="body">
+  <div>Right-click me</div>
+</s-context-menu>`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'items',
@@ -95,6 +99,12 @@ export class ContextMenuPageComponent {
       default: '[]',
       description:
         'ContextMenuItem: { label?: string; icon?: IconRef; disabled?: boolean; separator?: boolean; items?: ContextMenuItem[] }. items opens a submenu on hover, any depth.',
+    },
+    {
+      name: 'appendTo',
+      type: "'body' | null",
+      default: 'null',
+      description: "Moves the menu overlay to a direct child of document.body. The overlay is already position: fixed, but an ancestor with a transform, filter or contain becomes its containing block and clips it again.",
     },
   ];
 
@@ -117,5 +127,8 @@ export class ContextMenuPageComponent {
   protected readonly themingCssVariables: ThemingRow[] = [
     { name: '--semiui-comp-popover-*', description: "Reused for the panel's background/border/radius/shadow -- both are floating-above-the-page UI." },
     { name: '--semiui-comp-select-*', description: 'Reused for item colors (hover, foreground, font size), same as Split Button\'s own menu.' },
+    { name: '--semiui-comp-context-menu-item-background-disabled', description: 'Background of a disabled item.' },
+    { name: '--semiui-comp-context-menu-item-foreground-disabled', description: 'Text color of a disabled item.' },
+    { name: '--semiui-comp-context-menu-item-opacity-disabled', description: 'Opacity of a disabled item. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
   ];
 }

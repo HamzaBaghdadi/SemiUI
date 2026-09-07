@@ -52,7 +52,9 @@
 
 .s-accordion__header:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  background: var(--semiui-comp-accordion-header-background-disabled);
+  color: var(--semiui-comp-accordion-header-foreground-disabled);
+  opacity: var(--semiui-comp-accordion-opacity-disabled);
 }
 
 .s-accordion__header-label {

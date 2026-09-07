@@ -1,4 +1,4 @@
-import { ComponentRef, Directive, ElementRef, HostListener, OnDestroy, ViewContainerRef, inject, input } from '@angular/core';
+import { ComponentRef, DestroyRef, Directive, ElementRef, HostListener, OnDestroy, ViewContainerRef, inject, input } from '@angular/core';
 import { TooltipPanelComponent } from './tooltip-panel.component';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end';
@@ -20,6 +20,7 @@ const VIEWPORT_MARGIN_PX = 8;
 export class TooltipDirective implements OnDestroy {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly destroyRef = inject(DestroyRef);
 
   /** The tooltip text. Omit or pass an empty string to disable the tooltip entirely. */
   sTooltip = input('');
@@ -28,6 +29,8 @@ export class TooltipDirective implements OnDestroy {
   tooltipPlacement = input<TooltipPlacement>('top');
   /** Delay, in ms, before the tooltip appears after hover/focus starts. */
   tooltipDelay = input(300);
+  /** Moves the tooltip panel to a direct child of `document.body`. The panel is already `position: fixed`, but an ancestor with a `transform`, `filter` or `contain` becomes its containing block and clips it again -- which is what a tooltip inside a Dialog, a Drawer or an animated card runs into. */
+  tooltipAppendTo = input<'body' | null>(null);
 
   private panelRef: ComponentRef<TooltipPanelComponent> | null = null;
   private showTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -60,6 +63,10 @@ export class TooltipDirective implements OnDestroy {
       return;
     }
     this.panelRef = this.viewContainerRef.createComponent(TooltipPanelComponent);
+    if (this.tooltipAppendTo() === 'body') {
+      document.body.appendChild(this.panelRef.location.nativeElement as HTMLElement);
+      this.panelRef.setInput('appended', true);
+    }
     this.panelRef.setInput('text', this.sTooltip());
     this.panelRef.setInput('placement', this.resolvePlacement());
     // Forces synchronous rendering so the panel's real size is measurable immediately -- both
@@ -74,10 +81,37 @@ export class TooltipDirective implements OnDestroy {
     this.panelRef = null;
   }
 
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
   /** Tooltips are tied to a stationary hover -- scrolling disrupts that context, so it hides
    *  immediately rather than chasing the anchor around (which read as janky/delayed). */
-  @HostListener('window:scroll')
-  protected onScroll(): void {
+  protected onAnyScroll(event: Event): void {
+    // Cheapest check first, and it matters here: this directive can be on hundreds of elements at
+    // once, and all of them hear every scroll event on the page. One boolean is what an idle
+    // tooltip costs per scroll frame; the DOM walk below only runs for the one that's showing.
+    if (!this.panelRef && !this.showTimeout) {
+      return;
+    }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.elementRef.nativeElement;
+    const target = event.target as Node;
+    if (!target.contains(anchor)) {
+      return;
+    }
     this.clearShowTimeout();
     this.hide();
   }

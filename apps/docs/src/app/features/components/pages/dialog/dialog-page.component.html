@@ -30,6 +30,43 @@
   </div>
 
   <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Overlays inside a dialog</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The dialog body scrolls, so it clips its overflow — a Select, Date Picker, Color Picker or
+      Popover opened inside it has its panel cut off at the dialog's edge. Every component with an
+      overlay panel takes
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code>, which moves the
+      panel out to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code> while
+      keeping it pixel-positioned against its trigger. Open the dialog below and compare the two rows.
+    </p>
+    <app-component-demo>
+      <s-button (click)="overlaysDlg.show()">Open dialog with overlays</s-button>
+      <s-dialog #overlaysDlg title="Schedule">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Default — clipped</span>
+            <div class="flex gap-3">
+              <s-select [options]="priorities" placeholder="Priority" class="w-40" />
+              <s-date-picker placeholder="Pick a date" class="w-44" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">appendTo="body"</span>
+            <div class="flex gap-3">
+              <s-select [options]="priorities" appendTo="body" placeholder="Priority" class="w-40" />
+              <s-date-picker appendTo="body" placeholder="Pick a date" class="w-44" />
+            </div>
+          </div>
+        </div>
+        <ng-template #footer>
+          <s-button [outlined]="true" (click)="overlaysDlg.hide()">Close</s-button>
+        </ng-template>
+      </s-dialog>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="overlaysInsideCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Sizes</h2>
     <app-component-demo>
       <s-button (click)="smDialog.show()">Small</s-button>

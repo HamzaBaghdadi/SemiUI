@@ -1,6 +1,12 @@
 <ng-content />
 @if (open()) {
-  <div #panelWrapper class="s-context-menu__overlay" [style.top.px]="position().top" [style.left.px]="position().left">
+  <div
+    #panelWrapper
+    class="s-context-menu__overlay"
+    [attr.data-appended]="appendTo() === 'body' ? '' : null"
+    [style.top.px]="position().top"
+    [style.left.px]="position().left"
+  >
     <s-context-menu-panel [items]="items()" (select)="onSelect($event)" />
   </div>
 }

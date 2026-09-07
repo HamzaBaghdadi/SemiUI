@@ -79,7 +79,16 @@
   </button>
 
   @if (open()) {
-    <div class="s-color-picker__panel" [attr.data-placement]="panelPlacement()" animate.enter="s-color-picker__panel--enter" animate.leave="s-color-picker__panel--leave">
+    <div
+      #panel
+      class="s-color-picker__panel"
+      [attr.data-placement]="panelPlacement()"
+      [attr.data-appended]="appendTo() === 'body' ? '' : null"
+      [style.top.px]="appendTo() === 'body' ? fixedPosition().top : null"
+      [style.left.px]="appendTo() === 'body' ? fixedPosition().left : null"
+      animate.enter="s-color-picker__panel--enter"
+      animate.leave="s-color-picker__panel--leave"
+    >
       <ng-container [ngTemplateOutlet]="pickerContent" />
     </div>
   }

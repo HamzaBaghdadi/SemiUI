@@ -146,6 +146,23 @@ writeFileSync('src/tailwind/semiui.css', renderTailwindThemeCss({ preset: MyThem
 
 <!-- The preset's primitive scales and its primary ramp -->
 <div class="bg-blue-500 ring-primary-200"></div>`,
+  disabledState: `// "Disabled" has two independent levers, and every component that has the state
+// exposes both. Pick either, or use them together.
+
+// 1. Opacity. One semantic token; every component's own opacityDisabled points at it,
+//    so this one line changes how faded "disabled" is across the whole library.
+semantic: { opacity: { disabled: '40%' } }
+
+// 2. Colors. Each component's own *Disabled surface tokens.
+components: {
+  input: {
+    // Semi dims a disabled field -- it stays itself, just faded. Repoint these and
+    // turn the dimming off to grey the field out instead.
+    backgroundDisabled: '{muted}',
+    foregroundDisabled: '{mutedForeground}',
+    opacityDisabled: '100%',
+  },
+}`,
   tailwindBridge: `npx semiui add tailwind`,
   tailwindImport: `@import "tailwindcss";
 @import "./tailwind/tailwind.css"; /* wherever "semiui add" placed it -- after @import "tailwindcss" */`,

@@ -5,6 +5,7 @@
     role="dialog"
     [attr.data-placement]="resolvedPlacement()"
     [attr.data-arrow]="showArrow() ? '' : null"
+    [attr.data-appended]="appendTo() === 'body' ? '' : null"
     [style.top.px]="position().top"
     [style.left.px]="position().left"
     [style.--s-popover-arrow-offset.px]="arrowOffset()"

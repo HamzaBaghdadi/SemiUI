@@ -178,6 +178,12 @@ const semantic: SemanticTokens = {
     lg: '0.75rem',
     full: '9999px',
   },
+  // The single dimming every component's own `opacityDisabled` points at, so "how faded is
+  // disabled" is one decision rather than thirty. A percentage, not a bare number: 'opacity: 60'
+  // would clamp to a fully opaque 1.
+  opacity: {
+    disabled: '60%',
+  },
   typography: {
     fontFamily: 'Inter, system-ui, sans-serif',
     fontSize: {
@@ -245,9 +251,7 @@ const components: ComponentTokens = {
     backgroundDisabled: '{muted}',
     foregroundDisabled: '{mutedForeground}',
     borderDisabled: '{muted}',
-    // A percentage rather than a bare number so overriding it reads unambiguously: 'opacity: 60'
-    // would clamp to a fully opaque 1, 'opacity: 60%' means what it says.
-    opacityDisabled: '60%',
+    opacityDisabled: '{opacity.disabled}',
     paddingX: { sm: '0.75rem', md: '1rem', lg: '1.25rem' },
     paddingY: { sm: '0.375rem', md: '0.5rem', lg: '0.625rem' },
     fontSize: { sm: '0.8125rem', md: '0.875rem', lg: '1rem' },
@@ -362,8 +366,14 @@ const components: ComponentTokens = {
     borderFocus: '{ring}',
     focusRing: '{ring}',
     borderInvalid: '{destructive}',
-    backgroundDisabled: '{muted}',
-    foregroundDisabled: '{mutedForeground}',
+    // Disabled is this field, dimmed -- the same model Button uses, so "unavailable" looks the
+    // same everywhere instead of being a fade in one place and a grey slab in another. An app that
+    // wants the grey slab points these three at neutrals ({muted}/{mutedForeground}) and sets
+    // opacityDisabled to '100%'.
+    backgroundDisabled: '{components.input.background}',
+    foregroundDisabled: '{components.input.foreground}',
+    borderDisabled: '{components.input.border}',
+    opacityDisabled: '{opacity.disabled}',
   },
 
   select: {
@@ -379,8 +389,10 @@ const components: ComponentTokens = {
     borderFocus: '{ring}',
     focusRing: '{ring}',
     borderInvalid: '{destructive}',
-    backgroundDisabled: '{muted}',
-    foregroundDisabled: '{mutedForeground}',
+    backgroundDisabled: '{components.select.background}',
+    foregroundDisabled: '{components.select.foreground}',
+    borderDisabled: '{components.select.border}',
+    opacityDisabled: '{opacity.disabled}',
     panelBackground: '{background}',
     panelBorder: '{border}',
     // A shadow is a raw CSS value -- there's no design-system token that means "this elevation",
@@ -395,7 +407,7 @@ const components: ComponentTokens = {
 
   switch: {
     trackPadding: '0.125rem',
-    opacityDisabled: '50%',
+    opacityDisabled: '{opacity.disabled}',
     trackBorderWidth: '1px',
     radius: '{radius.full}',
     background: '{muted}',
@@ -404,7 +416,9 @@ const components: ComponentTokens = {
     borderChecked: '{primary}',
     thumbBackground: '{background}',
     focusRing: '{ring}',
-    backgroundDisabled: '{muted}',
+    // Only reached by a switch that is off -- an on-and-disabled track keeps its checked colour
+    // and is dimmed by opacityDisabled instead, so the state is still readable.
+    backgroundDisabled: '{components.switch.background}',
     transitionDuration: '0.15s',
     trackWidth: { sm: '2rem', md: '2.75rem', lg: '3.5rem' },
     trackHeight: { sm: '1.125rem', md: '1.5rem', lg: '1.875rem' },
@@ -419,8 +433,11 @@ const components: ComponentTokens = {
     backgroundChecked: '{primary}',
     foregroundChecked: '{primaryForeground}',
     focusRing: '{ring}',
-    backgroundDisabled: '{muted}',
-    borderDisabled: '{border}',
+    // As with Switch, these are the *unchecked* box's colours: a checked-and-disabled box keeps
+    // its fill and tick, dimmed, rather than flattening to grey with a tick you can't read.
+    backgroundDisabled: '{components.checkbox.background}',
+    borderDisabled: '{components.checkbox.border}',
+    opacityDisabled: '{opacity.disabled}',
     size: { sm: '1rem', md: '1.25rem', lg: '1.5rem' },
   },
 
@@ -428,8 +445,9 @@ const components: ComponentTokens = {
     border: '{border}',
     borderChecked: '{primary}',
     background: '{background}',
-    backgroundDisabled: '{muted}',
-    borderDisabled: '{border}',
+    backgroundDisabled: '{components.radio.background}',
+    borderDisabled: '{components.radio.border}',
+    opacityDisabled: '{opacity.disabled}',
     dotBackground: '{primary}',
     focusRing: '{ring}',
     size: { sm: '1rem', md: '1.25rem', lg: '1.5rem' },
@@ -572,12 +590,19 @@ const components: ComponentTokens = {
     backgroundHover: '{muted}',
     backgroundActive: '{primary}',
     foregroundActive: '{primaryForeground}',
-    foregroundDisabled: '{mutedForeground}',
+    backgroundDisabled: '{components.pagination.background}',
+    foregroundDisabled: '{components.pagination.foreground}',
+    opacityDisabled: '{opacity.disabled}',
   },
 
   rating: {
     filledColor: '{warning}',
     emptyColor: '{border}',
+    // The same stars, dimmed -- a read-only rating still has to be readable as a score, which a
+    // flat grey row of stars is not.
+    filledColorDisabled: '{components.rating.filledColor}',
+    emptyColorDisabled: '{components.rating.emptyColor}',
+    opacityDisabled: '{opacity.disabled}',
     gap: '0',
     size: { sm: '1.25rem', md: '2rem', lg: '2.75rem' },
   },
@@ -588,6 +613,9 @@ const components: ComponentTokens = {
     headerBackground: '{transparent}',
     headerBackgroundHover: '{muted}',
     headerForeground: '{foreground}',
+    headerBackgroundDisabled: '{components.accordion.headerBackground}',
+    headerForegroundDisabled: '{components.accordion.headerForeground}',
+    opacityDisabled: '{opacity.disabled}',
     panelBackground: '{transparent}',
     panelForeground: '{mutedForeground}',
     fontSize: '{typography.fontSize.sm}',
@@ -601,7 +629,9 @@ const components: ComponentTokens = {
     gap: '{spacing.md}',
     foreground: '{mutedForeground}',
     foregroundActive: '{primary}',
-    foregroundDisabled: '{mutedForeground}',
+    backgroundDisabled: '{transparent}',
+    foregroundDisabled: '{components.tabs.foreground}',
+    opacityDisabled: '{opacity.disabled}',
     indicatorColor: '{primary}',
     indicatorThickness: '2px',
     fontSize: '{typography.fontSize.sm}',
@@ -627,6 +657,7 @@ const components: ComponentTokens = {
     fontSize: '{typography.fontSize.sm}',
     circleFontWeight: '{typography.fontWeight.semibold}',
     labelFontWeight: '{typography.fontWeight.medium}',
+    opacityDisabled: '{opacity.disabled}',
     gap: '{spacing.sm}',
   },
 
@@ -642,6 +673,9 @@ const components: ComponentTokens = {
     tickSize: '0.25rem',
     bubbleBackground: '{contrast}',
     bubbleForeground: '{contrastForeground}',
+    trackColorDisabled: '{components.slider.trackColor}',
+    fillColorDisabled: '{components.slider.fillColor}',
+    opacityDisabled: '{opacity.disabled}',
   },
 
   chart: {
@@ -702,6 +736,9 @@ const components: ComponentTokens = {
     dayBackgroundSelected: '{primary}',
     dayForegroundSelected: '{primaryForeground}',
     dayBorderToday: '{primary}',
+    dayBackgroundDisabled: '{transparent}',
+    dayForegroundDisabled: '{components.datePicker.dayForeground}',
+    dayOpacityDisabled: '{opacity.disabled}',
     navBackgroundHover: '{muted}',
     weekdayForeground: '{mutedForeground}',
     monthLabelForeground: '{foreground}',
@@ -716,6 +753,9 @@ const components: ComponentTokens = {
     arrowBackground: 'rgb(0 0 0 / 0.4)',
     arrowBackgroundHover: 'rgb(0 0 0 / 0.6)',
     arrowColor: '{white}',
+    arrowBackgroundDisabled: '{components.carousel.arrowBackground}',
+    arrowColorDisabled: '{components.carousel.arrowColor}',
+    arrowOpacityDisabled: '{opacity.disabled}',
     dotSize: '0.5rem',
     dotColor: '{border}',
     dotColorActive: '{primary}',
@@ -779,6 +819,9 @@ const components: ComponentTokens = {
     itemRadius: '{radius.md}',
     thumbSize: '2.5rem',
     rejectionColor: '{destructive}',
+    backgroundDisabled: '{components.fileUpload.background}',
+    borderDisabled: '{components.fileUpload.border}',
+    opacityDisabled: '{opacity.disabled}',
   },
 
   dialog: {
@@ -808,6 +851,9 @@ const components: ComponentTokens = {
     actionBackground: '{components.button.variants.secondary.background}',
     actionForeground: '{components.button.variants.secondary.foreground}',
     actionBorder: '{components.button.variants.secondary.border}',
+    actionBackgroundDisabled: '{components.speedDial.actionBackground}',
+    actionForegroundDisabled: '{components.speedDial.actionForeground}',
+    actionOpacityDisabled: '{opacity.disabled}',
     stagger: '40ms',
   },
 
@@ -838,6 +884,9 @@ const components: ComponentTokens = {
     toolbarGap: '0.125rem',
     toolSize: '1.75rem',
     toolIconSize: '0.95rem',
+    toolBackgroundDisabled: '{transparent}',
+    toolForegroundDisabled: '{mutedForeground}',
+    toolOpacityDisabled: '{opacity.disabled}',
     contentHeadingFontSizeLg: '1.5em',
     contentHeadingFontSizeMd: '1.25em',
     contentHeadingFontWeight: '{typography.fontWeight.bold}',
@@ -858,6 +907,9 @@ const components: ComponentTokens = {
 
   contextMenu: {
     panelMinWidth: '12rem',
+    itemBackgroundDisabled: '{transparent}',
+    itemForegroundDisabled: '{components.select.optionForeground}',
+    itemOpacityDisabled: '{opacity.disabled}',
   },
 
   autoComplete: {

@@ -1,9 +1,11 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   afterRenderEffect,
   booleanAttribute,
+  inject,
   input,
   signal,
   viewChild,
@@ -34,6 +36,7 @@ const ARROW_EDGE_MARGIN_PX = 12;
 })
 export class PopoverComponent {
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
+  private readonly destroyRef = inject(DestroyRef);
 
   /** 'start'/'end' follow reading direction (flip under RTL); 'left'/'right' pin to that literal
    * physical side regardless of direction. */
@@ -184,9 +187,30 @@ export class PopoverComponent {
     return isRtl ? 'left' : 'right';
   }
 
-  @HostListener('window:scroll')
-  protected onWindowScroll(): void {
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
+  protected onAnyScroll(event: Event): void {
     if (!this.open()) {
+      return;
+    }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.anchorEl;
+    const target = event.target as Node;
+    if (!anchor || !target.contains(anchor)) {
       return;
     }
     if (this.closeOnScroll()) {
@@ -194,8 +218,8 @@ export class PopoverComponent {
       return;
     }
     const panel = this.panel()?.nativeElement;
-    if (this.anchorEl && panel) {
-      this.computePosition(this.anchorEl, panel);
+    if (panel) {
+      this.computePosition(anchor, panel);
     }
   }
 

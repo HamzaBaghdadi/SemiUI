@@ -40,6 +40,8 @@
   cursor: not-allowed;
   background: var(--semiui-comp-select-background-disabled);
   color: var(--semiui-comp-select-foreground-disabled);
+  border-color: var(--semiui-comp-select-border-disabled);
+  opacity: var(--semiui-comp-select-opacity-disabled);
 }
 
 .s-color-picker__swatch {
@@ -83,6 +85,22 @@
   top: auto;
   bottom: calc(100% + 0.25rem);
   transform-origin: bottom;
+}
+
+/* Deliberately physical, not inset-inline-start: color-picker.component.ts positions this with an
+   inline `left` computed from the trigger's getBoundingClientRect() -- already a correct physical
+   pixel value under RTL, since that measurement happens after layout has mirrored the trigger into
+   place. This rule only has to cancel the base rule's logical start offset and the top-placement
+   rule's `bottom` so the inline top/left actually take effect. */
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
+.s-color-picker__panel[data-appended] {
+  z-index: 120;
+  position: fixed;
+  inset-inline-start: auto;
+  bottom: auto;
 }
 
 .s-color-picker__inline-panel {

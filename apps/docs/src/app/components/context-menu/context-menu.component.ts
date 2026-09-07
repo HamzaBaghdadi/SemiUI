@@ -1,10 +1,12 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   afterRenderEffect,
   booleanAttribute,
   forwardRef,
+  inject,
   input,
   output,
   signal,
@@ -134,8 +136,12 @@ export class ContextMenuPanelComponent {
 })
 export class ContextMenuComponent {
   private readonly panelWrapper = viewChild<ElementRef<HTMLElement>>('panelWrapper');
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
 
   items = input<readonly ContextMenuItem[]>([]);
+  /** Moves the menu overlay to a direct child of `document.body`. The overlay is already `position: fixed`, but an ancestor with a `transform`, `filter` or `contain` becomes its containing block and clips it again -- which is what a context menu inside a Dialog, a Drawer or an animated card runs into. */
+  appendTo = input<'body' | null>(null);
   itemSelected = output<ContextMenuItem>();
 
   protected readonly open = signal(false);
@@ -148,6 +154,9 @@ export class ContextMenuComponent {
     const el = this.panelWrapper()?.nativeElement;
     if (!el) {
       return;
+    }
+    if (this.appendTo() === 'body' && el.parentElement !== document.body) {
+      document.body.appendChild(el);
     }
     const rect = el.getBoundingClientRect();
     const maxLeft = Math.max(VIEWPORT_MARGIN_PX, window.innerWidth - rect.width - VIEWPORT_MARGIN_PX);
@@ -192,10 +201,34 @@ export class ContextMenuComponent {
     this.close();
   }
 
-  @HostListener('window:scroll')
-  protected onScroll(): void {
-    if (this.open()) {
-      this.close();
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
+  /** The menu is pinned to the cursor's viewport coordinates, so any scroll under it invalidates
+   * that position -- it closes rather than chasing a point that no longer means anything. */
+  protected onAnyScroll(event: Event): void {
+    if (!this.open()) {
+      return;
     }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.elementRef.nativeElement;
+    const target = event.target as Node;
+    if (!anchor || !target.contains(anchor)) {
+      return;
+    }
+    this.close();
   }
 }

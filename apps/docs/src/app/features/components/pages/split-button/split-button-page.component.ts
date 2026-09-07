@@ -62,6 +62,8 @@ export class SplitButtonPageComponent {
 
   protected readonly sizesCode = `<s-split-button size="sm" [items]="items">Save</s-split-button>`;
 
+  protected readonly appendToCode = `<s-split-button [items]="exportItems" appendTo="body">Save</s-split-button>`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'items',
@@ -98,6 +100,12 @@ export class SplitButtonPageComponent {
       type: 'boolean',
       default: 'false',
       description: 'Shows a spinner on the main action and disables both segments.',
+    },
+    {
+      name: 'appendTo',
+      type: "'body' | null",
+      default: 'null',
+      description: "Forwarded to the menu's Popover: moves the menu to a direct child of document.body, escaping any ancestor's overflow: hidden clipping or transform/filter stacking context.",
     },
   ];
 

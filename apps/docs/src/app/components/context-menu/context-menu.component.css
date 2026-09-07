@@ -14,6 +14,14 @@
   z-index: 50;
 }
 
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
+.s-context-menu__overlay[data-appended] {
+  z-index: 120;
+}
+
 :host(.s-context-menu-panel) {
   display: block;
 }
@@ -64,7 +72,9 @@
 
 .s-context-menu-panel__item[aria-disabled='true'] {
   cursor: not-allowed;
-  opacity: 0.5;
+  background: var(--semiui-comp-context-menu-item-background-disabled);
+  color: var(--semiui-comp-context-menu-item-foreground-disabled);
+  opacity: var(--semiui-comp-context-menu-item-opacity-disabled);
 }
 
 .s-context-menu-panel__icon {

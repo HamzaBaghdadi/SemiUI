@@ -54,6 +54,8 @@
   cursor: not-allowed;
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);
+  border-color: var(--semiui-comp-input-border-disabled);
+  opacity: var(--semiui-comp-input-opacity-disabled);
 }
 
 .s-auto-complete__icon,
@@ -119,7 +121,12 @@
 }
 
 /* Deliberately physical -- see the equivalent rule in select.component.css. */
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
 .s-auto-complete__panel[data-appended] {
+  z-index: 120;
   position: fixed;
   right: auto;
   bottom: auto;

@@ -28,6 +28,8 @@ export class TooltipPageComponent {
 
   protected readonly delayCode = `<button [sTooltip]="'Appears instantly'" [tooltipDelay]="0">No delay</button>`;
 
+  protected readonly appendToCode = `<button [sTooltip]="'Escapes the stacking context'" tooltipAppendTo="body">Save</button>`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'sTooltip',
@@ -46,6 +48,12 @@ export class TooltipPageComponent {
       type: 'number',
       default: '300',
       description: 'Delay, in milliseconds, before the tooltip appears after hover/focus starts.',
+    },
+    {
+      name: 'tooltipAppendTo',
+      type: "'body' | null",
+      default: 'null',
+      description: "Moves the tooltip panel to a direct child of document.body. The panel is already position: fixed, but an ancestor with a transform, filter or contain becomes its containing block and clips it again.",
     },
   ];
 

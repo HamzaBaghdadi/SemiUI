@@ -162,6 +162,22 @@ export type TypographyTokens = {
 };
 
 /**
+ * Opacities that carry a *state* meaning rather than a visual one. Only `disabled` today, and it
+ * is what every component's own `opacityDisabled` points at by default, so one edit dims the whole
+ * library consistently.
+ *
+ * Authored as a percentage rather than a bare number so overriding it reads unambiguously:
+ * `opacity: 60` clamps to a fully opaque 1, `opacity: 60%` means what it says.
+ */
+export type OpacityTokens = {
+  /**
+   * How much a disabled component is dimmed. `'100%'` turns dimming off entirely, for a design
+   * system that expresses "disabled" purely through the `*Disabled` colors instead.
+   */
+  disabled: TokenValue;
+} & { [state: string]: TokenValue };
+
+/**
  * What values *mean*. Colors sit flat at the top level (`primary`, `border`, ...); the non-color
  * scales live in their own named groups so they read -- and generate -- as their own namespaces.
  *
@@ -173,12 +189,32 @@ export type SemanticTokens = SemanticColorTokens & {
   spacing: SpacingTokens;
   radius: RadiusTokens;
   typography: TypographyTokens;
+  opacity: OpacityTokens;
 };
 
 // ---------------------------------------------------------------------------------------------
 // Layer 3 -- components
 // ---------------------------------------------------------------------------------------------
 
+/**
+ * The disabled state is expressed through two independent levers, and every component that has a
+ * disabled state exposes both so an app can pick either -- or both:
+ *
+ * - **colors** -- `*Disabled` surface tokens (`backgroundDisabled`, `foregroundDisabled`,
+ *   `borderDisabled`, ...). Point them at flat neutrals (`{muted}`/`{mutedForeground}`) for the
+ *   "greyed out" look, or back at the component's *own* live colors so the component keeps its
+ *   identity and only the opacity below dims it.
+ * - **opacity** -- `opacityDisabled`, defaulting to the shared `{opacity.disabled}`. Set it to
+ *   `'100%'` to switch dimming off and let the colors do all the work.
+ *
+ * Semi picks the second one everywhere: every `*Disabled` color points back at that component's
+ * own live color, and `{opacity.disabled}` does all the fading -- so a disabled Destructive button
+ * still reads as red, a disabled checked checkbox still reads as checked, and "unavailable" looks
+ * the same across the library. A preset that wants the flat-grey look says so explicitly.
+ *
+ * A component whose disabled rule was a hardcoded `opacity: 0.4` before had no lever at all --
+ * that is what this vocabulary replaces.
+ */
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 export type DialogSize = 'sm' | 'md' | 'lg' | 'full';
@@ -267,6 +303,11 @@ export type FieldTokens = {
   borderInvalid: TokenValue;
   backgroundDisabled: TokenValue;
   foregroundDisabled: TokenValue;
+  /** Defaults to the same value as `border`, so a disabled field keeps its outline until a preset
+   * says otherwise. */
+  borderDisabled: TokenValue;
+  /** Follows `{opacity.disabled}` in Semi. See the disabled-state note above `ButtonSize`. */
+  opacityDisabled: TokenValue;
 };
 
 export type SelectTokens = FieldTokens & {
@@ -323,6 +364,7 @@ export type ComponentTokens = {
     focusRing: TokenValue;
     backgroundDisabled: TokenValue;
     borderDisabled: TokenValue;
+    opacityDisabled: TokenValue;
     size: Record<ButtonSize, TokenValue>;
   };
   radio: {
@@ -331,6 +373,7 @@ export type ComponentTokens = {
     background: TokenValue;
     backgroundDisabled: TokenValue;
     borderDisabled: TokenValue;
+    opacityDisabled: TokenValue;
     dotBackground: TokenValue;
     focusRing: TokenValue;
     size: Record<ButtonSize, TokenValue>;
@@ -406,11 +449,18 @@ export type ComponentTokens = {
     backgroundHover: TokenValue;
     backgroundActive: TokenValue;
     foregroundActive: TokenValue;
+    backgroundDisabled: TokenValue;
     foregroundDisabled: TokenValue;
+    opacityDisabled: TokenValue;
   };
   rating: {
     filledColor: TokenValue;
     emptyColor: TokenValue;
+    /** Star colors for a disabled Rating. Default back to the live `filledColor`/`emptyColor`, so
+     * out of the box a disabled Rating is the same stars dimmed by `opacityDisabled`. */
+    filledColorDisabled: TokenValue;
+    emptyColorDisabled: TokenValue;
+    opacityDisabled: TokenValue;
     gap: TokenValue;
     size: Record<ButtonSize, TokenValue>;
   };
@@ -420,6 +470,9 @@ export type ComponentTokens = {
     headerBackground: TokenValue;
     headerBackgroundHover: TokenValue;
     headerForeground: TokenValue;
+    headerBackgroundDisabled: TokenValue;
+    headerForegroundDisabled: TokenValue;
+    opacityDisabled: TokenValue;
     panelBackground: TokenValue;
     panelForeground: TokenValue;
     fontSize: TokenValue;
@@ -432,7 +485,9 @@ export type ComponentTokens = {
     gap: TokenValue;
     foreground: TokenValue;
     foregroundActive: TokenValue;
+    backgroundDisabled: TokenValue;
     foregroundDisabled: TokenValue;
+    opacityDisabled: TokenValue;
     indicatorColor: TokenValue;
     indicatorThickness: TokenValue;
     fontSize: TokenValue;
@@ -459,6 +514,9 @@ export type ComponentTokens = {
     circleFontWeight: TokenValue;
     /** Weight of a step's label. */
     labelFontWeight: TokenValue;
+    /** A disabled step dims as a whole -- circle, connector, label and description together. The
+     * recolor lever for one of those parts is that part's own token above. */
+    opacityDisabled: TokenValue;
     gap: TokenValue;
   };
   slider: {
@@ -473,6 +531,10 @@ export type ComponentTokens = {
     tickSize: TokenValue;
     bubbleBackground: TokenValue;
     bubbleForeground: TokenValue;
+    /** Track colors for a disabled Slider. Default back to the live `trackColor`/`fillColor`. */
+    trackColorDisabled: TokenValue;
+    fillColorDisabled: TokenValue;
+    opacityDisabled: TokenValue;
   };
   chart: {
     gridColor: TokenValue;
@@ -537,6 +599,10 @@ export type ComponentTokens = {
     dayBackgroundSelected: TokenValue;
     dayForegroundSelected: TokenValue;
     dayBorderToday: TokenValue;
+    /** A day -- or a month/year cell -- that `min`/`max`/`disabledDates` rules out. */
+    dayBackgroundDisabled: TokenValue;
+    dayForegroundDisabled: TokenValue;
+    dayOpacityDisabled: TokenValue;
     navBackgroundHover: TokenValue;
     weekdayForeground: TokenValue;
     monthLabelForeground: TokenValue;
@@ -550,6 +616,9 @@ export type ComponentTokens = {
     arrowBackground: TokenValue;
     arrowBackgroundHover: TokenValue;
     arrowColor: TokenValue;
+    arrowBackgroundDisabled: TokenValue;
+    arrowColorDisabled: TokenValue;
+    arrowOpacityDisabled: TokenValue;
     dotSize: TokenValue;
     dotColor: TokenValue;
     dotColorActive: TokenValue;
@@ -583,6 +652,9 @@ export type ComponentTokens = {
     itemRadius: TokenValue;
     thumbSize: TokenValue;
     rejectionColor: TokenValue;
+    backgroundDisabled: TokenValue;
+    borderDisabled: TokenValue;
+    opacityDisabled: TokenValue;
   };
   dialog: {
     backdropColor: TokenValue;
@@ -612,6 +684,9 @@ export type ComponentTokens = {
     actionBackground: TokenValue;
     actionForeground: TokenValue;
     actionBorder: TokenValue;
+    actionBackgroundDisabled: TokenValue;
+    actionForegroundDisabled: TokenValue;
+    actionOpacityDisabled: TokenValue;
     /** Delay step between consecutive actions in the staggered reveal, e.g. `'40ms'` -- the nth
      * action waits n times this. `'0ms'` reveals them all at once. */
     stagger: TokenValue;
@@ -645,6 +720,11 @@ export type ComponentTokens = {
     toolbarGap: TokenValue;
     toolSize: TokenValue;
     toolIconSize: TokenValue;
+    /** A toolbar button that doesn't apply to the current selection. The editable area itself is
+     * a field and takes `input.*Disabled` like every other one. */
+    toolBackgroundDisabled: TokenValue;
+    toolForegroundDisabled: TokenValue;
+    toolOpacityDisabled: TokenValue;
     /** `font-size` of an `<h1>` inside the editable content, in `em` relative to the editor's own
      * base font size. */
     contentHeadingFontSizeLg: TokenValue;
@@ -675,6 +755,11 @@ export type ComponentTokens = {
   };
   contextMenu: {
     panelMinWidth: TokenValue;
+    /** A menu item marked `disabled`. The rest of an item's colors come from `select.option*`,
+     * which is what a menu item genuinely is. */
+    itemBackgroundDisabled: TokenValue;
+    itemForegroundDisabled: TokenValue;
+    itemOpacityDisabled: TokenValue;
   };
   autoComplete: {
     /** `padding-inline-end` reserved on the input so typed text never runs under the trailing

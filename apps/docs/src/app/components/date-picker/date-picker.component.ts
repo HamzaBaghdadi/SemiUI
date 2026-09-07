@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   TemplateRef,
@@ -101,9 +102,11 @@ let nextDatePickerId = 0;
 export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');
   private readonly yearsPanel = viewChild<ElementRef<HTMLDivElement>>('yearsPanel');
+  private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
   placeholder = input('Pick a date');
   errorMessage = input('');
@@ -137,6 +140,12 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   inlineYearsOnMobile = input(true, { transform: booleanAttribute });
   /** Forces the year list inline in the main panel (like the month grid) on every viewport, never as a floating side panel. Takes priority over `inlineYearsOnMobile`. */
   inlineYears = input(false, { transform: booleanAttribute });
+  /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context -- what a Date Picker inside a Dialog, a Drawer or a scrollable card needs so the calendar isn't cut off. No effect when `inline`. */
+  appendTo = input<'body' | null>(null);
+  /** Closes the panel when a scroll container under the trigger scrolls, instead of repositioning
+   * the panel to follow it -- the same option Popover exposes. Applies to a nested `overflow-y: auto`
+   * ancestor as much as to the page itself. */
+  closeOnScroll = input(false, { transform: booleanAttribute });
 
   /** Rendered above the calendar, inside the panel. */
   protected headerTemplate = contentChild<unknown, TemplateRef<unknown>>('header', { read: TemplateRef });
@@ -146,6 +155,7 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly listboxId = `s-date-picker-grid-${nextDatePickerId++}`;
   protected readonly open = signal(false);
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
+  protected readonly fixedPosition = signal({ top: 0, left: 0 });
   protected readonly viewYear = signal(new Date().getFullYear());
   protected readonly viewMonth = signal(new Date().getMonth());
   protected readonly focusedDate = signal<Date>(new Date());
@@ -338,6 +348,13 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected override focusTarget(): HTMLElement | null {
     return this.inline() ? null : (this.triggerInput()?.nativeElement ?? null);
   }
+
+  /** Moves the panel to `document.body` and pins it by pixel coordinates once it's rendered. */
+  private readonly appendToBodyEffect = afterRenderEffect(() => {
+    if (this.open() && this.appendTo() === 'body') {
+      this.positionAppendedPanel();
+    }
+  });
 
   protected toggle(): void {
     if (this.effectiveDisabled()) {
@@ -828,6 +845,28 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   }
 
   /**
+   * Physically relocates the panel to `document.body` (once) and pins it with `position: fixed`
+   * pixel coordinates measured off the trigger, since it can no longer be positioned relative to
+   * its host once it isn't a descendant of it. Unlike Select, no width is written: the calendar's
+   * width comes from the day grid, not from the trigger it hangs off.
+   */
+  private positionAppendedPanel(): void {
+    const trigger = this.triggerInput()?.nativeElement;
+    const panel = this.panel()?.nativeElement;
+    if (!trigger || !panel) {
+      return;
+    }
+    if (panel.parentElement !== document.body) {
+      document.body.appendChild(panel);
+    }
+    const rect = trigger.getBoundingClientRect();
+    const gap = 4;
+    const top =
+      this.panelPlacement() === 'top' ? rect.top - gap - panel.getBoundingClientRect().height : rect.bottom + gap;
+    this.fixedPosition.set({ top, left: rect.left });
+  }
+
+  /**
    * Handles Escape regardless of which element inside the panel currently has focus -- the
    * trigger input's own keydown and the day grid's keydown only fire for focus that's already
    * inside THOSE specific elements, so pressing Escape while a nav button (prev/next month) is
@@ -841,10 +880,41 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     }
   }
 
-  @HostListener('window:scroll')
-  protected onWindowScroll(): void {
-    if (this.open()) {
-      this.updatePlacement();
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    super();
+
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
+  protected onAnyScroll(event: Event): void {
+    if (!this.open()) {
+      return;
+    }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.triggerInput()?.nativeElement;
+    const target = event.target as Node;
+    if (!anchor || !target.contains(anchor)) {
+      return;
+    }
+    if (this.closeOnScroll()) {
+      this.close();
+      return;
+    }
+    this.updatePlacement();
+    if (this.appendTo() === 'body') {
+      this.positionAppendedPanel();
     }
   }
 
@@ -853,13 +923,27 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
     this.isMobileViewport.set(window.innerWidth <= MOBILE_BREAKPOINT_PX);
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 
+  /**
+   * The panel is tested separately from the host rather than relying on `host.contains()` alone:
+   * with `appendTo="body"` the panel is a child of `<body>`, not a descendant of this component,
+   * so every click inside it (a day, a nav arrow, the time controls) would read as an outside
+   * click and close the calendar out from under the interaction.
+   */
   @HostListener('document:click', ['$event'])
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.inline() && !this.elementRef.nativeElement.contains(event.target as Node)) {
-      this.close();
+    if (!this.open() || this.inline()) {
+      return;
     }
+    const target = event.target as Node;
+    if (this.elementRef.nativeElement.contains(target) || this.panel()?.nativeElement.contains(target)) {
+      return;
+    }
+    this.close();
   }
 }

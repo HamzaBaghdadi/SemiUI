@@ -55,6 +55,21 @@
             </app-component-demo>
             <app-code-block filename="Usage" [code]="fluidCode"></app-code-block>
           </div>
+
+          <div class="flex flex-col gap-3">
+            <h2 class="text-xl font-bold">Append to body</h2>
+            <p class="text-sm text-muted-foreground max-w-xl">
+              The dropdown is a Popover, so
+              <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code> is forwarded
+              straight through to it — what a Split Button inside a Dialog, a Drawer or a scrollable card
+              needs so its menu isn't cut off. The box below clips its overflow.
+            </p>
+            <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-24 flex items-start gap-4">
+              <s-split-button [items]="exportItems" (pressed)="onPressed()" (itemSelected)="onItemSelected($event)">Clipped</s-split-button>
+              <s-split-button [items]="exportItems" appendTo="body" (pressed)="onPressed()" (itemSelected)="onItemSelected($event)">appendTo body</s-split-button>
+            </div>
+            <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+          </div>
       </div>
     </ng-template>
 

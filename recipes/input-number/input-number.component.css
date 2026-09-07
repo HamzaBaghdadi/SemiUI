@@ -29,6 +29,8 @@
 
 .s-input-number:has(.s-input-number__input:disabled) {
   background: var(--semiui-comp-input-background-disabled);
+  border-color: var(--semiui-comp-input-border-disabled);
+  opacity: var(--semiui-comp-input-opacity-disabled);
 }
 
 .s-input-number__affix {
@@ -113,7 +115,7 @@
 
 .s-input-number__button:disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: var(--semiui-comp-button-opacity-disabled);
 }
 
 .s-input-number__button-icon {
@@ -158,7 +160,7 @@
 
 .s-input-number__step:disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: var(--semiui-comp-button-opacity-disabled);
 }
 
 .s-input-number__step-icon {

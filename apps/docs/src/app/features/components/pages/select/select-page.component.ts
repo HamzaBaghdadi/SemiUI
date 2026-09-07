@@ -107,6 +107,12 @@ protected profileForm = form(this.profileModel);
 
   protected readonly appendToCode = `<s-select [options]="fruits" appendTo="body" />`;
 
+  protected readonly scrollContainerCode = `<!-- Follows the trigger while the container scrolls (default) -->
+<s-select [options]="fruits" appendTo="body" />
+
+<!-- Or close instead of following -->
+<s-select [options]="fruits" appendTo="body" [closeOnScroll]="true" />`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'options',
@@ -167,6 +173,12 @@ protected profileForm = form(this.profileModel);
       type: "'body' | null",
       default: 'null',
       description: "Moves the panel to a direct child of document.body, escaping any ancestor's overflow: hidden clipping or transform/filter stacking context.",
+    },
+    {
+      name: 'closeOnScroll',
+      type: 'boolean',
+      default: 'false',
+      description: "Closes the panel when a scroll container under the trigger scrolls, instead of repositioning the panel to follow it. Applies to a nested overflow-y: auto ancestor as much as to the page itself.",
     },
     {
       name: 'errorMessage',
@@ -277,6 +289,8 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-select-border-invalid', description: 'Trigger border color while invalid.' },
     { name: '--semiui-comp-select-background-disabled', description: 'Trigger background while disabled (not loading).' },
     { name: '--semiui-comp-select-foreground-disabled', description: 'Trigger text color while disabled (not loading).' },
+    { name: '--semiui-comp-select-border-disabled', description: 'Trigger border color while disabled.' },
+    { name: '--semiui-comp-select-opacity-disabled', description: 'Opacity of the disabled trigger, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey the trigger out instead.' },
     { name: '--semiui-comp-select-placeholder-foreground', description: 'Placeholder text and icon color.' },
     { name: '--semiui-comp-select-panel-background', description: 'Panel background.' },
     { name: '--semiui-comp-select-panel-border', description: 'Panel border color, also used by the filter box divider.' },

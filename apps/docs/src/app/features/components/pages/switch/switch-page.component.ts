@@ -160,9 +160,9 @@ protected profileForm = form(this.profileModel);
     {
       name: '--semiui-comp-switch-background-disabled',
       description:
-        'Track fill and border while disabled, in both the on and off positions -- the same way Checkbox and Radio use theirs, so a disabled switch reads as flat rather than as a dimmed copy of its checked color.',
+        'Track fill and border while disabled and off. A disabled switch that is on keeps its checked color and is dimmed by the opacity below, so the state stays readable -- the same shape Checkbox and Radio use.',
     },
-    { name: '--semiui-comp-switch-opacity-disabled', description: 'Opacity applied to a disabled track, on top of background-disabled.' },
+    { name: '--semiui-comp-switch-opacity-disabled', description: 'Opacity applied to a disabled track, on top of background-disabled. Follows var(--semiui-opacity-disabled) unless a preset overrides it.' },
     { name: '--semiui-comp-switch-transition-duration', description: 'Duration of the background/border/thumb-position transitions.' },
   ];
 }

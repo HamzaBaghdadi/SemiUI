@@ -142,5 +142,6 @@ export class StepperPageComponent {
     { name: '--semiui-comp-stepper-label-color', description: 'Label color for upcoming steps.' },
     { name: '--semiui-comp-stepper-label-color-active', description: 'Label color for active and completed steps.' },
     { name: '--semiui-comp-stepper-description-color', description: 'Description text color.' },
+    { name: '--semiui-comp-stepper-opacity-disabled', description: 'Opacity of a disabled step -- circle, label and description together. Follows var(--semiui-opacity-disabled). To recolor instead, set this to 100% and point the circle/label/description tokens above at neutrals.' },
   ];
 }

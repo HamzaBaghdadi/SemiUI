@@ -214,6 +214,12 @@ onSearch(query: string): void {
       description: "Moves the panel to a direct child of document.body, escaping any ancestor's overflow: hidden clipping.",
     },
     {
+      name: 'closeOnScroll',
+      type: 'boolean',
+      default: 'false',
+      description: "Closes the panel when a scroll container under the input scrolls, instead of repositioning the panel to follow it. Applies to a nested overflow-y: auto ancestor as much as to the page itself.",
+    },
+    {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
@@ -290,7 +296,7 @@ onSearch(query: string): void {
   protected readonly themingCssVariables: ThemingRow[] = [
     {
       name: '--semiui-comp-input-*',
-      description: "Reuses Text Input's own tokens for the field itself -- padding, radius, font-size, background/foreground/border (rest, hover, focus, invalid, disabled).",
+      description: "Reuses Text Input's own tokens for the field itself -- padding, radius, font-size, background/foreground/border (rest, hover, focus, invalid, disabled), plus --semiui-comp-input-opacity-disabled for the disabled dimming.",
     },
     {
       name: '--semiui-comp-select-*',

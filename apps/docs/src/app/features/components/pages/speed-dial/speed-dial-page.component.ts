@@ -131,5 +131,8 @@ export class SpeedDialPageComponent {
     { name: '--semiui-comp-button-variants-secondary-{background,foreground,border}', description: "Each mini action button's resting color triad." },
     { name: '--semiui-comp-button-focus-ring', description: 'Color of the focus-visible ring on each action (rendered at 45% opacity).' },
     { name: '--s-speed-dial-index', description: "Set per action from its list index; drives the staggered fan-out transition-delay. Not meant to be overridden directly." },
+    { name: '--semiui-comp-speed-dial-action-background-disabled', description: 'Background of a disabled action.' },
+    { name: '--semiui-comp-speed-dial-action-foreground-disabled', description: 'Icon color of a disabled action.' },
+    { name: '--semiui-comp-speed-dial-action-opacity-disabled', description: 'Opacity of a disabled action once the fan is open. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
   ];
 }

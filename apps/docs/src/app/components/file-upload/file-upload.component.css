@@ -34,7 +34,9 @@
 
 .s-file-upload__dropzone[data-disabled] {
   cursor: not-allowed;
-  opacity: 0.6;
+  background: var(--semiui-comp-file-upload-background-disabled);
+  border-color: var(--semiui-comp-file-upload-border-disabled);
+  opacity: var(--semiui-comp-file-upload-opacity-disabled);
 }
 
 .s-file-upload__icon {

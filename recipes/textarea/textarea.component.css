@@ -46,6 +46,8 @@
   cursor: not-allowed;
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);
+  border-color: var(--semiui-comp-input-border-disabled);
+  opacity: var(--semiui-comp-input-opacity-disabled);
 }
 
 .s-textarea__count {

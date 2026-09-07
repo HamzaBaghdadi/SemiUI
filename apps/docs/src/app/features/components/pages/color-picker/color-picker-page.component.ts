@@ -70,6 +70,8 @@ protected profileForm = form(this.profileModel);
 
   protected readonly swatchOnlyCode = `<s-color-picker [(ngModel)]="color" [showPresets]="false" [showValueText]="false" />`;
 
+  protected readonly appendToCode = `<s-color-picker appendTo="body" />`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'inline',
@@ -142,6 +144,18 @@ protected profileForm = form(this.profileModel);
       type: 'boolean',
       default: 'false',
       description: 'Sets autocomplete="off" on the hex field, for fields the browser shouldn\'t offer to autofill.',
+    },
+    {
+      name: 'appendTo',
+      type: "'body' | null",
+      default: 'null',
+      description: "Moves the panel to a direct child of document.body, escaping any ancestor's overflow: hidden clipping or transform/filter stacking context. No effect in inline mode.",
+    },
+    {
+      name: 'closeOnScroll',
+      type: 'boolean',
+      default: 'false',
+      description: "Closes the panel when a scroll container under the trigger scrolls, instead of repositioning the panel to follow it. Applies to a nested overflow-y: auto ancestor as much as to the page itself.",
     },
   ];
 

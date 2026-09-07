@@ -185,6 +185,12 @@ protected profileForm = form(this.profileModel);
       description: "Moves the panel to a direct child of document.body, escaping any ancestor's overflow: hidden clipping.",
     },
     {
+      name: 'closeOnScroll',
+      type: 'boolean',
+      default: 'false',
+      description: "Closes the panel when a scroll container under the trigger scrolls, instead of repositioning the panel to follow it. Applies to a nested overflow-y: auto ancestor as much as to the page itself.",
+    },
+    {
       name: 'disabled',
       type: 'boolean',
       default: 'false',
