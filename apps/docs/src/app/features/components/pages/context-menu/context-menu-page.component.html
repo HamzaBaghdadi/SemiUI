@@ -32,6 +32,28 @@
           </app-component-demo>
           <app-code-block filename="Usage" [code]="nestedCode"></app-code-block>
         </div>
+
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Append to body</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      The menu overlay is already <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">position: fixed</code>, so
+      plain <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">overflow: hidden</code> does not clip it —
+      but an ancestor carrying a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">transform</code>,
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">filter</code> or
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">contain</code> becomes its containing block and
+      clips it again, which is what an animated Dialog or Drawer does. Set
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code> and it escapes that too.
+      The box below has a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">transform</code>.
+    </p>
+          <app-component-demo [block]="true">
+            <div class="w-full rounded-lg border border-dashed border-border p-4" style="transform: translateZ(0)">
+              <s-context-menu [items]="basicItems" appendTo="body" (itemSelected)="onSelect($event)">
+                <div class="rounded-lg border p-8 text-center text-sm text-muted-foreground w-full">Right-click me</div>
+              </s-context-menu>
+            </div>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+        </div>
       </div>
     </ng-template>
 

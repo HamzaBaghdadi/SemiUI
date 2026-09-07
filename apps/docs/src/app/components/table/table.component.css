@@ -122,7 +122,7 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--semiui-comp-radio-focus-ring) 35%, transparent);
 }
 
-.s-radio__input:disabled + .s-radio__dot {
+.s-radio__input:disabled:not(:checked) + .s-radio__dot {
   background: var(--semiui-comp-radio-background-disabled);
   border-color: var(--semiui-comp-radio-border-disabled);
 }

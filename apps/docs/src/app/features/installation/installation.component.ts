@@ -23,6 +23,8 @@ export const appConfig: ApplicationConfig = {
   ],
 };`,
   add: 'npx semiui add button',
+  update: `npx semiui diff      # what changed upstream since you installed
+npx semiui update    # apply it, merging around your edits`,
   usage: `import { ButtonComponent } from '../components/button/button.component';
 
 @Component({

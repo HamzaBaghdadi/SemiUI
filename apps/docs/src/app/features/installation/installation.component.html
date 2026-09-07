@@ -327,13 +327,98 @@
   </section>
 
   <section class="border-t border-border">
+    <div class="flex flex-col gap-6 w-full px-6 py-20 max-w-295 m-auto">
+      <div class="flex flex-col gap-3">
+        <h2 class="text-3xl font-extrabold">Staying up to date</h2>
+        <p class="text-muted-foreground max-w-2xl">
+          The files are yours, so a new SemiUI release can't reach in and change them — but you
+          shouldn't have to delete and re-copy a component to pick up a fix either.
+          <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui add</code> records what it
+          wrote in <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui.lock.json</code>:
+          the release each file came from, and a hash of its contents. Commit that file. It's what
+          lets the CLI tell a component you've customised from one you never touched.
+        </p>
+      </div>
+
+      <div class="rounded-xl overflow-hidden border border-border bg-[#0b1120] text-white">
+        <div
+          class="flex items-center justify-between px-4 py-2 border-b border-white/10 text-xs text-white/70"
+        >
+          <span class="flex items-center gap-1.5">
+            <ng-icon name="lucideTerminal"></ng-icon>
+            Terminal
+          </span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('update')"
+          >
+            <ng-icon [name]="isCopied('update') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('update') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre
+          class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+        ><code>npx semiui update
+
+<span class="text-white/50">select</span>
+<span class="text-white/50">  select.component.html              updated</span>
+<span class="text-white/50">  select.component.css               updated</span>
+<span class="text-white/50">  select.component.ts                merged with your edits</span>
+
+<span class="text-white/50">button</span>
+<span class="text-white/50">  button.component.ts                left alone -- you edited it, nothing new upstream</span></code></pre>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-lg border border-border p-4 flex flex-col gap-1.5">
+          <span class="font-bold text-sm">Untouched files</span>
+          <span class="text-sm text-muted-foreground"
+            >Overwritten outright. That's most of them, and it's the boring case that used to cost
+            you an afternoon.</span
+          >
+        </div>
+        <div class="rounded-lg border border-border p-4 flex flex-col gap-1.5">
+          <span class="font-bold text-sm">Files you've customised</span>
+          <span class="text-sm text-muted-foreground"
+            >Three-way merged against the exact release you installed from, so library changes land
+            around your edits instead of on top of them.</span
+          >
+        </div>
+        <div class="rounded-lg border border-border p-4 flex flex-col gap-1.5">
+          <span class="font-bold text-sm">Genuine collisions</span>
+          <span class="text-sm text-muted-foreground"
+            >You get ordinary
+            <code class="text-xs bg-muted px-1 py-0.5 rounded-sm">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>
+            conflict markers in the one region that needs a human, and a non-zero exit code for
+            CI.</span
+          >
+        </div>
+      </div>
+
+      <p class="text-sm text-muted-foreground max-w-2xl">
+        Run <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui diff</code> first to see
+        what's waiting without touching anything, or
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui update --dry-run</code> to see
+        exactly which files would be rewritten, merged, or left alone. Already have components from
+        before the lockfile existed? Run
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui update</code> once — anything
+        still matching a shipped recipe gets adopted automatically, and the rest is reported rather
+        than guessed at.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-border">
     <div
       class="flex flex-col items-center gap-4 w-full px-6 py-24 max-w-295 m-auto text-center"
     >
       <h2 class="text-3xl font-extrabold">That's the whole workflow</h2>
       <span class="text-muted-foreground max-w-lg"
         >init once, add as many components as you need, and every one of them
-        is a plain file in your own repo from the moment it lands.
+        is a plain file in your own repo from the moment it lands — with
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">semiui update</code> to pull library
+        changes in later without losing what you changed.
       </span>
       <s-button class="mt-4" size="lg" (click)="goHome()"
         >Back to overview</s-button

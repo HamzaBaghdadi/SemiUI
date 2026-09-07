@@ -135,6 +135,9 @@ export class PasswordPageComponent {
     { name: '--semiui-comp-input-border-invalid', description: 'Border color while invalid.' },
     { name: '--semiui-comp-input-background-disabled', description: 'Background while disabled.' },
     { name: '--semiui-comp-input-foreground-disabled', description: 'Text color while disabled.' },
+    { name: '--semiui-comp-input-border-disabled', description: 'Border color of the input when disabled.' },
+    { name: '--semiui-comp-input-opacity-disabled', description: 'Opacity of the disabled field, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey the field out instead of dimming it.' },
     { name: '--semiui-comp-input-placeholder-foreground', description: 'Placeholder text color, also used for the toggle button icon.' },
+    { name: '--semiui-comp-button-opacity-disabled', description: 'Opacity of the disabled reveal toggle -- it is a ghost icon button, so it follows Button rather than the field.' },
   ];
 }

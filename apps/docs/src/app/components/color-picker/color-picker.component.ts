@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   afterRenderEffect,
@@ -67,7 +68,9 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
   private readonly svArea = viewChild<ElementRef<HTMLDivElement>>('svArea');
   private readonly hueTrack = viewChild<ElementRef<HTMLDivElement>>('hueTrack');
   private readonly hexInputEl = viewChild<ElementRef<HTMLInputElement>>('hexInputEl');
+  private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
   private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
 
   inline = input(false, { transform: booleanAttribute });
   presets = input<readonly string[]>(DEFAULT_PRESETS);
@@ -77,9 +80,16 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
   showValueText = input(true, { transform: booleanAttribute });
   placeholder = input('Pick a color');
   errorMessage = input('');
+  /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context -- what a Color Picker inside a Dialog, a Drawer or a scrollable card needs so the panel isn't cut off. No effect when `inline`. */
+  appendTo = input<'body' | null>(null);
+  /** Closes the panel when a scroll container under the trigger scrolls, instead of repositioning
+   * the panel to follow it -- the same option Popover exposes. Applies to a nested `overflow-y: auto`
+   * ancestor as much as to the page itself. */
+  closeOnScroll = input(false, { transform: booleanAttribute });
 
   protected readonly open = signal(false);
   protected readonly panelPlacement = signal<'top' | 'bottom'>('bottom');
+  protected readonly fixedPosition = signal({ top: 0, left: 0 });
   protected readonly hsv = signal<Hsv>({ h: 0, s: 0, v: 100 });
   protected readonly hexInput = signal('');
   protected readonly isDraggingSv = signal(false);
@@ -240,6 +250,35 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
     this.panelPlacement.set(spaceBelow < PANEL_SPACE_ESTIMATE_PX && spaceAbove > spaceBelow ? 'top' : 'bottom');
   }
 
+  /**
+   * Physically relocates the panel to `document.body` (once) and pins it with `position: fixed`
+   * pixel coordinates measured off the trigger, since it can no longer be positioned relative to
+   * its host once it isn't a descendant of it. No width is written: the panel's width is the
+   * saturation/value area's own token, not the trigger's.
+   */
+  private positionAppendedPanel(): void {
+    const trigger = this.triggerButton()?.nativeElement;
+    const panel = this.panel()?.nativeElement;
+    if (!trigger || !panel) {
+      return;
+    }
+    if (panel.parentElement !== document.body) {
+      document.body.appendChild(panel);
+    }
+    const rect = trigger.getBoundingClientRect();
+    const gap = 4;
+    const top =
+      this.panelPlacement() === 'top' ? rect.top - gap - panel.getBoundingClientRect().height : rect.bottom + gap;
+    this.fixedPosition.set({ top, left: rect.left });
+  }
+
+  /** Moves the panel to `document.body` and pins it by pixel coordinates once it's rendered. */
+  private readonly appendToBodyEffect = afterRenderEffect(() => {
+    if (this.open() && this.appendTo() === 'body') {
+      this.positionAppendedPanel();
+    }
+  });
+
   private hasFocusedThisOpen = false;
 
   /**
@@ -264,10 +303,41 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
     this.hexInputEl()?.nativeElement.focus();
   });
 
-  @HostListener('window:scroll')
-  protected onWindowScroll(): void {
-    if (this.open()) {
-      this.updatePlacement();
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    super();
+
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
+  protected onAnyScroll(event: Event): void {
+    if (!this.open()) {
+      return;
+    }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.triggerButton()?.nativeElement;
+    const target = event.target as Node;
+    if (!anchor || !target.contains(anchor)) {
+      return;
+    }
+    if (this.closeOnScroll()) {
+      this.close();
+      return;
+    }
+    this.updatePlacement();
+    if (this.appendTo() === 'body') {
+      this.positionAppendedPanel();
     }
   }
 
@@ -275,6 +345,9 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
   protected onWindowResize(): void {
     if (this.open()) {
       this.updatePlacement();
+      if (this.appendTo() === 'body') {
+        this.positionAppendedPanel();
+      }
     }
   }
 
@@ -286,10 +359,21 @@ export class ColorPickerComponent extends BaseFormFieldControl<string | null> {
     }
   }
 
+  /**
+   * The panel is tested separately from the host rather than relying on `host.contains()` alone:
+   * with `appendTo="body"` the panel is a child of `<body>`, not a descendant of this component,
+   * so every click inside it (the saturation area, the hue track, a preset, the hex field) would
+   * read as an outside click and close the picker out from under the interaction.
+   */
   @HostListener('document:click', ['$event'])
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.inline() && !this.elementRef.nativeElement.contains(event.target as Node)) {
-      this.close();
+    if (!this.open() || this.inline()) {
+      return;
     }
+    const target = event.target as Node;
+    if (this.elementRef.nativeElement.contains(target) || this.panel()?.nativeElement.contains(target)) {
+      return;
+    }
+    this.close();
   }
 }

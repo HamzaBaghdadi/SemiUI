@@ -127,5 +127,8 @@ export class AccordionPageComponent {
     { name: '--semiui-comp-accordion-font-weight', description: 'Header font weight.' },
     { name: '--semiui-comp-accordion-panel-background', description: 'Panel content background color.' },
     { name: '--semiui-comp-accordion-panel-foreground', description: 'Panel content text color.' },
+    { name: '--semiui-comp-accordion-header-background-disabled', description: 'Header background when the item is disabled.' },
+    { name: '--semiui-comp-accordion-header-foreground-disabled', description: 'Header text color when the item is disabled.' },
+    { name: '--semiui-comp-accordion-opacity-disabled', description: 'Opacity of a disabled header. Follows var(--semiui-opacity-disabled); set it to 100% and use the two colors above to express disabled purely as a recolor.' },
   ];
 }

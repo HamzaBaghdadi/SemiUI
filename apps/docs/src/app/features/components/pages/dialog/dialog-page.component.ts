@@ -1,7 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../../components/button/button.component';
+import { DatePickerComponent } from '../../../../components/date-picker/date-picker.component';
 import { DialogComponent } from '../../../../components/dialog/dialog.component';
+import { SelectComponent } from '../../../../components/select/select.component';
 import { DIALOG_DATA, DialogRef, DialogService } from '../../../../components/dialog/dialog.service';
 import { CodeBlockComponent } from '../../shared/code-block/code-block.component';
 import { ComponentDemoComponent } from '../../shared/component-demo/component-demo.component';
@@ -34,6 +36,8 @@ export class ConfirmDeleteDialogContent {
   selector: 'app-dialog-page',
   imports: [
     DialogComponent,
+    DatePickerComponent,
+    SelectComponent,
     ButtonComponent,
     RouterLink,
     ComponentPageHeaderComponent,
@@ -47,6 +51,15 @@ export class ConfirmDeleteDialogContent {
   styleUrl: './dialog-page.component.css',
 })
 export class DialogPageComponent {
+  protected readonly priorities = ['Low', 'Normal', 'High'];
+
+  protected readonly overlaysInsideCode = `<s-dialog #dlg title="Schedule">
+  <!-- The dialog body scrolls (overflow-y: auto), so a panel positioned inside it
+       gets cut off. appendTo="body" lifts the panel out of that clipping box. -->
+  <s-select [options]="priorities" appendTo="body" placeholder="Priority" />
+  <s-date-picker appendTo="body" placeholder="Pick a date" />
+</s-dialog>`;
+
   private readonly dialogService = inject(DialogService);
   protected readonly serviceResult = signal<string | null>(null);
 

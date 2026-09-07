@@ -160,5 +160,7 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-input-border-invalid', description: 'Box border color when invalid. Shared with Text Input.' },
     { name: '--semiui-comp-input-background-disabled', description: 'Box background when disabled. Shared with Text Input.' },
     { name: '--semiui-comp-input-foreground-disabled', description: 'Box text color when disabled. Shared with Text Input.' },
+    { name: '--semiui-comp-input-border-disabled', description: 'Border color of the box when disabled.' },
+    { name: '--semiui-comp-input-opacity-disabled', description: 'Opacity of the disabled field, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey the field out instead of dimming it.' },
   ];
 }

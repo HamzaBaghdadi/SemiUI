@@ -108,6 +108,8 @@
 .s-cascade-select__trigger:disabled:not(.s-cascade-select__trigger--loading) {
   background: var(--semiui-comp-select-background-disabled);
   color: var(--semiui-comp-select-foreground-disabled);
+  border-color: var(--semiui-comp-select-border-disabled);
+  opacity: var(--semiui-comp-select-opacity-disabled);
 }
 
 .s-cascade-select__trigger--loading {
@@ -141,7 +143,12 @@
    physical pixel value under RTL, since that measurement happens after layout has already
    mirrored the trigger into place. This rule only needs to cancel the base rule's positioning so
    the inline left/top actually take effect. */
+/* Appended panels leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow z-index above, the panel would render *under* the
+   dialog it was opened from, which is the one case appendTo exists to fix. 120 clears Dialog and
+   Drawer and stays below Toast (200), which has to sit above everything. */
 .s-cascade-select__panel[data-appended] {
+  z-index: 120;
   position: fixed;
 }
 

@@ -62,7 +62,9 @@
 }
 
 .s-carousel__arrow:disabled {
-  opacity: 0.4;
+  background: var(--semiui-comp-carousel-arrow-background-disabled);
+  color: var(--semiui-comp-carousel-arrow-color-disabled);
+  opacity: var(--semiui-comp-carousel-arrow-opacity-disabled);
   cursor: not-allowed;
 }
 

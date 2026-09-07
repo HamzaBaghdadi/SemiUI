@@ -186,7 +186,8 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-radio-background', description: 'Dot background.' },
     { name: '--semiui-comp-radio-dot-background', description: "The inner filled dot's color, shown once checked." },
     { name: '--semiui-comp-radio-focus-ring', description: 'Color of the focus-visible ring (rendered at 35% opacity).' },
-    { name: '--semiui-comp-radio-background-disabled', description: 'Dot background while disabled.' },
+    { name: '--semiui-comp-radio-background-disabled', description: 'Dot background while disabled and unselected. A selected dot keeps its checked border and is dimmed by the opacity below.' },
     { name: '--semiui-comp-radio-border-disabled', description: 'Dot border color while disabled.' },
+    { name: '--semiui-comp-radio-opacity-disabled', description: 'Opacity of a disabled radio and its label, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey it out instead.' },
   ];
 }

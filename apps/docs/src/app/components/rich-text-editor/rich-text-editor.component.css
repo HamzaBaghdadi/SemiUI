@@ -59,9 +59,14 @@
   color: var(--semiui-color-primary);
 }
 
+.s-rich-text-editor__tool:disabled:not(.s-rich-text-editor__tool--active) {
+  background: var(--semiui-comp-rich-text-editor-tool-background-disabled);
+  color: var(--semiui-comp-rich-text-editor-tool-foreground-disabled);
+}
+
 .s-rich-text-editor__tool:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: var(--semiui-comp-rich-text-editor-tool-opacity-disabled);
 }
 
 .s-rich-text-editor__tool:focus-visible {
@@ -87,6 +92,8 @@
 .s-rich-text-editor--disabled .s-rich-text-editor__content {
   background: var(--semiui-comp-input-background-disabled);
   color: var(--semiui-comp-input-foreground-disabled);
+  border-color: var(--semiui-comp-input-border-disabled);
+  opacity: var(--semiui-comp-input-opacity-disabled);
   cursor: not-allowed;
 }
 

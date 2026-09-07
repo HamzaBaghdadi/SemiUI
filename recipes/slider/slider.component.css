@@ -36,7 +36,12 @@
 
 :host([data-disabled]) .s-slider__track {
   cursor: not-allowed;
-  opacity: 0.6;
+  background: var(--semiui-comp-slider-track-color-disabled);
+  opacity: var(--semiui-comp-slider-opacity-disabled);
+}
+
+:host([data-disabled]) .s-slider__fill {
+  background: var(--semiui-comp-slider-fill-color-disabled);
 }
 
 .s-slider__fill {

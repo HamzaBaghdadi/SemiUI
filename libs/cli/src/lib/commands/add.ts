@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { cliVersion } from '../cli-version';
 import { readConfig } from '../components-config';
+import { readLockfile, recordFile, writeLockfile } from '../lockfile';
 import { detectPackageManager, installDependencies } from '../package-manager';
 import { RegistryComponent, getComponent, listComponents, readRecipeFile, resolveWithDependencies } from '../registry';
 
@@ -66,6 +68,11 @@ export function runAdd(cwd: string, componentName: string | undefined, options: 
 
   const config = readConfig(cwd);
   const componentsDir = options.path ?? config.componentsDir;
+  // `--path` writes somewhere the lockfile's componentsDir doesn't describe, so those files can't
+  // be tracked -- `update` would look for them in the wrong place and report them missing.
+  const trackable = options.path === undefined || options.path === config.componentsDir;
+  const lockfile = readLockfile(cwd);
+  const version = cliVersion();
 
   for (const item of toInstall) {
     const targetDir = join(cwd, componentsDir, item.name);
@@ -77,9 +84,17 @@ export function runAdd(cwd: string, componentName: string | undefined, options: 
         console.log(`Skipping ${file} -- already exists at ${destPath} (it's yours now, not overwriting).`);
         continue;
       }
-      writeFileSync(destPath, readRecipeFile(item.name, file), 'utf8');
+      const content = readRecipeFile(item.name, file);
+      writeFileSync(destPath, content, 'utf8');
+      if (trackable) {
+        recordFile(lockfile, item.name, file, content, version);
+      }
       console.log(`Added ${destPath}`);
     }
+  }
+
+  if (trackable) {
+    writeLockfile(cwd, lockfile);
   }
 
   const npmDependencies = [...new Set(toInstall.flatMap((item) => item.npmDependencies))];
@@ -110,10 +125,12 @@ Install @ng-icons/lucide and register them in your app config:
 
   if (options.all) {
     console.log(`\nDone. ${toInstall.length} components are now yours to edit at ${componentsDir}.`);
+    console.log('After a CLI upgrade, `semiui update` pulls library changes into them.');
   } else {
     const component = getComponent(componentName as string) as RegistryComponent;
     const className = `${pascalCase(component.name)}Component`;
     const modulePath = join(componentsDir, component.name, `${component.name}.component`);
     console.log(`\nDone. ${className} is now yours to edit at ${modulePath}.ts -- import it with a relative path from there.`);
+    console.log('After a CLI upgrade, `semiui update` pulls library changes into it.');
   }
 }

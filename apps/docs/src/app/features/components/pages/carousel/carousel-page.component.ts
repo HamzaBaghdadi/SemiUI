@@ -143,5 +143,8 @@ export class CarouselPageComponent {
     { name: '--semiui-comp-carousel-dot-size', description: 'Diameter of each dot.' },
     { name: '--semiui-comp-carousel-dot-color', description: 'Inactive dot color.' },
     { name: '--semiui-comp-carousel-dot-color-active', description: 'Active dot color.' },
+    { name: '--semiui-comp-carousel-arrow-background-disabled', description: 'Arrow button background when there is nothing further to scroll to.' },
+    { name: '--semiui-comp-carousel-arrow-color-disabled', description: 'Arrow icon color in that same state.' },
+    { name: '--semiui-comp-carousel-arrow-opacity-disabled', description: 'Opacity of a disabled arrow. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
   ];
 }

@@ -141,5 +141,8 @@ export class FileUploadPageComponent {
     { name: '--semiui-comp-file-upload-item-border', description: 'Border color of each selected-file row.' },
     { name: '--semiui-comp-file-upload-item-background', description: 'Background of each selected-file row.' },
     { name: '--semiui-comp-file-upload-thumb-size', description: 'Width/height of each file thumbnail or icon.' },
+    { name: '--semiui-comp-file-upload-background-disabled', description: 'Dropzone background when disabled.' },
+    { name: '--semiui-comp-file-upload-border-disabled', description: 'Dropzone border color when disabled.' },
+    { name: '--semiui-comp-file-upload-opacity-disabled', description: 'Opacity of a disabled dropzone. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },
   ];
 }

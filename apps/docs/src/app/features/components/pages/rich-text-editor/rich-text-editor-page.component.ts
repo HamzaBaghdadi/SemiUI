@@ -122,5 +122,8 @@ protected noteForm = form(this.noteModel);
     { name: '--semiui-comp-input-*', description: "Reused directly -- border, radius, background, typography, and focus/invalid/disabled colors all match Text Input and Textarea." },
     { name: '--semiui-color-primary', description: 'Active-tool highlight color, and link text color inside the content.' },
     { name: '--semiui-color-muted', description: "The toolbar's background." },
+    { name: '--semiui-comp-rich-text-editor-tool-background-disabled', description: 'Background of a toolbar button that does not apply to the current selection. Not applied to an active tool, which keeps its highlight.' },
+    { name: '--semiui-comp-rich-text-editor-tool-foreground-disabled', description: 'Icon color of that same button.' },
+    { name: '--semiui-comp-rich-text-editor-tool-opacity-disabled', description: 'Opacity of a disabled toolbar button. Follows var(--semiui-opacity-disabled); the editable area itself dims with --semiui-comp-input-opacity-disabled.' },
   ];
 }

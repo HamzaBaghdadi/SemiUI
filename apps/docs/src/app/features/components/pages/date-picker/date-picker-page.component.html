@@ -247,6 +247,22 @@
       >
     </app-component-demo>
   </div>
+
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Append to body</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      By default the calendar is positioned relative to its own trigger, which gets cut off when an ancestor clips overflow — a Dialog, a Drawer, or any scrollable card. Set
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">appendTo="body"</code> to move it to
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">document.body</code> instead — it stays
+      pixel-positioned against its anchor, but escapes the clipping container. The box below clips its
+      overflow, so the left-hand control shows the problem and the right-hand one the fix.
+    </p>
+    <div class="rounded-lg border border-dashed border-border p-4 overflow-hidden h-24 flex items-start gap-4">
+      <s-date-picker [ngModel]="null" placeholder="Clipped" class="w-44" />
+      <s-date-picker [ngModel]="null" appendTo="body" placeholder="appendTo body" class="w-44" />
+    </div>
+    <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
+  </div>
       </div>
     </ng-template>
 

@@ -27,6 +27,9 @@ export type TokenGroup =
   | 'spacing'
   | 'radius'
   | 'typography'
+  /** A state opacity -- `opacity.disabled`. Its own group because it is neither a color nor a
+   * length: it is the dimming a component applies to itself in a given state. */
+  | 'opacity'
   /** A per-component token -- `components.button.radius`. Not part of any public theme surface. */
   | 'component';
 
@@ -46,6 +49,7 @@ const SEMANTIC_NAMESPACES: Record<string, string> = {
   spacing: 'spacing',
   radius: 'radius',
   typography: 'typography',
+  opacity: 'opacity',
 };
 
 /**
@@ -56,6 +60,7 @@ const SEMANTIC_NAMESPACES: Record<string, string> = {
  *     semantic   primaryForeground                   --semiui-color-primary-foreground
  *     semantic   palette.primary.500                 --semiui-color-palette-primary-500
  *     semantic   spacing.md                          --semiui-spacing-md
+ *     semantic   opacity.disabled                    --semiui-opacity-disabled
  *     semantic   typography.fontSize.sm              --semiui-typography-font-size-sm
  *     components button.variants.primary.background  --semiui-comp-button-variants-primary-background
  */
@@ -96,6 +101,8 @@ export function tokenGroup(layer: TokenLayer, path: readonly string[]): TokenGro
       return 'radius';
     case 'typography':
       return 'typography';
+    case 'opacity':
+      return 'opacity';
     default:
       return 'color';
   }

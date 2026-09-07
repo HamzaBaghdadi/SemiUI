@@ -45,6 +45,8 @@ export class SplitButtonComponent {
   /** Stretches the button to fill its container. The caret segment keeps its square footprint;
    * the labeled main segment takes up the slack. */
   fluid = input(false, { transform: booleanAttribute });
+  /** Forwarded to the menu's Popover: moves the menu to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context. */
+  appendTo = input<'body' | null>(null);
 
   /** Emitted when the main action is pressed. */
   pressed = output<void>();

@@ -80,6 +80,8 @@
 
 .s-speed-dial__action:disabled {
   cursor: not-allowed;
+  background: var(--semiui-comp-speed-dial-action-background-disabled);
+  color: var(--semiui-comp-speed-dial-action-foreground-disabled);
 }
 
 /* Fanned out one at a time, staggered off each action's index by the preset's own step (a preset
@@ -97,7 +99,7 @@
 }
 
 :host([data-open]) .s-speed-dial__action:disabled {
-  opacity: 0.5;
+  opacity: var(--semiui-comp-speed-dial-action-opacity-disabled);
 }
 
 /* Layout per direction: actions stack away from the trigger, closest segment first so the

@@ -192,5 +192,8 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-input-placeholder-foreground', description: 'Placeholder and affix text color.' },
     { name: '--semiui-comp-input-padding-x / -padding-y', description: 'Field padding.' },
     { name: '--semiui-comp-input-font-size', description: 'Field font size.' },
+    { name: '--semiui-comp-input-border-disabled', description: 'Border color when disabled.' },
+    { name: '--semiui-comp-input-opacity-disabled', description: 'Opacity of the disabled field, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey the field out instead of dimming it.' },
+    { name: '--semiui-comp-button-opacity-disabled', description: 'Opacity of the disabled increment/decrement affordances -- they are ghost icon buttons, so they follow Button rather than the field.' },
   ];
 }

@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   TemplateRef,
@@ -52,6 +53,7 @@ let nextCascadeSelectId = 0;
 export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldControl<unknown> {
   protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
@@ -73,6 +75,10 @@ export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldCont
   loading = input(false, { transform: booleanAttribute });
   /** Moves the panel to a direct child of `document.body`, escaping any ancestor's `overflow: hidden` clipping or `transform`/`filter` stacking context. */
   appendTo = input<'body' | null>(null);
+  /** Closes the panel when a scroll container under the trigger scrolls, instead of repositioning
+   * the panel to follow it -- the same option Popover exposes. Applies to a nested `overflow-y: auto`
+   * ancestor as much as to the page itself. */
+  closeOnScroll = input(false, { transform: booleanAttribute });
 
   /** Custom rendering for the selected value shown in the closed trigger. Context: the selected leaf path (root-to-leaf), or []. */
   protected selectedTemplate = contentChild<unknown, TemplateRef<{ $implicit: TOption[] }>>('selected', {
@@ -365,13 +371,41 @@ export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldCont
     this.fixedPosition.set({ top, left: rect.left, width: rect.width });
   }
 
-  @HostListener('window:scroll')
-  protected onWindowScroll(): void {
-    if (this.open()) {
-      this.updatePlacement();
-      if (this.appendTo() === 'body') {
-        this.positionAppendedPanel();
-      }
+  /**
+   * `scroll` events don't bubble, so `@HostListener('window:scroll')` only ever hears the page
+   * itself scrolling -- put this control inside a `overflow-y: auto` div, a scrollable dialog
+   * body or a virtualised list and none of the repositioning below runs, which leaves the panel
+   * stranded where the trigger used to be. A capture-phase listener on the document hears all of
+   * them: a scroll event still passes through the document on its way down to the element that
+   * scrolled, even though it never bubbles back up.
+   */
+  constructor() {
+    super();
+
+    const onScroll = (event: Event) => this.onAnyScroll(event);
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  }
+
+  protected onAnyScroll(event: Event): void {
+    if (!this.open()) {
+      return;
+    }
+    // Only scrollers that actually move the anchor matter; a scroll somewhere else on the page
+    // leaves it exactly where it was. For a page scroll the event target is `document`, which
+    // contains everything, so that case still passes.
+    const anchor = this.triggerButton()?.nativeElement;
+    const target = event.target as Node;
+    if (!anchor || !target.contains(anchor)) {
+      return;
+    }
+    if (this.closeOnScroll()) {
+      this.close();
+      return;
+    }
+    this.updatePlacement();
+    if (this.appendTo() === 'body') {
+      this.positionAppendedPanel();
     }
   }
 
@@ -385,10 +419,21 @@ export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldCont
     }
   }
 
+  /**
+   * The panel is tested separately from the host rather than relying on `host.contains()` alone:
+   * with `appendTo="body"` the panel is a child of `<body>`, not a descendant of this component,
+   * so every click inside it (any column, at any depth) would read as an outside click and close the
+   * panel out from under the interaction.
+   */
   @HostListener('document:click', ['$event'])
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.elementRef.nativeElement.contains(event.target as Node)) {
-      this.close();
+    if (!this.open()) {
+      return;
     }
+    const target = event.target as Node;
+    if (this.elementRef.nativeElement.contains(target) || this.panel()?.nativeElement.contains(target)) {
+      return;
+    }
+    this.close();
   }
 }

@@ -108,6 +108,8 @@ export class TabsPageComponent {
     { name: '--semiui-comp-tabs-foreground', description: 'Text color of inactive tabs.' },
     { name: '--semiui-comp-tabs-foreground-active', description: 'Text color of the hovered/active tab.' },
     { name: '--semiui-comp-tabs-foreground-disabled', description: 'Text color of disabled tabs.' },
+    { name: '--semiui-comp-tabs-background-disabled', description: 'Background of a disabled tab.' },
+    { name: '--semiui-comp-tabs-opacity-disabled', description: 'Opacity of a disabled tab, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey it out instead.' },
     { name: '--semiui-comp-tabs-indicator-color', description: 'Color of the sliding indicator bar.' },
     { name: '--semiui-comp-tabs-indicator-thickness', description: 'Thickness of the indicator bar (height when horizontal, width when vertical).' },
   ];

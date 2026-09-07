@@ -136,5 +136,8 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-rating-gap', description: 'Gap between stars.' },
     { name: '--semiui-comp-rating-empty-color', description: 'Star color when unfilled.' },
     { name: '--semiui-comp-rating-filled-color', description: 'Star color when filled (selected or hover preview).' },
+    { name: '--semiui-comp-rating-empty-color-disabled', description: 'Unfilled star color when the control is disabled or read-only.' },
+    { name: '--semiui-comp-rating-filled-color-disabled', description: 'Filled star color in that same state.' },
+    { name: '--semiui-comp-rating-opacity-disabled', description: 'Opacity of the whole control when disabled. Follows var(--semiui-opacity-disabled); set it to 100% to keep full-strength stars and express disabled with the two colors above.' },
   ];
 }

@@ -26,6 +26,15 @@
   transform: rotate(45deg);
 }
 
+/* Appended tooltips leave their own stacking context for the root one, where the Dialog/Drawer
+   backdrop sits at z-index 100 -- at the in-flow 60 above, the tooltip would render *under* the
+   dialog it was opened from. 130 rather than 120 so an appended tooltip still sits above an
+   appended Popover or Select panel, the order their in-flow z-indexes already give them; both stay
+   below Toast (200), which has to sit above everything. */
+.s-tooltip[data-appended] {
+  z-index: 130;
+}
+
 .s-tooltip[data-placement='top']::after {
   bottom: -0.2rem;
   left: 50%;

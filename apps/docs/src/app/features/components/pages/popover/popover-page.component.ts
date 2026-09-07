@@ -73,7 +73,7 @@ export class PopoverPageComponent {
       name: 'closeOnScroll',
       type: 'boolean',
       default: 'true',
-      description: 'Hides the popover on scroll instead of repositioning it to follow the anchor.',
+      description: 'Hides the popover on scroll instead of repositioning it to follow the anchor. Applies to a nested overflow-y: auto ancestor as much as to the page itself.',
     },
     {
       name: 'showArrow',

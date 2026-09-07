@@ -76,7 +76,9 @@ export class PaginationPageComponent {
     { name: '--semiui-comp-pagination-border', description: 'Button border color.' },
     { name: '--semiui-comp-pagination-background / -foreground', description: 'Default button colors.' },
     { name: '--semiui-comp-pagination-background-hover', description: 'Button background on hover.' },
-    { name: '--semiui-comp-pagination-foreground-disabled', description: 'Text color for disabled buttons and the ellipsis.' },
+    { name: '--semiui-comp-pagination-foreground-disabled', description: 'Text color of a disabled button.' },
+    { name: '--semiui-comp-pagination-background-disabled', description: 'Background of a disabled button.' },
+    { name: '--semiui-comp-pagination-opacity-disabled', description: 'Opacity of a disabled button, following var(--semiui-opacity-disabled). Set it to 100% and point the two colors above at neutrals to grey it out instead.' },
     { name: '--semiui-comp-pagination-background-active / -foreground-active', description: 'Colors for the active page-number button.' },
   ];
 }

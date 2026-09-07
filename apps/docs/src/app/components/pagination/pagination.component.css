@@ -41,7 +41,9 @@
 
 .s-pagination__button:disabled {
   cursor: not-allowed;
+  background: var(--semiui-comp-pagination-background-disabled);
   color: var(--semiui-comp-pagination-foreground-disabled);
+  opacity: var(--semiui-comp-pagination-opacity-disabled);
 }
 
 .s-pagination__button--page[aria-current='page'] {
@@ -56,7 +58,7 @@
   justify-content: center;
   min-width: var(--semiui-comp-pagination-size);
   height: var(--semiui-comp-pagination-size);
-  color: var(--semiui-comp-pagination-foreground-disabled);
+  color: var(--semiui-color-muted-foreground);
 }
 
 .s-pagination__icon {

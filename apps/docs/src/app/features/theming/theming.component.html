@@ -295,6 +295,65 @@
     </div>
   </section>
 
+  <!-- Disabled state -->
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Disabled state</span
+      >
+      <h2 class="text-2xl font-extrabold">Opacity or colors — your call</h2>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >Disabled means "this component, dimmed" everywhere: each component's
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">*Disabled</code> colors point back at its own
+        live colors, and one semantic <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">opacity.disabled</code>
+        (generated as <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-opacity-disabled</code>)
+        does the fading. No component hard-codes its own dimming — and if you would rather grey a
+        component out than fade it, repoint its colors and set its
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">opacityDisabled</code> to 100%.
+      </span>
+
+      <div class="flex flex-col gap-4 mt-4">
+        <div class="bg-slate-900 text-white rounded-lg overflow-hidden">
+          <div
+            class="flex items-center justify-between px-4 py-2 border-b border-white/10"
+          >
+            <span class="text-xs text-white/60">definePreset(Semi, ...)</span>
+            <button
+              type="button"
+              class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+              (click)="copy('disabledState')"
+            >
+              <ng-icon
+                [name]="isCopied('disabledState') ? 'lucideClipboardCheck' : 'lucideCopy'"
+              ></ng-icon>
+              {{ isCopied('disabledState') ? 'Copied' : 'Copy' }}
+            </button>
+          </div>
+          <pre
+            class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"
+          ><code><span class="text-white/40">// "Disabled" has two independent levers, and every component that has the state</span>
+<span class="text-white/40">// exposes both. Pick either, or use them together.</span>
+
+<span class="text-white/40">// 1. Opacity. One semantic token; every component's own opacityDisabled points at it,</span>
+<span class="text-white/40">//    so this one line changes how faded "disabled" is across the whole library.</span>
+semantic: {{ '{' }} opacity: {{ '{' }} disabled: '40%' {{ '}' }} {{ '}' }}
+
+<span class="text-white/40">// 2. Colors. Each component's own *Disabled surface tokens.</span>
+components: {{ '{' }}
+  input: {{ '{' }}
+    <span class="text-white/40">// Semi dims a disabled field -- it stays itself, just faded. Repoint these</span>
+    <span class="text-white/40">// and turn the dimming off to grey the field out instead.</span>
+    backgroundDisabled: '{{ '{' }}muted{{ '}' }}',
+    foregroundDisabled: '{{ '{' }}mutedForeground{{ '}' }}',
+    opacityDisabled: '100%',
+  {{ '}' }},
+{{ '}' }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Custom presets -->
   <section class="border-t border-border">
     <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">

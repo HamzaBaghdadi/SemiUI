@@ -166,6 +166,26 @@
           <app-code-block filename="Usage" [code]="appendToCode"></app-code-block>
         </div>
 
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Scrolling containers</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            An open panel reacts to whatever actually scrolls under its trigger — the page, a
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">overflow-y: auto</code> div, a scrollable
+            dialog body — not just the window. By default it repositions to stay glued to the trigger;
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">closeOnScroll</code> closes it instead.
+            Open one of these and scroll the box.
+          </p>
+          <div class="rounded-lg border border-dashed border-border p-4">
+            <div class="h-32 overflow-y-auto rounded-md border border-border p-3 flex flex-col gap-3">
+              <div class="h-8 shrink-0"></div>
+              <s-select [options]="fruits" appendTo="body" placeholder="Follows the trigger" class="w-48 shrink-0" />
+              <s-select [options]="fruits" appendTo="body" [closeOnScroll]="true" placeholder="Closes on scroll" class="w-48 shrink-0" />
+              <div class="h-40 shrink-0"></div>
+            </div>
+          </div>
+          <app-code-block filename="Usage" [code]="scrollContainerCode"></app-code-block>
+        </div>
+
         <div class="flex flex-col gap-2">
           <h2 class="text-xl font-bold">Keyboard</h2>
           <p class="text-sm text-muted-foreground max-w-xl">
