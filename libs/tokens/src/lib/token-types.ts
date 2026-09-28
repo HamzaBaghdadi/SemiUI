@@ -311,16 +311,39 @@ export type FieldTokens = {
 };
 
 export type SelectTokens = FieldTokens & {
+  /** Space between the trigger's value, clear control and chevron. Shared by Multiselect. */
+  triggerGap: TokenValue;
+  /** Size of the trigger's chevron. Shared by Multiselect and Cascade Select's triggers. */
+  iconSize: TokenValue;
+  /** Rotation of the trigger's chevron while the panel is open -- an angle. The right value
+   * depends on the glyph: `180deg` flips the stock down-chevron, a preset supplying its own
+   * `selectChevron` icon picks whatever points it correctly (`0deg` to leave it alone). */
+  iconRotationOpen: TokenValue;
   panelBackground: TokenValue;
   panelBorder: TokenValue;
   panelShadow: TokenValue;
+  /** Corner radius of the dropdown panel. Separate from `radius` (the trigger's) because a pill
+   * trigger makes a list of options a very different shape from a pill: its rows clip against the
+   * corners. Shared by Multiselect, Auto Complete and Cascade Select's panels. */
+  panelRadius: TokenValue;
   /** Shared by Cascade Select's and Auto Complete's panels (both reuse `select.*` throughout):
    * the option list's `max-height` before it scrolls. */
   panelMaxHeight: TokenValue;
+  /** Inset between the panel edge and the option rows. Shared by Multiselect. */
+  listPadding: TokenValue;
+  /** Opacity of a trigger that is loading. It keeps its normal colors and only dims, so it reads
+   * as busy rather than unavailable. Shared by Multiselect and Cascade Select. */
+  opacityLoading: TokenValue;
   optionForeground: TokenValue;
   optionBackgroundHover: TokenValue;
   optionBackgroundSelected: TokenValue;
   optionForegroundSelected: TokenValue;
+  /** Corner radius of one option row, shared with the family (Multiselect, Auto Complete,
+   * Cascade Select). Keep it at or below `panelRadius` minus the list's own inset, or the
+   * highlighted row pokes out of the panel's corners. */
+  optionRadius: TokenValue;
+  optionPaddingX: TokenValue;
+  optionPaddingY: TokenValue;
 };
 
 /**
@@ -336,6 +359,25 @@ export type ComponentTokens = {
   button: ButtonTokens;
   input: FieldTokens;
   select: SelectTokens;
+  /**
+   * Textarea's geometry. Its colors and states deliberately stay on `input.*` -- a textarea *is* an
+   * input for every purpose but shape -- so only what a multi-line field genuinely wants to differ
+   * on lives here. Semi points every one of them at the matching `input` token, so nothing changes
+   * until a preset says otherwise.
+   */
+  textarea: {
+    /** A tall field needs a different corner from a single-line one: a pill `input.radius` turns a
+     * five-row textarea into a blob. */
+    radius: TokenValue;
+    paddingX: TokenValue;
+    paddingY: TokenValue;
+    fontSize: TokenValue;
+    /** The CSS `resize` value when the user can drag the corner: `vertical`, `horizontal`,
+     * `both` or `none`. `autoResize` always forces `none` regardless. */
+    resize: TokenValue;
+    /** Distance of the character counter from the field's bottom edge. */
+    counterInset: TokenValue;
+  };
   switch: {
     trackPadding: TokenValue;
     /** Opacity of a disabled switch, on top of `backgroundDisabled`. Any CSS opacity value. */
@@ -419,6 +461,15 @@ export type ComponentTokens = {
     fontWeight: TokenValue;
     paddingX: TokenValue;
     paddingY: TokenValue;
+    /** Space between the icon, the label and the remove button. */
+    gap: TokenValue;
+    /** Width and height of the optional leading icon. Relative by default so it scales with the
+     * tag's text; an absolute value suits a small status dot. */
+    iconSize: TokenValue;
+    /** Width and height of the remove ("x") button. */
+    removeIconSize: TokenValue;
+    /** Resting opacity of the remove button; it goes fully opaque on hover. */
+    removeOpacity: TokenValue;
     variants: Record<TagVariant, SurfaceVariantTokens>;
   };
   breadcrumb: {
@@ -467,6 +518,23 @@ export type ComponentTokens = {
   accordion: {
     border: TokenValue;
     radius: TokenValue;
+    /** Space between items in the `separated` variant. Ignored by `joined`, where the items form
+     * one continuous list. */
+    gap: TokenValue;
+    /** Border of each item in the `separated` variant, where every item is its own card. */
+    itemBorder: TokenValue;
+    /** Corner radius of each item in the `separated` variant. */
+    itemRadius: TokenValue;
+    /** Width and height of the expand/collapse indicator's box. */
+    chevronSize: TokenValue;
+    /** Fill behind the indicator. `transparent` in Semi (a bare glyph); a color makes it a filled
+     * button, pair it with `chevronRadius` for a circle. */
+    chevronBackground: TokenValue;
+    chevronForeground: TokenValue;
+    chevronRadius: TokenValue;
+    /** Rotation of the indicator while its panel is open -- an angle. Depends on the glyph: `180deg`
+     * flips the stock down-chevron; a diagonal arrow might turn `-90deg`. */
+    chevronRotationExpanded: TokenValue;
     headerBackground: TokenValue;
     headerBackgroundHover: TokenValue;
     headerForeground: TokenValue;
@@ -619,10 +687,30 @@ export type ComponentTokens = {
     arrowBackgroundDisabled: TokenValue;
     arrowColorDisabled: TokenValue;
     arrowOpacityDisabled: TokenValue;
+    /** How far a floating arrow sits from the carousel's edge. */
+    arrowOffset: TokenValue;
+    /** Rotation applied to the stock `chevronDown` glyph so it points left -- an angle. Only used
+     * when the preset has no dedicated `carouselPrev` icon; a purpose-drawn arrow needs none. */
+    arrowIconRotationPrev: TokenValue;
+    /** As `arrowIconRotationPrev`, pointing right. Only used without a `carouselNext` icon. */
+    arrowIconRotationNext: TokenValue;
     dotSize: TokenValue;
+    /** Width of the active dot. Equal to `dotSize` in Semi (a circle); wider makes it a pill. */
+    dotActiveWidth: TokenValue;
+    /** Scale of the active dot -- a plain number. Set `1` when `dotActiveWidth` already
+     * distinguishes it. */
+    dotActiveScale: TokenValue;
     dotColor: TokenValue;
     dotColorActive: TokenValue;
     dotGap: TokenValue;
+    /** Scale of the neighbouring slides that peek in beside the active one (`centerMode`) -- a
+     * plain number. */
+    centerInactiveScale: TokenValue;
+    centerInactiveBlur: TokenValue;
+    centerInactiveOpacity: TokenValue;
+    /** Duration and easing of slide movement and of the `centerMode` scale/blur/opacity change,
+     * e.g. `0.3s ease`. Motion is removed under `prefers-reduced-motion` regardless. */
+    slideTransition: TokenValue;
   };
   toast: {
     radius: TokenValue;
@@ -877,6 +965,45 @@ export type ThemeOverrides = {
   components?: DeepPartial<ComponentTokens>;
 };
 
+/** Accordion's layout: one joined list inside a single border, or one card per item. */
+export type AccordionVariant = 'joined' | 'separated';
+
+/**
+ * Default values for component *inputs* -- the structural and behavioral half of a design that
+ * tokens (colors, sizes, radii) cannot express, like an Accordion whose items are separate cards or
+ * a Carousel that peeks its neighbours.
+ *
+ * A default only changes an input's initial value: an input bound on an instance always wins, and a
+ * component without an entry here behaves exactly as it does today. Components that support it
+ * read their entry through `injectComponentDefaults` in `@semiui/theme`.
+ *
+ * The index signature lets a preset (or a component you own) declare defaults for a component this
+ * file doesn't list yet.
+ */
+export interface ComponentDefaults {
+  accordion?: { variant?: AccordionVariant; multiple?: boolean };
+  carousel?: {
+    autoplay?: boolean;
+    /** Milliseconds between automatic advances. */
+    autoplayInterval?: number;
+    /** Milliseconds autoplay stays paused after a manual navigation. `0` turns that pause off. */
+    autoplayResumeDelay?: number;
+    loop?: boolean;
+    showArrows?: boolean;
+    showDots?: boolean;
+    itemsPerView?: number;
+    arrowsOutside?: boolean;
+    centerMode?: boolean;
+    /** Slide width as a percentage of the viewport in `centerMode`. */
+    centerSlideWidth?: number;
+    /** Space between slides in `centerMode` -- any CSS length; negative tucks neighbours under the active slide. */
+    centerGap?: string;
+    /** Shows a visible pause/play button while `autoplay` is on. */
+    showAutoplayToggle?: boolean;
+  };
+  [component: string]: Record<string, unknown> | undefined;
+}
+
 /**
  * A complete theme. Presets are plain data: no CSS variable names, no dependency on the generator.
  *
@@ -893,6 +1020,9 @@ export interface ThemePreset {
   /** Dark-mode overrides, applied under the configured dark-mode selector. */
   dark?: ThemeOverrides;
   icons: IconTokens;
+  /** Initial values for component inputs -- see `ComponentDefaults`. Optional; absent means every
+   * component keeps its own built-in defaults. */
+  defaults?: ComponentDefaults;
 }
 
 /** What `definePreset` accepts: any subset of a preset's layers. */
@@ -900,4 +1030,5 @@ export type PresetOverrides = ThemeOverrides & {
   name?: string;
   dark?: ThemeOverrides;
   icons?: Partial<IconTokens>;
+  defaults?: ComponentDefaults;
 };

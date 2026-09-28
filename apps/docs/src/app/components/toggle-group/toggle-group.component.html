@@ -5,6 +5,7 @@
       type="button"
       class="s-toggle-group__item"
       [attr.aria-pressed]="isSelected(item)"
+      [attr.aria-label]="item.ariaLabel ?? null"
       [attr.aria-invalid]="effectiveInvalid() ? 'true' : null"
       [disabled]="effectiveDisabled() || item.disabled"
       (click)="toggleItem(item)"
@@ -12,7 +13,9 @@
       @if (item.icon) {
         <s-icon class="s-toggle-group__icon" [ref]="item.icon" />
       }
-      <span class="s-toggle-group__label">{{ item.label }}</span>
+      @if (item.label) {
+        <span class="s-toggle-group__label">{{ item.label }}</span>
+      }
     </button>
   }
 </div>

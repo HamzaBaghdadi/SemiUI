@@ -1,10 +1,10 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   TemplateRef,
+  afterNextRender,
   afterRenderEffect,
   booleanAttribute,
   computed,
@@ -102,7 +102,6 @@ let nextDatePickerId = 0;
 export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly triggerInput = viewChild<ElementRef<HTMLInputElement>>('triggerInput');
   private readonly grid = viewChild<ElementRef<HTMLDivElement>>('grid');
   private readonly yearsPanel = viewChild<ElementRef<HTMLDivElement>>('yearsPanel');
@@ -164,7 +163,11 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
   /** A scrollable year list shown as its own panel beside the main one, toggled by the header's year button -- not swapped in place, so the main panel never resizes when jumping years. Stays false whenever `yearsInline()` is in effect; that mode drives the years grid through `navView` instead. */
   protected readonly yearsPanelOpen = signal(false);
   /** Tracks the viewport for `inlineYearsOnMobile`; updated on resize. */
-  protected readonly isMobileViewport = signal(window.innerWidth <= MOBILE_BREAKPOINT_PX);
+  /** `false` until the first browser render measures it -- `window` doesn't exist on the server, so reading it here would throw under SSR. */
+  protected readonly isMobileViewport = signal(false);
+  private readonly measureViewport = afterNextRender(() => {
+    this.isMobileViewport.set(window.innerWidth <= MOBILE_BREAKPOINT_PX);
+  });
   /** Whether the year list should render inline in the main panel instead of as a floating side panel -- forced on by `inlineYears`, or by `inlineYearsOnMobile` (the default) while the viewport is narrow. */
   protected readonly yearsInline = computed(() => this.inlineYears() || (this.inlineYearsOnMobile() && this.isMobileViewport()));
   /** Internal 24-hour representation, regardless of `timeFormat` (which only affects display). */
@@ -887,14 +890,19 @@ export class DatePickerComponent extends BaseFormFieldControl<Date | null> {
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * The listener exists only while the panel is open, and `afterRenderEffect` never runs on the
+   * server -- so a closed instance costs nothing per scroll, and rendering one under SSR doesn't
+   * touch `document`, which doesn't exist there.
    */
-  constructor() {
-    super();
-
+  private readonly scrollListenerEffect = afterRenderEffect((onCleanup) => {
+    if (!this.open()) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
-  }
+    onCleanup(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  });
 
   protected onAnyScroll(event: Event): void {
     if (!this.open()) {

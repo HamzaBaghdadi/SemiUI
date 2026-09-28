@@ -3,8 +3,24 @@ import { IconRef } from './icon-ref';
 /** Default icons a preset provides for built-in component states (e.g. a button's loading spinner). */
 export interface IconTokens {
   loading: IconRef;
-  /** Select's trigger icon, and any other component-level dropdown affordance. */
+  /**
+   * The generic vertical chevron. Select's trigger, Accordion's expand indicator and Carousel's
+   * arrows all fall back to it (see the optional per-component keys below), rotated by that
+   * component's own rotation token so a single glyph points the right way in each.
+   */
   chevronDown: IconRef;
+  /** Accordion's expand indicator. Falls back to `chevronDown`. */
+  accordionChevron?: IconRef;
+  /** Carousel's "previous slide" arrow. Falls back to `chevronDown`, rotated by `carousel.arrowIconRotationPrev`. */
+  carouselPrev?: IconRef;
+  /** Carousel's "next slide" arrow. Falls back to `chevronDown`, rotated by `carousel.arrowIconRotationNext`. */
+  carouselNext?: IconRef;
+  /** Select's trigger icon. Falls back to `chevronDown`. */
+  selectChevron?: IconRef;
+  /** Carousel's autoplay "pause" button. Falls back to a built-in glyph, so no icon needs registering. */
+  carouselPause?: IconRef;
+  /** Carousel's autoplay "play" button. Falls back to a built-in glyph, so no icon needs registering. */
+  carouselPlay?: IconRef;
   /** The clear/reset button shown by Select and other clearable inputs. */
   clear: IconRef;
   /** Password's "reveal" toggle icon, shown when the value is masked. */

@@ -607,6 +607,64 @@ components: {{ '{' }}
 <span class="text-white/40">// in the template:</span>
 <span class="text-white/40">// &lt;s-icon [ref]="icons.checkboxCheck" /&gt;</span></code></pre>
       </div>
+
+      <h3 class="text-lg font-bold mt-8">One glyph, or one per component</h3>
+      <span class="text-muted-foreground text-sm max-w-xl"
+        >Accordion, Carousel and the Select family all fall back to
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">chevronDown</code>, turned by that component's own rotation token so a single glyph points the
+        right way in each. When a design wants a different arrow for one of them, give it its own slot —
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">accordionChevron</code>, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">carouselPrev</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">carouselNext</code> or <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">selectChevron</code> — and only that component changes.
+        A dedicated <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">carouselPrev</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">carouselNext</code> icon is drawn pointing the
+        right way already, so it gets no rotation.</span
+      >
+
+      <h3 class="text-lg font-bold mt-8">Custom SVGs: use currentColor, and say which way they point</h3>
+      <span class="text-muted-foreground text-sm max-w-xl"
+        >Inline markup should paint with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">currentColor</code> (never a literal hex), so the icon follows
+        the component's foreground token and therefore dark mode and every preset. A directional glyph — an arrow, a
+        diagonal chevron — also sets <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">flipInRtl: true</code>, and mirrors itself under a right-to-left
+        direction; a symmetric one leaves it off.</span
+      >
+      <pre
+        class="bg-slate-900 text-white rounded-lg px-4 py-3 mt-2 text-[0.8125rem] leading-7 overflow-x-auto"
+      ><code>icons: &#123;
+  accordionChevron: &#123; type: 'svg', flipInRtl: true, markup: '&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ...&gt;...&lt;/svg&gt;' &#125;,
+  carouselPrev: &#123; type: 'svg', flipInRtl: true, markup: '...' &#125;,
+&#125;</code></pre>
+    </div>
+  </section>
+
+  <!-- Component defaults -->
+  <section class="border-t border-border">
+    <div class="flex flex-col gap-2 w-full px-6 py-10 max-w-220 m-auto">
+      <span
+        class="inline-flex items-center gap-2 text-primary tracking-[0.08em] font-semibold uppercase text-xs before:size-1.5 before:rounded-full before:bg-primary"
+        >Defaults</span
+      >
+      <h2 class="text-2xl font-extrabold">Structure, not just style</h2>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >Some parts of a design aren't a color or a size: an Accordion whose items are separate cards, a Carousel that
+        peeks its neighbours. Those are component <em>inputs</em>, so a preset can set their initial value in a
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">defaults</code> block. An input bound on an instance always wins, and a component the preset says
+        nothing about behaves exactly as before.</span
+      >
+      <pre
+        class="bg-slate-900 text-white rounded-lg px-4 py-3 mt-2 text-[0.8125rem] leading-7 overflow-x-auto"
+      ><code>export const MyTheme = definePreset(Semi, &#123;
+  defaults: &#123;
+    accordion: &#123; variant: 'separated' &#125;,
+    carousel: &#123; centerMode: true, autoplayInterval: 2000 &#125;,
+  &#125;,
+&#125;);</code></pre>
+      <span class="text-muted-foreground text-sm max-w-xl mt-4"
+        >Inside a copied component, read them with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">injectComponentDefaults()</code> and feed the result
+        to the input's initial value — the input stays the source of truth:</span
+      >
+      <pre
+        class="bg-slate-900 text-white rounded-lg px-4 py-3 mt-2 text-[0.8125rem] leading-7 overflow-x-auto"
+      ><code>private readonly defaults = injectComponentDefaults('carousel');
+centerMode = input(this.defaults.centerMode ?? false, &#123; transform: booleanAttribute &#125;);</code></pre>
     </div>
   </section>
 

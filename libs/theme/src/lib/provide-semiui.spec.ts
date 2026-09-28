@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ComponentTokens, IconTokens, SemanticTokens, ThemePreset } from '@semiui/tokens';
 import { ColorModeService } from './color-mode.service';
 import { SEMIUI_COLOR_MODE_CONFIG } from './color-mode.config';
+import { injectComponentDefaults, SEMIUI_DEFAULTS } from './component-defaults.token';
 import { SEMIUI_ICONS } from './icon-tokens.token';
 import { provideSemiUI } from './provide-semiui';
 
@@ -122,6 +123,27 @@ describe('provideSemiUI', () => {
     TestBed.configureTestingModule({ providers: [provideSemiUI({ preset })] });
 
     expect(TestBed.inject(SEMIUI_ICONS)).toEqual(preset.icons);
+  });
+
+  it('registers the preset component defaults under SEMIUI_DEFAULTS', () => {
+    const defaults = { carousel: { centerMode: true, autoplayInterval: 2000 } };
+    TestBed.configureTestingModule({ providers: [provideSemiUI({ preset: { ...createTestPreset(), defaults } })] });
+
+    expect(TestBed.inject(SEMIUI_DEFAULTS)).toEqual(defaults);
+    expect(TestBed.runInInjectionContext(() => injectComponentDefaults('carousel'))).toEqual(defaults.carousel);
+  });
+
+  it('gives an empty defaults object to a component the preset says nothing about', () => {
+    TestBed.configureTestingModule({ providers: [provideSemiUI({ preset: createTestPreset() })] });
+
+    expect(TestBed.inject(SEMIUI_DEFAULTS)).toEqual({});
+    expect(TestBed.runInInjectionContext(() => injectComponentDefaults('accordion'))).toEqual({});
+  });
+
+  it('injectComponentDefaults still works when SemiUI was never provided', () => {
+    TestBed.configureTestingModule({});
+
+    expect(TestBed.runInInjectionContext(() => injectComponentDefaults('accordion'))).toEqual({});
   });
 
   it('applies colorMode overrides to SEMIUI_COLOR_MODE_CONFIG', () => {

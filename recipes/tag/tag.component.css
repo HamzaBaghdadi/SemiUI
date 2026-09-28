@@ -1,7 +1,7 @@
 :host {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--semiui-comp-tag-gap);
   box-sizing: border-box;
   padding: var(--semiui-comp-tag-padding-y) var(--semiui-comp-tag-padding-x);
   border-radius: var(--semiui-comp-tag-radius);
@@ -79,8 +79,8 @@
 }
 
 .s-tag__icon {
-  width: 0.875em;
-  height: 0.875em;
+  width: var(--semiui-comp-tag-icon-size);
+  height: var(--semiui-comp-tag-icon-size);
   flex-shrink: 0;
 }
 
@@ -89,13 +89,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 0.875em;
-  height: 0.875em;
+  width: var(--semiui-comp-tag-remove-icon-size);
+  height: var(--semiui-comp-tag-remove-icon-size);
   padding: 0;
   border: none;
   background: none;
   color: inherit;
-  opacity: 0.7;
+  opacity: var(--semiui-comp-tag-remove-opacity);
   cursor: pointer;
 }
 

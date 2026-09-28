@@ -64,7 +64,7 @@ export class FloatLabelPageComponent {
       name: 'label',
       type: 'string',
       default: 'required',
-      description: 'The label text.',
+      description: 'The label text. It is also tied to the wrapped control for assistive technology (for on a native input, textarea or Select trigger; aria-labelledby otherwise), unless that control already has its own id-based name, aria-label or aria-labelledby.',
     },
     {
       name: 'variant',

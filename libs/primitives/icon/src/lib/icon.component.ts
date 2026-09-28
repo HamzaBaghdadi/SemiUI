@@ -2,10 +2,16 @@ import { Component, computed, input } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { IconRef } from '@semiui/tokens';
 
-/** Renders an IconRef: either a name registered with ng-icons, or raw inline SVG markup. */
+/**
+ * Renders an IconRef: either a name registered with ng-icons, or raw inline SVG markup. A ref
+ * flagged `flipInRtl` is mirrored horizontally under a right-to-left direction.
+ */
 @Component({
   selector: 's-icon',
   imports: [NgIcon],
+  host: {
+    '[attr.data-flip-rtl]': 'ref().flipInRtl ? "" : null',
+  },
   template: `
     @if (ref().type === 'ng-icon') {
       <ng-icon [name]="ngIconName()" />
@@ -30,6 +36,16 @@ import { IconRef } from '@semiui/tokens';
       display: inline-flex;
       align-items: center;
       justify-content: center;
+    }
+
+    /*
+     * The mirror is applied to the inner ng-icon, not the host, so it composes with whatever
+     * transform the consumer puts on <s-icon> itself (an open/closed rotation, say) instead of
+     * fighting it for the same property. :dir() reads the resolved direction, so it needs no
+     * dir="rtl" ancestor selector and follows a per-element dir attribute too.
+     */
+    :host([data-flip-rtl]) ng-icon:dir(rtl) {
+      transform: scaleX(-1);
     }
   `,
 })

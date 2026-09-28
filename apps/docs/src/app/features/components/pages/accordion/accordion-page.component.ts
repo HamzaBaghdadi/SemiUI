@@ -66,6 +66,13 @@ export class AccordionPageComponent {
   <ng-template #content let-item><p>{{ item.answer }}</p></ng-template>
 </s-accordion>`;
 
+  protected readonly separatedCode = `<s-accordion [items]="faqs" variant="separated">
+  <ng-template #content let-item><p>{{ item.answer }}</p></ng-template>
+</s-accordion>
+
+// or make it the app-wide default from your preset:
+definePreset(Semi, { defaults: { accordion: { variant: 'separated' } } });`;
+
   protected readonly apiProps: ApiPropRow[] = [
     {
       name: 'items',
@@ -78,6 +85,12 @@ export class AccordionPageComponent {
       type: 'boolean',
       default: 'false',
       description: 'Allows more than one panel to stay open at once. By default only one panel is open at a time.',
+    },
+    {
+      name: 'variant',
+      type: "'joined' | 'separated'",
+      default: "'joined'",
+      description: 'Layout. joined is one continuous list inside a single border; separated makes every item its own bordered, rounded card, spaced by accordion.gap. A preset can change the default through defaults.accordion.variant.',
     },
     {
       name: 'defaultOpenIndices',
@@ -101,6 +114,7 @@ export class AccordionPageComponent {
   protected readonly apiEvents: ApiEventRow[] = [];
 
   protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-variant', description: "On .s-accordion: 'joined' or 'separated'." },
     { name: 'data-expanded', description: 'Present on .s-accordion__item while its panel is open.' },
     { name: 'data-disabled', description: 'Present on .s-accordion__item when that item is disabled.' },
   ];
@@ -110,7 +124,7 @@ export class AccordionPageComponent {
     { name: '.s-accordion__item', description: 'Each row -- header plus its collapsible panel.' },
     { name: '.s-accordion__header', description: 'The clickable header button carrying background, color, and typography.' },
     { name: '.s-accordion__header-label', description: 'Wraps the header text or custom #header template.' },
-    { name: '.s-accordion__chevron', description: 'The expand/collapse icon; rotates 180deg when its item is expanded.' },
+    { name: '.s-accordion__chevron', description: 'The expand/collapse icon box; turns by accordion.chevronRotationExpanded (180deg by default) when its item is expanded.' },
     { name: '.s-accordion__panel', description: 'The grid-based wrapper driving the pure-CSS expand/collapse animation.' },
     { name: '.s-accordion__panel-content', description: 'Inner padding for the #content template output.' },
   ];
@@ -118,6 +132,14 @@ export class AccordionPageComponent {
   protected readonly themingCssVariables: ThemingRow[] = [
     { name: '--semiui-comp-accordion-border', description: 'Border color for the container and item separators.' },
     { name: '--semiui-comp-accordion-radius', description: 'Corner radius of the container.' },
+    { name: '--semiui-comp-accordion-gap', description: 'Space between items in the separated variant. Ignored by joined.' },
+    { name: '--semiui-comp-accordion-item-border', description: 'Border of each item in the separated variant. Follows accordion.border.' },
+    { name: '--semiui-comp-accordion-item-radius', description: 'Corner radius of each item in the separated variant. Follows accordion.radius.' },
+    { name: '--semiui-comp-accordion-chevron-size', description: 'Width and height of the expand indicator box.' },
+    { name: '--semiui-comp-accordion-chevron-background', description: 'Fill behind the indicator. Transparent by default; a color turns it into a filled button.' },
+    { name: '--semiui-comp-accordion-chevron-foreground', description: 'Indicator glyph color. currentColor by default, so it follows the header.' },
+    { name: '--semiui-comp-accordion-chevron-radius', description: 'Corner radius of the indicator box; 9999px makes it a circle.' },
+    { name: '--semiui-comp-accordion-chevron-rotation-expanded', description: 'Rotation of the indicator while its panel is open, an angle. Depends on the glyph; icons.accordionChevron lets you supply your own.' },
     { name: '--semiui-comp-accordion-padding-x', description: 'Horizontal padding for headers and panel content.' },
     { name: '--semiui-comp-accordion-padding-y', description: 'Vertical padding for headers and panel content.' },
     { name: '--semiui-comp-accordion-header-background', description: 'Header background color.' },

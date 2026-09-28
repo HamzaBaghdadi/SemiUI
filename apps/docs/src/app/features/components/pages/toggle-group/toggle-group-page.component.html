@@ -81,6 +81,19 @@
         </div>
 
         <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold">Icon-only segments</h2>
+          <p class="text-sm text-muted-foreground max-w-xl">
+            Leave <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">label</code> empty and set
+            <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">ariaLabel</code> -- no label element is
+            rendered, and the button keeps an accessible name.
+          </p>
+          <app-component-demo>
+            <s-toggle-group [items]="iconOnlyItems" [(ngModel)]="align"></s-toggle-group>
+          </app-component-demo>
+          <app-code-block filename="Usage" [code]="iconOnlyCode"></app-code-block>
+        </div>
+
+        <div class="flex flex-col gap-3">
           <h2 class="text-xl font-bold">Sizes</h2>
           <app-component-demo>
             <s-toggle-group size="sm" [items]="alignItems" [(ngModel)]="align"></s-toggle-group>

@@ -83,6 +83,10 @@ export class TagPageComponent {
     { name: '--semiui-comp-tag-padding-y', description: 'Vertical padding.' },
     { name: '--semiui-comp-tag-radius', description: 'Corner radius.' },
     { name: '--semiui-comp-tag-font-size', description: 'Label font size.' },
+    { name: '--semiui-comp-tag-gap', description: 'Space between the icon, the label and the remove button.' },
+    { name: '--semiui-comp-tag-remove-icon-size', description: 'Width and height of the remove (x) button.' },
+    { name: '--semiui-comp-tag-remove-opacity', description: 'Resting opacity of the remove button; it goes fully opaque on hover.' },
+    { name: '--semiui-comp-tag-icon-size', description: 'Width and height of the optional leading icon. Relative (0.875em) by default so it scales with the text; an absolute value suits a small status dot.' },
     {
       name: '--semiui-comp-tag-variants-{variant}-{background,foreground,border}',
       description: 'Per-variant color triad (default, primary, secondary, destructive, outline, danger, success, info, warn, help, contrast).',

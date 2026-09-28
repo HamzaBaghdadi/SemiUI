@@ -40,14 +40,14 @@
 .s-cascade-select__icon {
   display: inline-flex;
   flex-shrink: 0;
-  width: 1em;
-  height: 1em;
+  width: var(--semiui-comp-select-icon-size);
+  height: var(--semiui-comp-select-icon-size);
   color: var(--semiui-comp-select-placeholder-foreground);
   transition: transform 0.15s ease;
 }
 
 :host([data-open]) .s-cascade-select__icon {
-  transform: rotate(180deg);
+  transform: rotate(var(--semiui-comp-select-icon-rotation-open));
 }
 
 .s-cascade-select__clear {
@@ -55,8 +55,8 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 1em;
-  height: 1em;
+  width: var(--semiui-comp-select-icon-size);
+  height: var(--semiui-comp-select-icon-size);
   box-sizing: border-box;
   padding: 0.125em;
   border-radius: var(--semiui-radius-full);
@@ -113,7 +113,7 @@
 }
 
 .s-cascade-select__trigger--loading {
-  opacity: 0.6;
+  opacity: var(--semiui-comp-select-opacity-loading);
 }
 
 .s-cascade-select__panel {
@@ -126,7 +126,7 @@
   overflow: hidden;
   background: var(--semiui-comp-select-panel-background);
   border: 1px solid var(--semiui-comp-select-panel-border);
-  border-radius: var(--semiui-comp-select-radius);
+  border-radius: var(--semiui-comp-select-panel-radius);
   box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
   width: max-content;
@@ -199,8 +199,8 @@
   display: flex;
   align-items: center;
   gap: var(--semiui-spacing-sm);
-  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
-  border-radius: var(--semiui-radius-sm);
+  padding: var(--semiui-comp-select-option-padding-y) var(--semiui-comp-select-option-padding-x);
+  border-radius: var(--semiui-comp-select-option-radius);
   color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }

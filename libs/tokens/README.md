@@ -107,6 +107,20 @@ else that reads `{primary}` follow, in both light and dark mode.
 shades, and overriding one button variant keeps the other nine. It never mutates the base, and
 derived presets can themselves be extended.
 
+## Icons and component defaults
+
+Tokens cover colors, sizes and shapes. Two more things a design needs live on the preset too:
+
+- **`icons`** maps logical slots to glyphs. Accordion, Carousel and the Select family fall back to
+  `chevronDown`; give one of them its own glyph with the optional `accordionChevron`,
+  `carouselPrev`, `carouselNext` or `selectChevron` slot. An `IconRef` can set `flipInRtl: true` to
+  mirror itself under a right-to-left direction, and inline SVG markup should paint with
+  `currentColor` so it follows the component's foreground token.
+- **`defaults`** sets the initial value of component inputs (`ComponentDefaults`) — the structural
+  half of a design, like `accordion: { variant: 'separated' }` or `carousel: { centerMode: true }`.
+  `definePreset` merges it key by key like everything else. Components read it through
+  `injectComponentDefaults()` from `@semiui/theme`; a binding on an instance always wins.
+
 ## Generated CSS variable names
 
 The engine owns these; presets never write them.

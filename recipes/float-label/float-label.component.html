@@ -1,2 +1,2 @@
 <ng-content />
-<label class="s-float-label__label">{{ label() }}</label>
+<label class="s-float-label__label" [id]="labelId" [attr.for]="controlId()">{{ label() }}</label>

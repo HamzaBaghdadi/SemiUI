@@ -4,6 +4,7 @@ import { ThemePreset } from '@semiui/tokens';
 import { ColorModeConfig, DEFAULT_COLOR_MODE_CONFIG, SEMIUI_COLOR_MODE_CONFIG } from './color-mode.config';
 import { ColorModeService } from './color-mode.service';
 import { injectThemeStylesheet } from './theme-stylesheet';
+import { SEMIUI_DEFAULTS } from './component-defaults.token';
 import { SEMIUI_ICONS } from './icon-tokens.token';
 import { SEMIUI_THEME_PRESET } from './theme-preset.token';
 
@@ -15,7 +16,7 @@ export interface SemiUIConfig {
 
 /**
  * Registers a theme preset: injects its tokens as a stylesheet (`:root` + the dark-mode class),
- * registers its default icons, and installs `ColorModeService` so light/dark mode works out of
+ * registers its default icons and component input defaults, and installs `ColorModeService` so light/dark mode works out of
  * the box.
  */
 export function provideSemiUI(config: SemiUIConfig): EnvironmentProviders {
@@ -24,6 +25,7 @@ export function provideSemiUI(config: SemiUIConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
     { provide: SEMIUI_THEME_PRESET, useValue: config.preset },
     { provide: SEMIUI_ICONS, useValue: config.preset.icons },
+    { provide: SEMIUI_DEFAULTS, useValue: config.preset.defaults ?? {} },
     { provide: SEMIUI_COLOR_MODE_CONFIG, useValue: colorModeConfig },
     {
       provide: ENVIRONMENT_INITIALIZER,

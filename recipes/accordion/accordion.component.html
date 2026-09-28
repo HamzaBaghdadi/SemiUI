@@ -1,4 +1,4 @@
-<div class="s-accordion">
+<div class="s-accordion" [attr.data-variant]="variant()">
   @for (item of items(); track $index; let i = $index) {
     <div class="s-accordion__item" [attr.data-expanded]="isOpen(i) ? '' : null" [attr.data-disabled]="item.disabled ? '' : null">
       <h3 class="s-accordion__header-wrap">
@@ -18,7 +18,7 @@
               {{ item.header }}
             }
           </span>
-          <s-icon class="s-accordion__chevron" [ref]="icons.chevronDown" />
+          <s-icon class="s-accordion__chevron" [ref]="icons.accordionChevron ?? icons.chevronDown" />
         </button>
       </h3>
       <div class="s-accordion__panel" [id]="panelId(i)" role="region" [attr.aria-labelledby]="headerId(i)">

@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   TemplateRef,
@@ -53,7 +52,6 @@ let nextCascadeSelectId = 0;
 export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldControl<unknown> {
   protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
 
@@ -378,14 +376,19 @@ export class CascadeSelectComponent<TOption = unknown> extends BaseFormFieldCont
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * The listener exists only while the panel is open, and `afterRenderEffect` never runs on the
+   * server -- so a closed instance costs nothing per scroll, and rendering one under SSR doesn't
+   * touch `document`, which doesn't exist there.
    */
-  constructor() {
-    super();
-
+  private readonly scrollListenerEffect = afterRenderEffect((onCleanup) => {
+    if (!this.open()) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
-  }
+    onCleanup(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  });
 
   protected onAnyScroll(event: Event): void {
     if (!this.open()) {

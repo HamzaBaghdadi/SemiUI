@@ -3,21 +3,28 @@
   tabindex="0"
   role="region"
   aria-roledescription="carousel"
+  [attr.data-center]="centerMode() ? '' : null"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
+  (focusin)="onFocusIn($event)"
+  (focusout)="onFocusOut($event)"
   (keydown.arrowleft)="onArrowLeft()"
   (keydown.arrowright)="onArrowRight()"
 >
   <div class="s-carousel__body">
-    @if (showArrows() && arrowsOutside() && items().length > 1) {
+    @if (showArrows() && outsideArrows() && items().length > 1) {
       <button
         type="button"
         class="s-carousel__arrow s-carousel__arrow--outside s-carousel__arrow--prev"
         aria-label="Previous slide"
         [disabled]="!loop() && activeIndex() === 0"
-        (click)="previous()"
+        (click)="userPrevious()"
       >
-        <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
+        <s-icon
+          class="s-carousel__arrow-icon s-carousel__arrow-icon--prev"
+          [class.s-carousel__arrow-icon--chevron]="prevIconIsChevron"
+          [ref]="prevIcon"
+        />
       </button>
     }
 
@@ -27,52 +34,87 @@
       (pointermove)="onPointerMove($event)"
       (pointerup)="onPointerUp()"
       (pointercancel)="onPointerUp()"
+      (click)="onViewportClick($event)"
     >
       <div
         class="s-carousel__track"
         [class.s-carousel__track--dragging]="isDragging()"
         [style.transform]="trackTransform()"
-        [style.--items-per-view]="itemsPerView()"
+        [style.--items-per-view]="perView()"
+        [style.--center-slide-width]="centerSlideWidth()"
+        [style.--center-gap]="centerGap()"
       >
         @for (item of items(); track $index; let i = $index) {
-          <div class="s-carousel__slide" [attr.aria-hidden]="i < activeIndex() || i >= activeIndex() + itemsPerView()">
+          <!-- Slides outside the visible window are `inert` as well as `aria-hidden`: aria-hidden
+               alone would leave a button inside a hidden slide focusable, which is a hidden-but-
+               reachable control. -->
+          <div
+            #slideElement
+            class="s-carousel__slide"
+            [attr.data-state]="centerMode() ? slideState(i) : null"
+            [attr.aria-hidden]="isSlideHidden(i)"
+            [attr.inert]="isSlideHidden(i) ? '' : null"
+          >
             <ng-container [ngTemplateOutlet]="slideTemplate()" [ngTemplateOutletContext]="{ $implicit: item, index: i }" />
           </div>
         }
       </div>
     </div>
 
-    @if (showArrows() && arrowsOutside() && items().length > 1) {
+    @if (showArrows() && outsideArrows() && items().length > 1) {
       <button
         type="button"
         class="s-carousel__arrow s-carousel__arrow--outside s-carousel__arrow--next"
         aria-label="Next slide"
         [disabled]="!loop() && activeIndex() === maxIndex()"
-        (click)="next()"
+        (click)="userNext()"
       >
-        <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
+        <s-icon
+          class="s-carousel__arrow-icon s-carousel__arrow-icon--next"
+          [class.s-carousel__arrow-icon--chevron]="nextIconIsChevron"
+          [ref]="nextIcon"
+        />
       </button>
     }
   </div>
 
-  @if (showArrows() && !arrowsOutside() && items().length > 1) {
+  @if (showArrows() && !outsideArrows() && items().length > 1) {
     <button
       type="button"
       class="s-carousel__arrow s-carousel__arrow--prev"
       aria-label="Previous slide"
       [disabled]="!loop() && activeIndex() === 0"
-      (click)="previous()"
+      (click)="userPrevious()"
     >
-      <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--prev" [ref]="icons.chevronDown" />
+      <s-icon
+        class="s-carousel__arrow-icon s-carousel__arrow-icon--prev"
+        [class.s-carousel__arrow-icon--chevron]="prevIconIsChevron"
+        [ref]="prevIcon"
+      />
     </button>
     <button
       type="button"
       class="s-carousel__arrow s-carousel__arrow--next"
       aria-label="Next slide"
       [disabled]="!loop() && activeIndex() === maxIndex()"
-      (click)="next()"
+      (click)="userNext()"
     >
-      <s-icon class="s-carousel__arrow-icon s-carousel__arrow-icon--next" [ref]="icons.chevronDown" />
+      <s-icon
+        class="s-carousel__arrow-icon s-carousel__arrow-icon--next"
+        [class.s-carousel__arrow-icon--chevron]="nextIconIsChevron"
+        [ref]="nextIcon"
+      />
+    </button>
+  }
+
+  @if (autoplay() && showAutoplayToggle() && items().length > 1) {
+    <button
+      type="button"
+      class="s-carousel__autoplay-toggle"
+      [attr.aria-label]="stoppedByUser() ? playLabel() : pauseLabel()"
+      (click)="toggleAutoplay()"
+    >
+      <s-icon [ref]="stoppedByUser() ? playIcon : pauseIcon" />
     </button>
   }
 
@@ -85,7 +127,7 @@
           role="tab"
           [attr.aria-selected]="position === activeIndex()"
           [attr.aria-label]="'Go to slide ' + (position + 1)"
-          (click)="goTo(position)"
+          (click)="userGoTo(position)"
         ></button>
       }
     </div>

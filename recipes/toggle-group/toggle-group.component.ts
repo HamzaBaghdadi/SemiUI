@@ -1,13 +1,20 @@
-import { Component, ElementRef, booleanAttribute, input, viewChildren } from '@angular/core';
+import { Component, ElementRef, booleanAttribute, effect, input, isDevMode, viewChildren } from '@angular/core';
 import { SIconComponent } from '@semiui/primitives/icon';
 import { BaseFormFieldControl } from '@semiui/primitives/form-field';
 import { ButtonSize, ButtonVariant, IconRef } from '@semiui/tokens';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 export interface ToggleGroupItem<TValue = unknown> {
+  /** Visible text. May be empty for an icon-only segment, in which case set `ariaLabel`. */
   label: string;
   value: TValue;
   icon?: IconRef;
+  /**
+   * Accessible name for an icon-only segment. Leave `label` empty and set this instead: without
+   * either, the button has no name for assistive technology. Also applied on segments that do have
+   * a label, where it overrides what a screen reader announces.
+   */
+  ariaLabel?: string;
   disabled?: boolean;
 }
 
@@ -41,6 +48,19 @@ export class ToggleGroupComponent<TValue = unknown> extends BaseFormFieldControl
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('md');
   errorMessage = input('');
+
+  /** A segment with neither text nor `ariaLabel` is a button with no name for assistive technology; say so while developing. */
+  private readonly warnAboutUnnamedItems = effect(() => {
+    if (!isDevMode()) {
+      return;
+    }
+    const unnamed = this.items().filter((item) => !item.label && !item.ariaLabel);
+    if (unnamed.length > 0) {
+      console.warn(
+        `[s-toggle-group] ${unnamed.length} item(s) have neither a label nor an ariaLabel, so their buttons have no accessible name. Set one of them.`,
+      );
+    }
+  });
 
   /** Doesn't branch on `multiple()` -- that input is a subclass field, not yet initialized when
    * the base class's own `value` field initializer calls this (base class fields run before a
