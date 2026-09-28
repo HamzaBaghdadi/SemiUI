@@ -109,7 +109,7 @@
   overflow-y: auto;
   background: var(--semiui-comp-select-panel-background);
   border: 1px solid var(--semiui-comp-select-panel-border);
-  border-radius: var(--semiui-comp-select-radius);
+  border-radius: var(--semiui-comp-select-panel-radius);
   box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
 }
@@ -163,8 +163,8 @@
 }
 
 .s-auto-complete__option {
-  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
-  border-radius: var(--semiui-radius-sm);
+  padding: var(--semiui-comp-select-option-padding-y) var(--semiui-comp-select-option-padding-x);
+  border-radius: var(--semiui-comp-select-option-radius);
   color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }

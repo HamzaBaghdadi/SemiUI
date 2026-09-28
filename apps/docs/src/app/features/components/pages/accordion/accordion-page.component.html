@@ -38,6 +38,23 @@
   </div>
 
   <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Separated cards</h2>
+    <app-component-demo [block]="true">
+      <s-accordion [items]="faqs" variant="separated">
+        <ng-template #content let-item>
+          <p>{{ $any(item).answer }}</p>
+        </ng-template>
+      </s-accordion>
+    </app-component-demo>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">variant="separated"</code> turns every item into its own card, spaced by
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">accordion.gap</code>. The header tokens keep working, and the indicator can
+      become a filled round button through the <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">accordion.chevron*</code> tokens.
+    </p>
+    <app-code-block filename="Usage" [code]="separatedCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">Custom header template</h2>
     <app-component-demo [block]="true">
       <s-accordion [items]="faqs">

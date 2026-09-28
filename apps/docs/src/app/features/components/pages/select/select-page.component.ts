@@ -115,6 +115,30 @@ protected profileForm = form(this.profileModel);
 
   protected readonly apiProps: ApiPropRow[] = [
     {
+      name: 'inputId',
+      type: 'string',
+      default: 'undefined',
+      description: 'id of the trigger button, so a <label for> elsewhere on the page can name it. Inside s-float-label this is done for you.',
+    },
+    {
+      name: 'ariaLabel',
+      type: 'string',
+      default: "''",
+      description: "The trigger's accessible name. Set it (or ariaLabelledby) whenever the select has no <label for> tying it to a visible label. It names the control; the selected option or placeholder is still read as its value.",
+    },
+    {
+      name: 'ariaLabelledby',
+      type: 'string',
+      default: "''",
+      description: 'Id(s) of the element(s) that label the trigger. Takes precedence over ariaLabel.',
+    },
+    {
+      name: 'clearLabel',
+      type: 'string',
+      default: "'Clear selection'",
+      description: 'Accessible name of the clear (x) control. Override it to localize.',
+    },
+    {
       name: 'options',
       type: 'readonly TOption[]',
       default: '[]',
@@ -277,7 +301,12 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
-    { name: '--semiui-comp-select-radius', description: 'Corner radius, shared by trigger and panel.' },
+    { name: '--semiui-comp-select-radius', description: 'Corner radius of the trigger. The panel follows it until panel-radius is set.' },
+    { name: '--semiui-comp-select-panel-radius', description: 'Corner radius of the dropdown panel (shared by Multiselect, Auto Complete and Cascade Select). Set it apart from radius when the trigger is a pill.' },
+    { name: '--semiui-comp-select-icon-size', description: 'Size of the trigger chevron (shared by Multiselect and Cascade Select).' },
+    { name: '--semiui-comp-select-icon-rotation-open', description: 'Rotation of the chevron while the panel is open, an angle. 180deg flips the stock down-chevron; icons.selectChevron lets you supply your own glyph.' },
+    { name: '--semiui-comp-select-option-radius', description: 'Corner radius of one option row (shared with the rest of the Select family).' },
+    { name: '--semiui-comp-select-option-padding-{x,y}', description: 'Padding of one option row.' },
     { name: '--semiui-comp-select-font-size', description: 'Text size for trigger and options.' },
     { name: '--semiui-comp-select-padding-{x,y}', description: 'Trigger padding.' },
     { name: '--semiui-comp-select-background', description: 'Trigger background.' },
@@ -295,6 +324,10 @@ protected profileForm = form(this.profileModel);
     { name: '--semiui-comp-select-panel-background', description: 'Panel background.' },
     { name: '--semiui-comp-select-panel-border', description: 'Panel border color, also used by the filter box divider.' },
     { name: '--semiui-comp-select-panel-shadow', description: 'Panel drop shadow.' },
+    { name: '--semiui-comp-select-panel-max-height', description: 'Height of the option list before it scrolls (shared by Multiselect, Auto Complete and Cascade Select).' },
+    { name: '--semiui-comp-select-list-padding', description: 'Inset between the panel edge and the option rows (shared by Multiselect).' },
+    { name: '--semiui-comp-select-trigger-gap', description: 'Space between the trigger value, clear control and chevron (shared by Multiselect).' },
+    { name: '--semiui-comp-select-opacity-loading', description: 'Opacity of a loading trigger. It keeps its colors and only dims, so it reads as busy rather than unavailable (shared by Multiselect and Cascade Select).' },
     { name: '--semiui-comp-select-option-foreground', description: 'Option text color.' },
     { name: '--semiui-comp-select-option-foreground-selected', description: 'Selected option text color.' },
     { name: '--semiui-comp-select-option-background-hover', description: 'Background for the active/hovered option, and the clear button on hover.' },

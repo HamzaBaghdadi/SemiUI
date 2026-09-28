@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   afterRenderEffect,
@@ -137,7 +136,6 @@ export class ContextMenuPanelComponent {
 export class ContextMenuComponent {
   private readonly panelWrapper = viewChild<ElementRef<HTMLElement>>('panelWrapper');
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly destroyRef = inject(DestroyRef);
 
   items = input<readonly ContextMenuItem[]>([]);
   /** Moves the menu overlay to a direct child of `document.body`. The overlay is already `position: fixed`, but an ancestor with a `transform`, `filter` or `contain` becomes its containing block and clips it again -- which is what a context menu inside a Dialog, a Drawer or an animated card runs into. */
@@ -208,12 +206,19 @@ export class ContextMenuComponent {
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * The listener exists only while the panel is open, and `afterRenderEffect` never runs on the
+   * server -- so a closed instance costs nothing per scroll, and rendering one under SSR doesn't
+   * touch `document`, which doesn't exist there.
    */
-  constructor() {
+  private readonly scrollListenerEffect = afterRenderEffect((onCleanup) => {
+    if (!this.open()) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
-  }
+    onCleanup(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  });
 
   /** The menu is pinned to the cursor's viewport coordinates, so any scroll under it invalidates
    * that position -- it closes rather than chasing a point that no longer means anything. */

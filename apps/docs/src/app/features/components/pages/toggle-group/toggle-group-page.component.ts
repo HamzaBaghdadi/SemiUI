@@ -40,6 +40,12 @@ export class ToggleGroupPageComponent {
     { label: 'Right', value: 'right', icon: { type: 'ng-icon', name: 'lucideAlignRight' } },
   ];
 
+  protected readonly iconOnlyItems: ToggleGroupItem<string>[] = [
+    { label: '', ariaLabel: 'Align left', value: 'left', icon: { type: 'ng-icon', name: 'lucideAlignLeft' } },
+    { label: '', ariaLabel: 'Align center', value: 'center', icon: { type: 'ng-icon', name: 'lucideAlignCenter' } },
+    { label: '', ariaLabel: 'Align right', value: 'right', icon: { type: 'ng-icon', name: 'lucideAlignRight' } },
+  ];
+
   protected readonly formatItems: ToggleGroupItem<string>[] = [
     { label: 'Bold', value: 'bold', icon: { type: 'ng-icon', name: 'lucideBold' } },
     { label: 'Italic', value: 'italic', icon: { type: 'ng-icon', name: 'lucideItalic' } },
@@ -137,6 +143,13 @@ protected profileForm = form(this.profileModel);
 
 <s-toggle-group [items]="alignItems" [formField]="profileForm.align" />`;
 
+  protected readonly iconOnlyCode = `items = [
+  { label: '', ariaLabel: 'Align left', value: 'left', icon: { type: 'ng-icon', name: 'lucideAlignLeft' } },
+  { label: '', ariaLabel: 'Align center', value: 'center', icon: { type: 'ng-icon', name: 'lucideAlignCenter' } },
+];
+
+<s-toggle-group [items]="items" [(ngModel)]="align" />`;
+
   protected readonly sizesCode = `<s-toggle-group size="sm" [items]="alignItems" [(value)]="align" />  <!-- also "md" (default) and "lg" -->`;
 
   protected readonly apiProps: ApiPropRow[] = [
@@ -144,7 +157,7 @@ protected profileForm = form(this.profileModel);
       name: 'items',
       type: 'readonly ToggleGroupItem<TValue>[]',
       default: '[]',
-      description: 'The segments to render. ToggleGroupItem is { label, value, icon?, disabled? }.',
+      description: 'The segments to render. ToggleGroupItem is { label, value, icon?, ariaLabel?, disabled? }. An icon-only segment leaves label empty (no label element is rendered) and sets ariaLabel to give its button an accessible name.',
     },
     {
       name: 'value',

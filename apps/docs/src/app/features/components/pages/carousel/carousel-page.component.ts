@@ -48,11 +48,18 @@ export class CarouselPageComponent {
   protected readonly autoplayCode = `<s-carousel [items]="slides" [autoplay]="true" [autoplayInterval]="2000">...</s-carousel>
 <!-- pauses automatically while hovered -->`;
 
+  protected readonly autoplayToggleCode = `<s-carousel [items]="slides" [autoplay]="true" [showAutoplayToggle]="true">...</s-carousel>`;
+
   protected readonly noLoopCode = `<s-carousel [items]="slides" [loop]="false" [showDots]="false">...</s-carousel>`;
 
   protected readonly itemsPerViewCode = `<s-carousel [items]="slides" [itemsPerView]="2">...</s-carousel>`;
 
   protected readonly arrowsOutsideCode = `<s-carousel [items]="slides" [arrowsOutside]="true">...</s-carousel>`;
+
+  protected readonly centerModeCode = `<s-carousel [items]="slides" [centerMode]="true" [centerSlideWidth]="70" centerGap="-1.5rem">...</s-carousel>
+
+// or make it the app-wide default from your preset:
+definePreset(Semi, { defaults: { carousel: { centerMode: true } } });`;
 
   protected readonly apiProps: ApiPropRow[] = [
     {
@@ -77,13 +84,31 @@ export class CarouselPageComponent {
       name: 'autoplay',
       type: 'boolean',
       default: 'false',
-      description: 'Automatically advances slides. Pauses while the carousel is hovered.',
+      description: 'Automatically advances slides. Pauses while the carousel is hovered or has keyboard focus, for autoplayResumeDelay after any manual navigation, and never runs under prefers-reduced-motion: reduce.',
     },
     {
       name: 'autoplayInterval',
       type: 'number',
       default: '4000',
       description: 'Milliseconds between automatic slide advances.',
+    },
+    {
+      name: 'autoplayResumeDelay',
+      type: 'number',
+      default: '10000',
+      description: 'Milliseconds autoplay stays paused after a manual navigation (arrows, dots, keyboard, swipe) before it starts again. 0 turns the pause off, so autoplay ignores manual navigation.',
+    },
+    {
+      name: 'showAutoplayToggle',
+      type: 'boolean',
+      default: 'false',
+      description: 'Shows a pause/play button in the top corner while autoplay is on. Unlike the timed pauses, it stops autoplay until pressed again. Reuses the arrow tokens; icons.carouselPause / carouselPlay replace its built-in glyphs.',
+    },
+    {
+      name: 'pauseLabel / playLabel',
+      type: 'string',
+      default: "'Pause autoplay' / 'Start autoplay'",
+      description: 'Accessible names of the autoplay button in each state. Override them to localize.',
     },
     {
       name: 'showArrows',
@@ -107,7 +132,25 @@ export class CarouselPageComponent {
       name: 'arrowsOutside',
       type: 'boolean',
       default: 'false',
-      description: 'Renders the arrow buttons as flex siblings flanking the viewport instead of floating on top of the slides.',
+      description: 'Renders the arrow buttons as flex siblings flanking the viewport instead of floating on top of the slides. Ignored by centerMode.',
+    },
+    {
+      name: 'centerMode',
+      type: 'boolean',
+      default: 'false',
+      description: 'Centers the active slide at full size with its neighbours peeking in on either side, scaled down, blurred and faded. Clicking a neighbour activates it. Always shows one active slide (itemsPerView is ignored) and floats the arrows over the slides. Works in RTL and with drag.',
+    },
+    {
+      name: 'centerSlideWidth',
+      type: 'number',
+      default: '75',
+      description: 'centerMode only: the width of each slide, as a percentage of the viewport.',
+    },
+    {
+      name: 'centerGap',
+      type: 'string (CSS length)',
+      default: "'0.75rem'",
+      description: 'centerMode only: space between slides. Negative values tuck the neighbours under the active slide.',
     },
   ];
 
@@ -119,7 +162,10 @@ export class CarouselPageComponent {
     },
   ];
 
-  protected readonly themingDataAttributes: ThemingRow[] = [];
+  protected readonly themingDataAttributes: ThemingRow[] = [
+    { name: 'data-center', description: 'On .s-carousel when centerMode is on.' },
+    { name: 'data-state', description: "On .s-carousel__slide in centerMode: 'active', 'adjacent' (the peeking neighbours) or 'far' (hidden)." },
+  ];
 
   protected readonly themingCssClasses: ThemingRow[] = [
     { name: '.s-carousel', description: 'The focusable root region, carrying keyboard/pointer handlers.' },
@@ -129,6 +175,7 @@ export class CarouselPageComponent {
     { name: '.s-carousel__slide', description: 'Each slide wrapper; width is 100% / itemsPerView.' },
     { name: '.s-carousel__arrow', description: 'Previous/next button, floating over the slides by default.' },
     { name: '.s-carousel__arrow--outside', description: 'Applied when arrowsOutside is set -- lays the arrow out as a static flex sibling instead.' },
+    { name: '.s-carousel__autoplay-toggle', description: 'The optional pause/play button, laid over the top corner with the arrows\' look.' },
     { name: '.s-carousel__dots', description: 'The row of dot indicator buttons.' },
     { name: '.s-carousel__dot', description: "Each dot; [aria-selected='true'] marks the active one." },
   ];
@@ -143,6 +190,14 @@ export class CarouselPageComponent {
     { name: '--semiui-comp-carousel-dot-size', description: 'Diameter of each dot.' },
     { name: '--semiui-comp-carousel-dot-color', description: 'Inactive dot color.' },
     { name: '--semiui-comp-carousel-dot-color-active', description: 'Active dot color.' },
+    { name: '--semiui-comp-carousel-dot-active-width', description: 'Width of the active dot. Equals the dot size by default (a circle); wider makes it a pill.' },
+    { name: '--semiui-comp-carousel-dot-active-scale', description: 'Scale of the active dot, a plain number. Set 1 when the active width already tells it apart.' },
+    { name: '--semiui-comp-carousel-arrow-offset', description: 'Inset of the floating arrows from the carousel edge.' },
+    { name: '--semiui-comp-carousel-arrow-icon-rotation-{prev,next}', description: 'Angle that turns the stock down-chevron to point left/right. Ignored when icons.carouselPrev / carouselNext supply purpose-drawn arrows.' },
+    { name: '--semiui-comp-carousel-center-inactive-scale', description: 'centerMode: scale of the neighbouring slides, a plain number.' },
+    { name: '--semiui-comp-carousel-center-inactive-blur', description: 'centerMode: blur of the neighbouring slides.' },
+    { name: '--semiui-comp-carousel-center-inactive-opacity', description: 'centerMode: opacity of the neighbouring slides.' },
+    { name: '--semiui-comp-carousel-slide-transition', description: 'Duration and easing of slide movement and of the centerMode scale/blur/opacity change, e.g. 0.3s ease. Removed under prefers-reduced-motion.' },
     { name: '--semiui-comp-carousel-arrow-background-disabled', description: 'Arrow button background when there is nothing further to scroll to.' },
     { name: '--semiui-comp-carousel-arrow-color-disabled', description: 'Arrow icon color in that same state.' },
     { name: '--semiui-comp-carousel-arrow-opacity-disabled', description: 'Opacity of a disabled arrow. Follows var(--semiui-opacity-disabled); set it to 100% to express disabled with the two colors above instead.' },

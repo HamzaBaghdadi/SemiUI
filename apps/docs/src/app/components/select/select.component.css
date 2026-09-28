@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: var(--semiui-comp-select-trigger-gap);
   width: 100%;
   box-sizing: border-box;
   padding: var(--semiui-comp-select-padding-y) var(--semiui-comp-select-padding-x);
@@ -40,14 +40,14 @@
 .s-select__icon {
   display: inline-flex;
   flex-shrink: 0;
-  width: 1em;
-  height: 1em;
+  width: var(--semiui-comp-select-icon-size);
+  height: var(--semiui-comp-select-icon-size);
   color: var(--semiui-comp-select-placeholder-foreground);
   transition: transform 0.15s ease;
 }
 
 :host([data-open]) .s-select__icon {
-  transform: rotate(180deg);
+  transform: rotate(var(--semiui-comp-select-icon-rotation-open));
 }
 
 .s-select__clear {
@@ -55,10 +55,10 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  /* Same 1em x 1em footprint as .s-select__icon (border-box, padding included rather than added
-     on top) -- otherwise the trigger's row height grows by a hair whenever this appears/disappears. */
-  width: 1em;
-  height: 1em;
+  /* Same footprint as .s-select__icon (border-box, padding included rather than added on top) --
+     otherwise the trigger's row height grows by a hair whenever this appears/disappears. */
+  width: var(--semiui-comp-select-icon-size);
+  height: var(--semiui-comp-select-icon-size);
   box-sizing: border-box;
   padding: 0.125em;
   border-radius: var(--semiui-radius-full);
@@ -117,7 +117,7 @@
 }
 
 .s-select__trigger--loading {
-  opacity: 0.6;
+  opacity: var(--semiui-comp-select-opacity-loading);
 }
 
 .s-select__panel {
@@ -129,7 +129,7 @@
   overflow: hidden;
   background: var(--semiui-comp-select-panel-background);
   border: 1px solid var(--semiui-comp-select-panel-border);
-  border-radius: var(--semiui-comp-select-radius);
+  border-radius: var(--semiui-comp-select-panel-radius);
   box-shadow: var(--semiui-comp-select-panel-shadow);
   transform-origin: top;
 }
@@ -244,14 +244,14 @@
 .s-select__list {
   list-style: none;
   margin: 0;
-  padding: 0.25rem;
-  max-height: 16rem;
+  padding: var(--semiui-comp-select-list-padding);
+  max-height: var(--semiui-comp-select-panel-max-height);
   overflow-y: auto;
 }
 
 .s-select__option {
-  padding: var(--semiui-spacing-sm) var(--semiui-spacing-md);
-  border-radius: var(--semiui-radius-sm);
+  padding: var(--semiui-comp-select-option-padding-y) var(--semiui-comp-select-option-padding-x);
+  border-radius: var(--semiui-comp-select-option-radius);
   color: var(--semiui-comp-select-option-foreground);
   cursor: pointer;
 }

@@ -1,11 +1,9 @@
 import {
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   afterRenderEffect,
   booleanAttribute,
-  inject,
   input,
   signal,
   viewChild,
@@ -36,7 +34,6 @@ const ARROW_EDGE_MARGIN_PX = 12;
 })
 export class PopoverComponent {
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
-  private readonly destroyRef = inject(DestroyRef);
 
   /** 'start'/'end' follow reading direction (flip under RTL); 'left'/'right' pin to that literal
    * physical side regardless of direction. */
@@ -194,12 +191,19 @@ export class PopoverComponent {
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * The listener exists only while the panel is open, and `afterRenderEffect` never runs on the
+   * server -- so a closed instance costs nothing per scroll, and rendering one under SSR doesn't
+   * touch `document`, which doesn't exist there.
    */
-  constructor() {
+  private readonly scrollListenerEffect = afterRenderEffect((onCleanup) => {
+    if (!this.open()) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
-  }
+    onCleanup(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  });
 
   protected onAnyScroll(event: Event): void {
     if (!this.open()) {

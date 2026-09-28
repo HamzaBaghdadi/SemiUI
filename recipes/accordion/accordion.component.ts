@@ -1,7 +1,8 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, TemplateRef, afterRenderEffect, booleanAttribute, contentChild, input, signal } from '@angular/core';
 import { SIconComponent } from '@semiui/primitives/icon';
-import { injectSemiUIIcons } from '@semiui/theme';
+import { AccordionVariant } from '@semiui/tokens';
+import { injectComponentDefaults, injectSemiUIIcons } from '@semiui/theme';
 
 export interface AccordionItem {
   header: string;
@@ -16,6 +17,10 @@ let nextAccordionId = 0;
  * rendering beyond plain text. Single-open by default; set `multiple` to allow several panels open
  * at once. The expand/collapse animation is pure CSS (grid-template-rows 0fr/1fr), so it works
  * without measuring content height in JS.
+ *
+ * `variant` picks the layout: `joined` (default) is one list inside a single border, `separated`
+ * makes every item its own card. A preset can set either as the app-wide default -- see
+ * `defaults.accordion` in `ComponentDefaults`.
  */
 @Component({
   selector: 's-accordion',
@@ -25,11 +30,14 @@ let nextAccordionId = 0;
 })
 export class AccordionComponent<TItem extends AccordionItem = AccordionItem> {
   protected readonly icons = injectSemiUIIcons();
+  private readonly defaults = injectComponentDefaults('accordion');
   protected readonly accordionId = `s-accordion-${nextAccordionId++}`;
 
   items = input<readonly TItem[]>([]);
   /** Allows more than one panel to stay open at once. Default: only one panel open at a time. */
-  multiple = input(false, { transform: booleanAttribute });
+  multiple = input(this.defaults.multiple ?? false, { transform: booleanAttribute });
+  /** `joined`: one continuous list in a single border. `separated`: every item is its own bordered, rounded card, spaced by `accordion.gap`. */
+  variant = input<AccordionVariant>(this.defaults.variant ?? 'joined');
   /** Indices expanded on initial render. */
   defaultOpenIndices = input<readonly number[]>([]);
 

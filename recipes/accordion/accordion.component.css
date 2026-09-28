@@ -18,6 +18,26 @@
   border-bottom: none;
 }
 
+/*
+ * Separated: the container stops being the card and every item becomes one. The border and radius
+ * move from the container to the item, and `overflow: hidden` on the item is what keeps a header's
+ * background clipped to the card's rounded corners -- which is why the header tokens keep working
+ * here with no special-casing.
+ */
+.s-accordion[data-variant='separated'] {
+  gap: var(--semiui-comp-accordion-gap);
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.s-accordion[data-variant='separated'] .s-accordion__item,
+.s-accordion[data-variant='separated'] .s-accordion__item:last-child {
+  border: 1px solid var(--semiui-comp-accordion-item-border);
+  border-radius: var(--semiui-comp-accordion-item-radius);
+  overflow: hidden;
+}
+
 .s-accordion__header-wrap {
   margin: 0;
 }
@@ -64,13 +84,26 @@
 
 .s-accordion__chevron {
   flex-shrink: 0;
-  width: 1rem;
-  height: 1rem;
+  width: var(--semiui-comp-accordion-chevron-size);
+  height: var(--semiui-comp-accordion-chevron-size);
+  border-radius: var(--semiui-comp-accordion-chevron-radius);
+  background: var(--semiui-comp-accordion-chevron-background);
+  color: var(--semiui-comp-accordion-chevron-foreground);
   transition: transform 0.2s ease;
 }
 
 .s-accordion__item[data-expanded] .s-accordion__chevron {
-  transform: rotate(180deg);
+  transform: rotate(var(--semiui-comp-accordion-chevron-rotation-expanded));
+}
+
+/*
+ * An icon that mirrors in RTL (s-icon flips it on its own, inside this box) has to turn the other
+ * way as well: flipping and then rotating by -angle is the mirror image of rotating by angle and
+ * then flipping. Without this a directional glyph would mirror at rest but open the wrong way.
+ * Non-mirrored icons -- the stock vertical chevron -- keep the same rotation in both directions.
+ */
+.s-accordion__item[data-expanded] .s-accordion__chevron[data-flip-rtl]:dir(rtl) {
+  transform: rotate(calc(-1 * var(--semiui-comp-accordion-chevron-rotation-expanded)));
 }
 
 .s-accordion__panel {

@@ -44,6 +44,27 @@
   </div>
 
   <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Pause / play button</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">showAutoplayToggle</code> adds a visible
+      control that stops autoplay outright and starts it again -- the WCAG 2.2.2 "pause, stop, hide" mechanism.
+    </p>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [autoplay]="true" [showAutoplayToggle]="true" class="max-w-md block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-48 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="autoplayToggleCode"></app-code-block>
+  </div>
+
+  <div class="flex flex-col gap-3">
     <h2 class="text-xl font-bold">No loop, no dots</h2>
     <p class="text-sm text-muted-foreground max-w-xl">
       The arrows disable at the first/last slide instead of wrapping around.
@@ -106,6 +127,27 @@
     <app-code-block filename="Usage" [code]="arrowsOutsideCode"></app-code-block>
   </div>
 
+  <div class="flex flex-col gap-3">
+    <h2 class="text-xl font-bold">Center mode</h2>
+    <p class="text-sm text-muted-foreground max-w-xl">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">centerMode</code> centers the active slide and lets its neighbours peek in,
+      scaled down, blurred and faded. Click a neighbour, drag, or use the arrows to move.
+    </p>
+    <app-component-demo [block]="true">
+      <s-carousel [items]="slides" [centerMode]="true" [centerSlideWidth]="70" centerGap="-1.5rem" class="max-w-2xl block">
+        <ng-template #slide let-item>
+          <div
+            [style.background]="item.color"
+            class="h-48 rounded-lg flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ item.label }}
+          </div>
+        </ng-template>
+      </s-carousel>
+    </app-component-demo>
+    <app-code-block filename="Usage" [code]="centerModeCode"></app-code-block>
+  </div>
+
   <div class="flex flex-col gap-2">
     <h2 class="text-xl font-bold">Options</h2>
     <ul class="list-disc pl-5 flex flex-col gap-1 text-sm text-muted-foreground">
@@ -119,7 +161,9 @@
       </li>
       <li>
         <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">autoplay</code> / <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">autoplayInterval</code>
-        -- default off, 4000ms.
+        -- default off, 4000ms. Autoplay pauses on hover, on keyboard focus, and for
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">autoplayResumeDelay</code> (10s) after any manual navigation, and doesn't run at
+        all under <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">prefers-reduced-motion</code>.
       </li>
       <li>Focus the carousel and use the arrow keys, or drag/swipe on touch devices.</li>
     </ul>

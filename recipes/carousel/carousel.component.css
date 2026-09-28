@@ -25,11 +25,18 @@
   overflow: hidden;
   border-radius: var(--semiui-comp-carousel-radius);
   touch-action: pan-y;
+  /* A swipe is a drag: without this, dragging across text starts a text selection that fights it. */
+  user-select: none;
+  cursor: grab;
+}
+
+.s-carousel__viewport:active {
+  cursor: grabbing;
 }
 
 .s-carousel__track {
   display: flex;
-  transition: transform 0.3s ease;
+  transition: transform var(--semiui-comp-carousel-slide-transition);
 }
 
 .s-carousel__track--dragging {
@@ -39,6 +46,53 @@
 .s-carousel__slide {
   flex: 0 0 calc(100% / var(--items-per-view, 1));
   min-width: 0;
+}
+
+/* Dragging an image would otherwise start the browser's native image drag, which cancels the pointer. */
+.s-carousel__slide img {
+  -webkit-user-drag: none;
+}
+
+/*
+ * Center mode: one slide centered at full size, its neighbours peeking in on either side. The
+ * track's transform (see trackTransform) does the centering; this is only the slides' own shape.
+ * The gap is a margin rather than `gap` so it can go negative and tuck neighbours under the
+ * active slide. `isolation` gives the active slide and the arrows a z-order of their own without
+ * leaking a z-index into the page.
+ */
+.s-carousel[data-center] {
+  isolation: isolate;
+}
+
+.s-carousel[data-center] .s-carousel__slide {
+  flex: 0 0 calc(var(--center-slide-width) * 1%);
+  margin-inline-end: var(--center-gap);
+  transition:
+    transform var(--semiui-comp-carousel-slide-transition),
+    filter var(--semiui-comp-carousel-slide-transition),
+    opacity var(--semiui-comp-carousel-slide-transition);
+}
+
+.s-carousel[data-center] .s-carousel__slide[data-state='active'] {
+  position: relative;
+  z-index: 1;
+}
+
+.s-carousel[data-center] .s-carousel__slide[data-state='adjacent'] {
+  transform: scale(var(--semiui-comp-carousel-center-inactive-scale));
+  filter: blur(var(--semiui-comp-carousel-center-inactive-blur));
+  opacity: var(--semiui-comp-carousel-center-inactive-opacity);
+  cursor: pointer;
+}
+
+.s-carousel[data-center] .s-carousel__slide[data-state='far'] {
+  transform: scale(var(--semiui-comp-carousel-center-inactive-scale));
+  opacity: 0;
+  visibility: hidden;
+}
+
+.s-carousel[data-center] .s-carousel__arrow {
+  z-index: 2;
 }
 
 .s-carousel__arrow {
@@ -73,12 +127,41 @@
   outline-offset: 2px;
 }
 
+/* The autoplay button reuses the arrows' look (same size, fill and focus ring) and sits in the
+   top corner, so it needs no tokens of its own and never moves the dots or the slides. */
+.s-carousel__autoplay-toggle {
+  position: absolute;
+  z-index: 2;
+  top: var(--semiui-comp-carousel-arrow-offset);
+  inset-inline-end: var(--semiui-comp-carousel-arrow-offset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--semiui-comp-carousel-arrow-size);
+  height: var(--semiui-comp-carousel-arrow-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--semiui-radius-full);
+  background: var(--semiui-comp-carousel-arrow-background);
+  color: var(--semiui-comp-carousel-arrow-color);
+  cursor: pointer;
+}
+
+.s-carousel__autoplay-toggle:hover {
+  background: var(--semiui-comp-carousel-arrow-background-hover);
+}
+
+.s-carousel__autoplay-toggle:focus-visible {
+  outline: 2px solid var(--semiui-color-ring);
+  outline-offset: 2px;
+}
+
 .s-carousel__arrow--prev {
-  inset-inline-start: var(--semiui-spacing-sm);
+  inset-inline-start: var(--semiui-comp-carousel-arrow-offset);
 }
 
 .s-carousel__arrow--next {
-  inset-inline-end: var(--semiui-spacing-sm);
+  inset-inline-end: var(--semiui-comp-carousel-arrow-offset);
 }
 
 /* Outside arrows flank the viewport as normal flex siblings instead of floating on top of the
@@ -89,20 +172,25 @@
   transform: none;
 }
 
-.s-carousel__arrow-icon--prev {
-  transform: rotate(90deg);
+/*
+ * Only the generic down-chevron needs turning to point sideways. A dedicated carouselPrev /
+ * carouselNext icon is drawn pointing the right way already (and mirrors itself in RTL through its
+ * own flipInRtl flag), so it gets no rotation at all.
+ */
+.s-carousel__arrow-icon--chevron.s-carousel__arrow-icon--prev {
+  transform: rotate(var(--semiui-comp-carousel-arrow-icon-rotation-prev));
 }
 
-.s-carousel__arrow-icon--next {
-  transform: rotate(-90deg);
+.s-carousel__arrow-icon--chevron.s-carousel__arrow-icon--next {
+  transform: rotate(var(--semiui-comp-carousel-arrow-icon-rotation-next));
 }
 
-.s-carousel__arrow-icon--prev:dir(rtl) {
-  transform: rotate(-90deg);
+.s-carousel__arrow-icon--chevron.s-carousel__arrow-icon--prev:dir(rtl) {
+  transform: rotate(calc(-1 * var(--semiui-comp-carousel-arrow-icon-rotation-prev)));
 }
 
-.s-carousel__arrow-icon--next:dir(rtl) {
-  transform: rotate(90deg);
+.s-carousel__arrow-icon--chevron.s-carousel__arrow-icon--next:dir(rtl) {
+  transform: rotate(calc(-1 * var(--semiui-comp-carousel-arrow-icon-rotation-next)));
 }
 
 .s-carousel__dots {
@@ -121,12 +209,13 @@
   border-radius: var(--semiui-radius-full);
   background: var(--semiui-comp-carousel-dot-color);
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease, width 0.15s ease;
 }
 
 .s-carousel__dot[aria-selected='true'] {
+  width: var(--semiui-comp-carousel-dot-active-width);
   background: var(--semiui-comp-carousel-dot-color-active);
-  transform: scale(1.2);
+  transform: scale(var(--semiui-comp-carousel-dot-active-scale));
 }
 
 .s-carousel__dot:focus-visible {
@@ -135,7 +224,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .s-carousel__track {
+  .s-carousel__track,
+  .s-carousel[data-center] .s-carousel__slide {
     transition: none;
   }
 }

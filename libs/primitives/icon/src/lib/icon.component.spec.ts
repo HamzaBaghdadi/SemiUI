@@ -23,4 +23,18 @@ describe('SIconComponent', () => {
     const ngIcon = fixture.debugElement.query((node) => node.componentInstance instanceof NgIcon);
     expect(ngIcon.componentInstance.svg()).toBe('<svg></svg>');
   });
+
+  it('marks the host for RTL mirroring only when the ref asks for it', () => {
+    TestBed.configureTestingModule({ imports: [SIconComponent] });
+    const fixture = TestBed.createComponent(SIconComponent);
+    const host: HTMLElement = fixture.nativeElement;
+
+    fixture.componentRef.setInput('ref', { type: 'svg', markup: '<svg></svg>', flipInRtl: true } satisfies IconRef);
+    fixture.detectChanges();
+    expect(host.hasAttribute('data-flip-rtl')).toBe(true);
+
+    fixture.componentRef.setInput('ref', { type: 'svg', markup: '<svg></svg>' } satisfies IconRef);
+    fixture.detectChanges();
+    expect(host.hasAttribute('data-flip-rtl')).toBe(false);
+  });
 });

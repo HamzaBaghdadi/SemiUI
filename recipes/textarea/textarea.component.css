@@ -6,14 +6,14 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: var(--semiui-comp-input-padding-y) var(--semiui-comp-input-padding-x);
-  border-radius: var(--semiui-comp-input-radius);
-  font-size: var(--semiui-comp-input-font-size);
+  padding: var(--semiui-comp-textarea-padding-y) var(--semiui-comp-textarea-padding-x);
+  border-radius: var(--semiui-comp-textarea-radius);
+  font-size: var(--semiui-comp-textarea-font-size);
   font-family: var(--semiui-typography-font-family);
   background: var(--semiui-comp-input-background);
   color: var(--semiui-comp-input-foreground);
   border: 1px solid var(--semiui-comp-input-border);
-  resize: vertical;
+  resize: var(--semiui-comp-textarea-resize);
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -53,8 +53,8 @@
 .s-textarea__count {
   display: flex;
   position: absolute;
-  inset-inline-end: var(--semiui-comp-input-padding-x);
-  bottom: 0.5rem;
+  inset-inline-end: var(--semiui-comp-textarea-padding-x);
+  bottom: var(--semiui-comp-textarea-counter-inset);
   font-size: var(--semiui-typography-font-size-sm);
   color: var(--semiui-comp-input-placeholder-foreground);
   pointer-events: none;

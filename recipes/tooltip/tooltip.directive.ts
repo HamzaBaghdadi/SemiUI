@@ -1,4 +1,4 @@
-import { ComponentRef, DestroyRef, Directive, ElementRef, HostListener, OnDestroy, ViewContainerRef, inject, input } from '@angular/core';
+import { ComponentRef, Directive, ElementRef, HostListener, OnDestroy, ViewContainerRef, inject, input } from '@angular/core';
 import { TooltipPanelComponent } from './tooltip-panel.component';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end';
@@ -20,7 +20,6 @@ const VIEWPORT_MARGIN_PX = 8;
 export class TooltipDirective implements OnDestroy {
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly viewContainerRef = inject(ViewContainerRef);
-  private readonly destroyRef = inject(DestroyRef);
 
   /** The tooltip text. Omit or pass an empty string to disable the tooltip entirely. */
   sTooltip = input('');
@@ -34,6 +33,7 @@ export class TooltipDirective implements OnDestroy {
 
   private panelRef: ComponentRef<TooltipPanelComponent> | null = null;
   private showTimeout: ReturnType<typeof setTimeout> | null = null;
+  private stopListeningForScroll: (() => void) | null = null;
 
   @HostListener('mouseenter')
   @HostListener('focus')
@@ -43,6 +43,7 @@ export class TooltipDirective implements OnDestroy {
     }
     this.clearShowTimeout();
     this.showTimeout = setTimeout(() => this.show(), this.tooltipDelay());
+    this.listenForScroll();
   }
 
   @HostListener('mouseleave')
@@ -51,11 +52,13 @@ export class TooltipDirective implements OnDestroy {
   protected onHide(): void {
     this.clearShowTimeout();
     this.hide();
+    this.stopListeningForScroll?.();
   }
 
   ngOnDestroy(): void {
     this.clearShowTimeout();
     this.hide();
+    this.stopListeningForScroll?.();
   }
 
   private show(): void {
@@ -88,11 +91,21 @@ export class TooltipDirective implements OnDestroy {
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * This directive can sit on hundreds of elements at once, so the listener is attached only from
+   * the moment a hover/focus starts until the tooltip is dismissed, not for the directive's whole
+   * life. That also keeps `document` out of construction, where it doesn't exist under SSR.
    */
-  constructor() {
+  private listenForScroll(): void {
+    if (this.stopListeningForScroll) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+    this.stopListeningForScroll = () => {
+      document.removeEventListener('scroll', onScroll, { capture: true });
+      this.stopListeningForScroll = null;
+    };
   }
 
   /** Tooltips are tied to a stationary hover -- scrolling disrupts that context, so it hides
@@ -114,6 +127,7 @@ export class TooltipDirective implements OnDestroy {
     }
     this.clearShowTimeout();
     this.hide();
+    this.stopListeningForScroll?.();
   }
 
   @HostListener('window:resize')

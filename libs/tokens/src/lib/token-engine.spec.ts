@@ -321,6 +321,29 @@ describe('definePreset', () => {
 
     expect(derived.icons.loading).toEqual({ type: 'ng-icon', name: 'spinner' });
   });
+
+  it('adds optional per-component icons without dropping the base ones', () => {
+    const arrow = { type: 'svg', markup: '<svg stroke="currentColor"/>', flipInRtl: true } as const;
+    const derived = definePreset(createPreset(), { icons: { carouselPrev: arrow } });
+
+    expect(derived.icons.carouselPrev).toEqual(arrow);
+    expect(derived.icons.loading).toEqual({ type: 'ng-icon', name: 'x' });
+  });
+
+  it('merges component defaults key by key, across derivations', () => {
+    const first = definePreset(createPreset(), { defaults: { carousel: { centerMode: true, autoplayInterval: 2000 } } });
+    const second = definePreset(first, { defaults: { carousel: { autoplayInterval: 5000 }, accordion: { variant: 'separated' } } });
+
+    expect(second.defaults).toEqual({
+      carousel: { centerMode: true, autoplayInterval: 5000 },
+      accordion: { variant: 'separated' },
+    });
+    expect(first.defaults).toEqual({ carousel: { centerMode: true, autoplayInterval: 2000 } });
+  });
+
+  it('leaves defaults undefined when nothing sets them', () => {
+    expect(definePreset(createPreset(), {}).defaults).toBeUndefined();
+  });
 });
 
 describe('multiple themes', () => {

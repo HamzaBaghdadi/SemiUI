@@ -393,16 +393,39 @@ const components: ComponentTokens = {
     foregroundDisabled: '{components.select.foreground}',
     borderDisabled: '{components.select.border}',
     opacityDisabled: '{opacity.disabled}',
+    triggerGap: '0.5rem',
+    iconSize: '1em',
+    iconRotationOpen: '180deg',
     panelBackground: '{background}',
     panelBorder: '{border}',
+    // The panel follows the trigger's corner until a preset says otherwise -- the two only need to
+    // differ when the trigger is a pill, which a list of rows can't be.
+    panelRadius: '{components.select.radius}',
     // A shadow is a raw CSS value -- there's no design-system token that means "this elevation",
     // and inventing one for a single component would be a meaningless global.
     panelShadow: '0 8px 24px rgb(15 23 42 / 0.10)',
     panelMaxHeight: '16rem',
+    listPadding: '0.25rem',
+    opacityLoading: '0.6',
     optionForeground: '{foreground}',
     optionBackgroundHover: '{muted}',
     optionBackgroundSelected: '{primary}',
     optionForegroundSelected: '{primaryForeground}',
+    optionRadius: '{radius.sm}',
+    optionPaddingX: '{spacing.md}',
+    optionPaddingY: '{spacing.sm}',
+  },
+
+  // A multi-line field is an input for everything but geometry, so it inherits the whole input
+  // field set from `input` and only these five are its own -- each pointing back at input's, which
+  // keeps today's look until a preset moves one.
+  textarea: {
+    radius: '{components.input.radius}',
+    paddingX: '{components.input.paddingX}',
+    paddingY: '{components.input.paddingY}',
+    fontSize: '{components.input.fontSize}',
+    resize: 'vertical',
+    counterInset: '0.5rem',
   },
 
   switch: {
@@ -501,6 +524,10 @@ const components: ComponentTokens = {
     fontWeight: '{typography.fontWeight.medium}',
     paddingX: '{spacing.sm}',
     paddingY: '0.125rem',
+    gap: '0.25rem',
+    iconSize: '0.875em',
+    removeIconSize: '0.875em',
+    removeOpacity: '0.7',
     // Every status tag is the same recipe -- a 15% wash of its own semantic color, with that color
     // as the ink. Nothing here restates what the color *is*.
     variants: {
@@ -610,6 +637,16 @@ const components: ComponentTokens = {
   accordion: {
     border: '{border}',
     radius: '{radius.md}',
+    // The `separated` variant turns every item into its own card. These only apply there; the
+    // joined default never reads them, and they fall back to the container's own border and radius.
+    gap: '{spacing.sm}',
+    itemBorder: '{components.accordion.border}',
+    itemRadius: '{components.accordion.radius}',
+    chevronSize: '1rem',
+    chevronBackground: '{transparent}',
+    chevronForeground: 'currentColor',
+    chevronRadius: '0',
+    chevronRotationExpanded: '180deg',
     headerBackground: '{transparent}',
     headerBackgroundHover: '{muted}',
     headerForeground: '{foreground}',
@@ -756,10 +793,20 @@ const components: ComponentTokens = {
     arrowBackgroundDisabled: '{components.carousel.arrowBackground}',
     arrowColorDisabled: '{components.carousel.arrowColor}',
     arrowOpacityDisabled: '{opacity.disabled}',
+    arrowOffset: '{spacing.sm}',
+    // The stock glyph is a down-chevron, so pointing it left/right means turning it a quarter.
+    arrowIconRotationPrev: '90deg',
+    arrowIconRotationNext: '-90deg',
     dotSize: '0.5rem',
+    dotActiveWidth: '{components.carousel.dotSize}',
+    dotActiveScale: '1.2',
     dotColor: '{border}',
     dotColorActive: '{primary}',
     dotGap: '{spacing.xs}',
+    centerInactiveScale: '0.8',
+    centerInactiveBlur: '4px',
+    centerInactiveOpacity: '0.6',
+    slideTransition: '0.3s ease',
   },
 
   toast: {

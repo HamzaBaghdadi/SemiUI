@@ -29,6 +29,10 @@ Roboto, not Inter" — that is a preset edit, never a `.css` edit.
 
 **"Support light AND dark, our dark palette is different"** → [Dark mode](#4-dark-mode)
 
+**"Make accordions separated cards", "center the carousel", "use our own arrow icon"** — anything
+structural or icon-shaped rather than a color/size → [Structure and icons](#6-structure-and-icons),
+still a preset edit
+
 **"This project uses Tailwind classes (`bg-primary`, `rounded-md`, ...) directly"** →
 same preset edit; read [Tailwind](#5-tailwind) for the one extra regeneration step
 
@@ -268,6 +272,38 @@ its own `@theme` block for things SemiUI doesn't cover (a numeric spacing scale,
 owns. See [`libs/tailwind/README.md`](libs/tailwind/README.md) for the full utility list and the
 `scaleNamespace`/`include` options.
 
+## 6. Structure and icons
+
+Two things a design needs are not colors or sizes, and both still live in the preset.
+
+**Component defaults** set the initial value of a component *input* — an Accordion whose items are
+separate cards, a Carousel that peeks its neighbours. An input bound on an instance always wins, and
+a component the preset says nothing about is unchanged:
+
+```ts
+definePreset(Semi, {
+  defaults: {
+    accordion: { variant: 'separated' },
+    carousel: { centerMode: true, autoplayInterval: 2000 },
+  },
+});
+```
+
+**Per-component icons.** Accordion, Carousel and the Select family fall back to the generic
+`chevronDown`, turned by that component's own rotation token. To give one of them its own glyph, add
+`accordionChevron`, `carouselPrev`, `carouselNext` or `selectChevron` under `icons` — the others keep
+the chevron. Inline SVG must paint with `currentColor` (never a hex, which ignores dark mode and every
+preset), and a directional glyph sets `flipInRtl: true` so it mirrors itself under RTL:
+
+```ts
+icons: {
+  accordionChevron: { type: 'svg', flipInRtl: true, markup: '<svg ... stroke="currentColor">...</svg>' },
+},
+components: {
+  accordion: { chevronRotationExpanded: '-90deg' }, // a rotation is a token too
+},
+```
+
 ## Reference: how a value resolves
 
 ```
@@ -296,6 +332,7 @@ owns. See [`libs/tailwind/README.md`](libs/tailwind/README.md) for the full util
 - [ ] `provideSemiUI({ preset: MyTheme })` points at the new preset, and no other `provideSemiUI`
       call in the app still points at the old one
 - [ ] No new `--semiui-*` variable name was invented by hand anywhere
+- [ ] Custom SVG icons paint with `currentColor` and set `flipInRtl` only if they point somewhere
 
 ## Further reading
 

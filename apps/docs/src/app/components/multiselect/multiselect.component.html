@@ -52,7 +52,7 @@
     } @else if (iconTemplate(); as tpl) {
       <ng-container [ngTemplateOutlet]="tpl" />
     } @else {
-      <s-icon [ref]="icons.chevronDown" />
+      <s-icon [ref]="icons.selectChevron ?? icons.chevronDown" />
     }
   </span>
 </div>

@@ -298,6 +298,9 @@ export class ThemingComponent {
   protected readonly iconSlots = [
     { slot: 'loading', icon: 'lucideLoaderCircle' },
     { slot: 'chevronDown', icon: 'lucideChevronDown' },
+    { slot: 'accordionChevron (optional)', icon: 'falls back to chevronDown' },
+    { slot: 'carouselPrev / carouselNext (optional)', icon: 'falls back to chevronDown' },
+    { slot: 'selectChevron (optional)', icon: 'falls back to chevronDown' },
     { slot: 'clear', icon: 'lucideX' },
     { slot: 'checkboxCheck', icon: 'lucideCheck' },
     { slot: 'search', icon: 'lucideSearch' },

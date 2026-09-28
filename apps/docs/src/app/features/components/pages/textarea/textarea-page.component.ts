@@ -154,10 +154,12 @@ protected profileForm = form(this.profileModel);
   ];
 
   protected readonly themingCssVariables: ThemingRow[] = [
-    { name: '--semiui-comp-input-padding-y', description: 'Vertical padding.' },
-    { name: '--semiui-comp-input-padding-x', description: 'Horizontal padding.' },
-    { name: '--semiui-comp-input-radius', description: 'Corner radius.' },
-    { name: '--semiui-comp-input-font-size', description: 'Font size.' },
+    { name: '--semiui-comp-textarea-padding-y', description: 'Vertical padding. Follows input.paddingY until set.' },
+    { name: '--semiui-comp-textarea-padding-x', description: 'Horizontal padding. Follows input.paddingX until set.' },
+    { name: '--semiui-comp-textarea-radius', description: 'Corner radius. Follows input.radius until set, so a pill-shaped input can keep a reasonable corner on a tall field.' },
+    { name: '--semiui-comp-textarea-font-size', description: 'Font size. Follows input.fontSize until set.' },
+    { name: '--semiui-comp-textarea-counter-inset', description: 'Distance of the character counter from the bottom edge.' },
+    { name: '--semiui-comp-textarea-resize', description: 'The CSS resize value: vertical (default), horizontal, both or none. autoResize always forces none.' },
     { name: '--semiui-comp-input-background', description: 'Background color.' },
     { name: '--semiui-comp-input-foreground', description: 'Text color.' },
     { name: '--semiui-comp-input-border', description: 'Border color in the resting state.' },

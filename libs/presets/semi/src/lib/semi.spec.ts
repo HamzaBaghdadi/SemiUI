@@ -121,6 +121,90 @@ describe('Semi preset', () => {
     }
   });
 
+  /**
+   * The tokens below used to be literals in the component stylesheets. Each one exists so a preset
+   * can restyle it, and each defaults to exactly what the literal was -- so the stock Semi look must
+   * not move. This pins the resolved values; the rendered comparison lives in the change's
+   * before/after browser measurement.
+   */
+  it('gives every formerly-hardcoded component value its previous default', () => {
+    const resolved: Record<string, string> = {
+      'components.tag.iconSize': '0.875em',
+      'components.select.iconSize': '1em',
+      'components.select.iconRotationOpen': '180deg',
+      'components.select.panelRadius': resolvePresetToken(Semi, 'components.select.radius'),
+      'components.select.optionRadius': resolvePresetToken(Semi, 'radius.sm'),
+      'components.select.optionPaddingX': resolvePresetToken(Semi, 'spacing.md'),
+      'components.select.optionPaddingY': resolvePresetToken(Semi, 'spacing.sm'),
+      'components.textarea.radius': resolvePresetToken(Semi, 'components.input.radius'),
+      'components.textarea.paddingX': resolvePresetToken(Semi, 'components.input.paddingX'),
+      'components.textarea.paddingY': resolvePresetToken(Semi, 'components.input.paddingY'),
+      'components.textarea.fontSize': resolvePresetToken(Semi, 'components.input.fontSize'),
+      'components.textarea.resize': 'vertical',
+      'components.accordion.chevronSize': '1rem',
+      'components.accordion.chevronRotationExpanded': '180deg',
+      'components.accordion.chevronBackground': 'transparent',
+      'components.accordion.chevronRadius': '0',
+      'components.accordion.itemRadius': resolvePresetToken(Semi, 'components.accordion.radius'),
+      'components.accordion.itemBorder': resolvePresetToken(Semi, 'components.accordion.border'),
+      'components.carousel.arrowOffset': resolvePresetToken(Semi, 'spacing.sm'),
+      'components.carousel.arrowIconRotationPrev': '90deg',
+      'components.carousel.arrowIconRotationNext': '-90deg',
+      'components.carousel.dotActiveWidth': resolvePresetToken(Semi, 'components.carousel.dotSize'),
+      'components.carousel.dotActiveScale': '1.2',
+      'components.carousel.slideTransition': '0.3s ease',
+      'components.select.triggerGap': '0.5rem',
+      'components.select.listPadding': '0.25rem',
+      'components.select.opacityLoading': '0.6',
+      'components.select.panelMaxHeight': '16rem',
+      'components.tag.gap': '0.25rem',
+      'components.tag.removeIconSize': '0.875em',
+      'components.tag.removeOpacity': '0.7',
+      'components.textarea.counterInset': '0.5rem',
+    };
+    for (const [path, expected] of Object.entries(resolved)) {
+      expect({ path, value: resolvePresetToken(Semi, path) }).toEqual({ path, value: expected });
+    }
+    expect(resolvePresetToken(Semi, 'components.select.optionPaddingX')).toBe('0.75rem');
+    expect(resolvePresetToken(Semi, 'components.select.optionPaddingY')).toBe('0.5rem');
+    expect(resolvePresetToken(Semi, 'components.carousel.arrowOffset')).toBe('0.5rem');
+  });
+
+  it('lets the other presets keep following the shared tokens the new ones point at', () => {
+    // A preset that squares the input must square its textarea too, without saying so twice.
+    const Square = definePreset(Semi, { components: { input: { radius: '0' } } });
+    expect(resolvePresetToken(Square, 'components.textarea.radius')).toBe('0');
+    // ...and one that gives the textarea its own corner leaves the input alone.
+    const Roomy = definePreset(Semi, { components: { textarea: { radius: '1.625rem' } } });
+    expect(resolvePresetToken(Roomy, 'components.textarea.radius')).toBe('1.625rem');
+    expect(resolvePresetToken(Roomy, 'components.input.radius')).toBe(resolvePresetToken(Semi, 'components.input.radius'));
+  });
+
+  it('accepts the per-component icons and input defaults a design can add', () => {
+    const arrow = { type: 'svg', markup: '<svg stroke="currentColor"/>', flipInRtl: true } as const;
+    const MyTheme = definePreset(Semi, {
+      icons: { accordionChevron: arrow, carouselPrev: arrow, carouselNext: arrow, selectChevron: arrow },
+      defaults: { accordion: { variant: 'separated' }, carousel: { centerMode: true, autoplayInterval: 2000 } },
+      components: {
+        accordion: { gap: '0.5rem', itemRadius: '1.5rem', chevronSize: '2.5rem', chevronRotationExpanded: '-90deg' },
+        carousel: { arrowOffset: '4.75rem', dotActiveWidth: '1.75rem', dotActiveScale: '1' },
+        select: { iconSize: '1.25em', panelRadius: '1.625rem', optionRadius: '1.375rem', optionPaddingX: '0.9rem' },
+        textarea: { radius: '1.625rem', resize: 'none' },
+        tag: { iconSize: '0.5rem' },
+      },
+    });
+
+    expect(() => validatePreset(MyTheme)).not.toThrow();
+    // The stock chevron survives alongside the dedicated ones, so anything not overridden still falls back to it.
+    expect(MyTheme.icons.chevronDown).toEqual(Semi.icons.chevronDown);
+    expect(MyTheme.icons.carouselPrev).toEqual(arrow);
+    expect(MyTheme.defaults?.carousel).toEqual({ centerMode: true, autoplayInterval: 2000 });
+    expect(Semi.defaults).toBeUndefined();
+    const { root: vars } = buildThemeVars(MyTheme);
+    expect(vars['--semiui-comp-textarea-resize']).toBe('none');
+    expect(vars['--semiui-comp-accordion-chevron-rotation-expanded']).toBe('-90deg');
+  });
+
   it('defines the default loading icon', () => {
     expect(Semi.icons.loading).toEqual({ type: 'ng-icon', name: 'lucideLoaderCircle' });
   });

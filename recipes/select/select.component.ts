@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
-  DestroyRef,
   ElementRef,
   HostListener,
   TemplateRef,
@@ -48,7 +47,6 @@ let nextSelectId = 0;
 export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unknown> {
   protected readonly icons = injectSemiUIIcons();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerButton');
   private readonly filterInput = viewChild<ElementRef<HTMLInputElement>>('filterInput');
   private readonly panel = viewChild<ElementRef<HTMLDivElement>>('panel');
@@ -60,6 +58,19 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
   optionValue = input<string>();
   placeholder = input('');
   errorMessage = input('');
+  /** `id` of the trigger button, so a `<label for>` elsewhere on the page can name it. `s-float-label` does this for you. */
+  inputId = input<string>();
+  /**
+   * The trigger's accessible name. Set it (or `ariaLabelledby`) whenever the select has no
+   * `<label for>` tying it to a visible label -- the trigger is a `role="combobox"` button, and
+   * without a name assistive technology announces an unlabelled input. It names the control, not
+   * its value: the selected option (or the placeholder) is still read out as the value.
+   */
+  ariaLabel = input('');
+  /** Id(s) of the element(s) that label the trigger, e.g. a visible `<label>` elsewhere on the page. Takes precedence over `ariaLabel`. */
+  ariaLabelledby = input('');
+  /** Accessible name of the clear ("x") control. Override it to localize. */
+  clearLabel = input('Clear selection');
   /** Shows a clear ("x") affordance when a value is selected. Keyboard users can also press Backspace/Delete on the trigger. */
   clearable = input(true, { transform: booleanAttribute });
   /** Shows a search box in the panel that filters options by label as you type. */
@@ -350,14 +361,19 @@ export class SelectComponent<TOption = unknown> extends BaseFormFieldControl<unk
    * stranded where the trigger used to be. A capture-phase listener on the document hears all of
    * them: a scroll event still passes through the document on its way down to the element that
    * scrolled, even though it never bubbles back up.
+   *
+   * The listener exists only while the panel is open, and `afterRenderEffect` never runs on the
+   * server -- so a closed instance costs nothing per scroll, and rendering one under SSR doesn't
+   * touch `document`, which doesn't exist there.
    */
-  constructor() {
-    super();
-
+  private readonly scrollListenerEffect = afterRenderEffect((onCleanup) => {
+    if (!this.open()) {
+      return;
+    }
     const onScroll = (event: Event) => this.onAnyScroll(event);
     document.addEventListener('scroll', onScroll, { capture: true, passive: true });
-    this.destroyRef.onDestroy(() => document.removeEventListener('scroll', onScroll, { capture: true }));
-  }
+    onCleanup(() => document.removeEventListener('scroll', onScroll, { capture: true }));
+  });
 
   protected onAnyScroll(event: Event): void {
     if (!this.open()) {
