@@ -111,6 +111,9 @@
 .s-tree-table__toggle-icon {
   width: var(--semiui-comp-tree-table-toggle-icon-size);
   height: var(--semiui-comp-tree-table-toggle-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-tree-table-toggle-icon-size);
   /* chevronDown, rotated to point at the reading-direction-forward side while collapsed -- the
      same physical-rotation-plus-:dir()-remirror pattern Cascade Select's own caret uses. */
   transform: rotate(-90deg);

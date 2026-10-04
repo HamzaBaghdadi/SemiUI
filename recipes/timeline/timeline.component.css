@@ -63,6 +63,9 @@
 .s-timeline__marker s-icon {
   width: var(--semiui-comp-timeline-marker-icon-size);
   height: var(--semiui-comp-timeline-marker-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-timeline-marker-icon-size);
 }
 
 .s-timeline__connector {

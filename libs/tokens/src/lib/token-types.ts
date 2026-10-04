@@ -525,8 +525,15 @@ export type ComponentTokens = {
     itemBorder: TokenValue;
     /** Corner radius of each item in the `separated` variant. */
     itemRadius: TokenValue;
-    /** Width and height of the expand/collapse indicator's box. */
+    /** Width and height of the expand/collapse indicator's box -- its hit area and, when
+     * `chevronBackground` is set, the fill it sits inside. Does not resize the glyph itself; see
+     * `chevronIconSize`. */
     chevronSize: TokenValue;
+    /** Size of the indicator's rendered glyph, independent of its box (`chevronSize`) -- a filled
+     * circle is usually bigger than the arrow inside it. `'1em'` (the default) leaves the glyph at
+     * its natural size; set it (e.g. to `'{components.accordion.chevronSize}'`, or any other
+     * value) to make a custom `icons.accordionChevron` render at the size it was drawn for. */
+    chevronIconSize: TokenValue;
     /** Fill behind the indicator. `transparent` in Semi (a bare glyph); a color makes it a filled
      * button, pair it with `chevronRadius` for a circle. */
     chevronBackground: TokenValue;

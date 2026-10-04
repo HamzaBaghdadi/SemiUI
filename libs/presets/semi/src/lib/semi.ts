@@ -643,6 +643,11 @@ const components: ComponentTokens = {
     itemBorder: '{components.accordion.border}',
     itemRadius: '{components.accordion.radius}',
     chevronSize: '1rem',
+    // '1em' is ng-icon's own fallback for an unsized glyph, so leaving this at '1em' is a no-op --
+    // the box above can grow (e.g. into a filled circle) without the glyph inside silently
+    // growing or shrinking with it. A design that wants the glyph to fill its box points this at
+    // '{components.accordion.chevronSize}' instead.
+    chevronIconSize: '1em',
     chevronBackground: '{transparent}',
     chevronForeground: 'currentColor',
     chevronRadius: '0',

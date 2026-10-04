@@ -142,6 +142,7 @@ describe('Semi preset', () => {
       'components.textarea.fontSize': resolvePresetToken(Semi, 'components.input.fontSize'),
       'components.textarea.resize': 'vertical',
       'components.accordion.chevronSize': '1rem',
+      'components.accordion.chevronIconSize': '1em',
       'components.accordion.chevronRotationExpanded': '180deg',
       'components.accordion.chevronBackground': 'transparent',
       'components.accordion.chevronRadius': '0',
@@ -239,5 +240,66 @@ describe('Semi preset', () => {
       const undefined_ = [...referenced.keys()].filter((name) => !(name in root)).sort();
       expect(undefined_).toEqual([]);
     });
+  });
+
+  /**
+   * `<s-icon>` renders through `@ng-icons/core`'s `<ng-icon>`, which sizes itself from its own
+   * `--ng-icon__size` custom property (or `1em` of its own font-size) -- never from a `width`/
+   * `height` set on an ancestor, since those aren't inherited. A stylesheet that sizes an icon
+   * only with `width`/`height` on a wrapper resizes that wrapper's box and nothing else; the
+   * glyph inside silently keeps its old size. This guards every per-component icon-size token
+   * against that regression: each one must also feed `--ng-icon__size`, which *is* inherited and
+   * so reaches the nested `<ng-icon>` regardless of how many elements sit in between.
+   */
+  describe('icon-size tokens actually resize the rendered glyph', () => {
+    const iconSizeTokens = [
+      ['accordion/accordion.component.css', '--semiui-comp-accordion-chevron-icon-size'],
+      ['select/select.component.css', '--semiui-comp-select-icon-size'],
+      ['multiselect/multiselect.component.css', '--semiui-comp-select-icon-size'],
+      ['cascade-select/cascade-select.component.css', '--semiui-comp-select-icon-size'],
+      ['tag/tag.component.css', '--semiui-comp-tag-icon-size'],
+      ['tag/tag.component.css', '--semiui-comp-tag-remove-icon-size'],
+      ['table/table.component.css', '--semiui-comp-table-sort-icon-size'],
+      ['tree-table/tree-table.component.css', '--semiui-comp-tree-table-toggle-icon-size'],
+      ['full-calendar/full-calendar.component.css', '--semiui-comp-full-calendar-nav-icon-size'],
+      ['scroll-top/scroll-top.component.css', '--semiui-comp-scroll-top-icon-size'],
+      ['rich-text-editor/rich-text-editor.component.css', '--semiui-comp-rich-text-editor-tool-icon-size'],
+      ['timeline/timeline.component.css', '--semiui-comp-timeline-marker-icon-size'],
+    ] as const;
+
+    it.each(iconSizeTokens)('%s feeds --ng-icon__size from %s', (file, token) => {
+      const css = readFileSync(join(RECIPES, file), 'utf8');
+      expect(css).toContain(`--ng-icon__size: var(${token})`);
+    });
+  });
+
+  /**
+   * centerMode forces the floating (non-outside) arrow style, whose `top: 50%` previously
+   * resolved against `.s-carousel` -- the same containing block as `.s-carousel__dots`, a sibling
+   * below the viewport. With dots visible that pushed the arrows below the viewport's true
+   * center. `.s-carousel__body` holds nothing but the viewport, so it's the correct containing
+   * block; this guards that the floating arrows (and the autoplay toggle, same positioning) live
+   * inside it, and that it actually offers one.
+   */
+  it("carousel's floating arrows and autoplay toggle are positioned against the viewport, not the dots row", () => {
+    const css = readFileSync(join(RECIPES, 'carousel/carousel.component.css'), 'utf8');
+    const html = readFileSync(join(RECIPES, 'carousel/carousel.component.html'), 'utf8');
+
+    expect(css).toMatch(/\.s-carousel__body\s*{[^}]*position:\s*relative/);
+
+    // Ordering, not exact nesting, is enough to tell the floating arrows and the toggle were
+    // moved inside body (before the dots row starts) rather than left as its siblings.
+    const bodyOpen = html.indexOf('class="s-carousel__body"');
+    const dots = html.indexOf('class="s-carousel__dots"');
+    const prevArrow = html.indexOf('s-carousel__arrow s-carousel__arrow--prev"');
+    const nextArrow = html.indexOf('s-carousel__arrow s-carousel__arrow--next"');
+    const toggle = html.indexOf('s-carousel__autoplay-toggle"');
+
+    expect(bodyOpen).toBeGreaterThanOrEqual(0);
+    expect(dots).toBeGreaterThan(bodyOpen);
+    for (const marker of [prevArrow, nextArrow, toggle]) {
+      expect(marker).toBeGreaterThan(bodyOpen);
+      expect(marker).toBeLessThan(dots);
+    }
   });
 });

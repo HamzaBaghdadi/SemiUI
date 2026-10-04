@@ -82,6 +82,9 @@
   width: var(--semiui-comp-tag-icon-size);
   height: var(--semiui-comp-tag-icon-size);
   flex-shrink: 0;
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-tag-icon-size);
 }
 
 .s-tag__remove {
@@ -91,6 +94,9 @@
   flex-shrink: 0;
   width: var(--semiui-comp-tag-remove-icon-size);
   height: var(--semiui-comp-tag-remove-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-tag-remove-icon-size);
   padding: 0;
   border: none;
   background: none;

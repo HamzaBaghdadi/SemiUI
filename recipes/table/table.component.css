@@ -81,6 +81,9 @@
 .s-table__sort-icon {
   width: var(--semiui-comp-table-sort-icon-size);
   height: var(--semiui-comp-table-sort-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-table-sort-icon-size);
   color: var(--semiui-comp-table-sort-icon-color);
   transform: rotate(180deg);
   transition: transform 0.15s ease, color 0.15s ease;

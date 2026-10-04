@@ -632,6 +632,23 @@ components: {{ '{' }}
   accordionChevron: &#123; type: 'svg', flipInRtl: true, markup: '&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ...&gt;...&lt;/svg&gt;' &#125;,
   carouselPrev: &#123; type: 'svg', flipInRtl: true, markup: '...' &#125;,
 &#125;</code></pre>
+
+      <h3 class="text-lg font-bold mt-8">Sizing a custom icon: box tokens vs. glyph tokens</h3>
+      <span class="text-muted-foreground text-sm max-w-xl"
+        >An icon renders through <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">ng-icon</code>, which sizes
+        itself from its own font-size (or <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--ng-icon__size</code>) —
+        never from a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">width</code>/<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">height</code>
+        set on an ancestor, since those aren't inherited. Most per-component icon tokens (
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">select.iconSize</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">tag.iconSize</code>,
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">scrollTop.iconSize</code>, and similar) size the glyph
+        directly and work as you'd expect. Accordion's chevron is the one case split in two, because its box can be a
+        filled circle bigger than the arrow inside it: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">chevronSize</code>
+        sizes that box, and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">chevronIconSize</code> (default
+        <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">1em</code>, the glyph's natural size) sizes the glyph itself —
+        point it at <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">'&#123;components.accordion.chevronSize&#125;'</code>
+        to make a custom <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">accordionChevron</code> fill its box.</span
+      >
     </div>
   </section>
 
@@ -796,45 +813,45 @@ centerMode = input(this.defaults.centerMode ?? false, &#123; transform: booleanA
         namespaced -- <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">bg-primary</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">rounded-md</code> following the preset is the point.
       </span>
 
-
-      <h3 class="text-lg font-bold mt-8">In practice</h3>
-      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
-        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
-          <span class="text-xs text-white/60">template.html</span>
-          <button
-            type="button"
-            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
-            (click)="copy('tailwindUsage')"
-          >
-            <ng-icon [name]="isCopied('tailwindUsage') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
-            {{ isCopied('tailwindUsage') ? 'Copied' : 'Copy' }}
-          </button>
-        </div>
-        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindUsage') }}</code></pre>
-      </div>
-
-      <h3 class="text-lg font-bold mt-8">Generated, not hand-written</h3>
-      <span class="text-muted-foreground text-sm max-w-xl mt-1"
-        >The bridge is produced from the preset's token tree by <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">@semiui/tailwind</code>, which
-        holds no list of colors and no <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-*</code> string of its own — it walks the tokens
-        and asks the engine for each variable name. Add a semantic token to a preset and it becomes
-        a Tailwind utility with no change anywhere else. If you use a JS Tailwind config rather than
-        the CSS-first workflow, the same generator is available as a plugin:
-      </span>
-      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
-        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
-          <span class="text-xs text-white/60">tailwind.config.js</span>
-          <button
-            type="button"
-            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
-            (click)="copy('tailwindPlugin')"
-          >
-            <ng-icon [name]="isCopied('tailwindPlugin') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
-            {{ isCopied('tailwindPlugin') ? 'Copied' : 'Copy' }}
-          </button>
-        </div>
-        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindPlugin') }}</code></pre>
-      </div>
+
+      <h3 class="text-lg font-bold mt-8">In practice</h3>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">template.html</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindUsage')"
+          >
+            <ng-icon [name]="isCopied('tailwindUsage') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindUsage') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindUsage') }}</code></pre>
+      </div>
+
+      <h3 class="text-lg font-bold mt-8">Generated, not hand-written</h3>
+      <span class="text-muted-foreground text-sm max-w-xl mt-1"
+        >The bridge is produced from the preset's token tree by <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">@semiui/tailwind</code>, which
+        holds no list of colors and no <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm">--semiui-*</code> string of its own — it walks the tokens
+        and asks the engine for each variable name. Add a semantic token to a preset and it becomes
+        a Tailwind utility with no change anywhere else. If you use a JS Tailwind config rather than
+        the CSS-first workflow, the same generator is available as a plugin:
+      </span>
+      <div class="bg-slate-900 text-white rounded-lg overflow-hidden mt-3">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+          <span class="text-xs text-white/60">tailwind.config.js</span>
+          <button
+            type="button"
+            class="flex items-center gap-1.5 text-xs text-white/70 hover:text-white cursor-pointer"
+            (click)="copy('tailwindPlugin')"
+          >
+            <ng-icon [name]="isCopied('tailwindPlugin') ? 'lucideClipboardCheck' : 'lucideCopy'"></ng-icon>
+            {{ isCopied('tailwindPlugin') ? 'Copied' : 'Copy' }}
+          </button>
+        </div>
+        <pre class="px-4 py-3 text-[0.8125rem] leading-7 overflow-x-auto"><code>{{ snippet('tailwindPlugin') }}</code></pre>
+      </div>
       <h3 class="text-lg font-bold mt-6">Customizing a color from Tailwind's own palette</h3>
       <span class="text-muted-foreground text-sm max-w-xl mt-1"
         >A preset's color fields are plain CSS color strings -- point one at your own Tailwind
