@@ -44,6 +44,9 @@
   height: var(--semiui-comp-select-icon-size);
   color: var(--semiui-comp-select-placeholder-foreground);
   transition: transform 0.15s ease;
+  /* ng-icon only reads its own --ng-icon__size (or font-size); an ancestor's width/height
+     never reaches it. This custom property does, since custom properties inherit. */
+  --ng-icon__size: var(--semiui-comp-select-icon-size);
 }
 
 :host([data-open]) .s-select__icon {
@@ -59,6 +62,9 @@
      otherwise the trigger's row height grows by a hair whenever this appears/disappears. */
   width: var(--semiui-comp-select-icon-size);
   height: var(--semiui-comp-select-icon-size);
+  /* ng-icon only reads its own --ng-icon__size (or font-size); an ancestor's width/height
+     never reaches it. This custom property does, since custom properties inherit. */
+  --ng-icon__size: var(--semiui-comp-select-icon-size);
   box-sizing: border-box;
   padding: 0.125em;
   border-radius: var(--semiui-radius-full);

@@ -304,6 +304,14 @@ components: {
 },
 ```
 
+**Making a custom icon render at its own size:** most per-component icon tokens
+(`select.iconSize`, `tag.iconSize`, ...) size the rendered glyph directly — set one and a custom
+icon appears at that size. Accordion's chevron is the exception: `chevronSize` sizes the
+indicator's *box* (it can be a filled circle bigger than the arrow inside), and a separate
+`chevronIconSize` (default `'1em'`) sizes the glyph. Point `chevronIconSize` at
+`'{components.accordion.chevronSize}'` to make a custom `accordionChevron` fill its box instead of
+rendering at its natural size.
+
 ## Reference: how a value resolves
 
 ```
@@ -333,6 +341,8 @@ components: {
       call in the app still points at the old one
 - [ ] No new `--semiui-*` variable name was invented by hand anywhere
 - [ ] Custom SVG icons paint with `currentColor` and set `flipInRtl` only if they point somewhere
+- [ ] A custom icon drawn for a specific size actually renders at that size in the browser (check
+      the glyph, not just the box around it — set `accordion.chevronIconSize` if it's the chevron)
 
 ## Further reading
 

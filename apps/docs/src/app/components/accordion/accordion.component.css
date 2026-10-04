@@ -90,6 +90,14 @@
   background: var(--semiui-comp-accordion-chevron-background);
   color: var(--semiui-comp-accordion-chevron-foreground);
   transition: transform 0.2s ease;
+  /*
+   * `ng-icon` (what `<s-icon>` renders through) never reads an ancestor's `width`/`height` --
+   * those aren't inherited CSS properties, so sizing this box above does nothing to the glyph
+   * inside it. `--ng-icon__size` is the custom property `ng-icon` actually reads for its own size,
+   * and being a custom property it *is* inherited, so declaring it here reaches the nested
+   * `<ng-icon>` regardless of how many elements sit in between.
+   */
+  --ng-icon__size: var(--semiui-comp-accordion-chevron-icon-size);
 }
 
 .s-accordion__item[data-expanded] .s-accordion__chevron {

@@ -76,47 +76,55 @@
         />
       </button>
     }
+
+    <!--
+      The floating (non-outside) arrows and the autoplay toggle are deliberately nested inside
+      `.s-carousel__body` rather than placed as its siblings: `body` holds nothing but the
+      viewport (outside arrows are inside it too), so it's exactly the viewport's own height.
+      `.s-carousel__dots` is a sibling of `body`, not a child of it -- placing these `position:
+      absolute; top: 50%` controls outside `body` would center them against `body` + the gap +
+      the dots row, measurably off the viewport's true center whenever dots are shown.
+    -->
+    @if (showArrows() && !outsideArrows() && items().length > 1) {
+      <button
+        type="button"
+        class="s-carousel__arrow s-carousel__arrow--prev"
+        aria-label="Previous slide"
+        [disabled]="!loop() && activeIndex() === 0"
+        (click)="userPrevious()"
+      >
+        <s-icon
+          class="s-carousel__arrow-icon s-carousel__arrow-icon--prev"
+          [class.s-carousel__arrow-icon--chevron]="prevIconIsChevron"
+          [ref]="prevIcon"
+        />
+      </button>
+      <button
+        type="button"
+        class="s-carousel__arrow s-carousel__arrow--next"
+        aria-label="Next slide"
+        [disabled]="!loop() && activeIndex() === maxIndex()"
+        (click)="userNext()"
+      >
+        <s-icon
+          class="s-carousel__arrow-icon s-carousel__arrow-icon--next"
+          [class.s-carousel__arrow-icon--chevron]="nextIconIsChevron"
+          [ref]="nextIcon"
+        />
+      </button>
+    }
+
+    @if (autoplay() && showAutoplayToggle() && items().length > 1) {
+      <button
+        type="button"
+        class="s-carousel__autoplay-toggle"
+        [attr.aria-label]="stoppedByUser() ? playLabel() : pauseLabel()"
+        (click)="toggleAutoplay()"
+      >
+        <s-icon [ref]="stoppedByUser() ? playIcon : pauseIcon" />
+      </button>
+    }
   </div>
-
-  @if (showArrows() && !outsideArrows() && items().length > 1) {
-    <button
-      type="button"
-      class="s-carousel__arrow s-carousel__arrow--prev"
-      aria-label="Previous slide"
-      [disabled]="!loop() && activeIndex() === 0"
-      (click)="userPrevious()"
-    >
-      <s-icon
-        class="s-carousel__arrow-icon s-carousel__arrow-icon--prev"
-        [class.s-carousel__arrow-icon--chevron]="prevIconIsChevron"
-        [ref]="prevIcon"
-      />
-    </button>
-    <button
-      type="button"
-      class="s-carousel__arrow s-carousel__arrow--next"
-      aria-label="Next slide"
-      [disabled]="!loop() && activeIndex() === maxIndex()"
-      (click)="userNext()"
-    >
-      <s-icon
-        class="s-carousel__arrow-icon s-carousel__arrow-icon--next"
-        [class.s-carousel__arrow-icon--chevron]="nextIconIsChevron"
-        [ref]="nextIcon"
-      />
-    </button>
-  }
-
-  @if (autoplay() && showAutoplayToggle() && items().length > 1) {
-    <button
-      type="button"
-      class="s-carousel__autoplay-toggle"
-      [attr.aria-label]="stoppedByUser() ? playLabel() : pauseLabel()"
-      (click)="toggleAutoplay()"
-    >
-      <s-icon [ref]="stoppedByUser() ? playIcon : pauseIcon" />
-    </button>
-  }
 
   @if (showDots() && items().length > 1) {
     <div class="s-carousel__dots" role="tablist">

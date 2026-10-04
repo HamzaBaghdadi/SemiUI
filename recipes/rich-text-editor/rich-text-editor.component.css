@@ -47,6 +47,9 @@
 .s-rich-text-editor__tool s-icon {
   width: var(--semiui-comp-rich-text-editor-tool-icon-size);
   height: var(--semiui-comp-rich-text-editor-tool-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-rich-text-editor-tool-icon-size);
 }
 
 .s-rich-text-editor__tool:hover:not(:disabled) {

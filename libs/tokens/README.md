@@ -115,7 +115,11 @@ Tokens cover colors, sizes and shapes. Two more things a design needs live on th
   `chevronDown`; give one of them its own glyph with the optional `accordionChevron`,
   `carouselPrev`, `carouselNext` or `selectChevron` slot. An `IconRef` can set `flipInRtl: true` to
   mirror itself under a right-to-left direction, and inline SVG markup should paint with
-  `currentColor` so it follows the component's foreground token.
+  `currentColor` so it follows the component's foreground token. Sizing one: most per-component
+  icon tokens (`select.iconSize`, `tag.iconSize`, ...) resize the glyph itself. Accordion's chevron
+  is the exception — `chevronSize` sizes its box (which can be a filled circle bigger than the
+  arrow inside), and a separate `chevronIconSize` (default `1em`) sizes the glyph; point it at
+  `'{components.accordion.chevronSize}'` to make a custom `accordionChevron` fill its box.
 - **`defaults`** sets the initial value of component inputs (`ComponentDefaults`) — the structural
   half of a design, like `accordion: { variant: 'separated' }` or `carousel: { centerMode: true }`.
   `definePreset` merges it key by key like everything else. Components read it through

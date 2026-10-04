@@ -43,6 +43,9 @@
 .s-full-calendar__nav-icon {
   width: var(--semiui-comp-full-calendar-nav-icon-size);
   height: var(--semiui-comp-full-calendar-nav-icon-size);
+  /* ng-icon reads its own --ng-icon__size (or font-size), never an ancestor's width/height --
+     declaring the custom property here is what actually reaches the nested <ng-icon>. */
+  --ng-icon__size: var(--semiui-comp-full-calendar-nav-icon-size);
 }
 
 /* chevronDown, rotated to point sideways -- there's no dedicated left/right chevron in the shared
